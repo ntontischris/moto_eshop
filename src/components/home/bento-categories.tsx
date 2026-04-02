@@ -60,7 +60,7 @@ export const BentoCategories = () => (
           <ScrollReveal key={area} delay={i * 0.1}>
             <Link
               href={href}
-              className="group relative flex min-h-[160px] items-end overflow-hidden rounded-lg bg-bg-surface p-6 transition-all duration-300 hover:glow-red md:min-h-[200px]"
+              className="group relative flex min-h-[160px] items-end overflow-hidden rounded-lg bg-bg-surface p-6 transition-all duration-300 hover:glow-teal md:min-h-[200px]"
               style={{ gridArea: area }}
             >
               <div
@@ -70,7 +70,7 @@ export const BentoCategories = () => (
                 <h3 className="font-display text-xl tracking-wider text-text-primary md:text-2xl">
                   {name}
                 </h3>
-                <p className="mt-1 translate-y-2 text-sm text-text-chrome opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+                <p className="mt-1 translate-y-2 text-sm text-brand-teal opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
                   Δες τα προϊόντα &rarr;
                 </p>
               </div>

@@ -62,7 +62,7 @@ export const Muted = ({ children, className }: TypographyProps) => (
 export const SectionLabel = ({ children, className }: TypographyProps) => (
   <p
     className={cn(
-      "text-sm font-bold tracking-[0.2em] uppercase text-brand-red",
+      "text-sm font-bold tracking-[0.2em] uppercase text-brand-teal",
       className,
     )}
   >

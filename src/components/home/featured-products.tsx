@@ -15,6 +15,7 @@ const MOCK_PRODUCTS = [
     rating: 4.8,
     reviews: 124,
     inStock: true,
+    isNew: false,
   },
   {
     id: 2,
@@ -24,6 +25,7 @@ const MOCK_PRODUCTS = [
     rating: 4.9,
     reviews: 89,
     inStock: true,
+    isNew: true,
   },
   {
     id: 3,
@@ -33,6 +35,7 @@ const MOCK_PRODUCTS = [
     rating: 4.7,
     reviews: 203,
     inStock: true,
+    isNew: false,
   },
   {
     id: 4,
@@ -43,6 +46,7 @@ const MOCK_PRODUCTS = [
     rating: 4.9,
     reviews: 67,
     inStock: false,
+    isNew: false,
   },
   {
     id: 5,
@@ -52,6 +56,7 @@ const MOCK_PRODUCTS = [
     rating: 4.6,
     reviews: 156,
     inStock: true,
+    isNew: true,
   },
   {
     id: 6,
@@ -61,6 +66,7 @@ const MOCK_PRODUCTS = [
     rating: 4.5,
     reviews: 312,
     inStock: true,
+    isNew: false,
   },
 ];
 
@@ -69,12 +75,15 @@ const formatPrice = (n: number) =>
     n,
   );
 
+const calcDiscount = (original: number, current: number) =>
+  Math.round(((original - current) / original) * 100);
+
 const Stars = ({ rating }: { rating: number }) => (
   <div className="flex items-center gap-1">
     {[1, 2, 3, 4, 5].map((star) => (
       <svg
         key={star}
-        className={`h-3.5 w-3.5 ${star <= Math.round(rating) ? "text-gold" : "text-bg-elevated"}`}
+        className={`h-3.5 w-3.5 ${star <= Math.round(rating) ? "fill-gold text-gold" : "text-bg-elevated"}`}
         fill="currentColor"
         viewBox="0 0 20 20"
       >
@@ -82,6 +91,64 @@ const Stars = ({ rating }: { rating: number }) => (
       </svg>
     ))}
     <span className="ml-1 text-xs text-text-muted">({rating})</span>
+  </div>
+);
+
+interface ProductCardProps {
+  product: (typeof MOCK_PRODUCTS)[number];
+}
+
+const ProductCard = ({ product }: ProductCardProps) => (
+  <div className="group w-[240px] shrink-0 overflow-hidden rounded-lg border border-border-default bg-bg-deep transition-all duration-300 hover:border-brand-teal/30 hover:glow-teal">
+    <div className="relative aspect-square bg-bg-elevated">
+      <div className="flex h-full items-center justify-center text-sm text-text-muted transition-transform duration-300 group-hover:scale-[1.02]">
+        {product.brand}
+      </div>
+
+      <div className="absolute top-2 left-2 flex flex-col gap-1">
+        {product.originalPrice && (
+          <Badge variant="sale">
+            -{calcDiscount(product.originalPrice, product.price)}%
+          </Badge>
+        )}
+        {product.isNew && <Badge variant="new">NEW</Badge>}
+      </div>
+
+      {!product.inStock && (
+        <div className="absolute inset-0 flex items-center justify-center bg-bg-deep/70">
+          <span className="text-sm font-semibold text-error">Εξαντλήθηκε</span>
+        </div>
+      )}
+
+      {product.inStock && (
+        <div className="absolute inset-x-0 bottom-0 translate-y-full transition-transform duration-300 group-hover:translate-y-0">
+          <button
+            type="button"
+            className="w-full bg-brand-teal py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90"
+          >
+            Προσθήκη στο Καλάθι
+          </button>
+        </div>
+      )}
+    </div>
+
+    <div className="p-4">
+      <p className="text-xs text-text-chrome">{product.brand}</p>
+      <h3 className="mt-1 text-sm font-semibold text-text-primary">
+        {product.name}
+      </h3>
+      <Stars rating={product.rating} />
+      <div className="mt-2 flex items-center gap-2">
+        <span className="text-lg font-bold text-brand-teal">
+          {formatPrice(product.price)}
+        </span>
+        {product.originalPrice && (
+          <span className="text-sm text-text-muted line-through">
+            {formatPrice(product.originalPrice)}
+          </span>
+        )}
+      </div>
+    </div>
   </div>
 );
 
@@ -100,48 +167,7 @@ export const FeaturedProducts = () => (
             delay={i * 0.08}
             className="snap-start"
           >
-            <div className="group w-[260px] shrink-0 overflow-hidden rounded-lg border border-border-default bg-bg-deep transition-all duration-300 hover:border-brand-red/30 hover:glow-red">
-              <div className="relative h-[200px] bg-bg-elevated transition-transform duration-300 group-hover:scale-[1.02]">
-                <div className="flex h-full items-center justify-center text-sm text-text-muted">
-                  {product.brand}
-                </div>
-                {product.originalPrice && (
-                  <Badge variant="sale" className="absolute top-2 right-2">
-                    -
-                    {Math.round(
-                      ((product.originalPrice - product.price) /
-                        product.originalPrice) *
-                        100,
-                    )}
-                    %
-                  </Badge>
-                )}
-                {!product.inStock && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-bg-deep/70">
-                    <span className="text-sm font-semibold text-error">
-                      Εξαντλήθηκε
-                    </span>
-                  </div>
-                )}
-              </div>
-              <div className="p-4">
-                <p className="text-xs text-text-chrome">{product.brand}</p>
-                <h3 className="mt-1 text-sm font-semibold text-text-primary">
-                  {product.name}
-                </h3>
-                <Stars rating={product.rating} />
-                <div className="mt-2 flex items-center gap-2">
-                  <span className="text-lg font-bold text-text-primary">
-                    {formatPrice(product.price)}
-                  </span>
-                  {product.originalPrice && (
-                    <span className="text-sm text-text-muted line-through">
-                      {formatPrice(product.originalPrice)}
-                    </span>
-                  )}
-                </div>
-              </div>
-            </div>
+            <ProductCard product={product} />
           </ScrollReveal>
         ))}
       </div>

@@ -20,7 +20,7 @@ const BRANDS = [
 ];
 
 const BrandLogo = ({ name }: { name: string }) => (
-  <div className="flex h-12 w-28 shrink-0 items-center justify-center rounded border border-border-default bg-bg-surface px-4 text-sm font-semibold text-text-muted transition-colors duration-300 hover:border-brand-red/30 hover:text-text-primary">
+  <div className="flex h-12 w-28 shrink-0 items-center justify-center rounded border border-border-default bg-bg-surface px-4 text-sm font-semibold text-text-muted transition-colors duration-300 hover:border-brand-teal/30 hover:text-text-primary">
     {name}
   </div>
 );
