@@ -25,6 +25,8 @@ const buttonVariants = cva(
           "border-brand-red text-brand-red hover:bg-brand-red hover:text-white",
         dark: "bg-dark text-white hover:bg-dark-2",
         white: "bg-white text-dark hover:bg-gray-50",
+        "outline-neutral":
+          "border-border text-foreground bg-transparent hover:bg-accent",
       },
       size: {
         default:
@@ -51,12 +53,15 @@ function Button({
   className,
   variant = "default",
   size = "default",
+  render,
   ...props
 }: ButtonPrimitive.Props & VariantProps<typeof buttonVariants>) {
   return (
     <ButtonPrimitive
       data-slot="button"
       className={cn(buttonVariants({ variant, size, className }))}
+      render={render}
+      nativeButton={!render}
       {...props}
     />
   );
