@@ -13,6 +13,13 @@
   --bg-surface: #141A23;
   --bg-elevated: #1E293B;
 
+  /* Teal — primary brand (from motomarket-shop.gr) */
+  --brand-teal: #17c7be;
+  --brand-teal-hover: #14b0a8;
+  --brand-teal-light: #e0faf8;
+  --brand-teal-glow: rgba(23, 199, 190, 0.15);
+
+  /* Red — CTAs, sale badges, urgency */
   --brand-red: #DC2626;
   --brand-red-hover: #B91C1C;
   --brand-red-light: #FEE2E2;
@@ -40,7 +47,7 @@
   --card-foreground: #F8FAFC;
   --popover: #141A23;
   --popover-foreground: #F8FAFC;
-  --primary: #DC2626;
+  --primary: #17c7be;
   --primary-foreground: #ffffff;
   --secondary: #1E293B;
   --secondary-foreground: #F8FAFC;
@@ -52,17 +59,17 @@
   --destructive-foreground: #ffffff;
   --border: #1E293B;
   --input: #1E293B;
-  --ring: #DC2626;
+  --ring: #17c7be;
   --radius: 0.5rem;
 
   --sidebar: #141A23;
   --sidebar-foreground: #F8FAFC;
-  --sidebar-primary: #DC2626;
+  --sidebar-primary: #17c7be;
   --sidebar-primary-foreground: #ffffff;
   --sidebar-accent: #1E293B;
   --sidebar-accent-foreground: #F8FAFC;
   --sidebar-border: #1E293B;
-  --sidebar-ring: #DC2626;
+  --sidebar-ring: #17c7be;
 }
 
 .dark {
@@ -72,7 +79,7 @@
   --card-foreground: #F8FAFC;
   --popover: #141A23;
   --popover-foreground: #F8FAFC;
-  --primary: #DC2626;
+  --primary: #17c7be;
   --primary-foreground: #ffffff;
   --secondary: #1E293B;
   --secondary-foreground: #F8FAFC;
@@ -84,21 +91,25 @@
   --destructive-foreground: #F8FAFC;
   --border: #1E293B;
   --input: #1E293B;
-  --ring: #DC2626;
+  --ring: #17c7be;
   --sidebar: #141A23;
   --sidebar-foreground: #F8FAFC;
-  --sidebar-primary: #DC2626;
+  --sidebar-primary: #17c7be;
   --sidebar-primary-foreground: #ffffff;
   --sidebar-accent: #1E293B;
   --sidebar-accent-foreground: #F8FAFC;
   --sidebar-border: #1E293B;
-  --sidebar-ring: #DC2626;
+  --sidebar-ring: #17c7be;
 }
 
 @theme inline {
   --color-bg-deep: var(--bg-deep);
   --color-bg-surface: var(--bg-surface);
   --color-bg-elevated: var(--bg-elevated);
+
+  --color-brand-teal: var(--brand-teal);
+  --color-brand-teal-hover: var(--brand-teal-hover);
+  --color-brand-teal-light: var(--brand-teal-light);
 
   --color-brand-red: var(--brand-red);
   --color-brand-red-hover: var(--brand-red-hover);
@@ -193,7 +204,7 @@
     @apply font-sans;
   }
   ::selection {
-    background-color: var(--brand-red);
+    background-color: var(--brand-teal);
     color: #ffffff;
   }
 }
@@ -210,6 +221,9 @@
   }
   .glow-red {
     box-shadow: 0 0 20px var(--brand-red-glow);
+  }
+  .glow-teal {
+    box-shadow: 0 0 20px var(--brand-teal-glow);
   }
   .diagonal-top {
     clip-path: polygon(0 3%, 100% 0, 100% 100%, 0 100%);

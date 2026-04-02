@@ -42,7 +42,7 @@ export const CustomCursor = () => {
     <>
       <div
         ref={dotRef}
-        className="pointer-events-none fixed top-0 left-0 z-[9999] hidden h-2 w-2 rounded-full bg-brand-red mix-blend-screen md:block"
+        className="pointer-events-none fixed top-0 left-0 z-[9999] hidden h-2 w-2 rounded-full bg-brand-teal mix-blend-screen md:block"
         style={{ willChange: "transform" }}
       />
       <div
@@ -51,7 +51,7 @@ export const CustomCursor = () => {
         style={{
           willChange: "transform",
           background:
-            "radial-gradient(circle, rgba(220,38,38,0.3) 0%, transparent 70%)",
+            "radial-gradient(circle, rgba(23,199,190,0.3) 0%, transparent 70%)",
         }}
       />
     </>
