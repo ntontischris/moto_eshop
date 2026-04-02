@@ -12,7 +12,7 @@ import { CertificationBadge } from "@/components/ui/certification-badge";
 import { RatingStars } from "@/components/ui/rating-stars";
 import { ProductGrid } from "@/components/product/product-grid";
 import { VariantSelector } from "@/components/product/variant-selector";
-import { AddToCartButton } from "@/components/product/add-to-cart-button";
+import { AddToCartButton } from "@/components/cart/add-to-cart-button";
 import { SpecificationsTable } from "@/components/product/specifications-table";
 import { DeliveryEstimate } from "@/components/product/delivery-estimate";
 import { KlarnaInfo } from "@/components/product/klarna-info";
@@ -145,7 +145,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
           <AddToCartButton
             productId={product.id}
-            disabled={product.stock <= 0}
+            productName={product.name}
+            unitPrice={product.price}
+            stock={product.stock}
           />
 
           {product.description && (

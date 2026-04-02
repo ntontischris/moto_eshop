@@ -5,6 +5,7 @@ import { Providers } from "./providers";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { MobileNav } from "@/components/layout/mobile-nav";
+import { CartProviderServer } from "@/lib/cart/cart-provider-server";
 import "@/app/globals.css";
 
 const russoOne = Russo_One({
@@ -75,17 +76,21 @@ export default function RootLayout({ children }: RootLayoutProps) {
     >
       <body className="min-h-screen bg-background font-sans antialiased">
         <Providers>
-          <div className="flex min-h-screen flex-col">
-            <Suspense>
-              <Header />
-            </Suspense>
-            <Suspense>
-              <main className="flex-1 pb-16 md:pb-0">{children}</main>
-            </Suspense>
-            <Footer />
-          </div>
           <Suspense>
-            <MobileNav />
+            <CartProviderServer>
+              <div className="flex min-h-screen flex-col">
+                <Suspense>
+                  <Header />
+                </Suspense>
+                <Suspense>
+                  <main className="flex-1 pb-16 md:pb-0">{children}</main>
+                </Suspense>
+                <Footer />
+              </div>
+              <Suspense>
+                <MobileNav />
+              </Suspense>
+            </CartProviderServer>
           </Suspense>
         </Providers>
       </body>

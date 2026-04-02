@@ -22,8 +22,7 @@ import {
   type MenuCategory,
 } from "@/components/layout/mega-menu-data";
 import { cn } from "@/lib/utils";
-
-const CART_ITEM_COUNT = 0; // Replace with real store value
+import { useCart } from "@/lib/cart/cart-context";
 
 // --- Mega menu dropdown panel ---
 
@@ -204,6 +203,7 @@ const MobileNavCategory = ({
 
 export const Header = () => {
   const pathname = usePathname();
+  const { itemCount: CART_ITEM_COUNT } = useCart();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [isScrolled, setIsScrolled] = useState(false);
