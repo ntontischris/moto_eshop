@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Suspense } from "react";
 import { Russo_One, Chakra_Petch } from "next/font/google";
 import { Providers } from "./providers";
 import { Header } from "@/components/layout/header";
@@ -75,11 +76,17 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body className="min-h-screen bg-background font-sans antialiased">
         <Providers>
           <div className="flex min-h-screen flex-col">
-            <Header />
-            <main className="flex-1 pb-16 md:pb-0">{children}</main>
+            <Suspense>
+              <Header />
+            </Suspense>
+            <Suspense>
+              <main className="flex-1 pb-16 md:pb-0">{children}</main>
+            </Suspense>
             <Footer />
           </div>
-          <MobileNav />
+          <Suspense>
+            <MobileNav />
+          </Suspense>
         </Providers>
       </body>
     </html>
