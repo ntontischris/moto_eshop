@@ -1048,6 +1048,7 @@ export type Database = {
           phone: string | null
           rfm_segment: Database["public"]["Enums"]["rfm_segment"] | null
           rider_type: Database["public"]["Enums"]["rider_type"] | null
+          role: string
           updated_at: string
           weight_kg: number | null
         }
@@ -1063,6 +1064,7 @@ export type Database = {
           phone?: string | null
           rfm_segment?: Database["public"]["Enums"]["rfm_segment"] | null
           rider_type?: Database["public"]["Enums"]["rider_type"] | null
+          role?: string
           updated_at?: string
           weight_kg?: number | null
         }
@@ -1078,6 +1080,7 @@ export type Database = {
           phone?: string | null
           rfm_segment?: Database["public"]["Enums"]["rfm_segment"] | null
           rider_type?: Database["public"]["Enums"]["rider_type"] | null
+          role?: string
           updated_at?: string
           weight_kg?: number | null
         }
