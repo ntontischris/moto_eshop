@@ -5,109 +5,121 @@
 @custom-variant dark (&:is(.dark *));
 
 /* =====================================================
-   MotoMarket Brand Design Tokens
+   MotoMarket "Racing Circuit" Design Tokens
    ===================================================== */
 
 :root {
-  /* Brand Red */
+  --bg-deep: #0B0F14;
+  --bg-surface: #141A23;
+  --bg-elevated: #1E293B;
+
   --brand-red: #DC2626;
   --brand-red-hover: #B91C1C;
   --brand-red-light: #FEE2E2;
   --brand-red-dark: #991B1B;
+  --brand-red-glow: rgba(220, 38, 38, 0.15);
 
-  /* Dark Palette */
-  --dark: #0F1419;
-  --dark-2: #1A1F2E;
-  --dark-3: #252B3B;
-  --dark-4: #2F3547;
+  --gold: #F59E0B;
+  --gold-muted: rgba(245, 158, 11, 0.1);
 
-  /* shadcn/ui Semantic Tokens — Light Mode */
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  /* Primary = brand red */
+  --text-primary: #F8FAFC;
+  --text-secondary: #CBD5E1;
+  --text-muted: #64748B;
+  --text-chrome: #94A3B8;
+
+  --border-default: #1E293B;
+  --border-subtle: #334155;
+
+  --success: #22C55E;
+  --warning: #F59E0B;
+  --error: #EF4444;
+
+  --background: #0B0F14;
+  --foreground: #F8FAFC;
+  --card: #141A23;
+  --card-foreground: #F8FAFC;
+  --popover: #141A23;
+  --popover-foreground: #F8FAFC;
   --primary: #DC2626;
   --primary-foreground: #ffffff;
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
+  --secondary: #1E293B;
+  --secondary-foreground: #F8FAFC;
+  --muted: #1E293B;
+  --muted-foreground: #94A3B8;
+  --accent: #1E293B;
+  --accent-foreground: #F8FAFC;
+  --destructive: #EF4444;
   --destructive-foreground: #ffffff;
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
+  --border: #1E293B;
+  --input: #1E293B;
   --ring: #DC2626;
-  --radius: 0.75rem;
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
+  --radius: 0.5rem;
+
+  --sidebar: #141A23;
+  --sidebar-foreground: #F8FAFC;
   --sidebar-primary: #DC2626;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-accent: #1E293B;
+  --sidebar-accent-foreground: #F8FAFC;
+  --sidebar-border: #1E293B;
   --sidebar-ring: #DC2626;
 }
 
-/* Dark mode — MotoMarket dark palette */
 .dark {
-  --background: #0F1419;
-  --foreground: #fafafa;
-  --card: #1A1F2E;
-  --card-foreground: #fafafa;
-  --popover: #1A1F2E;
-  --popover-foreground: #fafafa;
+  --background: #0B0F14;
+  --foreground: #F8FAFC;
+  --card: #141A23;
+  --card-foreground: #F8FAFC;
+  --popover: #141A23;
+  --popover-foreground: #F8FAFC;
   --primary: #DC2626;
   --primary-foreground: #ffffff;
-  --secondary: #252B3B;
-  --secondary-foreground: #fafafa;
-  --muted: #252B3B;
-  --muted-foreground: #a1a1aa;
-  --accent: #252B3B;
-  --accent-foreground: #fafafa;
-  --destructive: #7f1d1d;
-  --destructive-foreground: #fafafa;
-  --border: #2F3547;
-  --input: #2F3547;
+  --secondary: #1E293B;
+  --secondary-foreground: #F8FAFC;
+  --muted: #1E293B;
+  --muted-foreground: #94A3B8;
+  --accent: #1E293B;
+  --accent-foreground: #F8FAFC;
+  --destructive: #EF4444;
+  --destructive-foreground: #F8FAFC;
+  --border: #1E293B;
+  --input: #1E293B;
   --ring: #DC2626;
-  --chart-1: #DC2626;
-  --chart-2: #B91C1C;
-  --chart-3: #991B1B;
-  --chart-4: #7f1d1d;
-  --chart-5: #252B3B;
-  --sidebar: #1A1F2E;
-  --sidebar-foreground: #fafafa;
+  --sidebar: #141A23;
+  --sidebar-foreground: #F8FAFC;
   --sidebar-primary: #DC2626;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #252B3B;
-  --sidebar-accent-foreground: #fafafa;
-  --sidebar-border: #2F3547;
+  --sidebar-accent: #1E293B;
+  --sidebar-accent-foreground: #F8FAFC;
+  --sidebar-border: #1E293B;
   --sidebar-ring: #DC2626;
 }
 
 @theme inline {
-  /* Brand Red */
+  --color-bg-deep: var(--bg-deep);
+  --color-bg-surface: var(--bg-surface);
+  --color-bg-elevated: var(--bg-elevated);
+
   --color-brand-red: var(--brand-red);
   --color-brand-red-hover: var(--brand-red-hover);
   --color-brand-red-light: var(--brand-red-light);
   --color-brand-red-dark: var(--brand-red-dark);
 
-  /* Dark Palette */
-  --color-dark: var(--dark);
-  --color-dark-2: var(--dark-2);
-  --color-dark-3: var(--dark-3);
-  --color-dark-4: var(--dark-4);
+  --color-gold: var(--gold);
 
-  /* Semantic Colors */
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-text-chrome: var(--text-chrome);
+
+  --color-border-default: var(--border-default);
+  --color-border-subtle: var(--border-subtle);
+
+  --color-dark: var(--bg-deep);
+  --color-dark-2: var(--bg-surface);
+  --color-dark-3: var(--bg-elevated);
+  --color-dark-4: var(--border-subtle);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -128,7 +140,6 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  /* Sidebar */
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
@@ -138,66 +149,36 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
-  /* Charts */
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-
-  /* Border Radius */
-  --radius-sm: calc(var(--radius) - 0.25rem);
+  --radius-sm: calc(var(--radius) - 0.125rem);
   --radius-md: var(--radius);
-  --radius-lg: calc(var(--radius) + 0.25rem);
-  --radius-xl: calc(var(--radius) + 0.5rem);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
+  --radius-lg: calc(var(--radius) + 0.125rem);
+  --radius-xl: calc(var(--radius) + 0.375rem);
 
-  /* Fonts */
-  --font-heading: var(--font-sans);
-  --font-sans: var(--font-sans);
+  --font-display: var(--font-russo);
+  --font-body: var(--font-chakra);
+  --font-sans: var(--font-chakra);
 
-  /* Custom Animations */
   --animate-fade-in: fadeIn 0.4s ease-out forwards;
   --animate-slide-up: slideUp 0.4s ease-out forwards;
   --animate-slide-down: slideDown 0.4s ease-out forwards;
 
   @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
+    from { opacity: 0; }
+    to { opacity: 1; }
   }
-
   @keyframes slideUp {
-    from {
-      opacity: 0;
-      transform: translateY(1rem);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(1rem); }
+    to { opacity: 1; transform: translateY(0); }
   }
-
   @keyframes slideDown {
-    from {
-      opacity: 0;
-      transform: translateY(-1rem);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(-1rem); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes scrollInfinite {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
   }
 }
-
-/* =====================================================
-   Base Styles
-   ===================================================== */
 
 @layer base {
   * {
@@ -210,10 +191,40 @@
   }
   html {
     @apply font-sans;
-    scroll-behavior: smooth;
   }
   ::selection {
     background-color: var(--brand-red);
     color: #ffffff;
+  }
+}
+
+@layer utilities {
+  .text-gradient-red {
+    @apply bg-gradient-to-r from-brand-red to-brand-red-dark bg-clip-text text-transparent;
+  }
+  .font-display {
+    font-family: var(--font-russo), system-ui, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    line-height: 1.1;
+  }
+  .glow-red {
+    box-shadow: 0 0 20px var(--brand-red-glow);
+  }
+  .diagonal-top {
+    clip-path: polygon(0 3%, 100% 0, 100% 100%, 0 100%);
+  }
+  .diagonal-bottom {
+    clip-path: polygon(0 0, 100% 0, 100% 97%, 0 100%);
+  }
+  .diagonal-both {
+    clip-path: polygon(0 3%, 100% 0, 100% 97%, 0 100%);
+  }
+  .scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
   }
 }
