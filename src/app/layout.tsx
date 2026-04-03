@@ -6,6 +6,10 @@ import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { MobileNav } from "@/components/layout/mobile-nav";
 import { CartProviderServer } from "@/lib/cart/cart-provider-server";
+import {
+  getCachedCategoryTree,
+  getSiteSettings,
+} from "@/lib/cache/cached-queries";
 import "@/app/globals.css";
 
 const russoOne = Russo_One({
@@ -67,7 +71,16 @@ interface RootLayoutProps {
   children: React.ReactNode;
 }
 
-export default function RootLayout({ children }: RootLayoutProps) {
+export default async function RootLayout({ children }: RootLayoutProps) {
+  const [categoryTree, settings] = await Promise.all([
+    getCachedCategoryTree(),
+    getSiteSettings(),
+  ]);
+
+  const announcement = settings.announcement as
+    | { text: string; active: boolean }
+    | undefined;
+
   return (
     <html
       lang="el"
@@ -80,12 +93,15 @@ export default function RootLayout({ children }: RootLayoutProps) {
             <CartProviderServer>
               <div className="flex min-h-screen flex-col">
                 <Suspense>
-                  <Header />
+                  <Header
+                    categoryTree={categoryTree}
+                    announcement={announcement}
+                  />
                 </Suspense>
                 <Suspense>
                   <main className="flex-1 pb-16 md:pb-0">{children}</main>
                 </Suspense>
-                <Footer />
+                <Footer categoryTree={categoryTree} />
               </div>
               <Suspense>
                 <MobileNav />

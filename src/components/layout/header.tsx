@@ -17,12 +17,35 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Container } from "@/components/layout/container";
-import {
-  MENU_CATEGORIES,
-  type MenuCategory,
-} from "@/components/layout/mega-menu-data";
 import { cn } from "@/lib/utils";
 import { useCart } from "@/lib/cart/cart-context";
+
+// --- Types ---
+
+interface CategoryNode {
+  id: string;
+  slug: string;
+  name: string;
+  parent_id: string | null;
+  children: CategoryNode[];
+}
+
+interface HeaderProps {
+  categoryTree: CategoryNode[];
+  announcement?: { text: string; active: boolean };
+}
+
+interface SubCategory {
+  label: string;
+  href: string;
+}
+
+interface MenuCategory {
+  label: string;
+  href: string;
+  badge?: string;
+  columns: { title: string; items: SubCategory[] }[];
+}
 
 // --- Mega menu dropdown panel ---
 
@@ -201,12 +224,29 @@ const MobileNavCategory = ({
 
 // --- Main header ---
 
-export const Header = () => {
+export const Header = ({ categoryTree, announcement }: HeaderProps) => {
   const pathname = usePathname();
   const { itemCount: CART_ITEM_COUNT } = useCart();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [isScrolled, setIsScrolled] = useState(false);
+
+  const menuCategories: MenuCategory[] = categoryTree.map((node) => ({
+    label: node.name,
+    href: `/${node.slug}`,
+    columns:
+      node.children.length > 0
+        ? [
+            {
+              title: node.name,
+              items: node.children.map((child) => ({
+                label: child.name,
+                href: `/${child.slug}`,
+              })),
+            },
+          ]
+        : [],
+  }));
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -226,9 +266,11 @@ export const Header = () => {
       )}
     >
       {/* Announcement bar */}
-      <div className="bg-brand-teal py-1.5 text-center text-xs font-medium text-white">
-        Δωρεάν αποστολή για αγορές άνω των 80€
-      </div>
+      {announcement?.active && (
+        <div className="bg-brand-teal py-1.5 text-center text-xs font-medium text-white">
+          {announcement.text}
+        </div>
+      )}
 
       {/* Main header row */}
       <Container>
@@ -243,7 +285,7 @@ export const Header = () => {
 
           {/* Desktop mega nav */}
           <nav className="hidden xl:flex xl:flex-1 xl:items-center xl:gap-0.5 xl:pl-4">
-            {MENU_CATEGORIES.map((category) => (
+            {menuCategories.map((category) => (
               <NavItem
                 key={category.href}
                 category={category}
@@ -348,7 +390,7 @@ export const Header = () => {
 
             {/* Accordion categories */}
             <nav className="flex flex-col pb-4">
-              {MENU_CATEGORIES.map((category) => (
+              {menuCategories.map((category) => (
                 <MobileNavCategory
                   key={category.href}
                   category={category}
