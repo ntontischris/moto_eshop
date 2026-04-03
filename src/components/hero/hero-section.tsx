@@ -8,88 +8,62 @@ import { Button } from "@/components/ui/button";
 import { Container } from "@/components/layout/container";
 
 interface BannerSlide {
-  id: number;
-  brand: string;
-  headline: string;
-  tagline: string;
-  ctaLabel: string;
-  ctaHref: string;
-  gradient: string;
-  accentColor: string;
-  brandBg: string;
+  id: string;
+  title: string;
+  subtitle: string | null;
+  cta_label: string | null;
+  cta_href: string | null;
+  image_url: string | null;
+  gradient: string | null;
+  accent_color: string | null;
+  position: number;
 }
 
-const slides: BannerSlide[] = [
-  {
-    id: 1,
-    brand: "AGV",
-    headline: "ΑΣΦΑΛΕΙΑ ΣΕ ΚΑΘΕ ΣΤΡΟΦΗ",
-    tagline: "Κράνη επαγγελματικής απόδοσης",
-    ctaLabel: "Δες τα Κράνη AGV",
-    ctaHref: "/kranea",
-    gradient: "linear-gradient(135deg, #0B0F14 0%, #0F1A28 40%, #0D1520 100%)",
-    accentColor: "text-brand-teal",
-    brandBg: "bg-brand-teal/10 border border-brand-teal/20",
+const ACCENT_STYLES: Record<string, { text: string; bg: string }> = {
+  teal: {
+    text: "text-brand-teal",
+    bg: "bg-brand-teal/10 border border-brand-teal/20",
   },
-  {
-    id: 2,
-    brand: "Dainese",
-    headline: "ΠΡΟΣΤΑΣΙΑ ΧΩΡΙΣ ΣΥΜΒΙΒΑΣΜΟΥΣ",
-    tagline: "Επαγγελματικός εξοπλισμός αναβατών",
-    ctaLabel: "Δες Εξοπλισμό",
-    ctaHref: "/shop",
-    gradient: "linear-gradient(135deg, #120B0B 0%, #1F0D0D 40%, #160B0B 100%)",
-    accentColor: "text-brand-red",
-    brandBg: "bg-brand-red/10 border border-brand-red/20",
+  red: {
+    text: "text-brand-red",
+    bg: "bg-brand-red/10 border border-brand-red/20",
   },
-  {
-    id: 3,
-    brand: "Alpinestars",
-    headline: "ΟΔΗΓΗΣΕ ΧΩΡΙΣ ΟΡΙΑ",
-    tagline: "Γάντια, μπότες & ένδυση υψηλών επιδόσεων",
-    ctaLabel: "Εξερεύνησε",
-    ctaHref: "/shop",
-    gradient: "linear-gradient(135deg, #0A0F0A 0%, #0D1A10 40%, #0B150C 100%)",
-    accentColor: "text-emerald-400",
-    brandBg: "bg-emerald-400/10 border border-emerald-400/20",
+  emerald: {
+    text: "text-emerald-400",
+    bg: "bg-emerald-400/10 border border-emerald-400/20",
   },
-  {
-    id: 4,
-    brand: "Shoei",
-    headline: "ΤΕΧΝΟΛΟΓΙΑ ΠΡΩΤΟΠΟΡΩΝ",
-    tagline: "Κράνη ιαπωνικής μηχανικής αριστείας",
-    ctaLabel: "Δες τα Κράνη Shoei",
-    ctaHref: "/kranea",
-    gradient: "linear-gradient(135deg, #0F0B14 0%, #180D28 40%, #130C1E 100%)",
-    accentColor: "text-violet-400",
-    brandBg: "bg-violet-400/10 border border-violet-400/20",
+  violet: {
+    text: "text-violet-400",
+    bg: "bg-violet-400/10 border border-violet-400/20",
   },
-  {
-    id: 5,
-    brand: "Rev'It",
-    headline: "ΣΤΥΛ ΚΑΙ ΛΕΙΤΟΥΡΓΙΚΟΤΗΤΑ",
-    tagline: "Η νέα κολεξιόν έφτασε",
-    ctaLabel: "Νέες Αφίξεις",
-    ctaHref: "/prosfores",
-    gradient: "linear-gradient(135deg, #0F0F0B 0%, #1A1A0D 40%, #151508 100%)",
-    accentColor: "text-amber-400",
-    brandBg: "bg-amber-400/10 border border-amber-400/20",
+  amber: {
+    text: "text-amber-400",
+    bg: "bg-amber-400/10 border border-amber-400/20",
   },
-];
+};
+
+const DEFAULT_ACCENT = {
+  text: "text-brand-teal",
+  bg: "bg-brand-teal/10 border border-brand-teal/20",
+};
 
 const AUTOPLAY_INTERVAL = 5000;
 
-export const HeroSection = () => {
+interface HeroSectionProps {
+  slides: BannerSlide[];
+}
+
+export const HeroSection = ({ slides }: HeroSectionProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
   const goToNext = useCallback(() => {
     setActiveIndex((prev) => (prev + 1) % slides.length);
-  }, []);
+  }, [slides.length]);
 
   const goToPrev = useCallback(() => {
     setActiveIndex((prev) => (prev - 1 + slides.length) % slides.length);
-  }, []);
+  }, [slides.length]);
 
   const goToIndex = useCallback((index: number) => {
     setActiveIndex(index);
@@ -101,7 +75,14 @@ export const HeroSection = () => {
     return () => clearInterval(timer);
   }, [isPaused, goToNext]);
 
+  if (slides.length === 0) return null;
+
   const activeSlide = slides[activeIndex];
+
+  if (!activeSlide) return null;
+
+  const accent =
+    ACCENT_STYLES[activeSlide.accent_color ?? "teal"] ?? DEFAULT_ACCENT;
 
   return (
     <section
@@ -114,7 +95,11 @@ export const HeroSection = () => {
         <motion.div
           key={`bg-${activeSlide.id}`}
           className="absolute inset-0"
-          style={{ background: activeSlide.gradient }}
+          style={{
+            background:
+              activeSlide.gradient ??
+              "linear-gradient(135deg, #0B0F14 0%, #0F1A28 40%, #0D1520 100%)",
+          }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -148,30 +133,34 @@ export const HeroSection = () => {
               >
                 {/* Brand badge */}
                 <span
-                  className={`inline-flex w-fit items-center rounded-md px-3 py-1 text-xs font-semibold uppercase tracking-widest ${activeSlide.brandBg} ${activeSlide.accentColor}`}
+                  className={`inline-flex w-fit items-center rounded-md px-3 py-1 text-xs font-semibold uppercase tracking-widest ${accent.bg} ${accent.text}`}
                 >
-                  {activeSlide.brand}
+                  {activeSlide.title}
                 </span>
 
                 {/* Headline */}
                 <h1 className="font-display text-3xl tracking-wider text-text-primary md:text-4xl lg:text-5xl xl:text-6xl">
-                  {activeSlide.headline}
+                  {activeSlide.title}
                 </h1>
 
                 {/* Tagline */}
-                <p className="text-base text-text-chrome md:text-lg">
-                  {activeSlide.tagline}
-                </p>
+                {activeSlide.subtitle && (
+                  <p className="text-base text-text-chrome md:text-lg">
+                    {activeSlide.subtitle}
+                  </p>
+                )}
 
                 {/* CTA */}
                 <div className="flex flex-wrap items-center gap-3">
-                  <Button
-                    size="lg"
-                    className="bg-brand-teal text-white hover:bg-brand-teal-hover"
-                    render={<Link href={activeSlide.ctaHref} />}
-                  >
-                    {activeSlide.ctaLabel}
-                  </Button>
+                  {activeSlide.cta_href && activeSlide.cta_label && (
+                    <Button
+                      size="lg"
+                      className="bg-brand-teal text-white hover:bg-brand-teal-hover"
+                      render={<Link href={activeSlide.cta_href} />}
+                    >
+                      {activeSlide.cta_label}
+                    </Button>
+                  )}
                   <Button
                     size="lg"
                     variant="brand-outline"
@@ -195,12 +184,12 @@ export const HeroSection = () => {
               transition={{ duration: 0.45, ease: "easeInOut" }}
             >
               <div
-                className={`flex h-52 w-72 items-center justify-center rounded-2xl lg:h-64 lg:w-88 ${activeSlide.brandBg}`}
+                className={`flex h-52 w-72 items-center justify-center rounded-2xl lg:h-64 lg:w-88 ${accent.bg}`}
               >
                 <span
-                  className={`font-display text-5xl font-bold tracking-widest lg:text-6xl ${activeSlide.accentColor} opacity-60`}
+                  className={`font-display text-5xl font-bold tracking-widest lg:text-6xl ${accent.text} opacity-60`}
                 >
-                  {activeSlide.brand}
+                  {activeSlide.title}
                 </span>
               </div>
             </motion.div>

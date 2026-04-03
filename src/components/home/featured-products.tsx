@@ -1,74 +1,30 @@
 "use client";
 
+import Link from "next/link";
 import { ScrollReveal } from "@/components/effects/scroll-reveal";
 import { Container } from "@/components/layout/container";
 import { H2, SectionLabel } from "@/components/ui/typography";
 import { Badge } from "@/components/ui/badge";
 
-const MOCK_PRODUCTS = [
-  {
-    id: 1,
-    name: "AGV K6 S",
-    brand: "AGV",
-    price: 449.99,
-    originalPrice: 529.99,
-    rating: 4.8,
-    reviews: 124,
-    inStock: true,
-    isNew: false,
-  },
-  {
-    id: 2,
-    name: "Dainese Racing 4",
-    brand: "Dainese",
-    price: 389.0,
-    rating: 4.9,
-    reviews: 89,
-    inStock: true,
-    isNew: true,
-  },
-  {
-    id: 3,
-    name: "Alpinestars SMX-6 v2",
-    brand: "Alpinestars",
-    price: 249.95,
-    rating: 4.7,
-    reviews: 203,
-    inStock: true,
-    isNew: false,
-  },
-  {
-    id: 4,
-    name: "Shoei GT-Air 3",
-    brand: "Shoei",
-    price: 599.0,
-    originalPrice: 649.0,
-    rating: 4.9,
-    reviews: 67,
-    inStock: false,
-    isNew: false,
-  },
-  {
-    id: 5,
-    name: "Rev'It Sand 4 H2O",
-    brand: "Rev'It",
-    price: 329.99,
-    rating: 4.6,
-    reviews: 156,
-    inStock: true,
-    isNew: true,
-  },
-  {
-    id: 6,
-    name: "Sena 50S Mesh",
-    brand: "Sena",
-    price: 329.0,
-    rating: 4.5,
-    reviews: 312,
-    inStock: true,
-    isNew: false,
-  },
-];
+interface FeaturedProduct {
+  id: string;
+  slug: string;
+  name: string;
+  brand: string;
+  brand_slug: string;
+  category_slug: string;
+  price: number;
+  compare_at_price: number | null;
+  stock: number;
+  primary_image_url: string;
+  primary_image_alt: string;
+  average_rating: number | null;
+  review_count: number;
+}
+
+interface FeaturedProductsProps {
+  products: FeaturedProduct[];
+}
 
 const formatPrice = (n: number) =>
   new Intl.NumberFormat("el-GR", { style: "currency", currency: "EUR" }).format(
@@ -94,33 +50,31 @@ const Stars = ({ rating }: { rating: number }) => (
   </div>
 );
 
-interface ProductCardProps {
-  product: (typeof MOCK_PRODUCTS)[number];
-}
-
-const ProductCard = ({ product }: ProductCardProps) => (
-  <div className="group w-[240px] shrink-0 overflow-hidden rounded-lg border border-border-default bg-bg-deep transition-all duration-300 hover:border-brand-teal/30 hover:glow-teal">
+const ProductCard = ({ product }: { product: FeaturedProduct }) => (
+  <Link
+    href={`/${product.category_slug}/${product.slug}`}
+    className="group w-[240px] shrink-0 overflow-hidden rounded-lg border border-border-default bg-bg-deep transition-all duration-300 hover:border-brand-teal/30 hover:glow-teal"
+  >
     <div className="relative aspect-square bg-bg-elevated">
       <div className="flex h-full items-center justify-center text-sm text-text-muted transition-transform duration-300 group-hover:scale-[1.02]">
         {product.brand}
       </div>
 
       <div className="absolute top-2 left-2 flex flex-col gap-1">
-        {product.originalPrice && (
+        {product.compare_at_price !== null && (
           <Badge variant="sale">
-            -{calcDiscount(product.originalPrice, product.price)}%
+            -{calcDiscount(product.compare_at_price, product.price)}%
           </Badge>
         )}
-        {product.isNew && <Badge variant="new">NEW</Badge>}
       </div>
 
-      {!product.inStock && (
+      {product.stock === 0 && (
         <div className="absolute inset-0 flex items-center justify-center bg-bg-deep/70">
           <span className="text-sm font-semibold text-error">Εξαντλήθηκε</span>
         </div>
       )}
 
-      {product.inStock && (
+      {product.stock > 0 && (
         <div className="absolute inset-x-0 bottom-0 translate-y-full transition-transform duration-300 group-hover:translate-y-0">
           <button
             type="button"
@@ -137,22 +91,22 @@ const ProductCard = ({ product }: ProductCardProps) => (
       <h3 className="mt-1 text-sm font-semibold text-text-primary">
         {product.name}
       </h3>
-      <Stars rating={product.rating} />
+      <Stars rating={product.average_rating ?? 0} />
       <div className="mt-2 flex items-center gap-2">
         <span className="text-lg font-bold text-brand-teal">
           {formatPrice(product.price)}
         </span>
-        {product.originalPrice && (
+        {product.compare_at_price !== null && (
           <span className="text-sm text-text-muted line-through">
-            {formatPrice(product.originalPrice)}
+            {formatPrice(product.compare_at_price)}
           </span>
         )}
       </div>
     </div>
-  </div>
+  </Link>
 );
 
-export const FeaturedProducts = () => (
+export const FeaturedProducts = ({ products }: FeaturedProductsProps) => (
   <section className="bg-bg-surface py-16 diagonal-top md:py-24">
     <Container>
       <ScrollReveal>
@@ -161,7 +115,7 @@ export const FeaturedProducts = () => (
       </ScrollReveal>
 
       <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-none snap-x snap-mandatory">
-        {MOCK_PRODUCTS.map((product, i) => (
+        {products.map((product, i) => (
           <ScrollReveal
             key={product.id}
             delay={i * 0.08}

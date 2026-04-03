@@ -1,10 +1,15 @@
 import type { MetadataRoute } from "next";
-import { createClient } from "@/lib/supabase/server";
+import { cacheTag, cacheLife } from "next/cache";
+import { createPublicClient } from "@/lib/supabase/public";
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://motomarket.gr";
 
 async function getProductEntries(): Promise<MetadataRoute.Sitemap> {
-  const supabase = await createClient();
+  "use cache";
+  cacheTag("products");
+  cacheLife("hours");
+
+  const supabase = createPublicClient();
 
   const { data } = await supabase
     .from("products")
@@ -26,7 +31,11 @@ async function getProductEntries(): Promise<MetadataRoute.Sitemap> {
 }
 
 async function getCategoryEntries(): Promise<MetadataRoute.Sitemap> {
-  const supabase = await createClient();
+  "use cache";
+  cacheTag("categories");
+  cacheLife("days");
+
+  const supabase = createPublicClient();
 
   const { data } = await supabase.from("categories").select("slug, created_at");
 
@@ -39,7 +48,11 @@ async function getCategoryEntries(): Promise<MetadataRoute.Sitemap> {
 }
 
 async function getBrandEntries(): Promise<MetadataRoute.Sitemap> {
-  const supabase = await createClient();
+  "use cache";
+  cacheTag("brands");
+  cacheLife("days");
+
+  const supabase = createPublicClient();
 
   const { data } = await supabase.from("brands").select("slug, created_at");
 

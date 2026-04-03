@@ -2,7 +2,11 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import type { Metadata } from "next";
 
-import { getProduct, getRelatedProducts } from "@/lib/queries/products";
+import {
+  getProduct,
+  getPopularProductSlugs,
+  getRelatedProducts,
+} from "@/lib/queries/products";
 import { getCategoryBreadcrumbs } from "@/lib/queries/categories";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { ImageGallery } from "@/components/product/image-gallery";
@@ -17,6 +21,14 @@ import { SpecificationsTable } from "@/components/product/specifications-table";
 import { DeliveryEstimate } from "@/components/product/delivery-estimate";
 import { KlarnaInfo } from "@/components/product/klarna-info";
 import { ProductJsonLd } from "@/components/product/product-json-ld";
+
+export async function generateStaticParams() {
+  const slugs = await getPopularProductSlugs(100);
+  return slugs.map((s) => ({
+    category: s.category_slug,
+    slug: s.slug,
+  }));
+}
 
 interface ProductPageProps {
   params: Promise<{ category: string; slug: string }>;

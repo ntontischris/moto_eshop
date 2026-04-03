@@ -1,4 +1,10 @@
+import type { Metadata } from "next";
 import { requireAuth } from "@/lib/auth/guards";
+
+export const metadata: Metadata = {
+  title: { default: "Λογαριασμός | MotoMarket", template: "%s | MotoMarket" },
+  robots: { index: false, follow: false },
+};
 import { AccountSidebar } from "@/components/account/sidebar";
 
 export default async function AccountLayout({

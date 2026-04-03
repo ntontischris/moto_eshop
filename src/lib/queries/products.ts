@@ -1,3 +1,4 @@
+import { cacheTag, cacheLife } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 
 export interface ProductImage {
@@ -425,7 +426,11 @@ export async function getRelatedProducts(
 
 export async function getPopularProductSlugs(
   limit = 200,
-): Promise<{ category: string; slug: string }[]> {
+): Promise<{ category_slug: string; slug: string }[]> {
+  "use cache";
+  cacheTag("products");
+  cacheLife("days");
+
   const { createAdminClient } = await import("@/lib/supabase/admin");
   const supabase = createAdminClient();
 
@@ -441,7 +446,7 @@ export async function getPopularProductSlugs(
   return data
     .map((row) => {
       const cat = row.categories as unknown as { slug: string } | null;
-      return cat ? { category: cat.slug, slug: row.slug } : null;
+      return cat ? { category_slug: cat.slug, slug: row.slug } : null;
     })
-    .filter((x): x is { category: string; slug: string } => x !== null);
+    .filter((x): x is { category_slug: string; slug: string } => x !== null);
 }
