@@ -13,8 +13,8 @@ interface ProvidersProps {
 export const Providers = ({ children }: ProvidersProps) => (
   <ThemeProvider
     attribute="class"
-    defaultTheme="dark"
-    enableSystem
+    defaultTheme="light"
+    forcedTheme="light"
     disableTransitionOnChange
   >
     <SearchProvider>{children}</SearchProvider>
