@@ -1,7 +1,7 @@
 "use server";
 
 import { z } from "zod/v4";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 import type { Json } from "@/types/database";
@@ -43,15 +43,25 @@ const ProductSchema = z.object({
   category_id: z.string().uuid().optional(),
   status: z.enum(["draft", "active", "archived"]),
   certification: z.string().optional(),
-  rider_type: z.enum(["beginner", "intermediate", "advanced", "professional"]).optional(),
-  images: z.array(z.object({ url: z.string(), alt: z.string(), position: z.number() })).optional(),
+  rider_type: z
+    .enum(["beginner", "intermediate", "advanced", "professional"])
+    .optional(),
+  images: z
+    .array(z.object({ url: z.string(), alt: z.string(), position: z.number() }))
+    .optional(),
   specs: z.record(z.string(), z.string()).optional(),
 });
 
-export async function createProduct(input: z.infer<typeof ProductSchema>): Promise<ActionResult> {
+export async function createProduct(
+  input: z.infer<typeof ProductSchema>,
+): Promise<ActionResult> {
   await assertAdmin();
   const parsed = ProductSchema.safeParse(input);
-  if (!parsed.success) return { success: false, error: parsed.error.issues[0]?.message ?? "Μη έγκυρα δεδομένα" };
+  if (!parsed.success)
+    return {
+      success: false,
+      error: parsed.error.issues[0]?.message ?? "Μη έγκυρα δεδομένα",
+    };
 
   const supabase = createAdminClient();
   const { images: _imgs, specs: _specs, ...rest } = parsed.data;
@@ -67,6 +77,7 @@ export async function createProduct(input: z.infer<typeof ProductSchema>): Promi
 
   if (error) return { success: false, error: error.message };
   revalidatePath("/admin/products");
+  revalidateTag("products");
   return { success: true };
 }
 
@@ -76,7 +87,11 @@ export async function updateProduct(
 ): Promise<ActionResult> {
   await assertAdmin();
   const parsed = ProductSchema.safeParse(input);
-  if (!parsed.success) return { success: false, error: parsed.error.issues[0]?.message ?? "Μη έγκυρα δεδομένα" };
+  if (!parsed.success)
+    return {
+      success: false,
+      error: parsed.error.issues[0]?.message ?? "Μη έγκυρα δεδομένα",
+    };
 
   const supabase = createAdminClient();
   const { images: _imgs, specs: _specs, ...rest } = parsed.data;
@@ -95,6 +110,7 @@ export async function updateProduct(
 
   if (error) return { success: false, error: error.message };
   revalidatePath("/admin/products");
+  revalidateTag("products");
   return { success: true };
 }
 
@@ -104,6 +120,7 @@ export async function deleteProduct(id: string): Promise<ActionResult> {
   const { error } = await supabase.from("products").delete().eq("id", id);
   if (error) return { success: false, error: error.message };
   revalidatePath("/admin/products");
+  revalidateTag("products");
   return { success: true };
 }
 
@@ -161,10 +178,16 @@ const CategorySchema = z.object({
   image_url: z.string().optional(),
 });
 
-export async function createCategory(input: z.infer<typeof CategorySchema>): Promise<ActionResult> {
+export async function createCategory(
+  input: z.infer<typeof CategorySchema>,
+): Promise<ActionResult> {
   await assertAdmin();
   const parsed = CategorySchema.safeParse(input);
-  if (!parsed.success) return { success: false, error: parsed.error.issues[0]?.message ?? "Μη έγκυρα δεδομένα" };
+  if (!parsed.success)
+    return {
+      success: false,
+      error: parsed.error.issues[0]?.message ?? "Μη έγκυρα δεδομένα",
+    };
 
   const supabase = createAdminClient();
   const { error } = await supabase.from("categories").insert({
@@ -175,6 +198,7 @@ export async function createCategory(input: z.infer<typeof CategorySchema>): Pro
 
   if (error) return { success: false, error: error.message };
   revalidatePath("/admin/categories");
+  revalidateTag("categories");
   return { success: true };
 }
 
@@ -184,7 +208,11 @@ export async function updateCategory(
 ): Promise<ActionResult> {
   await assertAdmin();
   const parsed = CategorySchema.safeParse(input);
-  if (!parsed.success) return { success: false, error: parsed.error.issues[0]?.message ?? "Μη έγκυρα δεδομένα" };
+  if (!parsed.success)
+    return {
+      success: false,
+      error: parsed.error.issues[0]?.message ?? "Μη έγκυρα δεδομένα",
+    };
 
   const supabase = createAdminClient();
   const { error } = await supabase
@@ -198,6 +226,7 @@ export async function updateCategory(
 
   if (error) return { success: false, error: error.message };
   revalidatePath("/admin/categories");
+  revalidateTag("categories");
   return { success: true };
 }
 
@@ -207,6 +236,7 @@ export async function deleteCategory(id: string): Promise<ActionResult> {
   const { error } = await supabase.from("categories").delete().eq("id", id);
   if (error) return { success: false, error: error.message };
   revalidatePath("/admin/categories");
+  revalidateTag("categories");
   return { success: true };
 }
 
@@ -219,15 +249,22 @@ const BrandSchema = z.object({
   logo_url: z.string().optional(),
 });
 
-export async function createBrand(input: z.infer<typeof BrandSchema>): Promise<ActionResult> {
+export async function createBrand(
+  input: z.infer<typeof BrandSchema>,
+): Promise<ActionResult> {
   await assertAdmin();
   const parsed = BrandSchema.safeParse(input);
-  if (!parsed.success) return { success: false, error: parsed.error.issues[0]?.message ?? "Μη έγκυρα δεδομένα" };
+  if (!parsed.success)
+    return {
+      success: false,
+      error: parsed.error.issues[0]?.message ?? "Μη έγκυρα δεδομένα",
+    };
 
   const supabase = createAdminClient();
   const { error } = await supabase.from("brands").insert(parsed.data);
   if (error) return { success: false, error: error.message };
   revalidatePath("/admin/categories");
+  revalidateTag("brands");
   return { success: true };
 }
 
@@ -237,12 +274,20 @@ export async function updateBrand(
 ): Promise<ActionResult> {
   await assertAdmin();
   const parsed = BrandSchema.safeParse(input);
-  if (!parsed.success) return { success: false, error: parsed.error.issues[0]?.message ?? "Μη έγκυρα δεδομένα" };
+  if (!parsed.success)
+    return {
+      success: false,
+      error: parsed.error.issues[0]?.message ?? "Μη έγκυρα δεδομένα",
+    };
 
   const supabase = createAdminClient();
-  const { error } = await supabase.from("brands").update(parsed.data).eq("id", id);
+  const { error } = await supabase
+    .from("brands")
+    .update(parsed.data)
+    .eq("id", id);
   if (error) return { success: false, error: error.message };
   revalidatePath("/admin/categories");
+  revalidateTag("brands");
   return { success: true };
 }
 
@@ -252,6 +297,7 @@ export async function deleteBrand(id: string): Promise<ActionResult> {
   const { error } = await supabase.from("brands").delete().eq("id", id);
   if (error) return { success: false, error: error.message };
   revalidatePath("/admin/categories");
+  revalidateTag("brands");
   return { success: true };
 }
 
@@ -266,6 +312,7 @@ export async function approveReview(id: string): Promise<ActionResult> {
     .eq("id", id);
   if (error) return { success: false, error: error.message };
   revalidatePath("/admin/reviews");
+  revalidateTag("reviews");
   return { success: true };
 }
 
@@ -278,6 +325,7 @@ export async function rejectReview(id: string): Promise<ActionResult> {
     .eq("id", id);
   if (error) return { success: false, error: error.message };
   revalidatePath("/admin/reviews");
+  revalidateTag("reviews");
   return { success: true };
 }
 
@@ -287,6 +335,7 @@ export async function deleteReview(id: string): Promise<ActionResult> {
   const { error } = await supabase.from("reviews").delete().eq("id", id);
   if (error) return { success: false, error: error.message };
   revalidatePath("/admin/reviews");
+  revalidateTag("reviews");
   return { success: true };
 }
 
