@@ -1,10 +1,20 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { ThemeProvider } from "next-themes";
 import { Toaster } from "@/components/ui/sonner";
-import { SmoothScroll } from "@/components/effects/smooth-scroll";
-import { CustomCursor } from "@/components/effects/custom-cursor";
 import { SearchProvider } from "@/components/search/search-provider";
+
+const SmoothScroll = dynamic(
+  () =>
+    import("@/components/effects/smooth-scroll").then((m) => m.SmoothScroll),
+  { ssr: false },
+);
+const CustomCursor = dynamic(
+  () =>
+    import("@/components/effects/custom-cursor").then((m) => m.CustomCursor),
+  { ssr: false },
+);
 
 interface ProvidersProps {
   children: React.ReactNode;
