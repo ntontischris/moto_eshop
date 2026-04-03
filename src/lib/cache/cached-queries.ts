@@ -1,5 +1,5 @@
 import { cacheTag, cacheLife } from "next/cache";
-import { createClient } from "@/lib/supabase/server";
+import { createPublicClient } from "@/lib/supabase/public";
 
 // ─── Categories ──────────────────────────────────────────────────
 
@@ -8,7 +8,7 @@ export async function getTopCategories() {
   cacheTag("categories");
   cacheLife("days");
 
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data } = await supabase
     .from("categories")
     .select("id, slug, name, image_url, position")
@@ -23,7 +23,7 @@ export async function getCachedCategoryTree() {
   cacheTag("categories");
   cacheLife("days");
 
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data } = await supabase
     .from("categories")
     .select("id, slug, name, parent_id, position")
@@ -63,7 +63,7 @@ export async function getActiveBrands() {
   cacheTag("brands");
   cacheLife("days");
 
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data } = await supabase
     .from("brands")
     .select("id, name, slug, logo_url")
@@ -79,7 +79,7 @@ export async function getFeaturedProducts() {
   cacheTag("products");
   cacheLife("hours");
 
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data } = await supabase
     .from("products")
     .select(
@@ -128,7 +128,7 @@ export async function getActiveBanners() {
   cacheTag("banners");
   cacheLife("hours");
 
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data } = await supabase
     .from("banners")
     .select(
@@ -147,7 +147,7 @@ export async function getTopReviews() {
   cacheTag("reviews");
   cacheLife("hours");
 
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data } = await supabase
     .from("reviews")
     .select(
@@ -189,7 +189,7 @@ export async function getSiteSettings() {
   cacheTag("settings");
   cacheLife("days");
 
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data } = await supabase.from("site_settings").select("key, value");
 
   const settings: Record<string, unknown> = {};
