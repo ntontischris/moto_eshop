@@ -20,7 +20,7 @@ const russoOne = Russo_One({
 });
 
 const chakraPetch = Chakra_Petch({
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
   variable: "--font-chakra",
   display: "swap",

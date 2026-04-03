@@ -56,16 +56,20 @@ interface HeroSectionProps {
 export const HeroSection = ({ slides }: HeroSectionProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [hasInteracted, setHasInteracted] = useState(false);
 
   const goToNext = useCallback(() => {
+    setHasInteracted(true);
     setActiveIndex((prev) => (prev + 1) % slides.length);
   }, [slides.length]);
 
   const goToPrev = useCallback(() => {
+    setHasInteracted(true);
     setActiveIndex((prev) => (prev - 1 + slides.length) % slides.length);
   }, [slides.length]);
 
   const goToIndex = useCallback((index: number) => {
+    setHasInteracted(true);
     setActiveIndex(index);
   }, []);
 
@@ -100,7 +104,7 @@ export const HeroSection = ({ slides }: HeroSectionProps) => {
               activeSlide.gradient ??
               "linear-gradient(135deg, #0B0F14 0%, #0F1A28 40%, #0D1520 100%)",
           }}
-          initial={{ opacity: 0 }}
+          initial={hasInteracted ? { opacity: 0 } : false}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.6 }}
@@ -125,7 +129,7 @@ export const HeroSection = ({ slides }: HeroSectionProps) => {
             <AnimatePresence mode="wait">
               <motion.div
                 key={`content-${activeSlide.id}`}
-                initial={{ opacity: 0, x: -24 }}
+                initial={hasInteracted ? { opacity: 0, x: -24 } : false}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 24 }}
                 transition={{ duration: 0.45, ease: "easeInOut" }}
@@ -178,7 +182,7 @@ export const HeroSection = ({ slides }: HeroSectionProps) => {
             <motion.div
               key={`img-${activeSlide.id}`}
               className="hidden shrink-0 md:flex"
-              initial={{ opacity: 0, scale: 0.92 }}
+              initial={hasInteracted ? { opacity: 0, scale: 0.92 } : false}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.92 }}
               transition={{ duration: 0.45, ease: "easeInOut" }}
