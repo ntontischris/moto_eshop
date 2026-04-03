@@ -12,6 +12,6 @@ export type ContentTag =
 
 export async function revalidateContent(...tags: ContentTag[]) {
   for (const tag of tags) {
-    revalidateTag(tag);
+    revalidateTag(tag, "seconds");
   }
 }

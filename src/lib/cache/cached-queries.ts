@@ -151,8 +151,8 @@ export async function getTopReviews() {
   const { data } = await supabase
     .from("reviews")
     .select(
-      `id, rating, comment, created_at,
-       user_profiles:user_id ( full_name ),
+      `id, rating, body, created_at,
+       user_profiles:user_id ( first_name, last_name ),
        products:product_id ( name )`,
     )
     .eq("status", "approved")
@@ -164,15 +164,19 @@ export async function getTopReviews() {
 
   return data.map((r) => {
     const user = r.user_profiles as unknown as {
-      full_name: string | null;
+      first_name: string | null;
+      last_name: string | null;
     } | null;
     const product = r.products as unknown as { name: string } | null;
+    const fullName =
+      [user?.first_name, user?.last_name].filter(Boolean).join(" ") ||
+      "Πελάτης";
 
     return {
       id: r.id,
-      name: user?.full_name ?? "Πελάτης",
+      name: fullName,
       rating: r.rating,
-      text: r.comment ?? "",
+      text: r.body ?? "",
       product: product?.name ?? "",
     };
   });

@@ -77,7 +77,7 @@ export async function createProduct(
 
   if (error) return { success: false, error: error.message };
   revalidatePath("/admin/products");
-  revalidateTag("products");
+  revalidateTag("products", "seconds");
   return { success: true };
 }
 
@@ -110,7 +110,7 @@ export async function updateProduct(
 
   if (error) return { success: false, error: error.message };
   revalidatePath("/admin/products");
-  revalidateTag("products");
+  revalidateTag("products", "seconds");
   return { success: true };
 }
 
@@ -120,7 +120,7 @@ export async function deleteProduct(id: string): Promise<ActionResult> {
   const { error } = await supabase.from("products").delete().eq("id", id);
   if (error) return { success: false, error: error.message };
   revalidatePath("/admin/products");
-  revalidateTag("products");
+  revalidateTag("products", "seconds");
   return { success: true };
 }
 
@@ -198,7 +198,7 @@ export async function createCategory(
 
   if (error) return { success: false, error: error.message };
   revalidatePath("/admin/categories");
-  revalidateTag("categories");
+  revalidateTag("categories", "seconds");
   return { success: true };
 }
 
@@ -226,7 +226,7 @@ export async function updateCategory(
 
   if (error) return { success: false, error: error.message };
   revalidatePath("/admin/categories");
-  revalidateTag("categories");
+  revalidateTag("categories", "seconds");
   return { success: true };
 }
 
@@ -236,7 +236,7 @@ export async function deleteCategory(id: string): Promise<ActionResult> {
   const { error } = await supabase.from("categories").delete().eq("id", id);
   if (error) return { success: false, error: error.message };
   revalidatePath("/admin/categories");
-  revalidateTag("categories");
+  revalidateTag("categories", "seconds");
   return { success: true };
 }
 
@@ -264,7 +264,7 @@ export async function createBrand(
   const { error } = await supabase.from("brands").insert(parsed.data);
   if (error) return { success: false, error: error.message };
   revalidatePath("/admin/categories");
-  revalidateTag("brands");
+  revalidateTag("brands", "seconds");
   return { success: true };
 }
 
@@ -287,7 +287,7 @@ export async function updateBrand(
     .eq("id", id);
   if (error) return { success: false, error: error.message };
   revalidatePath("/admin/categories");
-  revalidateTag("brands");
+  revalidateTag("brands", "seconds");
   return { success: true };
 }
 
@@ -297,7 +297,7 @@ export async function deleteBrand(id: string): Promise<ActionResult> {
   const { error } = await supabase.from("brands").delete().eq("id", id);
   if (error) return { success: false, error: error.message };
   revalidatePath("/admin/categories");
-  revalidateTag("brands");
+  revalidateTag("brands", "seconds");
   return { success: true };
 }
 
@@ -312,7 +312,7 @@ export async function approveReview(id: string): Promise<ActionResult> {
     .eq("id", id);
   if (error) return { success: false, error: error.message };
   revalidatePath("/admin/reviews");
-  revalidateTag("reviews");
+  revalidateTag("reviews", "seconds");
   return { success: true };
 }
 
@@ -325,7 +325,7 @@ export async function rejectReview(id: string): Promise<ActionResult> {
     .eq("id", id);
   if (error) return { success: false, error: error.message };
   revalidatePath("/admin/reviews");
-  revalidateTag("reviews");
+  revalidateTag("reviews", "seconds");
   return { success: true };
 }
 
@@ -335,7 +335,7 @@ export async function deleteReview(id: string): Promise<ActionResult> {
   const { error } = await supabase.from("reviews").delete().eq("id", id);
   if (error) return { success: false, error: error.message };
   revalidatePath("/admin/reviews");
-  revalidateTag("reviews");
+  revalidateTag("reviews", "seconds");
   return { success: true };
 }
 
