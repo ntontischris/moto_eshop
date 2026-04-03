@@ -1,23 +1,9 @@
 import { Container } from "@/components/layout/container";
 import { SectionLabel } from "@/components/ui/typography";
 
-const BRANDS = [
-  "AGV",
-  "Shoei",
-  "Arai",
-  "Dainese",
-  "Alpinestars",
-  "Rev'It",
-  "Sena",
-  "HJC",
-  "LS2",
-  "Held",
-  "Forma",
-  "TCX",
-  "Scorpion",
-  "Shark",
-  "Nolan",
-];
+interface BrandsStripProps {
+  brands: { id: string; name: string; slug: string; logo_url: string | null }[];
+}
 
 const BrandLogo = ({ name }: { name: string }) => (
   <div className="flex h-12 w-28 shrink-0 items-center justify-center rounded border border-border-default bg-bg-surface px-4 text-sm font-semibold text-text-muted transition-colors duration-300 hover:border-brand-teal/30 hover:text-text-primary">
@@ -25,7 +11,7 @@ const BrandLogo = ({ name }: { name: string }) => (
   </div>
 );
 
-export const BrandsStrip = () => (
+export const BrandsStrip = ({ brands }: BrandsStripProps) => (
   <section className="py-16 md:py-20">
     <Container>
       <SectionLabel className="mb-8 text-center">
@@ -44,8 +30,8 @@ export const BrandsStrip = () => (
           width: "max-content",
         }}
       >
-        {[...BRANDS, ...BRANDS].map((brand, i) => (
-          <BrandLogo key={`${brand}-${i}`} name={brand} />
+        {[...brands, ...brands].map((brand, i) => (
+          <BrandLogo key={`${brand.slug}-${i}`} name={brand.name} />
         ))}
       </div>
     </div>
