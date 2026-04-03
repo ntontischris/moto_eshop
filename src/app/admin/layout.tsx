@@ -1,5 +1,11 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { requireAdmin } from "@/lib/auth/guards";
+
+export const metadata: Metadata = {
+  title: "Admin | MotoMarket",
+  robots: { index: false, follow: false },
+};
 import {
   LayoutDashboard,
   Package,
