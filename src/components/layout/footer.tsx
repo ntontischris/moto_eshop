@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Bike, Globe, Camera, Play } from "lucide-react";
+import Image from "next/image";
+import { Globe, Camera, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Container } from "@/components/layout/container";
@@ -50,19 +51,22 @@ export const Footer = ({ categoryTree }: FooterProps) => {
   }));
 
   return (
-    <footer className="border-t border-border-default bg-bg-surface">
+    <footer className="border-t border-neutral-800 bg-[#1A1A1A] text-gray-300">
       <Container>
         {/* Main footer grid */}
         <div className="grid gap-8 py-12 sm:grid-cols-2 lg:grid-cols-4">
           {/* Brand column */}
           <div className="flex flex-col gap-4">
-            <Link href="/" className="flex items-center gap-2">
-              <Bike className="h-6 w-6 text-brand-red" />
-              <span className="text-lg font-bold text-text-primary">
-                Moto<span className="text-brand-red">Market</span>
-              </span>
+            <Link href="/" className="flex items-center">
+              <Image
+                src="/logo.png"
+                alt="MotoMarket"
+                width={140}
+                height={42}
+                className="h-9 w-auto"
+              />
             </Link>
-            <p className="text-sm leading-relaxed text-text-secondary">
+            <p className="text-sm leading-relaxed text-gray-400">
               Το μεγαλύτερο online κατάστημα εξοπλισμού μοτοσυκλέτας στην
               Ελλάδα. Κορυφαίες μάρκες, χαμηλές τιμές, γρήγορη αποστολή.
             </p>
@@ -75,7 +79,7 @@ export const Footer = ({ categoryTree }: FooterProps) => {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="flex h-8 w-8 items-center justify-center rounded-md border border-border-default text-text-secondary transition-colors hover:border-brand-red hover:text-brand-red"
+                  className="flex h-8 w-8 items-center justify-center rounded-md border border-neutral-700 text-gray-400 transition-colors hover:border-brand-red hover:text-brand-red"
                 >
                   <Icon className="h-4 w-4" />
                 </a>
@@ -85,7 +89,7 @@ export const Footer = ({ categoryTree }: FooterProps) => {
 
           {/* Categories column (dynamic) */}
           <div className="flex flex-col gap-3">
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-text-primary">
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-white">
               Κατηγορίες
             </h3>
             <ul className="flex flex-col gap-2">
@@ -93,7 +97,7 @@ export const Footer = ({ categoryTree }: FooterProps) => {
                 <li key={href}>
                   <Link
                     href={href}
-                    className="text-sm text-text-secondary transition-colors hover:text-brand-red"
+                    className="text-sm text-gray-400 transition-colors hover:text-brand-red"
                   >
                     {label}
                   </Link>
@@ -105,7 +109,7 @@ export const Footer = ({ categoryTree }: FooterProps) => {
           {/* Static link columns */}
           {Object.entries(FOOTER_LINKS).map(([key, { title, links }]) => (
             <div key={key} className="flex flex-col gap-3">
-              <h3 className="text-sm font-semibold uppercase tracking-wider text-text-primary">
+              <h3 className="text-sm font-semibold uppercase tracking-wider text-white">
                 {title}
               </h3>
               <ul className="flex flex-col gap-2">
@@ -113,7 +117,7 @@ export const Footer = ({ categoryTree }: FooterProps) => {
                   <li key={href}>
                     <Link
                       href={href}
-                      className="text-sm text-text-secondary transition-colors hover:text-brand-red"
+                      className="text-sm text-gray-400 transition-colors hover:text-brand-red"
                     >
                       {label}
                     </Link>
@@ -124,15 +128,13 @@ export const Footer = ({ categoryTree }: FooterProps) => {
           ))}
         </div>
 
-        <Separator className="bg-bg-elevated" />
+        <Separator className="bg-neutral-700" />
 
         {/* Newsletter */}
         <div className="flex flex-col gap-4 py-8 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h3 className="font-semibold text-text-primary">
-              Εγγραφή στο Newsletter
-            </h3>
-            <p className="mt-1 text-sm text-text-secondary">
+            <h3 className="font-semibold text-white">Εγγραφή στο Newsletter</h3>
+            <p className="mt-1 text-sm text-gray-400">
               Λάβε πρώτος τις νέες προσφορές και προϊόντα.
             </p>
           </div>
@@ -140,7 +142,7 @@ export const Footer = ({ categoryTree }: FooterProps) => {
             <Input
               type="email"
               placeholder="email@example.com"
-              className="border-border-default bg-bg-elevated text-text-primary placeholder:text-text-muted"
+              className="border-neutral-700 bg-neutral-700 text-white placeholder:text-gray-500"
               aria-label="Email για newsletter"
             />
             <Button type="submit" variant="default" className="shrink-0">
@@ -149,10 +151,10 @@ export const Footer = ({ categoryTree }: FooterProps) => {
           </form>
         </div>
 
-        <Separator className="bg-bg-elevated" />
+        <Separator className="bg-neutral-700" />
 
         {/* Bottom bar */}
-        <div className="flex flex-col gap-2 py-6 text-center text-xs text-text-muted sm:flex-row sm:items-center sm:justify-between sm:text-left">
+        <div className="flex flex-col gap-2 py-6 text-center text-xs text-gray-500 sm:flex-row sm:items-center sm:justify-between sm:text-left">
           <p>&copy; 2026 MotoMarket. Όλα τα δικαιώματα διατηρούνται.</p>
           <p>Κατασκευή με αγάπη για τους μοτοσυκλιστές της Ελλάδας.</p>
         </div>

@@ -5,101 +5,101 @@
 @custom-variant dark (&:is(.dark *));
 
 /* =====================================================
-   MotoMarket "Racing Circuit" Design Tokens
+   MotoMarket "Warm Sand" Design Tokens
    ===================================================== */
 
 :root {
-  --bg-deep: #0B0F14;
-  --bg-surface: #141A23;
-  --bg-elevated: #1E293B;
+  --bg-deep: #FAF7F4;
+  --bg-surface: #F5F0EB;
+  --bg-elevated: #EEEBE7;
 
-  /* Teal — primary brand (from motomarket-shop.gr) */
-  --brand-teal: #17c7be;
-  --brand-teal-hover: #14b0a8;
-  --brand-teal-light: #e0faf8;
-  --brand-teal-glow: rgba(23, 199, 190, 0.15);
+  /* Brand Teal → now maps to Red (primary brand) */
+  --brand-teal: #DC2626;
+  --brand-teal-hover: #B91C1C;
+  --brand-teal-light: #FEE2E2;
+  --brand-teal-glow: rgba(220, 38, 38, 0.12);
 
-  /* Red — CTAs, sale badges, urgency */
+  /* Red — same as brand-teal now */
   --brand-red: #DC2626;
   --brand-red-hover: #B91C1C;
   --brand-red-light: #FEE2E2;
   --brand-red-dark: #991B1B;
-  --brand-red-glow: rgba(220, 38, 38, 0.15);
+  --brand-red-glow: rgba(220, 38, 38, 0.12);
 
-  --gold: #F59E0B;
-  --gold-muted: rgba(245, 158, 11, 0.1);
+  --gold: #D97706;
+  --gold-muted: rgba(217, 119, 6, 0.1);
 
-  --text-primary: #F8FAFC;
-  --text-secondary: #CBD5E1;
-  --text-muted: #64748B;
-  --text-chrome: #94A3B8;
+  --text-primary: #1A1A1A;
+  --text-secondary: #4A4540;
+  --text-muted: #8A8278;
+  --text-chrome: #6B6560;
 
-  --border-default: #1E293B;
-  --border-subtle: #334155;
+  --border-default: #E0D9D0;
+  --border-subtle: #D5CCC0;
 
-  --success: #22C55E;
-  --warning: #F59E0B;
-  --error: #EF4444;
+  --success: #16A34A;
+  --warning: #D97706;
+  --error: #DC2626;
 
-  --background: #0B0F14;
-  --foreground: #F8FAFC;
-  --card: #141A23;
-  --card-foreground: #F8FAFC;
-  --popover: #141A23;
-  --popover-foreground: #F8FAFC;
-  --primary: #17c7be;
+  --background: #FAF7F4;
+  --foreground: #1A1A1A;
+  --card: #FFFFFF;
+  --card-foreground: #1A1A1A;
+  --popover: #FFFFFF;
+  --popover-foreground: #1A1A1A;
+  --primary: #DC2626;
   --primary-foreground: #ffffff;
-  --secondary: #1E293B;
+  --secondary: #1A1A1A;
   --secondary-foreground: #F8FAFC;
-  --muted: #1E293B;
-  --muted-foreground: #94A3B8;
-  --accent: #1E293B;
-  --accent-foreground: #F8FAFC;
-  --destructive: #EF4444;
+  --muted: #EEEBE7;
+  --muted-foreground: #8A8278;
+  --accent: #F5F0EB;
+  --accent-foreground: #1A1A1A;
+  --destructive: #DC2626;
   --destructive-foreground: #ffffff;
-  --border: #1E293B;
-  --input: #1E293B;
-  --ring: #17c7be;
+  --border: #E0D9D0;
+  --input: #E0D9D0;
+  --ring: #DC2626;
   --radius: 0.5rem;
 
-  --sidebar: #141A23;
+  --sidebar: #1A1A1A;
   --sidebar-foreground: #F8FAFC;
-  --sidebar-primary: #17c7be;
+  --sidebar-primary: #DC2626;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #1E293B;
+  --sidebar-accent: #2A2A2A;
   --sidebar-accent-foreground: #F8FAFC;
-  --sidebar-border: #1E293B;
-  --sidebar-ring: #17c7be;
+  --sidebar-border: #333333;
+  --sidebar-ring: #DC2626;
 }
 
 .dark {
-  --background: #0B0F14;
-  --foreground: #F8FAFC;
-  --card: #141A23;
-  --card-foreground: #F8FAFC;
-  --popover: #141A23;
-  --popover-foreground: #F8FAFC;
-  --primary: #17c7be;
+  --background: #FAF7F4;
+  --foreground: #1A1A1A;
+  --card: #FFFFFF;
+  --card-foreground: #1A1A1A;
+  --popover: #FFFFFF;
+  --popover-foreground: #1A1A1A;
+  --primary: #DC2626;
   --primary-foreground: #ffffff;
-  --secondary: #1E293B;
+  --secondary: #1A1A1A;
   --secondary-foreground: #F8FAFC;
-  --muted: #1E293B;
-  --muted-foreground: #94A3B8;
-  --accent: #1E293B;
-  --accent-foreground: #F8FAFC;
-  --destructive: #EF4444;
-  --destructive-foreground: #F8FAFC;
-  --border: #1E293B;
-  --input: #1E293B;
-  --ring: #17c7be;
-  --sidebar: #141A23;
+  --muted: #EEEBE7;
+  --muted-foreground: #8A8278;
+  --accent: #F5F0EB;
+  --accent-foreground: #1A1A1A;
+  --destructive: #DC2626;
+  --destructive-foreground: #ffffff;
+  --border: #E0D9D0;
+  --input: #E0D9D0;
+  --ring: #DC2626;
+  --sidebar: #1A1A1A;
   --sidebar-foreground: #F8FAFC;
-  --sidebar-primary: #17c7be;
+  --sidebar-primary: #DC2626;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #1E293B;
+  --sidebar-accent: #2A2A2A;
   --sidebar-accent-foreground: #F8FAFC;
-  --sidebar-border: #1E293B;
-  --sidebar-ring: #17c7be;
+  --sidebar-border: #333333;
+  --sidebar-ring: #DC2626;
 }
 
 @theme inline {
@@ -204,7 +204,7 @@
     @apply font-sans;
   }
   ::selection {
-    background-color: var(--brand-teal);
+    background-color: var(--brand-red);
     color: #ffffff;
   }
 }
@@ -223,7 +223,7 @@
     box-shadow: 0 0 20px var(--brand-red-glow);
   }
   .glow-teal {
-    box-shadow: 0 0 20px var(--brand-teal-glow);
+    box-shadow: 0 0 20px var(--brand-red-glow);
   }
   .diagonal-top {
     clip-path: polygon(0 3%, 100% 0, 100% 100%, 0 100%);

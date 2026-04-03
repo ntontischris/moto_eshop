@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 import {
   ShoppingCart,
   User,
@@ -10,7 +11,6 @@ import {
   Search,
   Menu,
   X,
-  Bike,
   ChevronDown,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -162,7 +162,7 @@ const MobileNavCategory = ({
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <div className="border-b border-dark-3 last:border-b-0">
+    <div className="border-b border-neutral-700 last:border-b-0">
       <button
         type="button"
         onClick={() => setIsExpanded((prev) => !prev)}
@@ -261,8 +261,8 @@ export const Header = ({ categoryTree, announcement }: HeaderProps) => {
       className={cn(
         "sticky top-0 z-50 w-full transition-all duration-300",
         isScrolled
-          ? "border-b border-border-default bg-bg-deep/90 backdrop-blur-md"
-          : "border-b border-transparent bg-transparent",
+          ? "border-b border-neutral-800 bg-[#1A1A1A]/95 backdrop-blur-md"
+          : "border-b border-transparent bg-[#1A1A1A]",
       )}
     >
       {/* Announcement bar */}
@@ -276,11 +276,15 @@ export const Header = ({ categoryTree, announcement }: HeaderProps) => {
       <Container>
         <div className="flex h-16 items-center gap-4">
           {/* Logo */}
-          <Link href="/" className="flex shrink-0 items-center gap-2">
-            <Bike className="h-7 w-7 text-brand-teal" />
-            <span className="text-xl font-bold tracking-tight text-white">
-              Moto<span className="text-brand-teal">Market</span>
-            </span>
+          <Link href="/" className="flex shrink-0 items-center">
+            <Image
+              src="/logo.png"
+              alt="MotoMarket"
+              width={160}
+              height={48}
+              className="h-10 w-auto"
+              priority
+            />
           </Link>
 
           {/* Desktop mega nav */}
@@ -303,7 +307,7 @@ export const Header = ({ categoryTree, announcement }: HeaderProps) => {
               placeholder="Αναζήτηση εξοπλισμού..."
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
-              className="border-dark-3 bg-dark-2 text-white placeholder:text-gray-500 focus-visible:ring-brand-teal"
+              className="border-neutral-700 bg-[#222222] text-white placeholder:text-gray-500 focus-visible:ring-brand-teal"
               startIcon={<Search className="h-4 w-4" />}
               endIcon={
                 <button
@@ -376,14 +380,14 @@ export const Header = ({ categoryTree, announcement }: HeaderProps) => {
 
       {/* Mobile drawer */}
       {isMenuOpen && (
-        <div className="border-t border-dark-3 bg-dark-2 xl:hidden">
+        <div className="border-t border-neutral-700 bg-[#222222] xl:hidden">
           <Container>
             {/* Mobile search */}
             <div className="py-3">
               <Input
                 type="search"
                 placeholder="Αναζήτηση εξοπλισμού..."
-                className="border-dark-3 bg-dark-3 text-white placeholder:text-gray-500"
+                className="border-neutral-700 bg-[#2A2A2A] text-white placeholder:text-gray-500"
                 startIcon={<Search className="h-4 w-4" />}
               />
             </div>
