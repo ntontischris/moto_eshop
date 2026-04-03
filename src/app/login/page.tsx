@@ -21,6 +21,7 @@ export default function LoginPage() {
   const searchParams = useSearchParams();
   const urlError = searchParams.get("error");
 
+  const redirectTo = searchParams.get("next") ?? "/account";
   const [error, setError] = useState<string | null>(
     urlError ? (ERROR_MESSAGES[urlError] ?? "Προέκυψε σφάλμα.") : null,
   );
@@ -42,6 +43,7 @@ export default function LoginPage() {
   return (
     <AuthFormWrapper title="Καλώς ήρθες" subtitle="Σύνδεση στον λογαριασμό σου">
       <form onSubmit={handleSubmit} className="space-y-4">
+        <input type="hidden" name="redirectTo" value={redirectTo} />
         <AuthErrorMessage message={error} />
 
         <div className="space-y-1">

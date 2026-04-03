@@ -43,9 +43,11 @@ export async function middleware(request: NextRequest) {
   }
 
   if (isAuthPage && user) {
-    const accountUrl = request.nextUrl.clone();
-    accountUrl.pathname = "/account";
-    return NextResponse.redirect(accountUrl);
+    const nextPath = request.nextUrl.searchParams.get("next") ?? "/account";
+    const redirectUrl = request.nextUrl.clone();
+    redirectUrl.pathname = nextPath;
+    redirectUrl.searchParams.delete("next");
+    return NextResponse.redirect(redirectUrl);
   }
 
   return supabaseResponse;

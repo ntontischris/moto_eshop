@@ -48,6 +48,7 @@ export async function signInWithEmail(
     email: formData.get("email"),
     password: formData.get("password"),
   };
+  const redirectTo = (formData.get("redirectTo") as string) || "/account";
 
   const parsed = signInSchema.safeParse(raw);
   if (!parsed.success) {
@@ -74,7 +75,7 @@ export async function signInWithEmail(
     return { success: false, error: "Αποτυχία σύνδεσης. Δοκιμάστε ξανά." };
   }
 
-  redirect("/account");
+  redirect(redirectTo);
 }
 
 export async function signUpWithEmail(
