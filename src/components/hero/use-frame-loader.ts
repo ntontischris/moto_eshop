@@ -64,16 +64,20 @@ export function useFrameLoader({ count, urlFor, observeRef }: Options) {
       img.src = urlFor(i);
     }
 
+    // Frame 0 races first. Until it paints, NOTHING else competes for
+    // bandwidth — this makes LCP deterministic on slow mobile networks
+    // (was variance 65-90 with parallel start). Frames 1..N kick off
+    // chained from frame 0's onload, so they're already streaming by
+    // the time the user can scroll into them.
     const first = new Image();
     first.decoding = "sync";
     first.fetchPriority = "high";
     first.onload = () => {
       framesRef.current[0] = first;
       setLoadedCount((n) => n + 1);
+      for (let i = 1; i < count; i++) loadOne(i);
     };
     first.src = urlFor(0);
-
-    for (let i = 1; i < count; i++) loadOne(i);
   }, [started, count, urlFor]);
 
   return { frames: framesRef.current, loadedCount, started };
