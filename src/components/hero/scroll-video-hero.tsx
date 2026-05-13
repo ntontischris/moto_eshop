@@ -111,6 +111,8 @@ export function ScrollVideoHero() {
           aria-hidden="true"
           width={1280}
           height={720}
+          fetchPriority="high"
+          decoding="sync"
           className="absolute inset-0 h-full w-full object-cover"
         />
         <canvas

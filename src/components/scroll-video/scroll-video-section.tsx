@@ -140,6 +140,8 @@ export function ScrollVideoSection({
           aria-hidden="true"
           width={1280}
           height={720}
+          loading="lazy"
+          decoding="async"
           className="absolute inset-0 h-full w-full object-cover"
         />
         <canvas

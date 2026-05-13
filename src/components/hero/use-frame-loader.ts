@@ -54,6 +54,9 @@ export function useFrameLoader({ count, urlFor, observeRef }: Options) {
     function loadOne(i: number) {
       const img = new Image();
       img.decoding = "async";
+      // Lower priority on non-first frames so they download in parallel
+      // without competing with the LCP image, fonts, JS, or CSS.
+      img.fetchPriority = "low";
       img.onload = () => {
         framesRef.current[i] = img;
         setLoadedCount((n) => n + 1);
@@ -61,8 +64,6 @@ export function useFrameLoader({ count, urlFor, observeRef }: Options) {
       img.src = urlFor(i);
     }
 
-    // Frame 0 with explicit high fetch priority so the very first paint
-    // is sharp; the rest follow immediately in parallel.
     const first = new Image();
     first.decoding = "sync";
     first.fetchPriority = "high";

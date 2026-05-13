@@ -87,6 +87,17 @@ export default async function RootLayout({ children }: RootLayoutProps) {
       suppressHydrationWarning
       className={`${russoOne.variable} ${chakraPetch.variable}`}
     >
+      <head>
+        {/* LCP preload — first hero frame ships with highest priority so it
+            doesn't queue behind JS/CSS/font requests on slow mobile networks. */}
+        <link
+          rel="preload"
+          as="image"
+          href="/hero-frames/0000.webp"
+          fetchPriority="high"
+          type="image/webp"
+        />
+      </head>
       <body className="min-h-screen bg-background font-sans antialiased">
         <Providers>
           <Suspense>
