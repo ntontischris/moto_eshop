@@ -1,39 +1,51 @@
-import { Container } from "@/components/layout/container";
-import { SectionLabel } from "@/components/ui/typography";
+import Link from "next/link";
+import Image from "next/image";
 
-interface BrandsStripProps {
-  brands: { id: string; name: string; slug: string; logo_url: string | null }[];
+interface Brand {
+  id: string;
+  name: string;
+  slug: string;
+  logo_url: string | null;
 }
 
-const BrandLogo = ({ name }: { name: string }) => (
-  <div className="flex h-12 w-28 shrink-0 items-center justify-center rounded border border-border-default bg-bg-surface px-4 text-sm font-semibold text-text-muted transition-colors duration-300 hover:border-brand-teal/30 hover:text-text-primary">
-    {name}
-  </div>
-);
+export function BrandsStrip({ brands }: { brands: Brand[] }) {
+  if (brands.length === 0) return null;
+  // Duplicate the list so the marquee loops seamlessly
+  const loop = [...brands, ...brands];
 
-export const BrandsStrip = ({ brands }: BrandsStripProps) => (
-  <section className="py-16 md:py-20">
-    <Container>
-      <SectionLabel className="mb-8 text-center">
-        Brands που εμπιστευόμαστε
-      </SectionLabel>
-    </Container>
-
-    <div className="relative overflow-hidden">
-      <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-16 bg-gradient-to-r from-bg-deep to-transparent" />
-      <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-16 bg-gradient-to-l from-bg-deep to-transparent" />
-
-      <div
-        className="flex gap-4 hover:[animation-play-state:paused]"
-        style={{
-          animation: "scrollInfinite 30s linear infinite",
-          width: "max-content",
-        }}
-      >
-        {[...brands, ...brands].map((brand, i) => (
-          <BrandLogo key={`${brand.slug}-${i}`} name={brand.name} />
-        ))}
+  return (
+    <section className="border-y border-neutral-800 bg-[#0a0a0a] py-10">
+      <div className="container mx-auto px-4">
+        <p className="mb-6 text-center font-russo text-xs uppercase tracking-[0.3em] text-brand-red">
+          Brands που εμπιστευόμαστε
+        </p>
       </div>
-    </div>
-  </section>
-);
+      <div className="overflow-hidden">
+        <div className="marquee-track flex w-max items-center gap-8 px-4">
+          {loop.map((b, i) => (
+            <Link
+              key={`${b.id}-${i}`}
+              href={`/?brand=${b.slug}`}
+              className="group flex h-14 w-32 flex-shrink-0 items-center justify-center rounded-lg border border-neutral-800 bg-[#141414] px-4 transition hover:border-brand-red/40 hover:bg-neutral-900"
+              title={b.name}
+            >
+              {b.logo_url ? (
+                <Image
+                  src={b.logo_url}
+                  alt={b.name}
+                  width={96}
+                  height={32}
+                  className="max-h-8 w-auto opacity-70 transition group-hover:opacity-100"
+                />
+              ) : (
+                <span className="font-russo text-xs uppercase tracking-wider text-neutral-400 group-hover:text-white">
+                  {b.name}
+                </span>
+              )}
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
