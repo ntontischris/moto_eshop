@@ -133,11 +133,13 @@ export function ScrollVideoSection({
       style={{ height: `${scrollHeightVh}vh`, position: "relative" }}
       className="bg-black"
     >
-      <div className="sticky top-0 h-screen w-full overflow-hidden">
+      <div className="sticky top-0 h-[100dvh] w-full overflow-hidden">
         <img
           src={framePath(framesPath, 0)}
           alt=""
           aria-hidden="true"
+          width={1280}
+          height={720}
           className="absolute inset-0 h-full w-full object-cover"
         />
         <canvas

@@ -102,13 +102,15 @@ export function ScrollVideoHero() {
       style={{ height: `${SCROLL_HEIGHT_VH}vh`, position: "relative" }}
       className="bg-black"
     >
-      <div className="sticky top-0 h-screen w-full overflow-hidden">
+      <div className="sticky top-0 h-[100dvh] w-full overflow-hidden">
         {/* Frame 0 as a regular <img> for instant first paint. Stays under
             the canvas; the canvas takes over once it has a real frame. */}
         <img
           src="/hero-frames/0000.webp"
           alt=""
           aria-hidden="true"
+          width={1280}
+          height={720}
           className="absolute inset-0 h-full w-full object-cover"
         />
         <canvas
