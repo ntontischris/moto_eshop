@@ -7,6 +7,11 @@ const nextConfig: NextConfig = {
     root: path.resolve(__dirname),
   },
   images: {
+    // Allow our internal image proxy paths with query strings (Next.js 16 requirement).
+    // Allow all local paths — when localPatterns is set, anything missing here
+    // is blocked, so include both /api/image-proxy (with query string) and
+    // every static asset under /public (e.g. /logo.png, /favicon.ico).
+    localPatterns: [{ pathname: "/**" }],
     remotePatterns: [
       {
         protocol: "https",
@@ -19,6 +24,12 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "placehold.co",
+      },
+      {
+        // Legacy eshop — temporary source for migrated product photos
+        // until we mirror them to our own CDN.
+        protocol: "https",
+        hostname: "www.motomarket-shop.gr",
       },
     ],
   },

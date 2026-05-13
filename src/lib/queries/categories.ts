@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 export interface Category {
   id: string;
   slug: string;
+  full_path: string | null;
   name: string;
   description: string | null;
   seo_intro: string | null;
@@ -25,30 +26,23 @@ export interface BreadcrumbItem {
   href: string;
 }
 
-export async function getCategory(slug: string): Promise<Category | null> {
-  const supabase = await createClient();
-
-  const { data, error } = await supabase
-    .from("categories")
-    .select(
-      `
-      id, slug, name, description, seo_intro, parent_id, image_url, position,
-      parent:categories!parent_id ( slug, name )
-    `,
-    )
-    .eq("slug", slug)
-    .single();
-
-  if (error || !data) return null;
-
-  const parent = data.parent as unknown as {
-    slug: string;
-    name: string;
-  } | null;
-
+function rowToCategory(data: {
+  id: string;
+  slug: string;
+  full_path?: string | null;
+  name: string;
+  description: string | null;
+  seo_intro: string | null;
+  parent_id: string | null;
+  image_url: string | null;
+  position: number;
+  parent?: { slug: string; name: string } | null;
+}): Category {
+  const parent = data.parent as { slug: string; name: string } | null;
   return {
     id: data.id,
     slug: data.slug,
+    full_path: data.full_path ?? null,
     name: data.name,
     description: data.description,
     seo_intro: data.seo_intro,
@@ -58,6 +52,37 @@ export async function getCategory(slug: string): Promise<Category | null> {
     image_url: data.image_url,
     position: data.position,
   };
+}
+
+export async function getCategory(slug: string): Promise<Category | null> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("categories")
+    .select(
+      `id, slug, full_path, name, description, seo_intro, parent_id, image_url, position,
+       parent:categories!parent_id ( slug, name )`,
+    )
+    .eq("slug", slug)
+    .single();
+  if (error || !data) return null;
+  return rowToCategory(data as Parameters<typeof rowToCategory>[0]);
+}
+
+/** Resolve a category by its full hierarchical path (Option B clean URLs). */
+export async function getCategoryByPath(
+  fullPath: string,
+): Promise<Category | null> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("categories")
+    .select(
+      `id, slug, full_path, name, description, seo_intro, parent_id, image_url, position,
+       parent:categories!parent_id ( slug, name )`,
+    )
+    .eq("full_path", fullPath)
+    .single();
+  if (error || !data) return null;
+  return rowToCategory(data as Parameters<typeof rowToCategory>[0]);
 }
 
 export async function getCategoryTree(): Promise<CategoryTreeNode[]> {
@@ -143,7 +168,7 @@ export async function getSubcategories(
   const { data, error } = await supabase
     .from("categories")
     .select(
-      "id, slug, name, description, seo_intro, parent_id, image_url, position",
+      "id, slug, full_path, name, description, seo_intro, parent_id, image_url, position",
     )
     .eq("parent_id", parent.id)
     .order("position", { ascending: true });

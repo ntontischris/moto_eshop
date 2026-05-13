@@ -42,3 +42,19 @@ next-env.d.ts
 .claude/
 .mcp.json
 .superpowers/
+
+# Large data snapshots — regenerable via scripts/pull-entersoft-data.ps1
+# and scripts/import-xml-feed.ts. NOT committed.
+/data/entersoft-snapshot/
+/data/onlyriders.xml
+/data/customers.json
+/data/customer-sites.json
+/data/stock.json
+/data/prices.json
+/data/items.json
+/data/dryrun-report.json
+/data/scrape-progress.json
+/data/reset-and-rebuild.sql
+/data/categories-tree.json
+/data/apply-conflicts.log
+

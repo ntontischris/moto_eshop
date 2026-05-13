@@ -9,10 +9,19 @@ import { cn } from "@/lib/utils";
 import { VoiceSearchButton } from "./voice-search-button";
 import type { SearchHit } from "@/lib/meilisearch/types";
 
-const client = new Meilisearch({
-  host: process.env.NEXT_PUBLIC_MEILI_HOST ?? "",
-  apiKey: process.env.NEXT_PUBLIC_MEILI_SEARCH_KEY ?? "",
-});
+// Lazy-init Meilisearch: avoid throwing at module load when env is unset.
+// Returns null if no host configured; callers should no-op in that case.
+let _client: Meilisearch | null = null;
+function getClient(): Meilisearch | null {
+  if (_client) return _client;
+  const host = process.env.NEXT_PUBLIC_MEILI_HOST;
+  if (!host) return null;
+  _client = new Meilisearch({
+    host,
+    apiKey: process.env.NEXT_PUBLIC_MEILI_SEARCH_KEY ?? "",
+  });
+  return _client;
+}
 
 const RECENT_KEY = "mm_recent_searches";
 const MAX_RECENT = 5;
@@ -69,6 +78,13 @@ export function SearchDialog({ isOpen, onClose }: SearchDialogProps) {
       return;
     }
     setIsLoading(true);
+    const client = getClient();
+    if (!client) {
+      // Meilisearch not configured — render empty results gracefully
+      setResults({ products: [], categories: [] });
+      setIsLoading(false);
+      return;
+    }
     try {
       const { results: meiliResults } = await client.multiSearch({
         queries: [

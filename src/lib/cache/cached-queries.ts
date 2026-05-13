@@ -26,7 +26,7 @@ export async function getCachedCategoryTree() {
   const supabase = createPublicClient();
   const { data } = await supabase
     .from("categories")
-    .select("id, slug, name, parent_id, position")
+    .select("id, slug, full_path, name, parent_id, position")
     .order("position", { ascending: true });
 
   if (!data) return [];
@@ -34,6 +34,7 @@ export async function getCachedCategoryTree() {
   type RawNode = {
     id: string;
     slug: string;
+    full_path: string | null;
     name: string;
     parent_id: string | null;
     children: RawNode[];

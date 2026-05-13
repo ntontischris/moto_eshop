@@ -1,10 +1,18 @@
 import { Meilisearch } from "meilisearch";
 import type { SearchHit, SearchFacets } from "./types";
 
-const host = process.env.NEXT_PUBLIC_MEILI_HOST ?? "";
-const apiKey = process.env.NEXT_PUBLIC_MEILI_SEARCH_KEY ?? "";
-
-const client = new Meilisearch({ host, apiKey });
+// Lazy-init: Meilisearch ctor throws on empty/invalid host. Defer until used.
+let _client: Meilisearch | null = null;
+function getClient(): Meilisearch | null {
+  if (_client) return _client;
+  const host = process.env.NEXT_PUBLIC_MEILI_HOST;
+  if (!host) return null;
+  _client = new Meilisearch({
+    host,
+    apiKey: process.env.NEXT_PUBLIC_MEILI_SEARCH_KEY ?? "",
+  });
+  return _client;
+}
 
 const HITS_PER_PAGE = 24;
 
@@ -53,6 +61,16 @@ export async function searchProducts(
   const filter = buildFilter(opts);
   const sort = buildSort(opts.sort);
 
+  const client = getClient();
+  if (!client) {
+    return {
+      hits: [],
+      totalHits: 0,
+      hitsPerPage: HITS_PER_PAGE,
+      page,
+      facets: null,
+    };
+  }
   const result = await client.index("products").search<SearchHit>(opts.q, {
     hitsPerPage: HITS_PER_PAGE,
     page,

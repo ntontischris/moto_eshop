@@ -122,7 +122,31 @@ export async function getProduct(slug: string): Promise<Product | null> {
     slug: string;
     name: string;
   } | null;
-  const images = (data.images as unknown as ProductImage[]) ?? [];
+  // Images can be either string[] (from ERP scraper) or ProductImage[] (legacy/admin).
+  // Normalize to ProductImage[] so the UI never has to branch.
+  // Also: route legacy eshop images through our proxy because the origin
+  // blocks Next.js Image Optimizer's User-Agent with 403.
+  function proxyIfLegacy(url: string): string {
+    if (
+      url.startsWith("https://www.motomarket-shop.gr/") ||
+      url.startsWith("https://motomarket-shop.gr/")
+    ) {
+      return `/api/image-proxy?url=${encodeURIComponent(url)}`;
+    }
+    return url;
+  }
+  const rawImages = (data.images as unknown[]) ?? [];
+  const images: ProductImage[] = rawImages.map((img, idx) => {
+    if (typeof img === "string") {
+      return { url: proxyIfLegacy(img), alt: data.name ?? "", position: idx };
+    }
+    const obj = img as Partial<ProductImage>;
+    return {
+      url: proxyIfLegacy(obj.url ?? ""),
+      alt: obj.alt ?? data.name ?? "",
+      position: obj.position ?? idx,
+    };
+  });
 
   return {
     id: data.id,
@@ -441,12 +465,24 @@ export async function getPopularProductSlugs(
     .order("view_count", { ascending: false })
     .limit(limit);
 
-  if (error || !data) return [];
+  // Fallback category slug for products not yet mapped to a real category.
+  // Real category resolution happens at the page level; this only seeds
+  // generateStaticParams so Next.js 16 Cache Components has a non-empty list.
+  const FALLBACK = "eksoplismos";
+  const out =
+    error || !data
+      ? []
+      : data.map((row) => {
+          const cat = row.categories as unknown as { slug: string } | null;
+          return {
+            category_slug: cat?.slug ?? FALLBACK,
+            slug: row.slug,
+          };
+        });
 
-  return data
-    .map((row) => {
-      const cat = row.categories as unknown as { slug: string } | null;
-      return cat ? { category_slug: cat.slug, slug: row.slug } : null;
-    })
-    .filter((x): x is { category_slug: string; slug: string } => x !== null);
+  // Next.js 16 Cache Components requires at least one entry.
+  if (out.length === 0) {
+    return [{ category_slug: FALLBACK, slug: "__placeholder__" }];
+  }
+  return out;
 }

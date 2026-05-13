@@ -25,6 +25,7 @@ import { useCart } from "@/lib/cart/cart-context";
 interface CategoryNode {
   id: string;
   slug: string;
+  full_path: string | null;
   name: string;
   parent_id: string | null;
   children: CategoryNode[];
@@ -44,7 +45,11 @@ interface MenuCategory {
   label: string;
   href: string;
   badge?: string;
-  columns: { title: string; items: SubCategory[] }[];
+  columns: {
+    title: string;
+    titleHref?: string;
+    items: SubCategory[];
+  }[];
 }
 
 // --- Mega menu dropdown panel ---
@@ -54,38 +59,236 @@ interface MegaDropdownProps {
   isOpen: boolean;
 }
 
-const MegaDropdown = ({ category, isOpen }: MegaDropdownProps) => (
-  <div
-    className={cn(
-      "absolute left-0 top-full z-50 min-w-[480px] rounded-b-lg border border-border-default bg-bg-surface shadow-xl transition-all duration-150",
-      isOpen
-        ? "pointer-events-auto opacity-100 translate-y-0"
-        : "pointer-events-none opacity-0 -translate-y-1",
-    )}
-  >
-    <div className="flex gap-8 p-6">
-      {category.columns.map((col) => (
-        <div key={col.title} className="min-w-[120px]">
-          <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-brand-teal">
-            {col.title}
-          </p>
-          <ul className="flex flex-col gap-1.5">
-            {col.items.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  className="text-sm text-text-secondary transition-colors hover:text-brand-teal"
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
+const MEGA_MAX_COLS_VISIBLE = 6;
+const MEGA_MAX_ITEMS_PER_COL = 6;
+
+const MegaDropdown = ({ category, isOpen }: MegaDropdownProps) => {
+  const cols = category.columns.slice(0, MEGA_MAX_COLS_VISIBLE);
+  const hasMoreCols = category.columns.length > MEGA_MAX_COLS_VISIBLE;
+  const TEAL = "#14b8a6"; // explicit teal — bypass any tailwind theme issue
+
+  return (
+    <div
+      style={{
+        width: "880px",
+        maxWidth: "95vw",
+        position: "absolute",
+        left: 0,
+        top: "100%",
+        zIndex: 50,
+        background: "#141414",
+        border: "1px solid #2a2a2a",
+        borderTop: `2px solid ${TEAL}`,
+        borderRadius: "0 0 12px 12px",
+        boxShadow:
+          "0 20px 40px -10px rgba(0,0,0,0.5), 0 8px 16px -4px rgba(0,0,0,0.3)",
+        opacity: isOpen ? 1 : 0,
+        transform: isOpen ? "translateY(0)" : "translateY(-4px)",
+        pointerEvents: isOpen ? "auto" : "none",
+        transition: "all 150ms ease-out",
+        overflow: "hidden",
+      }}
+    >
+      <div style={{ display: "flex", alignItems: "stretch" }}>
+        {/* Left: explicit 3-column grid */}
+        <div
+          style={{
+            flex: "1 1 0",
+            display: "grid",
+            gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+            gap: "16px 24px",
+            padding: "24px 24px 20px",
+          }}
+        >
+          {cols.map((col) => {
+            const visibleItems = col.items.slice(0, MEGA_MAX_ITEMS_PER_COL);
+            const extra = col.items.length - visibleItems.length;
+            return (
+              <div key={col.title} style={{ minWidth: 0 }}>
+                {col.titleHref ? (
+                  <Link
+                    href={col.titleHref}
+                    style={{
+                      display: "block",
+                      fontSize: "11px",
+                      fontWeight: 700,
+                      letterSpacing: "0.06em",
+                      textTransform: "uppercase",
+                      color: TEAL,
+                      paddingBottom: "8px",
+                      marginBottom: "8px",
+                      borderBottom: "1px solid #262626",
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
+                    className="hover:!text-white"
+                  >
+                    {col.title}
+                  </Link>
+                ) : (
+                  <p
+                    style={{
+                      fontSize: "11px",
+                      fontWeight: 700,
+                      letterSpacing: "0.06em",
+                      textTransform: "uppercase",
+                      color: TEAL,
+                      paddingBottom: "8px",
+                      marginBottom: "8px",
+                      borderBottom: "1px solid #262626",
+                    }}
+                  >
+                    {col.title}
+                  </p>
+                )}
+                {visibleItems.length > 0 && (
+                  <ul
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "6px",
+                      listStyle: "none",
+                      padding: 0,
+                      margin: 0,
+                    }}
+                  >
+                    {visibleItems.map((item) => (
+                      <li key={item.href}>
+                        <Link
+                          href={item.href}
+                          style={{
+                            display: "block",
+                            fontSize: "13px",
+                            lineHeight: 1.35,
+                            color: "#d4d4d4",
+                            padding: "3px 6px",
+                            margin: "0 -6px",
+                            borderRadius: "4px",
+                            whiteSpace: "nowrap",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            transition: "all 120ms",
+                          }}
+                          className="hover:!bg-white/5 hover:!text-white"
+                        >
+                          {item.label}
+                        </Link>
+                      </li>
+                    ))}
+                    {extra > 0 && (
+                      <li>
+                        <Link
+                          href={col.titleHref ?? "#"}
+                          style={{
+                            display: "block",
+                            fontSize: "11px",
+                            color: "#737373",
+                            marginTop: "2px",
+                          }}
+                          className="hover:!text-white"
+                        >
+                          +{extra} ακόμα →
+                        </Link>
+                      </li>
+                    )}
+                  </ul>
+                )}
+              </div>
+            );
+          })}
+          {hasMoreCols && (
+            <Link
+              href={category.href}
+              style={{
+                gridColumn: "1 / -1",
+                fontSize: "12px",
+                fontWeight: 500,
+                color: TEAL,
+                marginTop: "4px",
+              }}
+              className="hover:!text-white"
+            >
+              Δες όλα στο {category.label} →
+            </Link>
+          )}
         </div>
-      ))}
+
+        {/* Right: featured panel */}
+        <Link
+          href={category.href}
+          style={{
+            width: "220px",
+            flexShrink: 0,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "flex-end",
+            padding: "20px",
+            background: `linear-gradient(135deg, ${TEAL}22 0%, #1a1a1a 60%, #0d0d0d 100%)`,
+            borderLeft: "1px solid #262626",
+            position: "relative",
+            transition: "background 200ms",
+          }}
+          className="hover:!bg-neutral-800/50"
+        >
+          <div
+            style={{
+              position: "absolute",
+              top: "20px",
+              right: "20px",
+              width: "32px",
+              height: "32px",
+              borderRadius: "50%",
+              background: TEAL,
+              color: "#0d0d0d",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontWeight: 700,
+              fontSize: "16px",
+            }}
+          >
+            →
+          </div>
+          <p
+            style={{
+              fontSize: "10px",
+              fontWeight: 700,
+              letterSpacing: "0.12em",
+              textTransform: "uppercase",
+              color: TEAL,
+              margin: 0,
+            }}
+          >
+            Όλα τα προϊόντα
+          </p>
+          <p
+            style={{
+              fontSize: "20px",
+              fontWeight: 700,
+              lineHeight: 1.15,
+              color: "white",
+              marginTop: "6px",
+              marginBottom: 0,
+            }}
+          >
+            {category.label}
+          </p>
+          <p
+            style={{
+              fontSize: "12px",
+              color: "#a3a3a3",
+              marginTop: "8px",
+              marginBottom: 0,
+            }}
+          >
+            Δες ολόκληρη την κατηγορία
+          </p>
+        </Link>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 // --- Single desktop nav item with dropdown ---
 
@@ -114,8 +317,14 @@ const NavItem = ({ category, isActive }: NavItemProps) => {
     [],
   );
 
+  const hasDropdown = category.columns.length > 0;
+
   return (
-    <div className="relative" onMouseEnter={openMenu} onMouseLeave={closeMenu}>
+    <div
+      className="relative"
+      onMouseEnter={hasDropdown ? openMenu : undefined}
+      onMouseLeave={hasDropdown ? closeMenu : undefined}
+    >
       <Link
         href={category.href}
         className={cn(
@@ -130,18 +339,20 @@ const NavItem = ({ category, isActive }: NavItemProps) => {
             {category.badge}
           </Badge>
         )}
-        <ChevronDown
-          className={cn(
-            "h-3.5 w-3.5 transition-transform duration-150",
-            isOpen && "rotate-180",
-          )}
-        />
+        {hasDropdown && (
+          <ChevronDown
+            className={cn(
+              "h-3.5 w-3.5 transition-transform duration-150",
+              isOpen && "rotate-180",
+            )}
+          />
+        )}
         {isActive && (
           <span className="absolute bottom-0 left-3 right-3 h-0.5 rounded-full bg-brand-teal" />
         )}
       </Link>
 
-      <MegaDropdown category={category} isOpen={isOpen} />
+      {hasDropdown && <MegaDropdown category={category} isOpen={isOpen} />}
     </div>
   );
 };
@@ -191,22 +402,34 @@ const MobileNavCategory = ({
         <div className="pb-3 pl-4">
           {category.columns.map((col) => (
             <div key={col.title} className="mb-3">
-              <p className="mb-1.5 text-xs font-semibold uppercase tracking-wide text-brand-teal">
-                {col.title}
-              </p>
-              <ul className="flex flex-col gap-1">
-                {col.items.map((item) => (
-                  <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      onClick={onLinkClick}
-                      className="text-sm text-text-secondary transition-colors hover:text-brand-teal"
-                    >
-                      {item.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+              {col.titleHref ? (
+                <Link
+                  href={col.titleHref}
+                  onClick={onLinkClick}
+                  className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-brand-teal"
+                >
+                  {col.title}
+                </Link>
+              ) : (
+                <p className="mb-1.5 text-xs font-semibold uppercase tracking-wide text-brand-teal">
+                  {col.title}
+                </p>
+              )}
+              {col.items.length > 0 && (
+                <ul className="flex flex-col gap-1">
+                  {col.items.map((item) => (
+                    <li key={item.href}>
+                      <Link
+                        href={item.href}
+                        onClick={onLinkClick}
+                        className="text-sm text-text-secondary transition-colors hover:text-brand-teal"
+                      >
+                        {item.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           ))}
           <Link
@@ -231,20 +454,22 @@ export const Header = ({ categoryTree, announcement }: HeaderProps) => {
   const [searchValue, setSearchValue] = useState("");
   const [isScrolled, setIsScrolled] = useState(false);
 
+  // 3-level mega menu using clean path-based URLs (Option B).
+  // Each href = `/${node.full_path}` (e.g. /eksoplismos-anabath/endysh/mpoyfan).
+  const hrefOf = (n: CategoryNode): string => `/${n.full_path ?? n.slug}`;
   const menuCategories: MenuCategory[] = categoryTree.map((node) => ({
     label: node.name,
-    href: `/${node.slug}`,
+    href: hrefOf(node),
     columns:
       node.children.length > 0
-        ? [
-            {
-              title: node.name,
-              items: node.children.map((child) => ({
-                label: child.name,
-                href: `/${child.slug}`,
-              })),
-            },
-          ]
+        ? node.children.map((child) => ({
+            title: child.name,
+            titleHref: hrefOf(child),
+            items: child.children.map((grandchild) => ({
+              label: grandchild.name,
+              href: hrefOf(grandchild),
+            })),
+          }))
         : [],
   }));
 
