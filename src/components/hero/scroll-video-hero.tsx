@@ -8,7 +8,7 @@ import {
 } from "@/lib/hero/scroll-progress";
 import { useFrameLoader } from "./use-frame-loader";
 
-const FRAME_COUNT = 96;
+const FRAME_COUNT = 121;
 const SCROLL_HEIGHT_VH = 200;
 
 function frameUrl(i: number): string {
