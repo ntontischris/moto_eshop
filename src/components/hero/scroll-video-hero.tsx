@@ -68,7 +68,18 @@ export function ScrollVideoHero() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
     const idx = frameIndexForProgress(progress, FRAME_COUNT);
-    const img = frames[idx] ?? frames[0];
+    // Walk backwards from idx to the nearest loaded frame so a fast scroll
+    // can't reveal frame 0 — at worst the canvas holds the last loaded one.
+    let img = frames[idx];
+    if (!img) {
+      for (let i = idx - 1; i >= 0; i--) {
+        if (frames[i]) {
+          img = frames[i];
+          break;
+        }
+      }
+    }
+    if (!img) img = frames[0];
     if (!img) return;
     if (
       canvas.width !== img.naturalWidth ||

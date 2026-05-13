@@ -36,10 +36,10 @@ for (const f of readdirSync(OUT)) {
 
 const cmd = [
   `ffmpeg -y -i "${SRC}"`,
-  `-vf "scale=1920:-2,fps=24"`,
+  `-vf "scale=1280:-2,fps=24"`,
   `-c:v libwebp`,
   `-compression_level 4`,
-  `-q:v 60`,
+  `-q:v 50`,
   `"${OUT}/%04d.webp"`,
 ].join(" ");
 console.log("→", cmd);

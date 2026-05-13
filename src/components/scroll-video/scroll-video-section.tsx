@@ -98,7 +98,16 @@ export function ScrollVideoSection({
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
     const idx = frameIndexForProgress(progress, frameCount);
-    const img = frames[idx] ?? frames[0];
+    let img = frames[idx];
+    if (!img) {
+      for (let i = idx - 1; i >= 0; i--) {
+        if (frames[i]) {
+          img = frames[i];
+          break;
+        }
+      }
+    }
+    if (!img) img = frames[0];
     if (!img) return;
     if (
       canvas.width !== img.naturalWidth ||

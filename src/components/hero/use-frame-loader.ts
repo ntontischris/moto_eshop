@@ -12,14 +12,16 @@ interface Options {
 }
 
 /**
- * Preloads hero frames in three priority bands:
- *   1. Frame 0 inline (load immediately on mount)
- *   2. Frames 1-30 in parallel (high priority)
- *   3. Frames 31..end lazily via requestIdleCallback batches
+ * Preloads scroll-driven frames. Strategy: when the section enters view
+ * (or rootMargin reaches it), kick off ALL frames in parallel. The browser
+ * caps concurrent connections (~6 per origin under HTTP/1.1, more on H2/H3),
+ * so fanning out everything lets the browser keep its pipe saturated and
+ * avoids the "scroll outruns the loader" stutter where idle-batched frames
+ * lag behind the user's scroll position.
  *
  * Returns { frames, loadedCount, started } where frames[i] is the
  * HTMLImageElement (or null until loaded). Components draw via
- * frames[i] if non-null.
+ * frames[i] if non-null, falling back to the nearest loaded frame.
  */
 export function useFrameLoader({ count, urlFor, observeRef }: Options) {
   const framesRef = useRef<(HTMLImageElement | null)[]>(
@@ -28,7 +30,6 @@ export function useFrameLoader({ count, urlFor, observeRef }: Options) {
   const [loadedCount, setLoadedCount] = useState(0);
   const [started, setStarted] = useState(false);
 
-  // Start when in view (or immediately if no observe ref provided)
   useEffect(() => {
     if (!observeRef?.current) {
       setStarted(true);
@@ -41,7 +42,7 @@ export function useFrameLoader({ count, urlFor, observeRef }: Options) {
           obs.disconnect();
         }
       },
-      { rootMargin: "200px" },
+      { rootMargin: "400px" },
     );
     obs.observe(observeRef.current);
     return () => obs.disconnect();
@@ -50,45 +51,28 @@ export function useFrameLoader({ count, urlFor, observeRef }: Options) {
   useEffect(() => {
     if (!started) return;
 
-    function loadOne(i: number): Promise<void> {
-      return new Promise((resolve) => {
-        const img = new Image();
-        img.onload = () => {
-          framesRef.current[i] = img;
-          setLoadedCount((n) => n + 1);
-          resolve();
-        };
-        img.onerror = () => resolve(); // tolerate missing frames
-        img.src = urlFor(i);
-      });
+    function loadOne(i: number) {
+      const img = new Image();
+      img.decoding = "async";
+      img.onload = () => {
+        framesRef.current[i] = img;
+        setLoadedCount((n) => n + 1);
+      };
+      img.src = urlFor(i);
     }
 
-    // 1) frame 0 immediately
-    void loadOne(0);
+    // Frame 0 with explicit high fetch priority so the very first paint
+    // is sharp; the rest follow immediately in parallel.
+    const first = new Image();
+    first.decoding = "sync";
+    first.fetchPriority = "high";
+    first.onload = () => {
+      framesRef.current[0] = first;
+      setLoadedCount((n) => n + 1);
+    };
+    first.src = urlFor(0);
 
-    // 2) frames 1-30 in parallel
-    const eager = Array.from({ length: Math.min(30, count - 1) }, (_, k) =>
-      loadOne(k + 1),
-    );
-    void Promise.all(eager);
-
-    // 3) the rest lazily in batches of 10
-    let cursor = 31;
-    function nextBatch() {
-      if (cursor >= count) return;
-      const end = Math.min(count, cursor + 10);
-      const batch = [];
-      for (let i = cursor; i < end; i++) batch.push(loadOne(i));
-      cursor = end;
-      Promise.all(batch).then(() => {
-        if (typeof window.requestIdleCallback === "function") {
-          window.requestIdleCallback(nextBatch, { timeout: 1000 });
-        } else {
-          setTimeout(nextBatch, 50);
-        }
-      });
-    }
-    nextBatch();
+    for (let i = 1; i < count; i++) loadOne(i);
   }, [started, count, urlFor]);
 
   return { frames: framesRef.current, loadedCount, started };
