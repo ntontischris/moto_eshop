@@ -43,6 +43,7 @@ import { SpecificationsTable } from "@/components/product/specifications-table";
 import { DeliveryEstimate } from "@/components/product/delivery-estimate";
 import { KlarnaInfo } from "@/components/product/klarna-info";
 import { ProductJsonLd } from "@/components/product/product-json-ld";
+import { MobileCtaBar } from "@/components/product/mobile-cta-bar";
 import { CategoryHeader } from "@/components/product/category-header";
 import { FilterSidebar } from "@/components/product/filter-sidebar";
 import { SortDropdown } from "@/components/product/sort-dropdown";
@@ -240,7 +241,7 @@ async function ProductView({
     : [];
 
   return (
-    <main className="container mx-auto px-4 py-6">
+    <main className="container mx-auto px-4 py-6 pb-24 lg:pb-6">
       <ProductJsonLd product={product} />
       <Breadcrumbs items={breadcrumbs} />
 
@@ -334,6 +335,14 @@ async function ProductView({
           categoryPathSegments={pathSegments.slice(0, -1)}
         />
       </Suspense>
+
+      <MobileCtaBar
+        productId={product.id}
+        productName={product.name}
+        price={product.price}
+        compareAtPrice={product.compare_at_price}
+        stock={product.stock}
+      />
     </main>
   );
 }
