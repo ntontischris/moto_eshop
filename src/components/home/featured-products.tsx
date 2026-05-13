@@ -1,12 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { ScrollReveal } from "@/components/effects/scroll-reveal";
-import { Container } from "@/components/layout/container";
-import { H2, SectionLabel } from "@/components/ui/typography";
-import { Badge } from "@/components/ui/badge";
+import Image from "next/image";
+import { Heart, ShoppingCart } from "lucide-react";
 
-interface FeaturedProduct {
+interface ProductCard {
   id: string;
   slug: string;
   name: string;
@@ -22,109 +20,101 @@ interface FeaturedProduct {
   review_count: number;
 }
 
-interface FeaturedProductsProps {
-  products: FeaturedProduct[];
-}
+export function FeaturedProducts({ products }: { products: ProductCard[] }) {
+  if (products.length === 0) return null;
 
-const formatPrice = (n: number) =>
-  new Intl.NumberFormat("el-GR", { style: "currency", currency: "EUR" }).format(
-    n,
+  return (
+    <section className="bg-[#0a0a0a] py-16">
+      <div className="container mx-auto px-4">
+        <div className="mb-8 flex items-end justify-between">
+          <div>
+            <p className="font-russo text-xs uppercase tracking-[0.3em] text-brand-red">
+              Featured
+            </p>
+            <h2 className="mt-2 font-russo text-3xl uppercase text-white md:text-5xl">
+              Top προϊόντα
+            </h2>
+          </div>
+          <Link
+            href="/prosfores"
+            className="hidden text-sm font-medium text-brand-red hover:underline md:block"
+          >
+            Όλες οι προσφορές →
+          </Link>
+        </div>
+
+        <div className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 md:gap-6 md:px-0">
+          {products.map((p) => {
+            const discountPct =
+              p.compare_at_price && p.compare_at_price > p.price
+                ? Math.round(
+                    ((p.compare_at_price - p.price) / p.compare_at_price) * 100,
+                  )
+                : null;
+            const href = `/${p.category_slug || "prosfores"}/${p.slug}`;
+            return (
+              <Link
+                key={p.id}
+                href={href}
+                className="group relative w-[240px] flex-shrink-0 snap-start overflow-hidden rounded-xl border border-neutral-800 bg-[#141414] transition hover:border-brand-red/40 md:w-[280px]"
+              >
+                <div className="relative aspect-square overflow-hidden bg-neutral-900">
+                  {p.primary_image_url ? (
+                    <Image
+                      src={p.primary_image_url}
+                      alt={p.primary_image_alt}
+                      fill
+                      sizes="280px"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  ) : (
+                    <div className="grid h-full place-items-center text-xs text-neutral-600">
+                      no image
+                    </div>
+                  )}
+                  {discountPct !== null && (
+                    <span className="absolute left-3 top-3 rounded-full bg-brand-red px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-white">
+                      -{discountPct}%
+                    </span>
+                  )}
+                  <div className="absolute right-3 top-3 flex flex-col gap-2 opacity-0 transition group-hover:opacity-100">
+                    <button
+                      aria-label="Wishlist"
+                      className="grid h-9 w-9 place-items-center rounded-full bg-white/90 text-neutral-900 backdrop-blur transition hover:bg-white"
+                    >
+                      <Heart className="h-4 w-4" />
+                    </button>
+                    <button
+                      aria-label="Quick add"
+                      className="grid h-9 w-9 place-items-center rounded-full bg-brand-red text-white transition hover:scale-105"
+                    >
+                      <ShoppingCart className="h-4 w-4" />
+                    </button>
+                  </div>
+                </div>
+                <div className="p-4">
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-brand-red">
+                    {p.brand}
+                  </p>
+                  <h3 className="mt-1 line-clamp-2 text-sm font-medium text-white">
+                    {p.name}
+                  </h3>
+                  <div className="mt-3 flex items-baseline gap-2">
+                    <span className="font-russo text-lg text-white">
+                      €{p.price.toFixed(2)}
+                    </span>
+                    {p.compare_at_price && p.compare_at_price > p.price && (
+                      <span className="text-xs text-neutral-500 line-through">
+                        €{p.compare_at_price.toFixed(2)}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+      </div>
+    </section>
   );
-
-const calcDiscount = (original: number, current: number) =>
-  Math.round(((original - current) / original) * 100);
-
-const Stars = ({ rating }: { rating: number }) => (
-  <div className="flex items-center gap-1">
-    {[1, 2, 3, 4, 5].map((star) => (
-      <svg
-        key={star}
-        className={`h-3.5 w-3.5 ${star <= Math.round(rating) ? "fill-gold text-gold" : "text-bg-elevated"}`}
-        fill="currentColor"
-        viewBox="0 0 20 20"
-      >
-        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-      </svg>
-    ))}
-    <span className="ml-1 text-xs text-text-muted">({rating})</span>
-  </div>
-);
-
-const ProductCard = ({ product }: { product: FeaturedProduct }) => (
-  <Link
-    href={`/${product.category_slug}/${product.slug}`}
-    className="group w-[240px] shrink-0 overflow-hidden rounded-lg border border-border-default bg-bg-deep transition-all duration-300 hover:border-brand-teal/30 hover:glow-teal"
-  >
-    <div className="relative aspect-square bg-bg-elevated">
-      <div className="flex h-full items-center justify-center text-sm text-text-muted transition-transform duration-300 group-hover:scale-[1.02]">
-        {product.brand}
-      </div>
-
-      <div className="absolute top-2 left-2 flex flex-col gap-1">
-        {product.compare_at_price !== null && (
-          <Badge variant="sale">
-            -{calcDiscount(product.compare_at_price, product.price)}%
-          </Badge>
-        )}
-      </div>
-
-      {product.stock === 0 && (
-        <div className="absolute inset-0 flex items-center justify-center bg-bg-deep/70">
-          <span className="text-sm font-semibold text-error">Εξαντλήθηκε</span>
-        </div>
-      )}
-
-      {product.stock > 0 && (
-        <div className="absolute inset-x-0 bottom-0 translate-y-full transition-transform duration-300 group-hover:translate-y-0">
-          <button
-            type="button"
-            className="w-full bg-brand-teal py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90"
-          >
-            Προσθήκη στο Καλάθι
-          </button>
-        </div>
-      )}
-    </div>
-
-    <div className="p-4">
-      <p className="text-xs text-text-chrome">{product.brand}</p>
-      <h3 className="mt-1 text-sm font-semibold text-text-primary">
-        {product.name}
-      </h3>
-      <Stars rating={product.average_rating ?? 0} />
-      <div className="mt-2 flex items-center gap-2">
-        <span className="text-lg font-bold text-brand-teal">
-          {formatPrice(product.price)}
-        </span>
-        {product.compare_at_price !== null && (
-          <span className="text-sm text-text-muted line-through">
-            {formatPrice(product.compare_at_price)}
-          </span>
-        )}
-      </div>
-    </div>
-  </Link>
-);
-
-export const FeaturedProducts = ({ products }: FeaturedProductsProps) => (
-  <section className="bg-bg-surface py-16 diagonal-top md:py-24">
-    <Container>
-      <ScrollReveal>
-        <SectionLabel className="mb-3">Δημοφιλή</SectionLabel>
-        <H2 className="mb-10 text-text-primary">TOP SELLERS</H2>
-      </ScrollReveal>
-
-      <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-none snap-x snap-mandatory">
-        {products.map((product, i) => (
-          <ScrollReveal
-            key={product.id}
-            delay={i * 0.08}
-            className="snap-start"
-          >
-            <ProductCard product={product} />
-          </ScrollReveal>
-        ))}
-      </div>
-    </Container>
-  </section>
-);
+}
