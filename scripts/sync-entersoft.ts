@@ -287,9 +287,11 @@ async function syncPrices(): Promise<void> {
         batch.map((p) =>
           supabase
             .from("products")
-            .update({ price: p.retail, wholesale_price: p.price1 })
-            .eq("erp_id", p.erpItemId)
-            .select("id", { head: true, count: "exact" }),
+            .update(
+              { price: p.retail, wholesale_price: p.price1 },
+              { count: "exact" },
+            )
+            .eq("erp_id", p.erpItemId),
         ),
       );
       for (const r of results) {
