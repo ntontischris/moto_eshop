@@ -58,3 +58,5 @@ next-env.d.ts
 /data/categories-tree.json
 /data/apply-conflicts.log
 
+# generated hero placeholders
+/public/hero-frames/*.svg
