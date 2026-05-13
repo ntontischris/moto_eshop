@@ -1,38 +1,58 @@
-import { Truck, Shield, Clock, Star, type LucideIcon } from "lucide-react";
-import { Container } from "@/components/layout/container";
+import { Truck, RotateCcw, BadgeCheck, ShieldCheck } from "lucide-react";
 
-const ICON_MAP: Record<string, LucideIcon> = {
-  truck: Truck,
-  shield: Shield,
-  clock: Clock,
-  star: Star,
-};
-
-interface TrustBarProps {
-  items: { icon: string; label: string; detail: string }[];
+interface TrustItem {
+  icon: string;
+  label: string;
+  detail: string;
 }
 
-export const TrustBar = ({ items }: TrustBarProps) => (
-  <section className="border-y border-border-default bg-bg-surface py-6">
-    <Container>
-      <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-8">
-        {items.map(({ icon, label, detail }) => {
-          const Icon = ICON_MAP[icon] ?? Star;
+const DEFAULTS: TrustItem[] = [
+  {
+    icon: "truck",
+    label: "Δωρεάν αποστολή",
+    detail: "Για παραγγελίες άνω των €50",
+  },
+  { icon: "rotate", label: "30 ημέρες επιστροφή", detail: "Χωρίς ερωτήσεις" },
+  { icon: "badge", label: "100% αυθεντικά", detail: "Επίσημοι αντιπρόσωποι" },
+  {
+    icon: "shield",
+    label: "Εγγύηση τιμής",
+    detail: "Βρες το φθηνότερα; Σου επιστρέφουμε",
+  },
+];
+
+const ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
+  truck: Truck,
+  rotate: RotateCcw,
+  badge: BadgeCheck,
+  shield: ShieldCheck,
+};
+
+export function TrustBar({ items }: { items: TrustItem[] }) {
+  const list = items.length > 0 ? items : DEFAULTS;
+  return (
+    <section className="border-y border-neutral-800 bg-[#0a0a0a]">
+      <div className="container mx-auto grid grid-cols-2 gap-px bg-neutral-800 md:grid-cols-4">
+        {list.map((it) => {
+          const Icon = ICONS[it.icon] ?? BadgeCheck;
           return (
-            <div key={label} className="flex items-center gap-3">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-teal/10">
-                <Icon className="h-5 w-5 text-brand-teal" />
-              </div>
-              <div>
-                <p className="text-sm font-semibold text-text-primary">
-                  {label}
+            <div
+              key={it.label}
+              className="group flex items-center gap-3 bg-[#0a0a0a] px-4 py-5 transition hover:bg-neutral-900"
+            >
+              <span className="grid h-10 w-10 flex-shrink-0 place-items-center rounded-full bg-brand-red/10 text-brand-red transition group-hover:bg-brand-red group-hover:text-white">
+                <Icon className="h-5 w-5" />
+              </span>
+              <div className="min-w-0">
+                <p className="truncate text-sm font-bold uppercase tracking-wide text-white">
+                  {it.label}
                 </p>
-                <p className="text-xs text-text-muted">{detail}</p>
+                <p className="truncate text-xs text-neutral-400">{it.detail}</p>
               </div>
             </div>
           );
         })}
       </div>
-    </Container>
-  </section>
-);
+    </section>
+  );
+}
