@@ -1,11 +1,12 @@
 /**
- * Convert public/hero-source.mp4 into WebP frames in public/hero-frames/.
+ * Convert a source MP4 into WebP frames inside public/.
  *
- * Source is 1280x720 24fps 4s = 97 frames. We extract every frame and
- * scale to 1920px wide. Each WebP targets ~80 KB via -q:v 60.
+ * Usage:
+ *   pnpm hero:frames                                    # hero-source.mp4 → hero-frames/
+ *   pnpm hero:frames <src.mp4> <out-dir>                # custom source + output
  *
- * After running, the actual frame count is logged so the hero component
- * can be aligned to it (see FRAME_COUNT in scroll-video-hero.tsx).
+ * Examples:
+ *   pnpm hero:frames public/hero-variants/3-coastal-sunset.mp4 public/scroll-frames/coastal-sunset
  */
 import { execSync } from "node:child_process";
 import {
@@ -15,24 +16,24 @@ import {
   statSync,
   renameSync,
 } from "node:fs";
-import { join } from "node:path";
+import { join, isAbsolute } from "node:path";
 
-const SRC = join(process.cwd(), "public", "hero-source.mp4");
-const OUT = join(process.cwd(), "public", "hero-frames");
+function abs(p: string): string {
+  return isAbsolute(p) ? p : join(process.cwd(), p);
+}
+
+const argSrc = process.argv[2];
+const argOut = process.argv[3];
+
+const SRC = abs(argSrc ?? "public/hero-source.mp4");
+const OUT = abs(argOut ?? "public/hero-frames");
 
 mkdirSync(OUT, { recursive: true });
 
-// Remove any stale .webp or .svg before regenerating
 for (const f of readdirSync(OUT)) {
   if (f.endsWith(".webp") || f.endsWith(".svg")) unlinkSync(join(OUT, f));
 }
 
-// Extract every source frame as 1920-wide WebP. ffmpeg writes 1-indexed
-// %04d output (0001..NNNN); we'll renumber to 0-indexed below.
-//
-// -c:v libwebp forces single-frame WebPs (otherwise libwebp_anim creates one
-// animated WebP for the whole sequence which is not what we want).
-// -compression_level 4 keeps file sizes ~50-100 KB at -q:v 60 quality.
 const cmd = [
   `ffmpeg -y -i "${SRC}"`,
   `-vf "scale=1920:-2,fps=24"`,
@@ -44,8 +45,6 @@ const cmd = [
 console.log("→", cmd);
 execSync(cmd, { stdio: "inherit" });
 
-// Renumber from 1-indexed to 0-indexed so the hero component's frame[0..]
-// addressing is consistent.
 const sorted = readdirSync(OUT)
   .filter((f) => f.endsWith(".webp"))
   .sort();
@@ -59,8 +58,6 @@ const sizes = readdirSync(OUT)
   .map((f) => statSync(join(OUT, f)).size);
 const totalKb = sizes.reduce((a, b) => a + b, 0) / 1024;
 const avgKb = totalKb / sizes.length;
-console.log(`✓ ${sizes.length} frames written`);
+console.log(`✓ ${sizes.length} frames written → ${OUT}`);
 console.log(`  total: ${totalKb.toFixed(0)} KB · avg: ${avgKb.toFixed(1)} KB`);
-console.log(
-  `  → Update FRAME_COUNT in src/components/hero/scroll-video-hero.tsx to ${sizes.length}`,
-);
+console.log(`  → FRAME_COUNT: ${sizes.length}`);
