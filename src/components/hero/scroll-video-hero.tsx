@@ -9,7 +9,7 @@ import {
 import { useFrameLoader } from "./use-frame-loader";
 
 const FRAME_COUNT = 121;
-const SCROLL_HEIGHT_VH = 200;
+const SCROLL_HEIGHT_VH = 400;
 
 function frameUrl(i: number): string {
   const padded = String(i).padStart(4, "0");

@@ -47,7 +47,7 @@ export default async function HomePage() {
       <ScrollVideoSection
         framesPath="/scroll-frames/coastal-sunset"
         frameCount={96}
-        scrollHeightVh={150}
+        scrollHeightVh={300}
         eyebrow="Open road"
         title="Ride. Every road, every season."
         body="Από τη Μάνη μέχρι τα Μετέωρα — εξοπλισμός που σε ακολουθεί σε κάθε διαδρομή. Adventure, touring, αστικό. Με ασφάλεια και στυλ."
@@ -62,7 +62,7 @@ export default async function HomePage() {
       <ScrollVideoSection
         framesPath="/scroll-frames/urban-night"
         frameCount={96}
-        scrollHeightVh={150}
+        scrollHeightVh={300}
         eyebrow="City lights"
         title="Νύχτα. Φώτα. Δρόμος."
         body="Κράνη, ενδοεπικοινωνίες και φωτισμός για ασφάλεια όταν η πόλη ξυπνά. HJC, Shoei, Caberg, Airoh — εμπιστευμένα από αναβάτες σε όλη την Ελλάδα."
@@ -75,7 +75,7 @@ export default async function HomePage() {
       <ScrollVideoSection
         framesPath="/scroll-frames/track-action"
         frameCount={121}
-        scrollHeightVh={150}
+        scrollHeightVh={300}
         eyebrow="Race day"
         title="Track-ready. Day one."
         body="Sport gear που δοκιμάζεται σε πραγματικές πίστες. Από κράνη Full-Face με πιστοποίηση ECE 22.06 μέχρι ελαστικά και αξεσουάρ απόδοσης."
@@ -90,7 +90,7 @@ export default async function HomePage() {
       <ScrollVideoSection
         framesPath="/scroll-frames/workshop"
         frameCount={97}
-        scrollHeightVh={120}
+        scrollHeightVh={220}
         eyebrow="Crafted with care"
         title="Αυθεντικά. Με εγγύηση."
         body="Επίσημοι αντιπρόσωποι των κορυφαίων brands. Κάθε προϊόν που πουλάμε είναι πραγματικό, με εγγύηση κατασκευαστή και υπηρεσίες υποστήριξης από Σίνδο, Αθήνα και Beinoglou 3PL."
