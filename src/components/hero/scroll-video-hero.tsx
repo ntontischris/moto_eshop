@@ -98,11 +98,11 @@ export function ScrollVideoHero() {
           src="/hero-frames/0000.webp"
           alt=""
           aria-hidden="true"
-          className="absolute inset-0 h-full w-full object-cover"
+          className="absolute inset-0 h-full w-full object-contain"
         />
         <canvas
           ref={canvasRef}
-          className="absolute inset-0 h-full w-full object-cover"
+          className="absolute inset-0 h-full w-full object-contain"
           aria-hidden="true"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/70" />
