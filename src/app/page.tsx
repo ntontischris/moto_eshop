@@ -1,4 +1,4 @@
-import { HeroSection } from "@/components/hero/hero-section";
+import { ScrollVideoHero } from "@/components/hero/scroll-video-hero";
 import { TrustBar } from "@/components/home/trust-bar";
 import { BentoCategories } from "@/components/home/bento-categories";
 import { FeaturedProducts } from "@/components/home/featured-products";
@@ -37,7 +37,7 @@ export default async function HomePage() {
     <>
       <JsonLd data={generateOrganizationSchema(BASE_URL)} />
       <JsonLd data={generateWebsiteSchema(BASE_URL)} />
-      <HeroSection slides={banners} />
+      <ScrollVideoHero />
       <TrustBar items={trustItems ?? []} />
       <BentoCategories categories={categories} />
       <FeaturedProducts products={products} />
