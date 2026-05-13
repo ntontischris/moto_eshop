@@ -20,173 +20,133 @@ function Lightbox({
   images: ProductImage[];
   currentIndex: number;
   onClose: () => void;
-  onNavigate: (index: number) => void;
+  onNavigate: (i: number) => void;
 }) {
-  const image = images[currentIndex];
-
   useEffect(() => {
-    const handleKey = (e: KeyboardEvent) => {
+    const handler = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
       if (e.key === "ArrowLeft") onNavigate(Math.max(0, currentIndex - 1));
       if (e.key === "ArrowRight")
         onNavigate(Math.min(images.length - 1, currentIndex + 1));
     };
-    document.addEventListener("keydown", handleKey);
-    return () => document.removeEventListener("keydown", handleKey);
+    document.addEventListener("keydown", handler);
+    return () => document.removeEventListener("keydown", handler);
   }, [onClose, onNavigate, currentIndex, images.length]);
 
-  if (!image) return null;
+  const img = images[currentIndex];
+  if (!img) return null;
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/90"
-      role="dialog"
-      aria-modal="true"
-      aria-label="Lightbox"
-      onClick={onClose}
-    >
-      <div
-        onClick={(e) => e.stopPropagation()}
-        className="relative h-[80vh] w-[80vw]"
-      >
-        <Image
-          src={image.url}
-          alt={image.alt}
-          fill
-          className="object-contain"
-          sizes="80vw"
-          priority
-        />
-      </div>
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-4">
       <button
-        type="button"
         onClick={onClose}
-        className="absolute right-4 top-4 z-10 rounded-full bg-white/10 p-2 text-white transition-colors hover:bg-white/20"
-        aria-label="Κλείσιμο"
+        className="absolute right-6 top-6 grid h-12 w-12 place-items-center rounded-full bg-white/10 text-white hover:bg-white/20"
+        aria-label="Close"
       >
         <X className="h-6 w-6" />
       </button>
-      {images.length > 1 && (
-        <>
-          <button
-            type="button"
-            onClick={() => onNavigate(Math.max(0, currentIndex - 1))}
-            className="absolute left-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/10 p-2 text-white transition-colors hover:bg-white/20"
-            aria-label="Προηγούμενη εικόνα"
-          >
-            <ChevronLeft className="h-6 w-6" />
-          </button>
-          <button
-            type="button"
-            onClick={() =>
-              onNavigate(Math.min(images.length - 1, currentIndex + 1))
-            }
-            className="absolute right-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/10 p-2 text-white transition-colors hover:bg-white/20"
-            aria-label="Επόμενη εικόνα"
-          >
-            <ChevronRight className="h-6 w-6" />
-          </button>
-        </>
-      )}
-      <div className="absolute bottom-4 text-sm text-white/70">
-        {currentIndex + 1} / {images.length}
+      <button
+        onClick={() => onNavigate(Math.max(0, currentIndex - 1))}
+        disabled={currentIndex === 0}
+        className="absolute left-6 grid h-12 w-12 place-items-center rounded-full bg-white/10 text-white disabled:opacity-30 hover:bg-white/20"
+        aria-label="Previous"
+      >
+        <ChevronLeft className="h-6 w-6" />
+      </button>
+      <button
+        onClick={() =>
+          onNavigate(Math.min(images.length - 1, currentIndex + 1))
+        }
+        disabled={currentIndex === images.length - 1}
+        className="absolute right-6 top-1/2 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full bg-white/10 text-white disabled:opacity-30 hover:bg-white/20"
+        aria-label="Next"
+      >
+        <ChevronRight className="h-6 w-6" />
+      </button>
+      <div className="relative h-full max-h-[90vh] w-full max-w-6xl">
+        <Image
+          src={img.url}
+          alt={img.alt}
+          fill
+          sizes="90vw"
+          className="object-contain"
+          priority
+        />
       </div>
-    </div>
-  );
-}
-
-function ThumbnailStrip({
-  images,
-  activeIndex,
-  onSelect,
-}: {
-  images: ProductImage[];
-  activeIndex: number;
-  onSelect: (index: number) => void;
-}) {
-  return (
-    <div className="flex gap-2 overflow-x-auto py-2">
-      {images.map((image, index) => (
-        <button
-          key={`${image.url}-${index}`}
-          type="button"
-          onClick={() => onSelect(index)}
-          className={cn(
-            "relative h-16 w-16 shrink-0 overflow-hidden rounded-md border-2 transition-colors",
-            index === activeIndex
-              ? "border-primary"
-              : "border-transparent hover:border-muted-foreground/30",
-          )}
-          aria-label={`Εικόνα ${index + 1}`}
-        >
-          <Image
-            src={image.url}
-            alt={image.alt}
-            fill
-            className="object-cover"
-            sizes="64px"
-          />
-        </button>
-      ))}
+      <p className="absolute bottom-6 left-1/2 -translate-x-1/2 text-sm text-white/70">
+        {currentIndex + 1} / {images.length}
+      </p>
     </div>
   );
 }
 
 export function ImageGallery({ images, productName }: ImageGalleryProps) {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
-  const openLightbox = useCallback(() => setIsLightboxOpen(true), []);
-  const closeLightbox = useCallback(() => setIsLightboxOpen(false), []);
-
-  if (images.length === 0) {
-    return (
-      <div className="relative aspect-square w-full overflow-hidden rounded-lg bg-muted">
-        <Image
-          src="/images/placeholder-product.webp"
-          alt={productName}
-          fill
-          className="object-cover"
-          sizes="(max-width: 768px) 100vw, 50vw"
-          priority
-        />
-      </div>
-    );
-  }
-
-  const activeImage = images[activeIndex];
+  const [active, setActive] = useState(0);
+  const [lightbox, setLightbox] = useState(false);
+  const hasImages = images.length > 0;
+  const current = hasImages ? (images[active] ?? images[0]) : null;
+  const openLightbox = useCallback(() => setLightbox(true), []);
 
   return (
-    <div className="space-y-2">
-      <button
-        type="button"
-        onClick={openLightbox}
-        className="relative aspect-square w-full cursor-zoom-in overflow-hidden rounded-lg bg-muted"
-        aria-label="Κλικ για μεγέθυνση"
-      >
-        {activeImage && (
+    <div className="flex flex-col gap-3 md:flex-row">
+      {/* Vertical thumbs (desktop) / horizontal (mobile) — only shown if 2+ images */}
+      {hasImages && images.length > 1 && (
+        <div className="order-2 flex max-h-[480px] flex-row gap-2 overflow-x-auto md:order-1 md:flex-col md:overflow-y-auto">
+          {images.map((img, i) => (
+            <button
+              key={img.url}
+              onClick={() => setActive(i)}
+              className={cn(
+                "relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-md border-2 bg-neutral-100 transition md:h-20 md:w-20",
+                i === active
+                  ? "border-brand-red"
+                  : "border-transparent hover:border-neutral-300",
+              )}
+              aria-label={`Image ${i + 1}`}
+            >
+              <Image
+                src={img.url}
+                alt={img.alt}
+                fill
+                sizes="80px"
+                className="object-cover"
+              />
+            </button>
+          ))}
+        </div>
+      )}
+
+      {/* Main image (or empty-state placeholder if product has no images) */}
+      {current ? (
+        <button
+          onClick={openLightbox}
+          className="order-1 relative aspect-square w-full overflow-hidden rounded-xl bg-neutral-100 md:order-2 md:flex-1"
+          aria-label="Open lightbox"
+        >
           <Image
-            src={activeImage.url}
-            alt={activeImage.alt}
+            src={current.url}
+            alt={current.alt}
             fill
-            className="object-cover transition-transform duration-200 hover:scale-105"
-            sizes="(max-width: 768px) 100vw, 50vw"
+            sizes="(max-width: 768px) 100vw, 60vw"
+            className="object-contain transition-opacity duration-200"
             priority
           />
-        )}
-      </button>
-      {images.length > 1 && (
-        <ThumbnailStrip
-          images={images}
-          activeIndex={activeIndex}
-          onSelect={setActiveIndex}
-        />
+        </button>
+      ) : (
+        <div
+          className="order-1 grid aspect-square w-full place-items-center rounded-xl bg-gradient-to-br from-neutral-800 to-neutral-900 text-xs uppercase tracking-widest text-neutral-500 md:order-2 md:flex-1"
+          aria-label="No image available"
+        >
+          {productName}
+        </div>
       )}
-      {isLightboxOpen && (
+
+      {lightbox && hasImages && (
         <Lightbox
           images={images}
-          currentIndex={activeIndex}
-          onClose={closeLightbox}
-          onNavigate={setActiveIndex}
+          currentIndex={active}
+          onClose={() => setLightbox(false)}
+          onNavigate={setActive}
         />
       )}
     </div>
