@@ -37,7 +37,7 @@ function framePath(folder: string, i: number): string {
  *   - frames are extracted from MP4 via `pnpm hero:frames <src> <out>`
  *   - useFrameLoader starts loading frames only when section is ~200px away
  *   - frame 0 ships as a regular <img> for instant first paint
- *   - canvas uses object-contain to preserve full frame (no side cropping)
+ *   - canvas uses object-cover to preserve full frame (no side cropping)
  */
 export function ScrollVideoSection({
   framesPath,
@@ -129,11 +129,11 @@ export function ScrollVideoSection({
           src={framePath(framesPath, 0)}
           alt=""
           aria-hidden="true"
-          className="absolute inset-0 h-full w-full object-contain"
+          className="absolute inset-0 h-full w-full object-cover"
         />
         <canvas
           ref={canvasRef}
-          className="absolute inset-0 h-full w-full object-contain"
+          className="absolute inset-0 h-full w-full object-cover"
           aria-hidden="true"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/60" />
