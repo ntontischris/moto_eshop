@@ -34,7 +34,10 @@ function shuffle<T>(arr: T[]): T[] {
   return a;
 }
 
-const sample: string[] = shuffle(PROGRESS.done).slice(0, SAMPLE_SIZE);
+const sample: string[] = shuffle(PROGRESS.done as string[]).slice(
+  0,
+  SAMPLE_SIZE,
+);
 
 interface PageAnalysis {
   url: string;
