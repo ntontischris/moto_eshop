@@ -80,9 +80,10 @@ export function ScrollVideoHero() {
     ctx.drawImage(img, 0, 0);
   }, [progress, frames]);
 
-  const eyebrowOp = opacityForRange(progress, 0.05, 0.2);
-  const headlineOp = opacityForRange(progress, 0.25, 0.45);
-  const ctaOp = opacityForRange(progress, 0.55, 0.7);
+  // Text overlay is visible from page load and fades out toward the end of
+  // the scroll, so the next section can take focus. The previous behavior
+  // (fade in only after scrolling) left the user looking at a black canvas.
+  const textFadeOut = 1 - opacityForRange(progress, 0.75, 0.95);
 
   return (
     <section
@@ -91,30 +92,32 @@ export function ScrollVideoHero() {
       className="bg-black"
     >
       <div className="sticky top-0 h-screen w-full overflow-hidden">
+        {/* Frame 0 as a regular <img> for instant first paint. Stays under
+            the canvas; the canvas takes over once it has a real frame. */}
+        <img
+          src="/hero-frames/0000.webp"
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
         <canvas
           ref={canvasRef}
           className="absolute inset-0 h-full w-full object-cover"
           aria-hidden="true"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/60" />
-        <div className="absolute inset-0 flex flex-col items-start justify-end p-8 md:p-16">
-          <p
-            className="font-russo text-xs tracking-[0.3em] text-brand-red"
-            style={{ opacity: eyebrowOp, transition: "opacity 100ms linear" }}
-          >
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/70" />
+        <div
+          className="absolute inset-0 flex flex-col items-start justify-end p-8 md:p-16"
+          style={{ opacity: textFadeOut, transition: "opacity 120ms linear" }}
+        >
+          <p className="font-russo text-xs tracking-[0.3em] text-brand-red">
             RACE-GRADE EQUIPMENT
           </p>
-          <h1
-            className="mt-3 font-russo text-5xl uppercase leading-none text-white md:text-8xl xl:text-9xl"
-            style={{ opacity: headlineOp, transition: "opacity 100ms linear" }}
-          >
+          <h1 className="mt-3 font-russo text-5xl uppercase leading-none text-white md:text-8xl xl:text-9xl">
             Ride. <br />
             <span className="text-brand-red">Protected.</span>
           </h1>
-          <div
-            className="mt-8 flex flex-wrap gap-4"
-            style={{ opacity: ctaOp, transition: "opacity 100ms linear" }}
-          >
+          <div className="mt-8 flex flex-wrap gap-4">
             <Link
               href="/eksoplismos-anabath"
               className="rounded-full bg-brand-red px-8 py-3 text-sm font-bold uppercase tracking-wider text-white shadow-[0_0_30px_rgba(220,38,38,0.5)] transition hover:scale-105"
@@ -128,6 +131,17 @@ export function ScrollVideoHero() {
               Προσφορές
             </Link>
           </div>
+
+          {/* Scroll hint — fades out as soon as user starts scrolling */}
+          <p
+            className="mt-10 text-xs uppercase tracking-widest text-white/60"
+            style={{
+              opacity: 1 - opacityForRange(progress, 0.02, 0.1),
+              transition: "opacity 100ms linear",
+            }}
+          >
+            ↓ Scroll
+          </p>
         </div>
       </div>
     </section>
