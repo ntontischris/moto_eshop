@@ -244,15 +244,17 @@ async function ProductView({
       <ProductJsonLd product={product} />
       <Breadcrumbs items={breadcrumbs} />
 
-      <div className="grid gap-8 lg:grid-cols-2">
+      <div className="grid gap-8 lg:grid-cols-[1.5fr_1fr] lg:items-start">
         <ImageGallery images={product.images} productName={product.name} />
 
-        <div className="space-y-5">
-          <p className="text-sm font-medium uppercase tracking-wide text-muted-foreground">
-            {product.brand}
-          </p>
+        <div className="space-y-5 lg:sticky lg:top-24 lg:self-start">
+          {product.brand && (
+            <span className="inline-flex rounded-full bg-brand-red/10 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-brand-red">
+              {product.brand}
+            </span>
+          )}
 
-          <h1 className="text-2xl font-bold leading-tight lg:text-3xl">
+          <h1 className="font-russo text-3xl uppercase leading-tight text-white lg:text-4xl">
             {product.name}
           </h1>
 
@@ -268,19 +270,30 @@ async function ProductView({
             <CertificationBadge certification={product.certification} />
           )}
 
-          <PriceDisplay
-            price={product.price}
-            compareAtPrice={product.compare_at_price}
-            size="lg"
-          />
+          <div className="border-y border-neutral-800 py-4">
+            <PriceDisplay
+              price={product.price}
+              compareAtPrice={product.compare_at_price}
+              size="lg"
+            />
+            <KlarnaInfo price={product.price} />
+          </div>
 
-          <KlarnaInfo price={product.price} />
+          {sizes.length > 0 && (
+            <div>
+              <p className="mb-2 text-xs font-bold uppercase tracking-wider text-neutral-400">
+                Διαθέσιμα μεγέθη
+              </p>
+              <VariantSelector sizes={sizes} colors={[]} />
+            </div>
+          )}
 
-          {sizes.length > 0 && <VariantSelector sizes={sizes} colors={[]} />}
-
-          <StockBadge stock={product.stock} />
-
-          <DeliveryEstimate inStock={product.stock > 0} />
+          <div>
+            <p className="mb-2 text-xs font-bold uppercase tracking-wider text-neutral-400">
+              Διαθεσιμότητα
+            </p>
+            <StockBadge stock={product.stock} />
+          </div>
 
           <AddToCartButton
             productId={product.id}
@@ -289,10 +302,17 @@ async function ProductView({
             stock={product.stock}
           />
 
+          <DeliveryEstimate inStock={product.stock > 0} />
+
           {product.description && (
-            <div className="prose prose-sm max-w-none border-t pt-4">
-              <p>{product.description}</p>
-            </div>
+            <details className="border-t border-neutral-800 pt-4">
+              <summary className="cursor-pointer text-sm font-bold uppercase tracking-wider text-white">
+                Περιγραφή
+              </summary>
+              <p className="prose prose-sm prose-invert mt-3 max-w-none whitespace-pre-wrap">
+                {product.description}
+              </p>
+            </details>
           )}
         </div>
       </div>
