@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 interface Options {
   /** Total frame count, e.g. 120 */
   count: number;
-  /** Frame URL builder, e.g. (i) => `/hero-frames/${pad(i)}.webp` */
+  /** Frame URL builder, e.g. (i) => `/scroll-frames/cinematic-hero/${pad(i)}.webp` */
   urlFor: (index: number) => string;
   /** Start preload only when this ref's element scrolls into view */
   observeRef?: React.RefObject<HTMLElement | null>;

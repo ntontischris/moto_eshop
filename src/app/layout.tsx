@@ -93,7 +93,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
         <link
           rel="preload"
           as="image"
-          href="/hero-frames/0000.webp"
+          href="/scroll-frames/cinematic-hero/0000.webp"
           fetchPriority="high"
           type="image/webp"
         />
