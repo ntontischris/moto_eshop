@@ -97,6 +97,27 @@ function primaryImage(images: ProductImage[]): ProductImage | null {
   return [...images].sort((a, b) => a.position - b.position)[0] ?? null;
 }
 
+/**
+ * Resolve a category slug to its full_path so callers can filter products
+ * across the whole branch via an inner join on categories.full_path.
+ *
+ * Products only live on leaf categories, so non-leaf PLPs need a branch
+ * filter — otherwise root/mid-level pages render empty. Filtering on the
+ * joined full_path keeps the URL short even for trees with hundreds of
+ * descendants (e.g. my-bike has 811 children).
+ */
+async function resolveCategoryPath(
+  supabase: Awaited<ReturnType<typeof createClient>>,
+  categorySlug: string,
+): Promise<string | null> {
+  const { data: cat } = await supabase
+    .from("categories")
+    .select("full_path")
+    .eq("slug", categorySlug)
+    .single();
+  return cat?.full_path ?? null;
+}
+
 export async function getProduct(slug: string): Promise<Product | null> {
   const supabase = await createClient();
 
@@ -192,13 +213,9 @@ export async function getProductsByCategory(
   const offset = (page - 1) * perPage;
   const { column, ascending } = SORT_MAP[sort];
 
-  const { data: cat } = await supabase
-    .from("categories")
-    .select("id")
-    .eq("slug", categorySlug)
-    .single();
+  const fullPath = await resolveCategoryPath(supabase, categorySlug);
 
-  if (!cat) {
+  if (!fullPath) {
     return { data: [], total: 0, page, perPage, totalPages: 0 };
   }
 
@@ -207,10 +224,12 @@ export async function getProductsByCategory(
     .select(
       `id, slug, name, price, compare_at_price, stock, certification,
        rider_type, images, average_rating, review_count,
-       brands ( name, slug ), categories ( slug )`,
+       brands ( name, slug ), categories!inner ( slug, full_path )`,
       { count: "exact" },
     )
-    .eq("category_id", cat.id)
+    .or(`full_path.eq.${fullPath},full_path.like.${fullPath}/*`, {
+      referencedTable: "categories",
+    })
     .eq("status", "active")
     .order(column, { ascending })
     .range(offset, offset + perPage - 1);
@@ -292,13 +311,9 @@ export async function getProductFilters(
 ): Promise<ProductFilters> {
   const supabase = await createClient();
 
-  const { data: cat } = await supabase
-    .from("categories")
-    .select("id")
-    .eq("slug", categorySlug)
-    .single();
+  const fullPath = await resolveCategoryPath(supabase, categorySlug);
 
-  if (!cat) {
+  if (!fullPath) {
     return {
       brands: [],
       price_range: { min: 0, max: 0 },
@@ -311,9 +326,11 @@ export async function getProductFilters(
   const { data, error } = await supabase
     .from("products")
     .select(
-      "price, certification, rider_type, average_rating, brands ( name, slug )",
+      "price, certification, rider_type, average_rating, brands ( name, slug ), categories!inner ( full_path )",
     )
-    .eq("category_id", cat.id)
+    .or(`full_path.eq.${fullPath},full_path.like.${fullPath}/*`, {
+      referencedTable: "categories",
+    })
     .eq("status", "active");
 
   if (error || !data) {

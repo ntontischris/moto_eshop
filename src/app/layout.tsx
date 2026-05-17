@@ -5,6 +5,7 @@ import { Providers } from "./providers";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { MobileNav } from "@/components/layout/mobile-nav";
+import { RootShell } from "@/components/layout/root-shell";
 import { CartProviderServer } from "@/lib/cart/cart-provider-server";
 import {
   getCachedCategoryTree,
@@ -102,21 +103,27 @@ export default async function RootLayout({ children }: RootLayoutProps) {
         <Providers>
           <Suspense>
             <CartProviderServer>
-              <div className="flex min-h-screen flex-col">
-                <Suspense>
-                  <Header
-                    categoryTree={categoryTree}
-                    announcement={announcement}
-                  />
-                </Suspense>
-                <Suspense>
-                  <main className="flex-1 pb-16 md:pb-0">{children}</main>
-                </Suspense>
-                <Footer categoryTree={categoryTree} />
-              </div>
-              <Suspense>
-                <MobileNav />
-              </Suspense>
+              <RootShell
+                chrome={
+                  <div className="flex min-h-screen flex-col">
+                    <Suspense>
+                      <Header
+                        categoryTree={categoryTree}
+                        announcement={announcement}
+                      />
+                    </Suspense>
+                    <Suspense>
+                      <main className="flex-1 pb-16 md:pb-0">{children}</main>
+                    </Suspense>
+                    <Footer categoryTree={categoryTree} />
+                    <Suspense>
+                      <MobileNav />
+                    </Suspense>
+                  </div>
+                }
+              >
+                {children}
+              </RootShell>
             </CartProviderServer>
           </Suspense>
         </Providers>

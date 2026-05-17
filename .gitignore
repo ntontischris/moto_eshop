@@ -60,3 +60,4 @@ next-env.d.ts
 
 # generated hero placeholders
 /public/hero-frames/*.svg
+.gitnexus

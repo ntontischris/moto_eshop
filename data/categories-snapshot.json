@@ -1,0 +1,5726 @@
+[
+ {
+  "id": "ccf4f5d5-5539-499d-b7df-5cd6ab95dd85",
+  "slug": "aksesoyar",
+  "parent_id": null,
+  "full_path": "aksesoyar"
+ },
+ {
+  "id": "70408328-f947-4eca-8434-9ed48fa93c7d",
+  "slug": "aksesoyar-anabath--diafora",
+  "parent_id": "59fe5ae0-9922-4419-be9d-668cf4314497",
+  "full_path": "eksoplismos-anabath/aksesoyar-anabath/diafora"
+ },
+ {
+  "id": "2eab6aac-3b11-4999-8f9d-bbdf4676a54d",
+  "slug": "aksesoyar-anabath--gyalia",
+  "parent_id": "59fe5ae0-9922-4419-be9d-668cf4314497",
+  "full_path": "eksoplismos-anabath/aksesoyar-anabath/gyalia"
+ },
+ {
+  "id": "4f9c2b22-e6c2-4bb9-9a49-8f7bbd3f52c1",
+  "slug": "aksesoyar-anabath--kalymmata-podion-xerion-koybertes",
+  "parent_id": "59fe5ae0-9922-4419-be9d-668cf4314497",
+  "full_path": "eksoplismos-anabath/aksesoyar-anabath/kalymmata-podion-xerion-koybertes"
+ },
+ {
+  "id": "86581cce-93a8-4157-8378-a319f92bbed1",
+  "slug": "aksesoyar-anabath--prostasies-laimoy-balaclava",
+  "parent_id": "59fe5ae0-9922-4419-be9d-668cf4314497",
+  "full_path": "eksoplismos-anabath/aksesoyar-anabath/prostasies-laimoy-balaclava"
+ },
+ {
+  "id": "e35d3c27-027b-478c-b753-9aa914bd41b3",
+  "slug": "aksesoyar-anabath--sakidia-tsantakia-mpananes",
+  "parent_id": "59fe5ae0-9922-4419-be9d-668cf4314497",
+  "full_path": "eksoplismos-anabath/aksesoyar-anabath/sakidia-tsantakia-mpananes"
+ },
+ {
+  "id": "fc5f6168-f967-4d5a-86ff-5a142acfe7fd",
+  "slug": "aksesoyar-anabath--synthrhsh-eksoplismoy",
+  "parent_id": "59fe5ae0-9922-4419-be9d-668cf4314497",
+  "full_path": "eksoplismos-anabath/aksesoyar-anabath/synthrhsh-eksoplismoy"
+ },
+ {
+  "id": "e9ff681f-69fc-4341-8812-9b12d5209174",
+  "slug": "aksesoyar-anabath--thhkes-mprelok",
+  "parent_id": "59fe5ae0-9922-4419-be9d-668cf4314497",
+  "full_path": "eksoplismos-anabath/aksesoyar-anabath/thhkes-mprelok"
+ },
+ {
+  "id": "6aa8f464-bbd1-4171-8f20-5c78f0dc591e",
+  "slug": "aksesoyar-anabath--yfasmatines-maskes",
+  "parent_id": "59fe5ae0-9922-4419-be9d-668cf4314497",
+  "full_path": "eksoplismos-anabath/aksesoyar-anabath/yfasmatines-maskes"
+ },
+ {
+  "id": "95b55e5c-63a7-442c-91e2-6bb176665a94",
+  "slug": "aksesoyar-podhlath--maskes-gyalia-podhlasias",
+  "parent_id": "5b2e6cee-defd-4e7e-99cd-ffcb0b4777fd",
+  "full_path": "podhlatika/aksesoyar-podhlath/maskes-gyalia-podhlasias"
+ },
+ {
+  "id": "3058bce3-9358-4c43-bda1-abac7ed4920c",
+  "slug": "aksesoyar-podhlath--sakidia-mpananes-podhlath",
+  "parent_id": "5b2e6cee-defd-4e7e-99cd-ffcb0b4777fd",
+  "full_path": "podhlatika/aksesoyar-podhlath/sakidia-mpananes-podhlath"
+ },
+ {
+  "id": "01299817-76a1-4510-a430-de745f239c68",
+  "slug": "aprilia--atlantic-125-200-250-300-03-13",
+  "parent_id": "7e62f712-a232-4d25-a8bb-02c0df0da910",
+  "full_path": "my-bike/aprilia/atlantic-125-200-250-300-03-13"
+ },
+ {
+  "id": "b415c596-1614-4a6e-a14c-38e66d48c658",
+  "slug": "aprilia--atlantic-400-500-sprint-05-12",
+  "parent_id": "7e62f712-a232-4d25-a8bb-02c0df0da910",
+  "full_path": "my-bike/aprilia/atlantic-400-500-sprint-05-12"
+ },
+ {
+  "id": "c07bd085-de44-4357-abec-42ac8568af38",
+  "slug": "aprilia--atlantic-500-02-06",
+  "parent_id": "7e62f712-a232-4d25-a8bb-02c0df0da910",
+  "full_path": "my-bike/aprilia/atlantic-500-02-06"
+ },
+ {
+  "id": "dc4e76a9-437e-45a8-9c51-94c77aeff610",
+  "slug": "aprilia--caponord-1200-13-17",
+  "parent_id": "7e62f712-a232-4d25-a8bb-02c0df0da910",
+  "full_path": "my-bike/aprilia/caponord-1200-13-17"
+ },
+ {
+  "id": "2cb8aa59-221c-4b61-b1f0-97abd9e363e7",
+  "slug": "aprilia--dorsoduro-750-dorsoduro-1200-08-16",
+  "parent_id": "7e62f712-a232-4d25-a8bb-02c0df0da910",
+  "full_path": "my-bike/aprilia/dorsoduro-750-dorsoduro-1200-08-16"
+ },
+ {
+  "id": "bfd71472-efad-41d7-9c36-8e75e844381d",
+  "slug": "aprilia--etv-1000-caponord-01-10",
+  "parent_id": "7e62f712-a232-4d25-a8bb-02c0df0da910",
+  "full_path": "my-bike/aprilia/etv-1000-caponord-01-10"
+ },
+ {
+  "id": "e4d7ecd2-c777-4b75-b754-68d5d7518869",
+  "slug": "aprilia--habana-125-00-09",
+  "parent_id": "7e62f712-a232-4d25-a8bb-02c0df0da910",
+  "full_path": "my-bike/aprilia/habana-125-00-09"
+ },
+ {
+  "id": "45e91ccb-b4d5-4678-9208-f96b7d771f6f",
+  "slug": "aprilia--mana-850-mana-850-gt-08-16",
+  "parent_id": "7e62f712-a232-4d25-a8bb-02c0df0da910",
+  "full_path": "my-bike/aprilia/mana-850-mana-850-gt-08-16"
+ },
+ {
+  "id": "861e2233-ecb1-4b29-8438-f023f8c8bc4c",
+  "slug": "aprilia--pegaso-650-cube-97-00",
+  "parent_id": "7e62f712-a232-4d25-a8bb-02c0df0da910",
+  "full_path": "my-bike/aprilia/pegaso-650-cube-97-00"
+ },
+ {
+  "id": "7506dda8-3696-4c87-805d-3a3021dbcc98",
+  "slug": "aprilia--pegaso-650-ie-01-04",
+  "parent_id": "7e62f712-a232-4d25-a8bb-02c0df0da910",
+  "full_path": "my-bike/aprilia/pegaso-650-ie-01-04"
+ },
+ {
+  "id": "d1e25048-976d-4731-a400-99f8528b38de",
+  "slug": "aprilia--pegaso-650-strada-trail-05-11",
+  "parent_id": "7e62f712-a232-4d25-a8bb-02c0df0da910",
+  "full_path": "my-bike/aprilia/pegaso-650-strada-trail-05-11"
+ },
+ {
+  "id": "48509c5d-a6a1-41d2-948b-78cb0e489f5f",
+  "slug": "aprilia--rs-660-21-22",
+  "parent_id": "7e62f712-a232-4d25-a8bb-02c0df0da910",
+  "full_path": "my-bike/aprilia/rs-660-21-22"
+ },
+ {
+  "id": "7b42f1d7-ff79-4b59-8085-fe77b6cbc70d",
+  "slug": "aprilia--scarabeo-125-200-07-06-11",
+  "parent_id": "7e62f712-a232-4d25-a8bb-02c0df0da910",
+  "full_path": "my-bike/aprilia/scarabeo-125-200-07-06-11"
+ },
+ {
+  "id": "a7ef6d04-fff9-4c0a-b7b2-0b04db0dd7e8",
+  "slug": "aprilia--scarabeo-125-200-07-11-16",
+  "parent_id": "7e62f712-a232-4d25-a8bb-02c0df0da910",
+  "full_path": "my-bike/aprilia/scarabeo-125-200-07-11-16"
+ },
+ {
+  "id": "278251d1-f5c6-46ef-b405-3470347fb727",
+  "slug": "aprilia--scarabeo-250-300-07-16",
+  "parent_id": "7e62f712-a232-4d25-a8bb-02c0df0da910",
+  "full_path": "my-bike/aprilia/scarabeo-250-300-07-16"
+ },
+ {
+  "id": "fa1cae4e-9fb9-41d7-bb88-c51fdff7ab01",
+  "slug": "aprilia--scarabeo-400-500-06-12",
+  "parent_id": "7e62f712-a232-4d25-a8bb-02c0df0da910",
+  "full_path": "my-bike/aprilia/scarabeo-400-500-06-12"
+ },
+ {
+  "id": "9b939aeb-9ee9-4e41-9bff-bef331931fd8",
+  "slug": "aprilia--scarabeo-50-100-09-13",
+  "parent_id": "7e62f712-a232-4d25-a8bb-02c0df0da910",
+  "full_path": "my-bike/aprilia/scarabeo-50-100-09-13"
+ },
+ {
+  "id": "d1576c79-8073-4f36-b4de-ff579e20cbc6",
+  "slug": "aprilia--scarabeo-50-14-20",
+  "parent_id": "7e62f712-a232-4d25-a8bb-02c0df0da910",
+  "full_path": "my-bike/aprilia/scarabeo-50-14-20"
+ },
+ {
+  "id": "59f7b7d9-b0e3-4457-ad44-5d4a73b7ffb5",
+  "slug": "aprilia--scarabeo-50-street-09-13",
+  "parent_id": "7e62f712-a232-4d25-a8bb-02c0df0da910",
+  "full_path": "my-bike/aprilia/scarabeo-50-street-09-13"
+ },
+ {
+  "id": "a1c003e2-b456-4897-855b-180e6482eb41",
+  "slug": "aprilia--shiver-750-900-abs-10-20",
+  "parent_id": "7e62f712-a232-4d25-a8bb-02c0df0da910",
+  "full_path": "my-bike/aprilia/shiver-750-900-abs-10-20"
+ },
+ {
+  "id": "50bb34ba-e3d4-4f9a-91a7-f1b0d02958f0",
+  "slug": "aprilia--shiver-750-shiver-gt-750-07-12-abs-09-12",
+  "parent_id": "7e62f712-a232-4d25-a8bb-02c0df0da910",
+  "full_path": "my-bike/aprilia/shiver-750-shiver-gt-750-07-12-abs-09-12"
+ },
+ {
+  "id": "78c3b331-583b-4e52-abb4-e39fa8c16194",
+  "slug": "aprilia--sportcity-125-200-250-04-08",
+  "parent_id": "7e62f712-a232-4d25-a8bb-02c0df0da910",
+  "full_path": "my-bike/aprilia/sportcity-125-200-250-04-08"
+ },
+ {
+  "id": "35e47fc8-b8fd-4475-a17b-4dfc9ef9c14f",
+  "slug": "aprilia--sportcity-cube-125-200-300-08-13",
+  "parent_id": "7e62f712-a232-4d25-a8bb-02c0df0da910",
+  "full_path": "my-bike/aprilia/sportcity-cube-125-200-300-08-13"
+ },
+ {
+  "id": "d1f9e5ea-c51b-496b-a858-ffdfc50ab976",
+  "slug": "aprilia--sportcity-one-50-125-08-13",
+  "parent_id": "7e62f712-a232-4d25-a8bb-02c0df0da910",
+  "full_path": "my-bike/aprilia/sportcity-one-50-125-08-13"
+ },
+ {
+  "id": "3659b615-229c-4b62-9862-a7d5f1460a7a",
+  "slug": "aprilia--sr-50-ditech-97-05",
+  "parent_id": "7e62f712-a232-4d25-a8bb-02c0df0da910",
+  "full_path": "my-bike/aprilia/sr-50-ditech-97-05"
+ },
+ {
+  "id": "9b1b6670-674a-4d35-bab5-0e46f2da84cd",
+  "slug": "aprilia--sr-gt-125-200-2022",
+  "parent_id": "7e62f712-a232-4d25-a8bb-02c0df0da910",
+  "full_path": "my-bike/aprilia/sr-gt-125-200-2022"
+ },
+ {
+  "id": "2cf7c5c4-407b-4f83-82dd-1039824ee04d",
+  "slug": "aprilia--srv-850-12-16",
+  "parent_id": "7e62f712-a232-4d25-a8bb-02c0df0da910",
+  "full_path": "my-bike/aprilia/srv-850-12-16"
+ },
+ {
+  "id": "23e18d20-7f39-432c-9c2a-d37d496f8d3c",
+  "slug": "aprilia--tuareg-660-21-22",
+  "parent_id": "7e62f712-a232-4d25-a8bb-02c0df0da910",
+  "full_path": "my-bike/aprilia/tuareg-660-21-22"
+ },
+ {
+  "id": "deca1fe9-78f4-45de-af28-c231ad6d779c",
+  "slug": "aprilia--tuareg-rally-660-25",
+  "parent_id": "7e62f712-a232-4d25-a8bb-02c0df0da910",
+  "full_path": "my-bike/aprilia/tuareg-rally-660-25"
+ },
+ {
+  "id": "faaa90d8-8497-49ca-8186-a587b40850d3",
+  "slug": "aprilia--tuono-660-21-22",
+  "parent_id": "7e62f712-a232-4d25-a8bb-02c0df0da910",
+  "full_path": "my-bike/aprilia/tuono-660-21-22"
+ },
+ {
+  "id": "54441079-09bc-483c-888a-20b24b0151b1",
+  "slug": "aprilia--tuono-v4-r-11-14",
+  "parent_id": "7e62f712-a232-4d25-a8bb-02c0df0da910",
+  "full_path": "my-bike/aprilia/tuono-v4-r-11-14"
+ },
+ {
+  "id": "d1c5085f-a06f-4188-9d11-183f4b3e6e23",
+  "slug": "balitses--aksesoyar-antallaktika",
+  "parent_id": "313f7706-ceb7-479b-a972-228558c87f14",
+  "full_path": "eksoplismos-motosikletas/balitses/aksesoyar-antallaktika"
+ },
+ {
+  "id": "9cc7bb74-9b2e-4599-913b-1c5838c00f46",
+  "slug": "balitses--kentrikes-balitses",
+  "parent_id": "313f7706-ceb7-479b-a972-228558c87f14",
+  "full_path": "eksoplismos-motosikletas/balitses/kentrikes-balitses"
+ },
+ {
+  "id": "26d51c70-e234-4d9d-ad24-2407a0c2e5f0",
+  "slug": "balitses--plaines-balitses",
+  "parent_id": "313f7706-ceb7-479b-a972-228558c87f14",
+  "full_path": "eksoplismos-motosikletas/balitses/plaines-balitses"
+ },
+ {
+  "id": "bf469a7d-c059-4e9f-b8f9-e588e1318c22",
+  "slug": "baseis-kinhton--baseis-kinhton",
+  "parent_id": "079e1773-d6e8-4f2e-8604-a2486ed5a1d5",
+  "full_path": "eksoplismos-motosikletas/baseis-kinhton/baseis-kinhton"
+ },
+ {
+  "id": "ae33ed67-e266-4459-87f1-bd052ae8f32c",
+  "slug": "baseis-kinhton--eksarthmata",
+  "parent_id": "079e1773-d6e8-4f2e-8604-a2486ed5a1d5",
+  "full_path": "eksoplismos-motosikletas/baseis-kinhton/eksarthmata"
+ },
+ {
+  "id": "712648ed-78c6-47c3-bc4d-e85122fd1646",
+  "slug": "benelli--502-c-19-21",
+  "parent_id": "b0c29866-c407-4d89-825e-a78ac430a610",
+  "full_path": "my-bike/benelli/502-c-19-21"
+ },
+ {
+  "id": "33de1d5f-6d20-43e2-9710-579df25da948",
+  "slug": "benelli--bn125-19-21",
+  "parent_id": "b0c29866-c407-4d89-825e-a78ac430a610",
+  "full_path": "my-bike/benelli/bn125-19-21"
+ },
+ {
+  "id": "00f328eb-5006-40e2-841a-390d579d51d1",
+  "slug": "benelli--bn302-15-18",
+  "parent_id": "b0c29866-c407-4d89-825e-a78ac430a610",
+  "full_path": "my-bike/benelli/bn302-15-18"
+ },
+ {
+  "id": "06423da1-c38d-4a68-aae3-9931101fae53",
+  "slug": "benelli--bn302-s-19-21",
+  "parent_id": "b0c29866-c407-4d89-825e-a78ac430a610",
+  "full_path": "my-bike/benelli/bn302-s-19-21"
+ },
+ {
+  "id": "621d5057-d6da-4485-9c63-8dfeeeffb635",
+  "slug": "benelli--bn600-13-17",
+  "parent_id": "b0c29866-c407-4d89-825e-a78ac430a610",
+  "full_path": "my-bike/benelli/bn600-13-17"
+ },
+ {
+  "id": "de873db8-3d73-4a76-9495-6880754cf88d",
+  "slug": "benelli--imperiale-400-20-21",
+  "parent_id": "b0c29866-c407-4d89-825e-a78ac430a610",
+  "full_path": "my-bike/benelli/imperiale-400-20-21"
+ },
+ {
+  "id": "e01f46df-75df-4de6-9a2e-167d750c2e0d",
+  "slug": "benelli--leoncino-125-22",
+  "parent_id": "b0c29866-c407-4d89-825e-a78ac430a610",
+  "full_path": "my-bike/benelli/leoncino-125-22"
+ },
+ {
+  "id": "4727a8cd-88cf-4ca4-8060-dc8c78e73725",
+  "slug": "benelli--leoncino-500-leoncino-500-trail-17-21",
+  "parent_id": "b0c29866-c407-4d89-825e-a78ac430a610",
+  "full_path": "my-bike/benelli/leoncino-500-leoncino-500-trail-17-21"
+ },
+ {
+  "id": "c31fda68-2714-4a2b-83fd-6bbcbd6166c8",
+  "slug": "benelli--leoncino-800-22",
+  "parent_id": "b0c29866-c407-4d89-825e-a78ac430a610",
+  "full_path": "my-bike/benelli/leoncino-800-22"
+ },
+ {
+  "id": "361f2ce2-32b5-45e5-ae9d-7603fe262108",
+  "slug": "benelli--tre-899-k-tre-1130-k-06-16",
+  "parent_id": "b0c29866-c407-4d89-825e-a78ac430a610",
+  "full_path": "my-bike/benelli/tre-899-k-tre-1130-k-06-16"
+ },
+ {
+  "id": "ed42a700-6224-4bd6-91f1-a641235baff3",
+  "slug": "benelli--trk502-17-20",
+  "parent_id": "b0c29866-c407-4d89-825e-a78ac430a610",
+  "full_path": "my-bike/benelli/trk502-17-20"
+ },
+ {
+  "id": "fc65f39b-0a13-443b-8185-fd9ff7f2e33f",
+  "slug": "benelli--trk502-21",
+  "parent_id": "b0c29866-c407-4d89-825e-a78ac430a610",
+  "full_path": "my-bike/benelli/trk502-21"
+ },
+ {
+  "id": "d58bf084-eadb-475c-9a72-822a536a0a40",
+  "slug": "benelli--trk502-x-18-19",
+  "parent_id": "b0c29866-c407-4d89-825e-a78ac430a610",
+  "full_path": "my-bike/benelli/trk502-x-18-19"
+ },
+ {
+  "id": "75702f06-65a5-44ac-ac92-aa0c1179e724",
+  "slug": "benelli--trk502-x-20-21",
+  "parent_id": "b0c29866-c407-4d89-825e-a78ac430a610",
+  "full_path": "my-bike/benelli/trk502-x-20-21"
+ },
+ {
+  "id": "0ecb80d3-88d4-4220-be13-2664ce990023",
+  "slug": "benelli--trk702-x-23",
+  "parent_id": "b0c29866-c407-4d89-825e-a78ac430a610",
+  "full_path": "my-bike/benelli/trk702-x-23"
+ },
+ {
+  "id": "54e61c06-3cc2-4801-8b4c-363e672a6ce1",
+  "slug": "bmw--c-400-gt-19-21",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/c-400-gt-19-21"
+ },
+ {
+  "id": "cc3ae1cb-3937-4e51-8b28-4c4fa67d51fc",
+  "slug": "bmw--c-400-gt-25",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/c-400-gt-25"
+ },
+ {
+  "id": "67907a51-abe5-4eea-bea7-49a20ea58056",
+  "slug": "bmw--c-400-x-19-21",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/c-400-x-19-21"
+ },
+ {
+  "id": "773556aa-9f7e-437c-abb0-37efb88fdfa3",
+  "slug": "bmw--c-600-sport-12-15",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/c-600-sport-12-15"
+ },
+ {
+  "id": "5ff0612b-44d0-4b46-9413-d26eabdb6e14",
+  "slug": "bmw--c-650-gt-12-20",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/c-650-gt-12-20"
+ },
+ {
+  "id": "71d857e1-65ba-4c43-9b01-ad9bc9c0158a",
+  "slug": "bmw--c-650-sport-16-20",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/c-650-sport-16-20"
+ },
+ {
+  "id": "67dba1a3-e4df-458d-9ba8-05733382ce1c",
+  "slug": "bmw--c-evolution-15-20",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/c-evolution-15-20"
+ },
+ {
+  "id": "7f65362d-7b3c-49bc-a527-5f5859beece5",
+  "slug": "bmw--ce-02-24-25",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/ce-02-24-25"
+ },
+ {
+  "id": "d2d49e53-119f-4f18-bced-5c898669c1eb",
+  "slug": "bmw--ce-04-22",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/ce-04-22"
+ },
+ {
+  "id": "6318a03d-fcaa-4a3b-85d5-7539e53ee0f0",
+  "slug": "bmw--f-650-94-96",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/f-650-94-96"
+ },
+ {
+  "id": "fb5bf8fc-411c-403b-bb54-66a52a7faea3",
+  "slug": "bmw--f-650-gs-00-03",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/f-650-gs-00-03"
+ },
+ {
+  "id": "3df9d434-f568-42f7-8171-dc42ef9eb1b6",
+  "slug": "bmw--f-650-gs-04-07",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/f-650-gs-04-07"
+ },
+ {
+  "id": "d8f32239-3966-4dab-99f9-7a68a083f8d6",
+  "slug": "bmw--f-650-gs-dakar-00-03",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/f-650-gs-dakar-00-03"
+ },
+ {
+  "id": "afe2b3b8-65bc-4acf-ad49-7c6befd3aee8",
+  "slug": "bmw--f-650-gs-f-800-gs-08-17",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/f-650-gs-f-800-gs-08-17"
+ },
+ {
+  "id": "60136d53-9a63-49bf-8dce-eb59c32aed7b",
+  "slug": "bmw--f-650-st-97-99",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/f-650-st-97-99"
+ },
+ {
+  "id": "a443eef0-0717-48ca-a712-3fe7e997600a",
+  "slug": "bmw--f-700-gs-13-17",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/f-700-gs-13-17"
+ },
+ {
+  "id": "c3a750a3-c8fa-429a-b896-2944eec4fefe",
+  "slug": "bmw--f-750-gs-18-20",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/f-750-gs-18-20"
+ },
+ {
+  "id": "86f30022-a4c3-4fac-93bb-9088e84d3fef",
+  "slug": "bmw--f-750-gs-21",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/f-750-gs-21"
+ },
+ {
+  "id": "5b950cd4-94f8-4554-b6e6-7db88f0bd94e",
+  "slug": "bmw--f-800-gs-adventure-13-18",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/f-800-gs-adventure-13-18"
+ },
+ {
+  "id": "d2608e31-1371-49e2-bbe8-63079ccd7505",
+  "slug": "bmw--f-800-gt-13-19",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/f-800-gt-13-19"
+ },
+ {
+  "id": "a31076f0-fa5e-49ac-adf4-af86cb66e5ec",
+  "slug": "bmw--f-800-r-09-14",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/f-800-r-09-14"
+ },
+ {
+  "id": "37d9c9f5-3ca5-4cb1-a8e8-dd4d41ca7735",
+  "slug": "bmw--f-800-r-15-19",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/f-800-r-15-19"
+ },
+ {
+  "id": "21af80ee-a7f9-4083-8b9c-e174869fa1a1",
+  "slug": "bmw--f-800-s-06-16",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/f-800-s-06-16"
+ },
+ {
+  "id": "63129e4c-375f-4d3f-acb7-6b0f63270162",
+  "slug": "bmw--f-800-st-06-16",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/f-800-st-06-16"
+ },
+ {
+  "id": "5038063f-8914-4ad7-8a6d-2da25af653e7",
+  "slug": "bmw--f-850-gs-18-20",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/f-850-gs-18-20"
+ },
+ {
+  "id": "b3d7340e-baf1-432f-896b-d6fa4ea6ed5a",
+  "slug": "bmw--f-850-gs-21",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/f-850-gs-21"
+ },
+ {
+  "id": "f31831a8-8a9d-4e2c-a279-5487be84fe90",
+  "slug": "bmw--f-850-gs-adventure-19-21",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/f-850-gs-adventure-19-21"
+ },
+ {
+  "id": "fa46c641-96aa-4a96-a6b3-0503c5b8eff1",
+  "slug": "bmw--f-900-gs-24",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/f-900-gs-24"
+ },
+ {
+  "id": "3a01f21f-2530-49c0-ae48-30cf2311e637",
+  "slug": "bmw--f-900-r-20-21",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/f-900-r-20-21"
+ },
+ {
+  "id": "65216ce8-182b-4b21-ad94-d8e0d7be0657",
+  "slug": "bmw--f-900-xr-20-21",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/f-900-xr-20-21"
+ },
+ {
+  "id": "9c73dc3e-cdf3-49ee-9d0c-ec6224753117",
+  "slug": "bmw--g-310-gs-17-21",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/g-310-gs-17-21"
+ },
+ {
+  "id": "bc3c3fa6-d861-4d4f-9c1f-84d94ee27dc1",
+  "slug": "bmw--g-310-r-17-21",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/g-310-r-17-21"
+ },
+ {
+  "id": "3018ad83-03f3-43cc-b759-b29bea31277c",
+  "slug": "bmw--g-650-gs-11-17",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/g-650-gs-11-17"
+ },
+ {
+  "id": "597d74b8-1cbc-4410-b4c7-c469a111aa82",
+  "slug": "bmw--k-100-1000-90",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/k-100-1000-90"
+ },
+ {
+  "id": "58a25528-776e-4a7d-b59b-f34aac481a53",
+  "slug": "bmw--k-1100-rs",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/k-1100-rs"
+ },
+ {
+  "id": "2c7b8f8c-896b-4738-a442-a9e5f1240fb2",
+  "slug": "bmw--k-1200-gt-03-04",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/k-1200-gt-03-04"
+ },
+ {
+  "id": "98220b9b-e524-4a1c-99fb-1ad949413d6c",
+  "slug": "bmw--k-1200-gt-k-1300-gt-06-10",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/k-1200-gt-k-1300-gt-06-10"
+ },
+ {
+  "id": "32f5734b-e43c-4448-abf2-6c3f3b70ba73",
+  "slug": "bmw--k-1200-r-05-08-k-1300-r-09-16",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/k-1200-r-05-08-k-1300-r-09-16"
+ },
+ {
+  "id": "a4fafb19-09f0-4c38-9ecb-4cdd6446dd21",
+  "slug": "bmw--k-1200-rs-00-04",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/k-1200-rs-00-04"
+ },
+ {
+  "id": "dc83055f-bd53-408b-93e2-b2e22eb14ccd",
+  "slug": "bmw--k-1200-s-05-08-k-1300-s-09-16",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/k-1200-s-05-08-k-1300-s-09-16"
+ },
+ {
+  "id": "a2af0dce-3dde-4310-a08f-c1068c7819c3",
+  "slug": "bmw--k-1600-gt-11-21",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/k-1600-gt-11-21"
+ },
+ {
+  "id": "3633b5b0-6ce2-4c8a-b28e-54d4a290b12d",
+  "slug": "bmw--k75-750",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/k75-750"
+ },
+ {
+  "id": "ef07b614-c399-497a-8506-c179b3cfaf95",
+  "slug": "bmw--m-1000-xr-24-25",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/m-1000-xr-24-25"
+ },
+ {
+  "id": "795b8f58-93ed-436c-b5e2-153e549e195c",
+  "slug": "bmw--r-1100-gs-94-99",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/r-1100-gs-94-99"
+ },
+ {
+  "id": "a24970ef-3d34-413d-aabe-9238e9512151",
+  "slug": "bmw--r-1100-r-95-01",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/r-1100-r-95-01"
+ },
+ {
+  "id": "5ecaeea4-2318-4e2b-b87d-9ea40794255c",
+  "slug": "bmw--r-1100-rs-94-98",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/r-1100-rs-94-98"
+ },
+ {
+  "id": "93e1c218-fb22-44de-9fe4-4d0e1c358852",
+  "slug": "bmw--r-1100-rt-96-00",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/r-1100-rt-96-00"
+ },
+ {
+  "id": "2d428eca-a217-407a-9291-f6a2041800e8",
+  "slug": "bmw--r-1100-s-98-06",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/r-1100-s-98-06"
+ },
+ {
+  "id": "34c51fab-07be-4718-b869-6a34c89a770d",
+  "slug": "bmw--r-1150-gs-00-03",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/r-1150-gs-00-03"
+ },
+ {
+  "id": "568db08a-5a8b-42af-9468-28f3220fc06b",
+  "slug": "bmw--r-1150-r-01-06",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/r-1150-r-01-06"
+ },
+ {
+  "id": "a4768a99-62d4-4cfe-b2fa-f3f6cf83aa61",
+  "slug": "bmw--r-1150-rt-01",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/r-1150-rt-01"
+ },
+ {
+  "id": "566bd31d-4fa0-4182-9e8d-db91c6e8c680",
+  "slug": "bmw--r-1150-rt-02-04",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/r-1150-rt-02-04"
+ },
+ {
+  "id": "914cdb39-9bb0-4d78-8abc-ff07fefdc725",
+  "slug": "bmw--r-12-gs-25",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/r-12-gs-25"
+ },
+ {
+  "id": "7d2b2981-92a3-4c83-80b7-7e4ed6bb1988",
+  "slug": "bmw--r-1200-gs-04-12",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/r-1200-gs-04-12"
+ },
+ {
+  "id": "9ebc385a-8de2-494f-8fc4-ce50d35ce2ae",
+  "slug": "bmw--r-1200-gs-13-18",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/r-1200-gs-13-18"
+ },
+ {
+  "id": "2686f788-b355-41d4-89a8-8a08445f3b77",
+  "slug": "bmw--r-1200-gs-adventure-06-13",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/r-1200-gs-adventure-06-13"
+ },
+ {
+  "id": "ef2bcfed-a5d6-4ea0-ac0c-21e122b582ae",
+  "slug": "bmw--r-1200-gs-adventure-14-18",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/r-1200-gs-adventure-14-18"
+ },
+ {
+  "id": "0fae2929-0189-4eb0-85f0-e2cbe418712b",
+  "slug": "bmw--r-1200-nine-t-14-21",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/r-1200-nine-t-14-21"
+ },
+ {
+  "id": "845603fe-c360-4cf8-98a8-018606c1c907",
+  "slug": "bmw--r-1200-r-06-10",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/r-1200-r-06-10"
+ },
+ {
+  "id": "fb1661ba-457e-4b76-b32d-c7505969773a",
+  "slug": "bmw--r-1200-r-11-14",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/r-1200-r-11-14"
+ },
+ {
+  "id": "50f1f4cf-c316-4b5a-81c3-bb9e268522cf",
+  "slug": "bmw--r-1200-r-15-18",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/r-1200-r-15-18"
+ },
+ {
+  "id": "34664278-ce3f-440d-bb55-b49705fb35ea",
+  "slug": "bmw--r-1200-rs-15-18",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/r-1200-rs-15-18"
+ },
+ {
+  "id": "2ecf75f1-d821-4ca7-8ac9-15dface4ba3a",
+  "slug": "bmw--r-1200-rt-05-13",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/r-1200-rt-05-13"
+ },
+ {
+  "id": "48e7b3d3-ed5c-45b5-bef2-9fecf38f8548",
+  "slug": "bmw--r-1200-rt-14-18",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/r-1200-rt-14-18"
+ },
+ {
+  "id": "b0d1d9ca-f24f-4c5c-badf-1dab218711ca",
+  "slug": "bmw--r-1200-s-06",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/r-1200-s-06"
+ },
+ {
+  "id": "cf905013-eb9d-4751-9531-537d137e4d0f",
+  "slug": "bmw--r-1250-gs-19-21",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/r-1250-gs-19-21"
+ },
+ {
+  "id": "ceaa75ae-322a-4bfe-8fe6-307e4ed80116",
+  "slug": "bmw--r-1250-gs-adventure-19-21",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/r-1250-gs-adventure-19-21"
+ },
+ {
+  "id": "8db1d73b-0727-4fb6-9f23-b1b93456d421",
+  "slug": "bmw--r-1250-r-19-21",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/r-1250-r-19-21"
+ },
+ {
+  "id": "f4560ced-74ca-419d-b826-5fa03104bee7",
+  "slug": "bmw--r-1250-rs-19-21",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/r-1250-rs-19-21"
+ },
+ {
+  "id": "55e336df-0961-40aa-a021-aed6babb158d",
+  "slug": "bmw--r-1250-rt-19-20",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/r-1250-rt-19-20"
+ },
+ {
+  "id": "39117018-11f6-49e6-99e0-335f0b6cd298",
+  "slug": "bmw--r-1300-gs-24",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/r-1300-gs-24"
+ },
+ {
+  "id": "5c996256-0110-4ac4-9f32-25365d7551e7",
+  "slug": "bmw--r-1300-gs-adventure-25",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/r-1300-gs-adventure-25"
+ },
+ {
+  "id": "976de821-d9d6-43cc-9a7e-2ce5837ceac5",
+  "slug": "bmw--r-1300-rs-25",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/r-1300-rs-25"
+ },
+ {
+  "id": "66eff159-870d-4268-853f-bb797fda5d8a",
+  "slug": "bmw--r-1300-rt-26",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/r-1300-rt-26"
+ },
+ {
+  "id": "56fad6ee-8160-479b-8f13-b5b2814882a8",
+  "slug": "bmw--r-850-gs-94-01",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/r-850-gs-94-01"
+ },
+ {
+  "id": "285c8f30-8dfc-479c-9740-122a031ea326",
+  "slug": "bmw--r-850-r-03-07",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/r-850-r-03-07"
+ },
+ {
+  "id": "2015581b-31fd-42b8-848f-ab6167fb0159",
+  "slug": "bmw--r-850-r-95-02",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/r-850-r-95-02"
+ },
+ {
+  "id": "62007d9b-4065-4214-9fc1-fd711bee0e27",
+  "slug": "bmw--r-nine-t-scrambler-16-21",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/r-nine-t-scrambler-16-21"
+ },
+ {
+  "id": "0bc1d55c-49d0-4e31-8f46-7fdd5241f182",
+  "slug": "bmw--s-1000-r-14-20",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/s-1000-r-14-20"
+ },
+ {
+  "id": "bfb813d0-9386-48b1-b059-66dc662a33da",
+  "slug": "bmw--s-1000-rr-12-18",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/s-1000-rr-12-18"
+ },
+ {
+  "id": "4447fef9-4593-4c8a-8d40-278bbc8245df",
+  "slug": "bmw--s-1000-xr-15-19",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/s-1000-xr-15-19"
+ },
+ {
+  "id": "e2c5f56b-f78e-4387-8831-c7ae6cb62fa8",
+  "slug": "bmw--s-1000-xr-20-23",
+  "parent_id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "full_path": "my-bike/bmw/s-1000-xr-20-23"
+ },
+ {
+  "id": "fbef89f5-6908-4395-a615-8f8da8e1aded",
+  "slug": "cf-moto--300-nk-21",
+  "parent_id": "8a833ded-f216-48d2-af6f-2dfcdd4e8025",
+  "full_path": "my-bike/cf-moto/300-nk-21"
+ },
+ {
+  "id": "3de818f9-522f-4bcc-9d20-911520d289ce",
+  "slug": "cf-moto--450-mt-24",
+  "parent_id": "8a833ded-f216-48d2-af6f-2dfcdd4e8025",
+  "full_path": "my-bike/cf-moto/450-mt-24"
+ },
+ {
+  "id": "24748a7b-d091-41c9-a4ac-72549aec3d40",
+  "slug": "cf-moto--650-nk-21",
+  "parent_id": "8a833ded-f216-48d2-af6f-2dfcdd4e8025",
+  "full_path": "my-bike/cf-moto/650-nk-21"
+ },
+ {
+  "id": "11b2a226-e246-4cdc-bbb8-4e97647f435c",
+  "slug": "cf-moto--700-cl-x-21",
+  "parent_id": "8a833ded-f216-48d2-af6f-2dfcdd4e8025",
+  "full_path": "my-bike/cf-moto/700-cl-x-21"
+ },
+ {
+  "id": "70ae7ace-0d29-4b83-a55b-b4523d0a9d93",
+  "slug": "cf-moto--700-mt-adv-25",
+  "parent_id": "8a833ded-f216-48d2-af6f-2dfcdd4e8025",
+  "full_path": "my-bike/cf-moto/700-mt-adv-25"
+ },
+ {
+  "id": "8f7cde8b-9c0c-43ec-a3e5-b83a58d1d647",
+  "slug": "cf-moto--800-mt-22",
+  "parent_id": "8a833ded-f216-48d2-af6f-2dfcdd4e8025",
+  "full_path": "my-bike/cf-moto/800-mt-22"
+ },
+ {
+  "id": "b86d0b7e-80d5-40e6-88f5-4709de9974c4",
+  "slug": "cf-moto--800-mt-x-25",
+  "parent_id": "8a833ded-f216-48d2-af6f-2dfcdd4e8025",
+  "full_path": "my-bike/cf-moto/800-mt-x-25"
+ },
+ {
+  "id": "09f99ecb-8080-4bd0-a544-c4827e867937",
+  "slug": "cf-moto--multiterrain-650-mt-21",
+  "parent_id": "8a833ded-f216-48d2-af6f-2dfcdd4e8025",
+  "full_path": "my-bike/cf-moto/multiterrain-650-mt-21"
+ },
+ {
+  "id": "4cf28c99-1abd-4d35-92ee-7abff9c4240e",
+  "slug": "ducati--848-1098-1198-07-12",
+  "parent_id": "1b491ae5-cb6b-4906-a4fa-4bde644d6f63",
+  "full_path": "my-bike/ducati/848-1098-1198-07-12"
+ },
+ {
+  "id": "0d71c0bd-c9d4-477b-b376-3821a651a057",
+  "slug": "ducati--desert-x-937-22",
+  "parent_id": "1b491ae5-cb6b-4906-a4fa-4bde644d6f63",
+  "full_path": "my-bike/ducati/desert-x-937-22"
+ },
+ {
+  "id": "2fc9fc0c-6d2e-4bab-82cf-0ae7ce6cfeba",
+  "slug": "ducati--hypermotard-796-1100-12-14",
+  "parent_id": "1b491ae5-cb6b-4906-a4fa-4bde644d6f63",
+  "full_path": "my-bike/ducati/hypermotard-796-1100-12-14"
+ },
+ {
+  "id": "cb970c38-ff03-4a9f-b25c-8c56b86d672d",
+  "slug": "ducati--hypermotard-939-16-18",
+  "parent_id": "1b491ae5-cb6b-4906-a4fa-4bde644d6f63",
+  "full_path": "my-bike/ducati/hypermotard-939-16-18"
+ },
+ {
+  "id": "bc27db03-dfac-4515-90fc-a50b5db5988e",
+  "slug": "ducati--hyperstrada-821-13-16",
+  "parent_id": "1b491ae5-cb6b-4906-a4fa-4bde644d6f63",
+  "full_path": "my-bike/ducati/hyperstrada-821-13-16"
+ },
+ {
+  "id": "0ba025ab-08e9-4d62-9395-2257ef05b22f",
+  "slug": "ducati--hyperstrada-939-16",
+  "parent_id": "1b491ae5-cb6b-4906-a4fa-4bde644d6f63",
+  "full_path": "my-bike/ducati/hyperstrada-939-16"
+ },
+ {
+  "id": "1f784891-9ce2-4af8-86b2-9900a3fccf9f",
+  "slug": "ducati--monster-1100-evo-11-12",
+  "parent_id": "1b491ae5-cb6b-4906-a4fa-4bde644d6f63",
+  "full_path": "my-bike/ducati/monster-1100-evo-11-12"
+ },
+ {
+  "id": "a9fb8ab5-fe1d-4862-b95b-2ced2f0cb84d",
+  "slug": "ducati--monster-1200-14-21",
+  "parent_id": "1b491ae5-cb6b-4906-a4fa-4bde644d6f63",
+  "full_path": "my-bike/ducati/monster-1200-14-21"
+ },
+ {
+  "id": "3f102303-ad19-44a7-be58-c418c6eb10f1",
+  "slug": "ducati--monster-695",
+  "parent_id": "1b491ae5-cb6b-4906-a4fa-4bde644d6f63",
+  "full_path": "my-bike/ducati/monster-695"
+ },
+ {
+  "id": "badbf86d-714f-4910-b004-0404a0377cb1",
+  "slug": "ducati--monster-696-796-1100-08-14",
+  "parent_id": "1b491ae5-cb6b-4906-a4fa-4bde644d6f63",
+  "full_path": "my-bike/ducati/monster-696-796-1100-08-14"
+ },
+ {
+  "id": "bc56e9f4-57de-4aed-8cde-e5d76fb43407",
+  "slug": "ducati--monster-797-17-20",
+  "parent_id": "1b491ae5-cb6b-4906-a4fa-4bde644d6f63",
+  "full_path": "my-bike/ducati/monster-797-17-20"
+ },
+ {
+  "id": "44e2ec36-0125-4fa5-a6bd-ef0be70c6a9e",
+  "slug": "ducati--monster-821-15-20",
+  "parent_id": "1b491ae5-cb6b-4906-a4fa-4bde644d6f63",
+  "full_path": "my-bike/ducati/monster-821-15-20"
+ },
+ {
+  "id": "4ec48da3-4755-4fe8-8813-03ed7a52f71b",
+  "slug": "ducati--monster-s2r-s4r-s4rs-800-1000-04-08",
+  "parent_id": "1b491ae5-cb6b-4906-a4fa-4bde644d6f63",
+  "full_path": "my-bike/ducati/monster-s2r-s4r-s4rs-800-1000-04-08"
+ },
+ {
+  "id": "a7eae3f3-994a-4d28-887f-deff7a23d6d0",
+  "slug": "ducati--multistrada-1200-10-12",
+  "parent_id": "1b491ae5-cb6b-4906-a4fa-4bde644d6f63",
+  "full_path": "my-bike/ducati/multistrada-1200-10-12"
+ },
+ {
+  "id": "95802222-56f5-46b5-ae3f-85dbf92586bd",
+  "slug": "ducati--multistrada-1200-13-14",
+  "parent_id": "1b491ae5-cb6b-4906-a4fa-4bde644d6f63",
+  "full_path": "my-bike/ducati/multistrada-1200-13-14"
+ },
+ {
+  "id": "67909a8a-2508-48b9-b94f-0fac63ad33b2",
+  "slug": "ducati--multistrada-1200-15-18",
+  "parent_id": "1b491ae5-cb6b-4906-a4fa-4bde644d6f63",
+  "full_path": "my-bike/ducati/multistrada-1200-15-18"
+ },
+ {
+  "id": "c8f41bdf-0b31-443f-8d4a-450c11b34195",
+  "slug": "ducati--multistrada-1260-18-20",
+  "parent_id": "1b491ae5-cb6b-4906-a4fa-4bde644d6f63",
+  "full_path": "my-bike/ducati/multistrada-1260-18-20"
+ },
+ {
+  "id": "a97b2d5d-2ab4-40d7-b28b-98dc727e880c",
+  "slug": "ducati--multistrada-620-multistrada-1000-ds-03-06",
+  "parent_id": "1b491ae5-cb6b-4906-a4fa-4bde644d6f63",
+  "full_path": "my-bike/ducati/multistrada-620-multistrada-1000-ds-03-06"
+ },
+ {
+  "id": "d8e9e7c7-961d-42d2-af74-285963fd6938",
+  "slug": "ducati--multistrada-950-17-18",
+  "parent_id": "1b491ae5-cb6b-4906-a4fa-4bde644d6f63",
+  "full_path": "my-bike/ducati/multistrada-950-17-18"
+ },
+ {
+  "id": "e32171a6-e348-4b96-a7fe-4df5f417783f",
+  "slug": "ducati--multistrada-950-s-19-21",
+  "parent_id": "1b491ae5-cb6b-4906-a4fa-4bde644d6f63",
+  "full_path": "my-bike/ducati/multistrada-950-s-19-21"
+ },
+ {
+  "id": "5b011624-1865-4946-a03d-a19c214319e4",
+  "slug": "ducati--multistrada-enduro-1200-16-18",
+  "parent_id": "1b491ae5-cb6b-4906-a4fa-4bde644d6f63",
+  "full_path": "my-bike/ducati/multistrada-enduro-1200-16-18"
+ },
+ {
+  "id": "dea5fb1e-85f8-49fd-8784-dd4f00b7b5ba",
+  "slug": "ducati--multistrada-enduro-1260-19-21",
+  "parent_id": "1b491ae5-cb6b-4906-a4fa-4bde644d6f63",
+  "full_path": "my-bike/ducati/multistrada-enduro-1260-19-21"
+ },
+ {
+  "id": "96c1703c-df4e-45e6-8979-c59e17de4ac1",
+  "slug": "ducati--multistrada-v4-21",
+  "parent_id": "1b491ae5-cb6b-4906-a4fa-4bde644d6f63",
+  "full_path": "my-bike/ducati/multistrada-v4-21"
+ },
+ {
+  "id": "268e920f-3dcb-4873-bd7e-5e2051d39282",
+  "slug": "ducati--scrambler-400-16-21",
+  "parent_id": "1b491ae5-cb6b-4906-a4fa-4bde644d6f63",
+  "full_path": "my-bike/ducati/scrambler-400-16-21"
+ },
+ {
+  "id": "02aadfc3-94f3-4a36-9b64-503401042de3",
+  "slug": "ducati--scrambler-icon-800-15-21",
+  "parent_id": "1b491ae5-cb6b-4906-a4fa-4bde644d6f63",
+  "full_path": "my-bike/ducati/scrambler-icon-800-15-21"
+ },
+ {
+  "id": "05b2deb3-0640-4073-b6de-f83c6b3040de",
+  "slug": "ducati--st-2-st-4-900-97-01",
+  "parent_id": "1b491ae5-cb6b-4906-a4fa-4bde644d6f63",
+  "full_path": "my-bike/ducati/st-2-st-4-900-97-01"
+ },
+ {
+  "id": "71fdf2ee-9819-4d47-880d-5ef5a4ac5d68",
+  "slug": "ducati--st-3-1000-04-08",
+  "parent_id": "1b491ae5-cb6b-4906-a4fa-4bde644d6f63",
+  "full_path": "my-bike/ducati/st-3-1000-04-08"
+ },
+ {
+  "id": "5c1c15cc-4213-4827-b384-742a46b8d069",
+  "slug": "ducati--streetfighter-848-1098-09-15",
+  "parent_id": "1b491ae5-cb6b-4906-a4fa-4bde644d6f63",
+  "full_path": "my-bike/ducati/streetfighter-848-1098-09-15"
+ },
+ {
+  "id": "f6b67b2c-0da2-4a39-ae58-1c80f2fdf8a8",
+  "slug": "eksarthmata-aksesoyar--fotismos",
+  "parent_id": "d7071c1f-a768-490e-94cc-26fef438d833",
+  "full_path": "eksoplismos-motosikletas/eksarthmata-aksesoyar/fotismos"
+ },
+ {
+  "id": "c76cd13e-ed29-41c1-847f-db604500cf33",
+  "slug": "eksarthmata-aksesoyar--kalymmata-rezerboyar",
+  "parent_id": "d7071c1f-a768-490e-94cc-26fef438d833",
+  "full_path": "eksoplismos-motosikletas/eksarthmata-aksesoyar/kalymmata-rezerboyar"
+ },
+ {
+  "id": "42c75f61-bb5e-4f12-b4c9-e0fff0738536",
+  "slug": "eksarthmata-aksesoyar--loipa-aksesoyar",
+  "parent_id": "d7071c1f-a768-490e-94cc-26fef438d833",
+  "full_path": "eksoplismos-motosikletas/eksarthmata-aksesoyar/loipa-aksesoyar"
+ },
+ {
+  "id": "15d6dfea-d7ef-46e2-a2d8-638791154f76",
+  "slug": "eksarthmata-aksesoyar--othones-plohghshs",
+  "parent_id": "d7071c1f-a768-490e-94cc-26fef438d833",
+  "full_path": "eksoplismos-motosikletas/eksarthmata-aksesoyar/othones-plohghshs"
+ },
+ {
+  "id": "bf498aef-eb0a-4a13-89e5-66ab096383c5",
+  "slug": "eksarthmata-aksesoyar--xeirolabes-prostasies-ntepozitoy-aytokollhta",
+  "parent_id": "d7071c1f-a768-490e-94cc-26fef438d833",
+  "full_path": "eksoplismos-motosikletas/eksarthmata-aksesoyar/xeirolabes-prostasies-ntepozitoy-aytokollhta"
+ },
+ {
+  "id": "dd8993b2-73ce-4db0-acad-f4d9e1a41e1a",
+  "slug": "eksoplismos-anabath",
+  "parent_id": null,
+  "full_path": "eksoplismos-anabath"
+ },
+ {
+  "id": "59fe5ae0-9922-4419-be9d-668cf4314497",
+  "slug": "eksoplismos-anabath--aksesoyar-anabath",
+  "parent_id": "dd8993b2-73ce-4db0-acad-f4d9e1a41e1a",
+  "full_path": "eksoplismos-anabath/aksesoyar-anabath"
+ },
+ {
+  "id": "fb9e3adb-462f-4974-87da-ac45c7250413",
+  "slug": "eksoplismos-anabath--endysh",
+  "parent_id": "dd8993b2-73ce-4db0-acad-f4d9e1a41e1a",
+  "full_path": "eksoplismos-anabath/endysh"
+ },
+ {
+  "id": "d27e9d6a-768a-42af-b6df-35f0d2ff6428",
+  "slug": "eksoplismos-anabath--kranh-endoep-nies-kameres",
+  "parent_id": "dd8993b2-73ce-4db0-acad-f4d9e1a41e1a",
+  "full_path": "eksoplismos-anabath/kranh-endoep-nies-kameres"
+ },
+ {
+  "id": "276705b7-18b5-420a-8409-5e75577779d4",
+  "slug": "eksoplismos-anabath--mpotes",
+  "parent_id": "dd8993b2-73ce-4db0-acad-f4d9e1a41e1a",
+  "full_path": "eksoplismos-anabath/mpotes"
+ },
+ {
+  "id": "97d1ac0f-40b1-406b-af3f-ee55cf5257ac",
+  "slug": "eksoplismos-anabath--paidika",
+  "parent_id": "dd8993b2-73ce-4db0-acad-f4d9e1a41e1a",
+  "full_path": "eksoplismos-anabath/paidika"
+ },
+ {
+  "id": "59970eb1-cbd4-4a24-8fbd-e81e3be6408b",
+  "slug": "eksoplismos-motosikletas",
+  "parent_id": null,
+  "full_path": "eksoplismos-motosikletas"
+ },
+ {
+  "id": "bb29280d-55be-47fb-a59f-bf17a462974e",
+  "slug": "eksoplismos-motosikletas--anabatoria-orthostates-motolift",
+  "parent_id": "59970eb1-cbd4-4a24-8fbd-e81e3be6408b",
+  "full_path": "eksoplismos-motosikletas/anabatoria-orthostates-motolift"
+ },
+ {
+  "id": "74d012e1-55db-4a78-a76c-bd319a63f478",
+  "slug": "eksoplismos-motosikletas--antikleptika",
+  "parent_id": "59970eb1-cbd4-4a24-8fbd-e81e3be6408b",
+  "full_path": "eksoplismos-motosikletas/antikleptika"
+ },
+ {
+  "id": "313f7706-ceb7-479b-a972-228558c87f14",
+  "slug": "eksoplismos-motosikletas--balitses",
+  "parent_id": "59970eb1-cbd4-4a24-8fbd-e81e3be6408b",
+  "full_path": "eksoplismos-motosikletas/balitses"
+ },
+ {
+  "id": "079e1773-d6e8-4f2e-8604-a2486ed5a1d5",
+  "slug": "eksoplismos-motosikletas--baseis-kinhton",
+  "parent_id": "59970eb1-cbd4-4a24-8fbd-e81e3be6408b",
+  "full_path": "eksoplismos-motosikletas/baseis-kinhton"
+ },
+ {
+  "id": "d7071c1f-a768-490e-94cc-26fef438d833",
+  "slug": "eksoplismos-motosikletas--eksarthmata-aksesoyar",
+  "parent_id": "59970eb1-cbd4-4a24-8fbd-e81e3be6408b",
+  "full_path": "eksoplismos-motosikletas/eksarthmata-aksesoyar"
+ },
+ {
+  "id": "94b0b65e-a5ef-4c49-ad45-7a2dcc90a99e",
+  "slug": "eksoplismos-motosikletas--eksatmiseis",
+  "parent_id": "59970eb1-cbd4-4a24-8fbd-e81e3be6408b",
+  "full_path": "eksoplismos-motosikletas/eksatmiseis"
+ },
+ {
+  "id": "94527175-09a0-439b-87ef-149fe0180028",
+  "slug": "eksoplismos-motosikletas--filtra",
+  "parent_id": "59970eb1-cbd4-4a24-8fbd-e81e3be6408b",
+  "full_path": "eksoplismos-motosikletas/filtra"
+ },
+ {
+  "id": "807db5ad-ea6a-4881-98a6-38ec35491612",
+  "slug": "eksoplismos-motosikletas--kalymmata-motosikletas",
+  "parent_id": "59970eb1-cbd4-4a24-8fbd-e81e3be6408b",
+  "full_path": "eksoplismos-motosikletas/kalymmata-motosikletas"
+ },
+ {
+  "id": "b8774a69-adaa-4b72-a5e3-614806a608ba",
+  "slug": "eksoplismos-motosikletas--kalymmata-podion-xerion",
+  "parent_id": "59970eb1-cbd4-4a24-8fbd-e81e3be6408b",
+  "full_path": "eksoplismos-motosikletas/kalymmata-podion-xerion"
+ },
+ {
+  "id": "31edd281-65fe-4652-bb2e-73bdb2b4dc5f",
+  "slug": "eksoplismos-motosikletas--karines-mudguards-xoyftes",
+  "parent_id": "59970eb1-cbd4-4a24-8fbd-e81e3be6408b",
+  "full_path": "eksoplismos-motosikletas/karines-mudguards-xoyftes"
+ },
+ {
+  "id": "34f27c3c-57bc-4291-88ec-3352924e9fdd",
+  "slug": "eksoplismos-motosikletas--plates-moto",
+  "parent_id": "59970eb1-cbd4-4a24-8fbd-e81e3be6408b",
+  "full_path": "eksoplismos-motosikletas/plates-moto"
+ },
+ {
+  "id": "a7cd01ad-658e-4486-ba07-cb6cec438e2d",
+  "slug": "eksoplismos-motosikletas--prostateytika-motosikletas",
+  "parent_id": "59970eb1-cbd4-4a24-8fbd-e81e3be6408b",
+  "full_path": "eksoplismos-motosikletas/prostateytika-motosikletas"
+ },
+ {
+  "id": "d18e01b2-2d9b-4b39-8a76-17e4260302cd",
+  "slug": "eksoplismos-motosikletas--soft-bags",
+  "parent_id": "59970eb1-cbd4-4a24-8fbd-e81e3be6408b",
+  "full_path": "eksoplismos-motosikletas/soft-bags"
+ },
+ {
+  "id": "024e77c2-c532-42d9-a6f0-52dba5c5b8f8",
+  "slug": "eksoplismos-motosikletas--systhmata-prosarmoghs",
+  "parent_id": "59970eb1-cbd4-4a24-8fbd-e81e3be6408b",
+  "full_path": "eksoplismos-motosikletas/systhmata-prosarmoghs"
+ },
+ {
+  "id": "e03ea7b9-7e5f-4bf9-8e78-eb49c3722950",
+  "slug": "eksoplismos-motosikletas--zelatines",
+  "parent_id": "59970eb1-cbd4-4a24-8fbd-e81e3be6408b",
+  "full_path": "eksoplismos-motosikletas/zelatines"
+ },
+ {
+  "id": "ee616669-56fe-4462-a846-8f6159dd3563",
+  "slug": "endysh--adiabroxa",
+  "parent_id": "fb9e3adb-462f-4974-87da-ac45c7250413",
+  "full_path": "eksoplismos-anabath/endysh/adiabroxa"
+ },
+ {
+  "id": "e67ff11f-873b-4d75-9a9c-5d6585a3c7de",
+  "slug": "endysh--dermatines-formes",
+  "parent_id": "edd98a4d-4287-4154-9c46-c70f3fe8c7d8",
+  "full_path": "prosfores/endysh/dermatines-formes"
+ },
+ {
+  "id": "b5c3cef2-0a94-4620-a46e-2a59f4975072",
+  "slug": "endysh--diafora",
+  "parent_id": "fb9e3adb-462f-4974-87da-ac45c7250413",
+  "full_path": "eksoplismos-anabath/endysh/diafora"
+ },
+ {
+  "id": "f2a361a5-c0bc-4b7d-8b17-23a88edbb532",
+  "slug": "endysh--gantia",
+  "parent_id": "edd98a4d-4287-4154-9c46-c70f3fe8c7d8",
+  "full_path": "prosfores/endysh/gantia"
+ },
+ {
+  "id": "aef5a1e0-7e1b-4cee-829a-72f64c6dbcbc",
+  "slug": "endysh--gileka",
+  "parent_id": "fb9e3adb-462f-4974-87da-ac45c7250413",
+  "full_path": "eksoplismos-anabath/endysh/gileka"
+ },
+ {
+  "id": "d3ef85eb-ef5a-4744-87b0-5c5b26a7fe60",
+  "slug": "endysh--isothermika",
+  "parent_id": "fb9e3adb-462f-4974-87da-ac45c7250413",
+  "full_path": "eksoplismos-anabath/endysh/isothermika"
+ },
+ {
+  "id": "58208801-94eb-45a3-9dd3-d4ed5bcb2448",
+  "slug": "endysh--mployzakia",
+  "parent_id": "fb9e3adb-462f-4974-87da-ac45c7250413",
+  "full_path": "eksoplismos-anabath/endysh/mployzakia"
+ },
+ {
+  "id": "6d255dd3-93a7-4de2-b148-63f5ace5c699",
+  "slug": "endysh--mpoyfan",
+  "parent_id": "edd98a4d-4287-4154-9c46-c70f3fe8c7d8",
+  "full_path": "prosfores/endysh/mpoyfan"
+ },
+ {
+  "id": "3455521f-f7c7-4803-ab48-096fbbbf39da",
+  "slug": "endysh--pantelonia",
+  "parent_id": "edd98a4d-4287-4154-9c46-c70f3fe8c7d8",
+  "full_path": "prosfores/endysh/pantelonia"
+ },
+ {
+  "id": "68392075-80ff-43ef-ab79-c0dbcdaf6536",
+  "slug": "endysh--prostasies-aksesoyar",
+  "parent_id": "fb9e3adb-462f-4974-87da-ac45c7250413",
+  "full_path": "eksoplismos-anabath/endysh/prostasies-aksesoyar"
+ },
+ {
+  "id": "bb9183a1-4330-4f00-b183-d21c82b18f1d",
+  "slug": "gantia--agonistika-gantia",
+  "parent_id": "f2a361a5-c0bc-4b7d-8b17-23a88edbb532",
+  "full_path": "prosfores/endysh/gantia/agonistika-gantia"
+ },
+ {
+  "id": "5579139a-5ebb-4a2b-809b-aa106a7ce24a",
+  "slug": "gantia--kalokairina-gantia",
+  "parent_id": "f2a361a5-c0bc-4b7d-8b17-23a88edbb532",
+  "full_path": "prosfores/endysh/gantia/kalokairina-gantia"
+ },
+ {
+  "id": "addfa5fd-7b6a-4ae8-aca3-d652717adc0f",
+  "slug": "gantia--midseason-gantia",
+  "parent_id": "f2a361a5-c0bc-4b7d-8b17-23a88edbb532",
+  "full_path": "prosfores/endysh/gantia/midseason-gantia"
+ },
+ {
+  "id": "6b3e4a83-1b59-4890-bca7-6e19940f6da9",
+  "slug": "gantia--thermainomena-gantia",
+  "parent_id": "f2a361a5-c0bc-4b7d-8b17-23a88edbb532",
+  "full_path": "prosfores/endysh/gantia/thermainomena-gantia"
+ },
+ {
+  "id": "cb03e666-716d-4827-a07b-9173191f5915",
+  "slug": "gantia--xeimerina-gantia",
+  "parent_id": "f2a361a5-c0bc-4b7d-8b17-23a88edbb532",
+  "full_path": "prosfores/endysh/gantia/xeimerina-gantia"
+ },
+ {
+  "id": "5042473f-bb2c-4c44-adfa-32899af34ea5",
+  "slug": "gilera--fuoco-500-07-14",
+  "parent_id": "27a06c8c-1f51-4018-811a-84823067fc47",
+  "full_path": "my-bike/gilera/fuoco-500-07-14"
+ },
+ {
+  "id": "adabf73d-f201-47e0-ad3b-2302863dd10f",
+  "slug": "gilera--gp-800-08-14",
+  "parent_id": "27a06c8c-1f51-4018-811a-84823067fc47",
+  "full_path": "my-bike/gilera/gp-800-08-14"
+ },
+ {
+  "id": "e4299ea5-1876-4847-bf70-625bdfe4f5f0",
+  "slug": "gilera--nexus-125-250-300-500-06-14",
+  "parent_id": "27a06c8c-1f51-4018-811a-84823067fc47",
+  "full_path": "my-bike/gilera/nexus-125-250-300-500-06-14"
+ },
+ {
+  "id": "8da97906-2f3c-4eb9-9a36-18f08e4575e9",
+  "slug": "gilera--nexus-500-05",
+  "parent_id": "27a06c8c-1f51-4018-811a-84823067fc47",
+  "full_path": "my-bike/gilera/nexus-500-05"
+ },
+ {
+  "id": "f7625e3f-2d26-4fb8-89a5-79ff6f591611",
+  "slug": "gilera--runner-50-125-200-06-15",
+  "parent_id": "27a06c8c-1f51-4018-811a-84823067fc47",
+  "full_path": "my-bike/gilera/runner-50-125-200-06-15"
+ },
+ {
+  "id": "c5381328-0248-4a18-bfef-d58f0b58aad9",
+  "slug": "honda--125-150-00-03",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/125-150-00-03"
+ },
+ {
+  "id": "9003f178-b357-4b55-b07e-82a5c8f9e255",
+  "slug": "honda--adv-350-22",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/adv-350-22"
+ },
+ {
+  "id": "ae99906b-2cd9-4382-96d6-0d8192414b24",
+  "slug": "honda--africa-twin-750-90-92",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/africa-twin-750-90-92"
+ },
+ {
+  "id": "2636a1dc-ce5d-47af-ad19-a40dc82df257",
+  "slug": "honda--africa-twin-750-93-95",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/africa-twin-750-93-95"
+ },
+ {
+  "id": "11b0b309-8c9e-403a-bbf5-0977130e24db",
+  "slug": "honda--africa-twin-750-96-02",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/africa-twin-750-96-02"
+ },
+ {
+  "id": "7c46c814-27b2-4387-8e42-c7be5e7a638c",
+  "slug": "honda--black-widow-750-00-02",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/black-widow-750-00-02"
+ },
+ {
+  "id": "e141a1df-2cfd-4f19-a2cf-6b1cc28cdf22",
+  "slug": "honda--cb-1000-r-08-17",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/cb-1000-r-08-17"
+ },
+ {
+  "id": "0bedfa56-bd35-4542-aa9b-231fc484baf9",
+  "slug": "honda--cb-1000-r-18-20",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/cb-1000-r-18-20"
+ },
+ {
+  "id": "d7e2ff8a-b27c-49b9-bac3-3619fa3033f5",
+  "slug": "honda--cb-1000-r-21",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/cb-1000-r-21"
+ },
+ {
+  "id": "058c585b-eb6c-4e7c-a9ab-6dce69102e82",
+  "slug": "honda--cb-1100-13-14",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/cb-1100-13-14"
+ },
+ {
+  "id": "0741df4a-f74a-4ee3-be93-20b7074b9b6f",
+  "slug": "honda--cb-125-r-18-20",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/cb-125-r-18-20"
+ },
+ {
+  "id": "c0855d11-504b-4603-a73f-3f31acb5c6ef",
+  "slug": "honda--cb-125f-15-20",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/cb-125f-15-20"
+ },
+ {
+  "id": "168dbfb1-322d-4b49-86d5-957b2ef1528a",
+  "slug": "honda--cb-125f-21",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/cb-125f-21"
+ },
+ {
+  "id": "d1ddf37d-831b-4dd1-a2bf-bccc96f0614a",
+  "slug": "honda--cb-1300-cb-1300-s-03-09",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/cb-1300-cb-1300-s-03-09"
+ },
+ {
+  "id": "3ae3c1b8-b93b-4833-be7d-04ddd37ec161",
+  "slug": "honda--cb-1300-s-10-15",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/cb-1300-s-10-15"
+ },
+ {
+  "id": "ebbcd933-0c17-4a56-b656-c797e773c303",
+  "slug": "honda--cb-300-r-18-21",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/cb-300-r-18-21"
+ },
+ {
+  "id": "948d6821-cde6-4066-88c4-2df62b7e7fc4",
+  "slug": "honda--cb-500-97-05-cb-500s-00-05",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/cb-500-97-05-cb-500s-00-05"
+ },
+ {
+  "id": "cf1f2d13-94ca-4e10-85cd-2088d04a977e",
+  "slug": "honda--cb-500-f-13-15",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/cb-500-f-13-15"
+ },
+ {
+  "id": "b5bdf8b9-eb49-4edc-9200-e3bdf3764975",
+  "slug": "honda--cb-500-f-16-18",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/cb-500-f-16-18"
+ },
+ {
+  "id": "103afeac-c73d-4e2c-9376-2d5159166e8c",
+  "slug": "honda--cb-500-f-19-22",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/cb-500-f-19-22"
+ },
+ {
+  "id": "4e0eab8e-f772-4562-a5e6-0d2b68fd1630",
+  "slug": "honda--cb-500-hornet-24",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/cb-500-hornet-24"
+ },
+ {
+  "id": "837c04ea-73f8-441b-8134-a64557d88f94",
+  "slug": "honda--cb-500-x-13-18",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/cb-500-x-13-18"
+ },
+ {
+  "id": "d260b87d-c028-4046-9173-df10f85a3ce0",
+  "slug": "honda--cb-500-x-19-22",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/cb-500-x-19-22"
+ },
+ {
+  "id": "0b3461b8-28ac-41be-962b-74bfa83ebe5b",
+  "slug": "honda--cb-650-r-19-20",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/cb-650-r-19-20"
+ },
+ {
+  "id": "2c0a5f70-df46-40a1-a9dc-fd4e88480a9d",
+  "slug": "honda--cb-650-r-21-23",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/cb-650-r-21-23"
+ },
+ {
+  "id": "5724c6cd-ea05-4579-8d1b-b1d969a7c962",
+  "slug": "honda--cb-650-r-24",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/cb-650-r-24"
+ },
+ {
+  "id": "f932e914-8c1e-4dc3-8f27-97be256f20d1",
+  "slug": "honda--cb-650f-17-18",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/cb-650f-17-18"
+ },
+ {
+  "id": "6b42b97b-d004-4c1a-a3bf-56a7de1f1a87",
+  "slug": "honda--cb-750-hornet-23",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/cb-750-hornet-23"
+ },
+ {
+  "id": "3cbd21a2-24a2-4049-b35e-80c28fe95094",
+  "slug": "honda--cb-750-seven-fifty-92-00",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/cb-750-seven-fifty-92-00"
+ },
+ {
+  "id": "5d5abbe1-4ed6-475e-8a47-1e75f64b0ab0",
+  "slug": "honda--cb-900-hornet-02-07",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/cb-900-hornet-02-07"
+ },
+ {
+  "id": "1ddec70d-42ea-447f-ad78-aecb0e4d3c37",
+  "slug": "honda--cb650-f-cbr650f-14-16",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/cb650-f-cbr650f-14-16"
+ },
+ {
+  "id": "eafa0a6d-23af-4df6-b89b-48fea0c82f5b",
+  "slug": "honda--cbf-1000-abs-06-09",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/cbf-1000-abs-06-09"
+ },
+ {
+  "id": "3921c694-8d84-4dba-a27f-900e8599e66a",
+  "slug": "honda--cbf-1000-cbf-1000-st-10-14",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/cbf-1000-cbf-1000-st-10-14"
+ },
+ {
+  "id": "20dcdff4-cb7e-4897-953e-f9e1873bb062",
+  "slug": "honda--cbf-125-09-14",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/cbf-125-09-14"
+ },
+ {
+  "id": "94d145fd-559d-40a7-be4b-d0d1fff1d971",
+  "slug": "honda--cbf-500-04-12",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/cbf-500-04-12"
+ },
+ {
+  "id": "ae737d15-73cb-43c5-9e85-3fdd45f5e5a7",
+  "slug": "honda--cbf-600s-cbf-600n-04-12",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/cbf-600s-cbf-600n-04-12"
+ },
+ {
+  "id": "4a3eb523-c509-4e9e-b8aa-ae5b50f7565c",
+  "slug": "honda--cbr-1000-f-89-92",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/cbr-1000-f-89-92"
+ },
+ {
+  "id": "8541c530-84f5-4edc-ac21-4b074492c29c",
+  "slug": "honda--cbr-1000-f-93-00",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/cbr-1000-f-93-00"
+ },
+ {
+  "id": "c571229b-ca99-496a-8ad4-2c98a6815986",
+  "slug": "honda--cbr-1000-rr-08-09",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/cbr-1000-rr-08-09"
+ },
+ {
+  "id": "179c2279-bed2-4e80-8e70-5d16cfc68e0b",
+  "slug": "honda--cbr-1000-rr-12-13",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/cbr-1000-rr-12-13"
+ },
+ {
+  "id": "33fa3d4d-118c-4f6e-97c4-ff7e8a250255",
+  "slug": "honda--cbr-1000-rr-17-19",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/cbr-1000-rr-17-19"
+ },
+ {
+  "id": "e001562b-bb35-42cc-a289-34363fce4c47",
+  "slug": "honda--cbr-1100-xx-97-09",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/cbr-1100-xx-97-09"
+ },
+ {
+  "id": "62e9ea1e-9301-4055-9ac8-176a3a581bdf",
+  "slug": "honda--cbr-125-05-10",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/cbr-125-05-10"
+ },
+ {
+  "id": "b7824c09-8291-491f-8798-af46574ead4e",
+  "slug": "honda--cbr-125-r-11-17",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/cbr-125-r-11-17"
+ },
+ {
+  "id": "ab3fc2ba-c389-4947-91a2-3b25ab21cc4b",
+  "slug": "honda--cbr-250-r-11-15",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/cbr-250-r-11-15"
+ },
+ {
+  "id": "b04450e3-7dcf-45a2-9bd7-76765ed98dc8",
+  "slug": "honda--cbr-500-r-13-15",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/cbr-500-r-13-15"
+ },
+ {
+  "id": "7272982d-0b1c-4dfd-9dbf-78a63eed3c04",
+  "slug": "honda--cbr-600-f-11-13",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/cbr-600-f-11-13"
+ },
+ {
+  "id": "d4983152-60ec-4a7b-a59e-55c9a0409bc9",
+  "slug": "honda--cbr-600-f-99-09",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/cbr-600-f-99-09"
+ },
+ {
+  "id": "a7a5a991-26fc-4322-8ba7-ae2dee7b3daf",
+  "slug": "honda--cbr-600-rr-05-06",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/cbr-600-rr-05-06"
+ },
+ {
+  "id": "188234b9-6f7d-4e79-b976-98daa0f965c5",
+  "slug": "honda--cbr-600-rr-07-09",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/cbr-600-rr-07-09"
+ },
+ {
+  "id": "e5c9fac4-2881-48c7-80c5-579545572fa8",
+  "slug": "honda--cl-500-23-25",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/cl-500-23-25"
+ },
+ {
+  "id": "3fe2876d-c64c-42b1-baeb-9afd842b7191",
+  "slug": "honda--cmx-1100-rebel-21",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/cmx-1100-rebel-21"
+ },
+ {
+  "id": "21f9c32d-5073-4fbd-9bea-753bc0111abc",
+  "slug": "honda--cmx-500-rebel-17-19",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/cmx-500-rebel-17-19"
+ },
+ {
+  "id": "6340e0bc-2832-4aac-9b04-779c6789eb46",
+  "slug": "honda--cmx-500-rebel-20-21",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/cmx-500-rebel-20-21"
+ },
+ {
+  "id": "f601d86e-f742-459a-a174-8980e2195394",
+  "slug": "honda--cn-250-89-00",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/cn-250-89-00"
+ },
+ {
+  "id": "fe12e5d2-ae60-4af4-a166-aa83a4430eca",
+  "slug": "honda--crf-250-l-crf-250-rally-17-22",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/crf-250-l-crf-250-rally-17-22"
+ },
+ {
+  "id": "18766b4f-57da-436f-9fb4-f89f830fbbee",
+  "slug": "honda--crf-300-l-21-23",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/crf-300-l-21-23"
+ },
+ {
+  "id": "9a8a1cb4-950b-481e-b2af-a2bbc212e2e5",
+  "slug": "honda--crf1000l-africa-twin-16-17",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/crf1000l-africa-twin-16-17"
+ },
+ {
+  "id": "aca17ee4-7e13-4d3a-afa4-e827c5ffda74",
+  "slug": "honda--crf1000l-africa-twin-18-19",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/crf1000l-africa-twin-18-19"
+ },
+ {
+  "id": "0aca3b2a-bdb2-4bf3-84f6-c48c1a2a4869",
+  "slug": "honda--crf1000l-africa-twin-adventure-sports-18-19",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/crf1000l-africa-twin-adventure-sports-18-19"
+ },
+ {
+  "id": "1cd02ea9-46c3-4cac-9e95-c8371aac32b5",
+  "slug": "honda--crf1100l-africa-twin-20-21",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/crf1100l-africa-twin-20-21"
+ },
+ {
+  "id": "3cd025e4-8b78-48b9-9e06-b2f9987c9cc2",
+  "slug": "honda--crf1100l-africa-twin-24",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/crf1100l-africa-twin-24"
+ },
+ {
+  "id": "10a5eead-8e80-4157-b7ad-89b9ed66e497",
+  "slug": "honda--crf1100l-africa-twin-adventure-sports-20-21",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/crf1100l-africa-twin-adventure-sports-20-21"
+ },
+ {
+  "id": "ccbf5aa5-4c9a-48f8-b63f-6581e8430348",
+  "slug": "honda--crf1100l-africa-twin-adventure-sports-22",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/crf1100l-africa-twin-adventure-sports-22"
+ },
+ {
+  "id": "283e65db-c8f8-4987-abed-5e48f42ad018",
+  "slug": "honda--crf1100l-africa-twin-adventure-sports-24",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/crf1100l-africa-twin-adventure-sports-24"
+ },
+ {
+  "id": "c0c1cf4f-f462-485a-944a-fe1fce21dddf",
+  "slug": "honda--crossrunner-800-11-14",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/crossrunner-800-11-14"
+ },
+ {
+  "id": "610188dc-2dc5-46a1-9c52-4962328f7082",
+  "slug": "honda--crossrunner-800-15-20",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/crossrunner-800-15-20"
+ },
+ {
+  "id": "ee476d94-05eb-466d-8c51-fc2f8a6bba27",
+  "slug": "honda--crosstourer-1200-crosstourer-1200-dct-12-19",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/crosstourer-1200-crosstourer-1200-dct-12-19"
+ },
+ {
+  "id": "2ad3bad7-d515-4786-8868-eb5de2bdc59b",
+  "slug": "honda--ctx-1300-14-16",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/ctx-1300-14-16"
+ },
+ {
+  "id": "4820c8ff-4ebd-47ae-8c20-2763b3c12c52",
+  "slug": "honda--ctx-700-dct-14-16",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/ctx-700-dct-14-16"
+ },
+ {
+  "id": "dfce852d-7706-42b5-ae88-3b5d21bb67a8",
+  "slug": "honda--dn-01-700-08-14",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/dn-01-700-08-14"
+ },
+ {
+  "id": "bc5524eb-8429-4e97-b3ba-f26f2ef08007",
+  "slug": "honda--dominator-650-92-94",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/dominator-650-92-94"
+ },
+ {
+  "id": "85382c6e-c876-4437-b734-4edee91cf92e",
+  "slug": "honda--dylan-125-150-02-07",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/dylan-125-150-02-07"
+ },
+ {
+  "id": "13e2e3a3-bd3f-4323-ac6b-1c4d8eb7a4b9",
+  "slug": "honda--foresight-250-97-08",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/foresight-250-97-08"
+ },
+ {
+  "id": "98b4c897-2951-46dd-816e-d643fd434207",
+  "slug": "honda--forza-125-21",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/forza-125-21"
+ },
+ {
+  "id": "09ff5f80-04ad-458f-bbe6-c445917ce03c",
+  "slug": "honda--forza-125-300-19-20",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/forza-125-300-19-20"
+ },
+ {
+  "id": "c7505601-f620-483e-a269-e6c5c86b1fa0",
+  "slug": "honda--forza-125-abs-15-18",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/forza-125-abs-15-18"
+ },
+ {
+  "id": "6c11bbb6-2288-43f0-8747-27df56fa8136",
+  "slug": "honda--forza-250-05-07",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/forza-250-05-07"
+ },
+ {
+  "id": "8cbc335a-a514-44f8-aee6-1f93ab3c121e",
+  "slug": "honda--forza-250-x-ex-08-12",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/forza-250-x-ex-08-12"
+ },
+ {
+  "id": "a614bb29-8761-4986-a794-8e7c149dcefe",
+  "slug": "honda--forza-300-abs-13-17",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/forza-300-abs-13-17"
+ },
+ {
+  "id": "5bdc8c21-1289-4078-abe4-20d7c593af1d",
+  "slug": "honda--forza-350-21",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/forza-350-21"
+ },
+ {
+  "id": "b8eea25c-2788-4c87-8ca8-8e2c281ad311",
+  "slug": "honda--forza-750-21",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/forza-750-21"
+ },
+ {
+  "id": "f630ade3-7b8d-45da-a31b-d9bf61272fcc",
+  "slug": "honda--forza-750-25",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/forza-750-25"
+ },
+ {
+  "id": "0917ed3a-6593-4b00-aeff-bd9ec8f20b67",
+  "slug": "honda--gb-350-s-25",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/gb-350-s-25"
+ },
+ {
+  "id": "14c0579a-a837-491f-bd32-877cb8905fa4",
+  "slug": "honda--gl-1800-gold-wing-18-20",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/gl-1800-gold-wing-18-20"
+ },
+ {
+  "id": "d5668570-70d7-454d-94e2-232f275ede92",
+  "slug": "honda--hornet-600-03-06",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/hornet-600-03-06"
+ },
+ {
+  "id": "47aaff0d-4c02-4b1c-af8e-fa1570a737cd",
+  "slug": "honda--hornet-600-hornet-600-abs-07-10",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/hornet-600-hornet-600-abs-07-10"
+ },
+ {
+  "id": "ab333690-aad8-4e03-8ab6-9d6a27692409",
+  "slug": "honda--hornet-600-hornet-600-abs-11-13",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/hornet-600-hornet-600-abs-11-13"
+ },
+ {
+  "id": "4c943140-d9ae-4062-a1fd-bbd70eb2cf72",
+  "slug": "honda--hornet-600-s-98-02",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/hornet-600-s-98-02"
+ },
+ {
+  "id": "d460bc2b-cfbe-470c-b319-613c3ce55e48",
+  "slug": "honda--integra-700-12-13",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/integra-700-12-13"
+ },
+ {
+  "id": "707322c8-beab-46bf-bbe9-5044502147dd",
+  "slug": "honda--integra-750-14-15",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/integra-750-14-15"
+ },
+ {
+  "id": "2ccbc27a-80a2-45a4-bfd4-b6bf1bfaa7a4",
+  "slug": "honda--integra-750-16-20",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/integra-750-16-20"
+ },
+ {
+  "id": "f51cb32e-4056-48c6-a0b3-2d33c59dc59a",
+  "slug": "honda--lead-110-08-14",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/lead-110-08-14"
+ },
+ {
+  "id": "24001acb-6d5f-4e1d-8c82-639bf1fe6026",
+  "slug": "honda--nc700s-12-13-nc750s-nc750s-dct-14-15",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/nc700s-12-13-nc750s-nc750s-dct-14-15"
+ },
+ {
+  "id": "8ee63ca4-8817-4131-b93f-eba91495e0c5",
+  "slug": "honda--nc700x-12-13-nc750x-nc750x-dct-14-15",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/nc700x-12-13-nc750x-nc750x-dct-14-15"
+ },
+ {
+  "id": "142ef0e7-10bf-417c-adc0-7a366b0fed9c",
+  "slug": "honda--nc750s-16-20",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/nc750s-16-20"
+ },
+ {
+  "id": "1f2928f6-aa12-47b1-be19-0c3ca8b02c5c",
+  "slug": "honda--nc750x-16-20",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/nc750x-16-20"
+ },
+ {
+  "id": "e876432f-5492-4a81-b98a-1f37c7257890",
+  "slug": "honda--nc750x-21-24",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/nc750x-21-24"
+ },
+ {
+  "id": "4b038717-b0dd-4c4a-9b54-1b88a5a964d1",
+  "slug": "honda--nc750x-25",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/nc750x-25"
+ },
+ {
+  "id": "582e0eed-bae4-4fd8-8d17-154d493b915f",
+  "slug": "honda--nt-650-v-deauville-98-05",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/nt-650-v-deauville-98-05"
+ },
+ {
+  "id": "d9aa8329-ad18-45f3-a04c-a7a31504e6b0",
+  "slug": "honda--nt-700-deauville-06-12",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/nt-700-deauville-06-12"
+ },
+ {
+  "id": "70b80edc-203b-4d7e-8484-b6dafbc65fb3",
+  "slug": "honda--nt1100-22",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/nt1100-22"
+ },
+ {
+  "id": "5a3c5f85-27c4-42b2-8bae-51aaa4203e22",
+  "slug": "honda--nx-500-24",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/nx-500-24"
+ },
+ {
+  "id": "608e1081-aafb-4e0b-9824-3d3a7a99f13b",
+  "slug": "honda--pan-european-st-1300-02-14",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/pan-european-st-1300-02-14"
+ },
+ {
+  "id": "bc5f78cc-ff83-468f-ae52-7eebe66eec83",
+  "slug": "honda--pantheon-125-150-03-08",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/pantheon-125-150-03-08"
+ },
+ {
+  "id": "b1a4e8d2-f697-4033-8b88-f86f9b38de78",
+  "slug": "honda--pantheon-125-150-98-02",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/pantheon-125-150-98-02"
+ },
+ {
+  "id": "73744447-77ec-4e44-8cd7-8576793b5c1c",
+  "slug": "honda--pcx-125-150-10-13",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/pcx-125-150-10-13"
+ },
+ {
+  "id": "f481330b-59b2-42af-94f6-3b1f2be7e125",
+  "slug": "honda--pcx-125-150-14-17-pcx-150-18",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/pcx-125-150-14-17-pcx-150-18"
+ },
+ {
+  "id": "ab112124-68bd-455f-985a-96b1a2fc1197",
+  "slug": "honda--pcx-125-18-20",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/pcx-125-18-20"
+ },
+ {
+  "id": "d1a49843-380d-4813-ba4a-deab2a321084",
+  "slug": "honda--pcx-125-21",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/pcx-125-21"
+ },
+ {
+  "id": "31db561a-ac44-44ae-9a8c-24cc77a51e99",
+  "slug": "honda--pcx-125-25",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/pcx-125-25"
+ },
+ {
+  "id": "8bae22d9-5096-4368-beb2-f389d86f7d15",
+  "slug": "honda--s-wing-125-150-07-12",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/s-wing-125-150-07-12"
+ },
+ {
+  "id": "0d7a3516-0639-4ea4-96ec-ee7e2a12644e",
+  "slug": "honda--sh-125-150-01-04",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/sh-125-150-01-04"
+ },
+ {
+  "id": "418f3e66-a20f-4de0-b0fe-464f27d37ba0",
+  "slug": "honda--sh-125-150-20-21",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/sh-125-150-20-21"
+ },
+ {
+  "id": "f5940f5b-3521-40a1-8601-22d0ee350782",
+  "slug": "honda--sh-125i-150i-05-08",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/sh-125i-150i-05-08"
+ },
+ {
+  "id": "044124fb-9727-4ec6-adf6-c809fa896ab8",
+  "slug": "honda--sh-125i-150i-09-12",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/sh-125i-150i-09-12"
+ },
+ {
+  "id": "1df466b5-aa48-4609-8b60-e496947cfa54",
+  "slug": "honda--sh-125i-150i-17-19",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/sh-125i-150i-17-19"
+ },
+ {
+  "id": "8911c616-d13f-4138-8ad5-3936f44e04ca",
+  "slug": "honda--sh-125i-150i-abs-12-16",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/sh-125i-150i-abs-12-16"
+ },
+ {
+  "id": "1a88ef50-7140-475d-a00d-9ef8fda5dfd7",
+  "slug": "honda--sh-300i-07-10",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/sh-300i-07-10"
+ },
+ {
+  "id": "adc623ed-61ce-4104-9927-797f2aa34a4f",
+  "slug": "honda--sh-300i-11-14",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/sh-300i-11-14"
+ },
+ {
+  "id": "852f99d4-4bbd-4376-a558-50df9ac6f975",
+  "slug": "honda--sh-300i-15-20",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/sh-300i-15-20"
+ },
+ {
+  "id": "747663af-93a0-41e0-8215-14fba3604e5e",
+  "slug": "honda--sh-350-21-25",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/sh-350-21-25"
+ },
+ {
+  "id": "ed1daac6-14b3-4a3f-9a54-97f5d5c64a1c",
+  "slug": "honda--sh-mode-125-13-20",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/sh-mode-125-13-20"
+ },
+ {
+  "id": "596e0c6f-78c8-4344-a953-de750b4bc76d",
+  "slug": "honda--sh-mode-125-21",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/sh-mode-125-21"
+ },
+ {
+  "id": "8d93dfb1-8442-4a98-9439-0117f30a8967",
+  "slug": "honda--silver-wing-400-06-09",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/silver-wing-400-06-09"
+ },
+ {
+  "id": "82b3afb9-3374-4152-8656-251098bcbbda",
+  "slug": "honda--silver-wing-600-abs-01-09",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/silver-wing-600-abs-01-09"
+ },
+ {
+  "id": "e5050a43-c3c4-4056-9060-fdbd6c8bcc19",
+  "slug": "honda--st-1100-pan-european",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/st-1100-pan-european"
+ },
+ {
+  "id": "7d31cbe3-6360-42c2-a222-b142599c3f14",
+  "slug": "honda--super-cub-c125-18-21",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/super-cub-c125-18-21"
+ },
+ {
+  "id": "06854f2d-a8b1-4a9a-8085-0b35d5535ca1",
+  "slug": "honda--super-cub-c125-22",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/super-cub-c125-22"
+ },
+ {
+  "id": "0d56f485-c136-4381-8151-6cfcffe213b6",
+  "slug": "honda--sw-t-400-600-09-17",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/sw-t-400-600-09-17"
+ },
+ {
+  "id": "0ac893b3-2250-43f1-9ed4-8333890f2ef2",
+  "slug": "honda--vfr-1200-f-10-16",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/vfr-1200-f-10-16"
+ },
+ {
+  "id": "86e1f9ea-92ad-47a3-b8ce-f335193449cf",
+  "slug": "honda--vfr-750-f-90-93",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/vfr-750-f-90-93"
+ },
+ {
+  "id": "9cad5987-1f33-43e8-b0b5-80d368c86c67",
+  "slug": "honda--vfr-750-f-94-97",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/vfr-750-f-94-97"
+ },
+ {
+  "id": "57c6db83-ccc0-462a-9fe5-9cc566b3d945",
+  "slug": "honda--vfr-800-98-01",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/vfr-800-98-01"
+ },
+ {
+  "id": "346be81a-7400-463e-8bc1-d4632e14eaf6",
+  "slug": "honda--vfr-800-f-14-20",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/vfr-800-f-14-20"
+ },
+ {
+  "id": "0bceffbc-4d86-4717-8f30-7534505f52f1",
+  "slug": "honda--vfr-800-vtec-02-11",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/vfr-800-vtec-02-11"
+ },
+ {
+  "id": "51b8abf7-180a-44f1-9768-6a328418d726",
+  "slug": "honda--vision-110-21-22",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/vision-110-21-22"
+ },
+ {
+  "id": "1671ab8a-da76-430e-b623-425aececadfb",
+  "slug": "honda--vision-50-110-11-20",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/vision-50-110-11-20"
+ },
+ {
+  "id": "37381eb8-4e3c-4495-b33a-fe954ed81b17",
+  "slug": "honda--vt-750s-10-15",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/vt-750s-10-15"
+ },
+ {
+  "id": "5f7a9b9b-47a0-4f6d-826e-3a80d6aa1762",
+  "slug": "honda--vt-shadow-750-04-14",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/vt-shadow-750-04-14"
+ },
+ {
+  "id": "da5e30ae-1a2a-447b-b26c-a948165f92c6",
+  "slug": "honda--vt-shadow-spirit-750-07-10",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/vt-shadow-spirit-750-07-10"
+ },
+ {
+  "id": "d50ace6d-08a2-4055-b950-8734957229b9",
+  "slug": "honda--vtr-1000-f-97-04",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/vtr-1000-f-97-04"
+ },
+ {
+  "id": "f9de6311-fe17-4592-8ca1-a060d0e47a8e",
+  "slug": "honda--x-adv-750-17-20",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/x-adv-750-17-20"
+ },
+ {
+  "id": "79262143-7a16-4789-8269-d0dd36968be6",
+  "slug": "honda--x-adv-750-21",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/x-adv-750-21"
+ },
+ {
+  "id": "28a1904d-daf0-4a96-8b7f-81b2b9bb0e43",
+  "slug": "honda--x-adv-750-25",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/x-adv-750-25"
+ },
+ {
+  "id": "c1a44eb3-ed8f-44fc-b0bf-2cb28288e688",
+  "slug": "honda--xl-1000v-varadero-99-02",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/xl-1000v-varadero-99-02"
+ },
+ {
+  "id": "0cb507e6-f02f-4aea-b541-d6db76947fd1",
+  "slug": "honda--xl-1000v-varadero-abs-03-06",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/xl-1000v-varadero-abs-03-06"
+ },
+ {
+  "id": "7caf75cd-9516-4db1-9b83-7c10a8c91f5a",
+  "slug": "honda--xl-1000v-varadero-abs-07-12",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/xl-1000v-varadero-abs-07-12"
+ },
+ {
+  "id": "361b303b-4ea1-4740-9707-d9dd4213fee2",
+  "slug": "honda--xl-125v-varadero-01-06",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/xl-125v-varadero-01-06"
+ },
+ {
+  "id": "913cfba5-26e6-472b-a779-9838c908c00d",
+  "slug": "honda--xl-125v-varadero-07-14",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/xl-125v-varadero-07-14"
+ },
+ {
+  "id": "30a60404-5aa8-42c3-a990-05566f22ecf7",
+  "slug": "honda--xl-600-rm-lm",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/xl-600-rm-lm"
+ },
+ {
+  "id": "57e391fe-3b38-415b-89f3-47afc977f277",
+  "slug": "honda--xl-600-v-transalp-88",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/xl-600-v-transalp-88"
+ },
+ {
+  "id": "7459a124-d67b-4ec7-bff5-512221ef47c6",
+  "slug": "honda--xl-600-v-transalp-89-93",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/xl-600-v-transalp-89-93"
+ },
+ {
+  "id": "f6be75fe-a71b-4d50-bc34-e5218b27101e",
+  "slug": "honda--xl-600-v-transalp-94-96",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/xl-600-v-transalp-94-96"
+ },
+ {
+  "id": "1392a927-0380-401e-ad27-3f6d2e956a04",
+  "slug": "honda--xl-600-v-transalp-97-99",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/xl-600-v-transalp-97-99"
+ },
+ {
+  "id": "6cc4ffad-3472-4ccf-85ce-1402bb526734",
+  "slug": "honda--xl-650v-transalp-00-07",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/xl-650v-transalp-00-07"
+ },
+ {
+  "id": "81a03752-0548-414c-bbce-d2ca2698ad58",
+  "slug": "honda--xl-700v-transalp-08-13",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/xl-700v-transalp-08-13"
+ },
+ {
+  "id": "3be02136-39ab-44c4-bf4a-d80c6228d191",
+  "slug": "honda--xl-750-transalp-23",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/xl-750-transalp-23"
+ },
+ {
+  "id": "dd8be24c-4041-41d0-9e83-df43dbb58858",
+  "slug": "honda--xl-750-transalp-25",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/xl-750-transalp-25"
+ },
+ {
+  "id": "bc5e23f1-6170-44bc-81a7-9c47eaa37f47",
+  "slug": "honda--zoomer-50-ruckus-50-04-14",
+  "parent_id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "full_path": "my-bike/honda/zoomer-50-ruckus-50-04-14"
+ },
+ {
+  "id": "0ec0505e-475f-4e25-aa7b-2098dc93fa43",
+  "slug": "husqvarna--norden-901-22",
+  "parent_id": "d165dcb0-1f45-431b-a011-89450bb1964e",
+  "full_path": "my-bike/husqvarna/norden-901-22"
+ },
+ {
+  "id": "a9527465-768f-49bf-bbf7-14582ff1b332",
+  "slug": "husqvarna--svartpilen-125-401-21",
+  "parent_id": "d165dcb0-1f45-431b-a011-89450bb1964e",
+  "full_path": "my-bike/husqvarna/svartpilen-125-401-21"
+ },
+ {
+  "id": "61608297-ae79-4004-9c5b-d89db19a690c",
+  "slug": "husqvarna--svartpilen-701-20",
+  "parent_id": "d165dcb0-1f45-431b-a011-89450bb1964e",
+  "full_path": "my-bike/husqvarna/svartpilen-701-20"
+ },
+ {
+  "id": "88b5269e-a3d0-4e98-946b-65501e280468",
+  "slug": "kalymmata-podion-xerion--kalymmata-podion-koybertes",
+  "parent_id": "b8774a69-adaa-4b72-a5e3-614806a608ba",
+  "full_path": "eksoplismos-motosikletas/kalymmata-podion-xerion/kalymmata-podion-koybertes"
+ },
+ {
+  "id": "ad455142-1cb7-4796-94c7-7f7921624e6e",
+  "slug": "kalymmata-podion-xerion--kalymmata-xerion-xoyftes",
+  "parent_id": "b8774a69-adaa-4b72-a5e3-614806a608ba",
+  "full_path": "eksoplismos-motosikletas/kalymmata-podion-xerion/kalymmata-xerion-xoyftes"
+ },
+ {
+  "id": "81c18e4e-333d-4fc7-93e0-c93a877f691b",
+  "slug": "kawasaki--eliminator-500-24",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/eliminator-500-24"
+ },
+ {
+  "id": "c8fde563-8a7f-4201-afe7-1312817baff9",
+  "slug": "kawasaki--er-5-500-01-07",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/er-5-500-01-07"
+ },
+ {
+  "id": "a7925ba4-b9bb-4bb6-a9ed-28f420f9c406",
+  "slug": "kawasaki--er-6n-er-6f-650-05-08",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/er-6n-er-6f-650-05-08"
+ },
+ {
+  "id": "6e1b9fdf-1b2e-453c-b52c-9321d4f7bbbc",
+  "slug": "kawasaki--er-6n-er-6f-650-09-11",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/er-6n-er-6f-650-09-11"
+ },
+ {
+  "id": "fdeadb31-1832-44f4-abad-4e2782819dc0",
+  "slug": "kawasaki--er-6n-er-6f-650-12-16",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/er-6n-er-6f-650-12-16"
+ },
+ {
+  "id": "c4975e14-c8eb-4c5a-8fa7-0411e2b208d8",
+  "slug": "kawasaki--gtr-1400-07-15",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/gtr-1400-07-15"
+ },
+ {
+  "id": "d9338e0f-08fe-45cd-aff5-9636f00d1ef7",
+  "slug": "kawasaki--j125-j300-14-21",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/j125-j300-14-21"
+ },
+ {
+  "id": "05476510-af82-4752-ae0e-918bf9044354",
+  "slug": "kawasaki--kle-500-91-00",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/kle-500-91-00"
+ },
+ {
+  "id": "72144f60-4c2f-49ff-a011-f9f713965d15",
+  "slug": "kawasaki--kle-500-kle-500-se-26",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/kle-500-kle-500-se-26"
+ },
+ {
+  "id": "923c2f69-e2e3-4fea-bbfe-c9cccc038bd8",
+  "slug": "kawasaki--klr-650-enduro-07-21",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/klr-650-enduro-07-21"
+ },
+ {
+  "id": "f49cfd2d-6b3b-4d57-a4af-feff6ca8ef61",
+  "slug": "kawasaki--klv-1000-04-10",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/klv-1000-04-10"
+ },
+ {
+  "id": "01fd8d64-b978-469a-867f-6e9b36b1f72a",
+  "slug": "kawasaki--ninja-1000-sx-20-21",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/ninja-1000-sx-20-21"
+ },
+ {
+  "id": "6e5b8f85-302d-4bb8-9118-95fe0d28fa09",
+  "slug": "kawasaki--ninja-250-r-08-12",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/ninja-250-r-08-12"
+ },
+ {
+  "id": "637c2c3f-7eb4-4d41-9227-d52635d43a26",
+  "slug": "kawasaki--ninja-300-13-18",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/ninja-300-13-18"
+ },
+ {
+  "id": "94145da5-5931-4815-a9d6-acd380e20c00",
+  "slug": "kawasaki--ninja-400-18-21",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/ninja-400-18-21"
+ },
+ {
+  "id": "5fd4d9c7-a9c0-4c19-b829-8c2c18826f50",
+  "slug": "kawasaki--ninja-650-17-20",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/ninja-650-17-20"
+ },
+ {
+  "id": "b3d2d246-5940-403c-9859-686536839ecc",
+  "slug": "kawasaki--ninja-h2-sx-18-21",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/ninja-h2-sx-18-21"
+ },
+ {
+  "id": "2a73b75e-d37c-4e82-8116-8c715973ed9f",
+  "slug": "kawasaki--versys-1000-12-14",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/versys-1000-12-14"
+ },
+ {
+  "id": "39cfc021-bfc9-4c5a-812a-b6b34a0c3216",
+  "slug": "kawasaki--versys-1000-15-16",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/versys-1000-15-16"
+ },
+ {
+  "id": "54aa56b4-eae9-4251-bb86-0ad3a7328d89",
+  "slug": "kawasaki--versys-1000-17-18",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/versys-1000-17-18"
+ },
+ {
+  "id": "3feed0aa-94f0-488b-b027-1ea51e338879",
+  "slug": "kawasaki--versys-1000-versys-1000-se-19-22",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/versys-1000-versys-1000-se-19-22"
+ },
+ {
+  "id": "188f6b18-a5c2-4eac-ac99-925af0ffb90b",
+  "slug": "kawasaki--versys-650-06-09",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/versys-650-06-09"
+ },
+ {
+  "id": "157d165d-59b8-4685-873f-9fea792fbef0",
+  "slug": "kawasaki--versys-650-10-14",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/versys-650-10-14"
+ },
+ {
+  "id": "125b2c7b-2136-48e1-b2c2-4a1a79999dab",
+  "slug": "kawasaki--versys-650-15-21",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/versys-650-15-21"
+ },
+ {
+  "id": "b9829cd6-2c73-44c1-af15-bfd0299bb368",
+  "slug": "kawasaki--versys-650-22",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/versys-650-22"
+ },
+ {
+  "id": "ad61406c-5472-4943-9e53-aa857a698c10",
+  "slug": "kawasaki--versys-x-300-17-21",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/versys-x-300-17-21"
+ },
+ {
+  "id": "48275f5a-964a-4c7e-aac7-1d36ab9a2bc7",
+  "slug": "kawasaki--vn-800-classic-96-02",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/vn-800-classic-96-02"
+ },
+ {
+  "id": "c7865814-f7d0-43c0-b361-946549def1e4",
+  "slug": "kawasaki--vn-900-custom-classic-vulcan-900-custom-classic-06-21",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/vn-900-custom-classic-vulcan-900-custom-classic-06-21"
+ },
+ {
+  "id": "96524890-a8fa-468a-9b2f-aad0d41fa316",
+  "slug": "kawasaki--vulcan-s-650-15-21",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/vulcan-s-650-15-21"
+ },
+ {
+  "id": "5000aa4c-21d7-4e42-88be-88359e2f052c",
+  "slug": "kawasaki--w-800-11-17",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/w-800-11-17"
+ },
+ {
+  "id": "da064e3d-3ddd-4081-9b16-95d75bf56459",
+  "slug": "kawasaki--z-1000-07-09",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/z-1000-07-09"
+ },
+ {
+  "id": "eb5edc77-1e26-4bd2-95fc-9788ed4d179a",
+  "slug": "kawasaki--z-1000-10-13",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/z-1000-10-13"
+ },
+ {
+  "id": "74a430fd-b83d-4c8c-b589-90a136edad56",
+  "slug": "kawasaki--z-1000-14-20",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/z-1000-14-20"
+ },
+ {
+  "id": "9feb8a61-c662-46c3-9547-ca47d405f276",
+  "slug": "kawasaki--z-1000-sx-11-16",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/z-1000-sx-11-16"
+ },
+ {
+  "id": "1a0c94b6-c430-4881-843b-d4457d7906b2",
+  "slug": "kawasaki--z-1000-sx-17-19",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/z-1000-sx-17-19"
+ },
+ {
+  "id": "386caf38-9d4c-4d5c-b706-4a4168339cfd",
+  "slug": "kawasaki--z-400-19-21",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/z-400-19-21"
+ },
+ {
+  "id": "e57b45e8-6c55-45d4-8879-82ffb21a99b1",
+  "slug": "kawasaki--z-650-17-19",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/z-650-17-19"
+ },
+ {
+  "id": "da2b729b-de3a-4ca7-9324-865ea451721e",
+  "slug": "kawasaki--z-650-20-23",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/z-650-20-23"
+ },
+ {
+  "id": "6af09878-127d-4204-802a-2e87dfe39740",
+  "slug": "kawasaki--z-750-03-06",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/z-750-03-06"
+ },
+ {
+  "id": "9e545ff3-65b4-468e-9051-713129781848",
+  "slug": "kawasaki--z-750-07-14",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/z-750-07-14"
+ },
+ {
+  "id": "70dd0090-2a10-403e-8eb2-5a56a3e895aa",
+  "slug": "kawasaki--z-750-s-05-07",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/z-750-s-05-07"
+ },
+ {
+  "id": "d6ea6da9-8b0b-4c49-be72-5833b0ab6122",
+  "slug": "kawasaki--z-800-13-17",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/z-800-13-17"
+ },
+ {
+  "id": "50b9e570-701c-4595-862c-1448afed36fe",
+  "slug": "kawasaki--z-900-17-19",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/z-900-17-19"
+ },
+ {
+  "id": "8c1ea799-d1ab-40c8-93c9-880402e921cc",
+  "slug": "kawasaki--z-900-20-24",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/z-900-20-24"
+ },
+ {
+  "id": "df24fd1c-4eef-42f0-928d-0e7523f0f63d",
+  "slug": "kawasaki--z-900-rs-18-21",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/z-900-rs-18-21"
+ },
+ {
+  "id": "4ed18335-0ec5-425c-821e-02c10df70aa5",
+  "slug": "kawasaki--z125-19-21",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/z125-19-21"
+ },
+ {
+  "id": "6ccb8c28-68ba-46eb-b7a2-e21957b0be2a",
+  "slug": "kawasaki--z300-15-16",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/z300-15-16"
+ },
+ {
+  "id": "63538a3a-4a97-4627-aa28-0e2f89e9b6ff",
+  "slug": "kawasaki--z650rs-22",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/z650rs-22"
+ },
+ {
+  "id": "545eb259-5e0e-48d3-9cb8-ef5c1fc005d4",
+  "slug": "kawasaki--zr-7-zr-7-s-750-99-04",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/zr-7-zr-7-s-750-99-04"
+ },
+ {
+  "id": "56414dbd-3cd3-4802-84bd-0ed34b8cb766",
+  "slug": "kawasaki--zrx-1100-zrx-1100-s-97-01",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/zrx-1100-zrx-1100-s-97-01"
+ },
+ {
+  "id": "600e90c2-d222-4250-82bf-f8d94c358bab",
+  "slug": "kawasaki--zrx-1200-02",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/zrx-1200-02"
+ },
+ {
+  "id": "70d177ee-878f-4cff-a8ed-88550c7a1ec6",
+  "slug": "kawasaki--zrx-1200-r-02",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/zrx-1200-r-02"
+ },
+ {
+  "id": "e6ec4d3b-8451-4899-89a6-813381da4aae",
+  "slug": "kawasaki--zrx-1200-s-01-02",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/zrx-1200-s-01-02"
+ },
+ {
+  "id": "ac39cccb-fcf5-401f-a201-1b7e060fd3c0",
+  "slug": "kawasaki--zzr-1200-02-05",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/zzr-1200-02-05"
+ },
+ {
+  "id": "16fd451f-8bac-42b1-afdf-1e2aee5f3511",
+  "slug": "kawasaki--zzr-1400-12-21",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/zzr-1400-12-21"
+ },
+ {
+  "id": "97772aa1-dcd0-41f4-9451-7a7c13195829",
+  "slug": "kawasaki--zzr-1400-zx-14-06-11",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/zzr-1400-zx-14-06-11"
+ },
+ {
+  "id": "902186d1-7e22-4647-a65a-e6c8bf7524dc",
+  "slug": "kawasaki--zzr-600-93-01",
+  "parent_id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "full_path": "my-bike/kawasaki/zzr-600-93-01"
+ },
+ {
+  "id": "057f78a6-e763-435c-b32a-ecfcf136d369",
+  "slug": "keeway--goccia-50-09-11",
+  "parent_id": "e9b784ea-ff6b-4755-93f6-69f2dfcd06a0",
+  "full_path": "my-bike/keeway/goccia-50-09-11"
+ },
+ {
+  "id": "b0ba80e4-20de-4f6b-b92f-27983ca4d293",
+  "slug": "keeway--k-light-125-20-21",
+  "parent_id": "e9b784ea-ff6b-4755-93f6-69f2dfcd06a0",
+  "full_path": "my-bike/keeway/k-light-125-20-21"
+ },
+ {
+  "id": "74d4139e-b216-46f8-a57e-028e2e728b9a",
+  "slug": "keeway--logik-125-150-13-15",
+  "parent_id": "e9b784ea-ff6b-4755-93f6-69f2dfcd06a0",
+  "full_path": "my-bike/keeway/logik-125-150-13-15"
+ },
+ {
+  "id": "51c86862-7ac9-416f-b326-d04bc5d7fd26",
+  "slug": "keeway--rkf-125-18-21",
+  "parent_id": "e9b784ea-ff6b-4755-93f6-69f2dfcd06a0",
+  "full_path": "my-bike/keeway/rkf-125-18-21"
+ },
+ {
+  "id": "2df03f09-75f6-47ae-96e4-4ebad84c6f94",
+  "slug": "keeway--ry6-50-10-11",
+  "parent_id": "e9b784ea-ff6b-4755-93f6-69f2dfcd06a0",
+  "full_path": "my-bike/keeway/ry6-50-10-11"
+ },
+ {
+  "id": "82b0322d-df31-4c69-b491-eb1b051c1013",
+  "slug": "keeway--ry8-50-evo-sport-10-11",
+  "parent_id": "e9b784ea-ff6b-4755-93f6-69f2dfcd06a0",
+  "full_path": "my-bike/keeway/ry8-50-evo-sport-10-11"
+ },
+ {
+  "id": "1571c963-62ab-4a3c-ac0a-82cf5129cbdc",
+  "slug": "keeway--superlight-125-20-21",
+  "parent_id": "e9b784ea-ff6b-4755-93f6-69f2dfcd06a0",
+  "full_path": "my-bike/keeway/superlight-125-20-21"
+ },
+ {
+  "id": "8a3e473b-6454-427a-82ab-2e6a9adaeb80",
+  "slug": "kove--510-x-24",
+  "parent_id": "8d857fc6-1537-4f51-a939-a0576127603c",
+  "full_path": "my-bike/kove/510-x-24"
+ },
+ {
+  "id": "02c3edee-0021-421a-96fd-cd20b3b97c18",
+  "slug": "kove--800-x-pro-24",
+  "parent_id": "8d857fc6-1537-4f51-a939-a0576127603c",
+  "full_path": "my-bike/kove/800-x-pro-24"
+ },
+ {
+  "id": "f7b7709e-3123-4727-bb9f-6d9e3454fe3f",
+  "slug": "kranh--flip-up",
+  "parent_id": "ce3ce10c-69f9-4e9c-bb09-b2ddfdb791f3",
+  "full_path": "prosfores/kranh/flip-up"
+ },
+ {
+  "id": "78dd1a46-74eb-4892-ba2f-8120718e92a3",
+  "slug": "kranh--full-face",
+  "parent_id": "ce3ce10c-69f9-4e9c-bb09-b2ddfdb791f3",
+  "full_path": "prosfores/kranh/full-face"
+ },
+ {
+  "id": "f4bdfc04-4ba3-4837-bbd0-7dc72f673bbb",
+  "slug": "kranh--jet",
+  "parent_id": "ce3ce10c-69f9-4e9c-bb09-b2ddfdb791f3",
+  "full_path": "prosfores/kranh/jet"
+ },
+ {
+  "id": "303aa755-7766-42cf-962b-e20097826995",
+  "slug": "kranh--off-road",
+  "parent_id": "ce3ce10c-69f9-4e9c-bb09-b2ddfdb791f3",
+  "full_path": "prosfores/kranh/off-road"
+ },
+ {
+  "id": "31365d51-98a5-4a9c-89bf-9bb4c7be0645",
+  "slug": "kranh-endoep-nies-kameres--adventure",
+  "parent_id": "d27e9d6a-768a-42af-b6df-35f0d2ff6428",
+  "full_path": "eksoplismos-anabath/kranh-endoep-nies-kameres/adventure"
+ },
+ {
+  "id": "c13a20a5-ff64-45d5-9c71-f29eab453128",
+  "slug": "kranh-endoep-nies-kameres--aksesoyar-antallaktika",
+  "parent_id": "d27e9d6a-768a-42af-b6df-35f0d2ff6428",
+  "full_path": "eksoplismos-anabath/kranh-endoep-nies-kameres/aksesoyar-antallaktika"
+ },
+ {
+  "id": "cf5ceb5d-ced8-483d-9da5-918aa771c70a",
+  "slug": "kranh-endoep-nies-kameres--custom-retro",
+  "parent_id": "d27e9d6a-768a-42af-b6df-35f0d2ff6428",
+  "full_path": "eksoplismos-anabath/kranh-endoep-nies-kameres/custom-retro"
+ },
+ {
+  "id": "993c7d00-d498-43f7-bab6-a8af8fee2285",
+  "slug": "kranh-endoep-nies-kameres--endoepikoinonies-bluetooth-gps",
+  "parent_id": "d27e9d6a-768a-42af-b6df-35f0d2ff6428",
+  "full_path": "eksoplismos-anabath/kranh-endoep-nies-kameres/endoepikoinonies-bluetooth-gps"
+ },
+ {
+  "id": "9b780b21-57c4-4039-94c4-aa92a0644c71",
+  "slug": "kranh-endoep-nies-kameres--flip-up",
+  "parent_id": "d27e9d6a-768a-42af-b6df-35f0d2ff6428",
+  "full_path": "eksoplismos-anabath/kranh-endoep-nies-kameres/flip-up"
+ },
+ {
+  "id": "380555c9-5f9b-48f6-9c88-9db5c400e5e1",
+  "slug": "kranh-endoep-nies-kameres--full-face",
+  "parent_id": "d27e9d6a-768a-42af-b6df-35f0d2ff6428",
+  "full_path": "eksoplismos-anabath/kranh-endoep-nies-kameres/full-face"
+ },
+ {
+  "id": "06241fba-65bd-4017-968c-60796e2b2dc5",
+  "slug": "kranh-endoep-nies-kameres--jet",
+  "parent_id": "d27e9d6a-768a-42af-b6df-35f0d2ff6428",
+  "full_path": "eksoplismos-anabath/kranh-endoep-nies-kameres/jet"
+ },
+ {
+  "id": "71b719d4-55c2-46c3-8337-384299830d69",
+  "slug": "kranh-endoep-nies-kameres--off-road",
+  "parent_id": "d27e9d6a-768a-42af-b6df-35f0d2ff6428",
+  "full_path": "eksoplismos-anabath/kranh-endoep-nies-kameres/off-road"
+ },
+ {
+  "id": "b05d1d9c-314c-4a8a-af0a-a4f6b76726d3",
+  "slug": "ktm--1050-adventure-15-16-1090-adventure-17-19",
+  "parent_id": "92a82a94-c2dd-4e3b-8e24-8432df1e529c",
+  "full_path": "my-bike/ktm/1050-adventure-15-16-1090-adventure-17-19"
+ },
+ {
+  "id": "d76b43bd-b4b5-4449-8768-db1923d8060d",
+  "slug": "ktm--1190-adventure-adventure-r-13-16",
+  "parent_id": "92a82a94-c2dd-4e3b-8e24-8432df1e529c",
+  "full_path": "my-bike/ktm/1190-adventure-adventure-r-13-16"
+ },
+ {
+  "id": "307fa6a1-2e0a-4478-8767-be028e79b095",
+  "slug": "ktm--1290-super-adventure-15-16-1290-super-adventure-t-17",
+  "parent_id": "92a82a94-c2dd-4e3b-8e24-8432df1e529c",
+  "full_path": "my-bike/ktm/1290-super-adventure-15-16-1290-super-adventure-t-17"
+ },
+ {
+  "id": "ca1bc1ca-75e6-4b81-ae27-587c970d0c98",
+  "slug": "ktm--1290-super-adventure-r-17-20",
+  "parent_id": "92a82a94-c2dd-4e3b-8e24-8432df1e529c",
+  "full_path": "my-bike/ktm/1290-super-adventure-r-17-20"
+ },
+ {
+  "id": "d70eca3a-eb14-4166-820b-7f4d94f976cc",
+  "slug": "ktm--1290-super-adventure-r-21-24",
+  "parent_id": "92a82a94-c2dd-4e3b-8e24-8432df1e529c",
+  "full_path": "my-bike/ktm/1290-super-adventure-r-21-24"
+ },
+ {
+  "id": "3024d498-35b6-45b6-8efe-d1b7e1d887ce",
+  "slug": "ktm--1290-super-adventure-s-17-20",
+  "parent_id": "92a82a94-c2dd-4e3b-8e24-8432df1e529c",
+  "full_path": "my-bike/ktm/1290-super-adventure-s-17-20"
+ },
+ {
+  "id": "3bb13938-4cdb-4351-b551-03c71096321f",
+  "slug": "ktm--1290-super-adventure-s-21-24",
+  "parent_id": "92a82a94-c2dd-4e3b-8e24-8432df1e529c",
+  "full_path": "my-bike/ktm/1290-super-adventure-s-21-24"
+ },
+ {
+  "id": "0849ad91-d443-43b8-bbb6-5a39f864f0ba",
+  "slug": "ktm--1290-super-duke-13-19",
+  "parent_id": "92a82a94-c2dd-4e3b-8e24-8432df1e529c",
+  "full_path": "my-bike/ktm/1290-super-duke-13-19"
+ },
+ {
+  "id": "1a663cc2-c8fa-4226-8714-0428e624f2fd",
+  "slug": "ktm--1290-super-duke-r-17-20",
+  "parent_id": "92a82a94-c2dd-4e3b-8e24-8432df1e529c",
+  "full_path": "my-bike/ktm/1290-super-duke-r-17-20"
+ },
+ {
+  "id": "9aa43369-1d3a-48d2-8e8c-d48aa2be22a5",
+  "slug": "ktm--390-adventure-20-21",
+  "parent_id": "92a82a94-c2dd-4e3b-8e24-8432df1e529c",
+  "full_path": "my-bike/ktm/390-adventure-20-21"
+ },
+ {
+  "id": "4b93316a-c34f-4d92-a523-83c6e39da755",
+  "slug": "ktm--390-adventure-x-390-adventure-r-25",
+  "parent_id": "92a82a94-c2dd-4e3b-8e24-8432df1e529c",
+  "full_path": "my-bike/ktm/390-adventure-x-390-adventure-r-25"
+ },
+ {
+  "id": "5b99385e-f9aa-4438-95f3-4663869403ec",
+  "slug": "ktm--790-adventure-19-20",
+  "parent_id": "92a82a94-c2dd-4e3b-8e24-8432df1e529c",
+  "full_path": "my-bike/ktm/790-adventure-19-20"
+ },
+ {
+  "id": "e1da4313-c274-4b94-8903-a4c9bc19f164",
+  "slug": "ktm--790-adventure-23",
+  "parent_id": "92a82a94-c2dd-4e3b-8e24-8432df1e529c",
+  "full_path": "my-bike/ktm/790-adventure-23"
+ },
+ {
+  "id": "41816aee-74e8-428c-968c-51e655449371",
+  "slug": "ktm--790-adventure-r-19-20",
+  "parent_id": "92a82a94-c2dd-4e3b-8e24-8432df1e529c",
+  "full_path": "my-bike/ktm/790-adventure-r-19-20"
+ },
+ {
+  "id": "51f41591-6f7d-4933-9bad-181a91ae023c",
+  "slug": "ktm--890-adventure-21",
+  "parent_id": "92a82a94-c2dd-4e3b-8e24-8432df1e529c",
+  "full_path": "my-bike/ktm/890-adventure-21"
+ },
+ {
+  "id": "9172a47d-a747-4d84-afb9-bb9fa09f9e56",
+  "slug": "ktm--890-adventure-23",
+  "parent_id": "92a82a94-c2dd-4e3b-8e24-8432df1e529c",
+  "full_path": "my-bike/ktm/890-adventure-23"
+ },
+ {
+  "id": "aecb8768-8762-4029-b6b4-e24d707e2f5d",
+  "slug": "ktm--890-duke-r-21-23",
+  "parent_id": "92a82a94-c2dd-4e3b-8e24-8432df1e529c",
+  "full_path": "my-bike/ktm/890-duke-r-21-23"
+ },
+ {
+  "id": "1c9e9042-bf26-46d8-98b8-e0ddf03ce8f8",
+  "slug": "ktm--890-smt-23",
+  "parent_id": "92a82a94-c2dd-4e3b-8e24-8432df1e529c",
+  "full_path": "my-bike/ktm/890-smt-23"
+ },
+ {
+  "id": "91dd4c87-3a2e-4d3d-b127-e3fe4e419892",
+  "slug": "ktm--990-smt-09-16",
+  "parent_id": "92a82a94-c2dd-4e3b-8e24-8432df1e529c",
+  "full_path": "my-bike/ktm/990-smt-09-16"
+ },
+ {
+  "id": "142e75c8-0c60-4142-b6f3-f5645941315e",
+  "slug": "ktm--adventure-950-990-03-14",
+  "parent_id": "92a82a94-c2dd-4e3b-8e24-8432df1e529c",
+  "full_path": "my-bike/ktm/adventure-950-990-03-14"
+ },
+ {
+  "id": "66a835db-d52d-442c-8a97-3154e7b1125b",
+  "slug": "ktm--duke-125-200-390-11-16",
+  "parent_id": "92a82a94-c2dd-4e3b-8e24-8432df1e529c",
+  "full_path": "my-bike/ktm/duke-125-200-390-11-16"
+ },
+ {
+  "id": "a4d1ebcc-d658-4774-9f42-2409deaec723",
+  "slug": "ktm--duke-125-390-17-23",
+  "parent_id": "92a82a94-c2dd-4e3b-8e24-8432df1e529c",
+  "full_path": "my-bike/ktm/duke-125-390-17-23"
+ },
+ {
+  "id": "74250586-b262-4b49-9bd9-4e3d70dacae7",
+  "slug": "ktm--duke-690-12-19",
+  "parent_id": "92a82a94-c2dd-4e3b-8e24-8432df1e529c",
+  "full_path": "my-bike/ktm/duke-690-12-19"
+ },
+ {
+  "id": "4b215d58-9b8f-47d5-a8a2-c50a1803a502",
+  "slug": "ktm--duke-790-18-20",
+  "parent_id": "92a82a94-c2dd-4e3b-8e24-8432df1e529c",
+  "full_path": "my-bike/ktm/duke-790-18-20"
+ },
+ {
+  "id": "bb356d63-0418-4c6e-baf8-fe014ba8285e",
+  "slug": "ktm--super-duke-990",
+  "parent_id": "92a82a94-c2dd-4e3b-8e24-8432df1e529c",
+  "full_path": "my-bike/ktm/super-duke-990"
+ },
+ {
+  "id": "df02496c-ed7a-4a91-9f21-f0d45963c0b0",
+  "slug": "kymco--agility-300-r16-19-21",
+  "parent_id": "add6a100-65e5-4be3-9eac-889ca86bf697",
+  "full_path": "my-bike/kymco/agility-300-r16-19-21"
+ },
+ {
+  "id": "b8f22cea-e948-467e-ae56-453138aec122",
+  "slug": "kymco--agility-50-125-150-200-r16-08-13",
+  "parent_id": "add6a100-65e5-4be3-9eac-889ca86bf697",
+  "full_path": "my-bike/kymco/agility-50-125-150-200-r16-08-13"
+ },
+ {
+  "id": "e3a34079-d9a1-493a-93a8-fcddb4b22540",
+  "slug": "kymco--agility-50-125-150-200-r16-14-22",
+  "parent_id": "add6a100-65e5-4be3-9eac-889ca86bf697",
+  "full_path": "my-bike/kymco/agility-50-125-150-200-r16-14-22"
+ },
+ {
+  "id": "f8ceb590-3a23-4e90-9bc4-bafb025326da",
+  "slug": "kymco--agility-s-125-22",
+  "parent_id": "add6a100-65e5-4be3-9eac-889ca86bf697",
+  "full_path": "my-bike/kymco/agility-s-125-22"
+ },
+ {
+  "id": "e56b5d04-860f-4c75-b404-32f50ddde3f9",
+  "slug": "kymco--ak-550-17-21",
+  "parent_id": "add6a100-65e5-4be3-9eac-889ca86bf697",
+  "full_path": "my-bike/kymco/ak-550-17-21"
+ },
+ {
+  "id": "2ffd036d-27a1-40ff-b7da-d289ddcca227",
+  "slug": "kymco--ak-550-premium-23-24",
+  "parent_id": "add6a100-65e5-4be3-9eac-889ca86bf697",
+  "full_path": "my-bike/kymco/ak-550-premium-23-24"
+ },
+ {
+  "id": "a117b7ca-354d-403f-bd4f-c9b882b023dd",
+  "slug": "kymco--cv3-550-22-23",
+  "parent_id": "add6a100-65e5-4be3-9eac-889ca86bf697",
+  "full_path": "my-bike/kymco/cv3-550-22-23"
+ },
+ {
+  "id": "64fb1992-809f-49e2-87e8-0c7f530c0777",
+  "slug": "kymco--dink-50-125-200i-06-16",
+  "parent_id": "add6a100-65e5-4be3-9eac-889ca86bf697",
+  "full_path": "my-bike/kymco/dink-50-125-200i-06-16"
+ },
+ {
+  "id": "157c4053-f519-449e-956a-289d37c1c5ff",
+  "slug": "kymco--dink-r-125-150-23",
+  "parent_id": "add6a100-65e5-4be3-9eac-889ca86bf697",
+  "full_path": "my-bike/kymco/dink-r-125-150-23"
+ },
+ {
+  "id": "9572c254-9e71-42e1-b447-ec512e32d7ab",
+  "slug": "kymco--dink-x-125-25",
+  "parent_id": "add6a100-65e5-4be3-9eac-889ca86bf697",
+  "full_path": "my-bike/kymco/dink-x-125-25"
+ },
+ {
+  "id": "6824f682-2c39-4d60-873b-26e68dcd4338",
+  "slug": "kymco--downtown-125i-200i-300i-09-17",
+  "parent_id": "add6a100-65e5-4be3-9eac-889ca86bf697",
+  "full_path": "my-bike/kymco/downtown-125i-200i-300i-09-17"
+ },
+ {
+  "id": "a54fde33-c8e0-4da5-a719-3d566cde14de",
+  "slug": "kymco--downtown-350-gt-24",
+  "parent_id": "add6a100-65e5-4be3-9eac-889ca86bf697",
+  "full_path": "my-bike/kymco/downtown-350-gt-24"
+ },
+ {
+  "id": "9a6126e6-97c4-4c54-bbe3-0346f753adad",
+  "slug": "kymco--downtown-abs-125i-350i-15-21",
+  "parent_id": "add6a100-65e5-4be3-9eac-889ca86bf697",
+  "full_path": "my-bike/kymco/downtown-abs-125i-350i-15-21"
+ },
+ {
+  "id": "6b547941-7894-4565-812c-31b93a1cb55a",
+  "slug": "kymco--dtx-360-21",
+  "parent_id": "add6a100-65e5-4be3-9eac-889ca86bf697",
+  "full_path": "my-bike/kymco/dtx-360-21"
+ },
+ {
+  "id": "ffa96662-ab1c-463d-9a4f-bfc67d5a985f",
+  "slug": "kymco--g-dink-125-300-12-17",
+  "parent_id": "add6a100-65e5-4be3-9eac-889ca86bf697",
+  "full_path": "my-bike/kymco/g-dink-125-300-12-17"
+ },
+ {
+  "id": "7ab0a0da-d42f-4113-8b8a-dafa21725bfa",
+  "slug": "kymco--g-dink-300-18-21",
+  "parent_id": "add6a100-65e5-4be3-9eac-889ca86bf697",
+  "full_path": "my-bike/kymco/g-dink-300-18-21"
+ },
+ {
+  "id": "07889214-dad5-4ffc-ac74-1e9ec2008194",
+  "slug": "kymco--grand-dink-125-150-250-00-07",
+  "parent_id": "add6a100-65e5-4be3-9eac-889ca86bf697",
+  "full_path": "my-bike/kymco/grand-dink-125-150-250-00-07"
+ },
+ {
+  "id": "b0e8e4ef-8c8d-4883-aaef-0b2c95bfe537",
+  "slug": "kymco--k-xct-125i-300i-13-17",
+  "parent_id": "add6a100-65e5-4be3-9eac-889ca86bf697",
+  "full_path": "my-bike/kymco/k-xct-125i-300i-13-17"
+ },
+ {
+  "id": "631a0c80-c8e7-49e8-bb7a-651ee7268343",
+  "slug": "kymco--krv-200-23",
+  "parent_id": "add6a100-65e5-4be3-9eac-889ca86bf697",
+  "full_path": "my-bike/kymco/krv-200-23"
+ },
+ {
+  "id": "1540fb21-ea77-4ec3-970f-0e0c6a927429",
+  "slug": "kymco--like-50-125-150-17-21",
+  "parent_id": "add6a100-65e5-4be3-9eac-889ca86bf697",
+  "full_path": "my-bike/kymco/like-50-125-150-17-21"
+ },
+ {
+  "id": "25fdcc58-f0f3-4cf4-937d-99e67eee4db3",
+  "slug": "kymco--like-50-125-200i-09-16",
+  "parent_id": "add6a100-65e5-4be3-9eac-889ca86bf697",
+  "full_path": "my-bike/kymco/like-50-125-200i-09-16"
+ },
+ {
+  "id": "d4fdc471-56d7-4200-bd82-5685b9d76c3c",
+  "slug": "kymco--people-gti-125-200-300-10-20",
+  "parent_id": "add6a100-65e5-4be3-9eac-889ca86bf697",
+  "full_path": "my-bike/kymco/people-gti-125-200-300-10-20"
+ },
+ {
+  "id": "09de1a9f-1e92-4cdf-8219-a5a364ff5d43",
+  "slug": "kymco--people-one-125-150-13-21",
+  "parent_id": "add6a100-65e5-4be3-9eac-889ca86bf697",
+  "full_path": "my-bike/kymco/people-one-125-150-13-21"
+ },
+ {
+  "id": "5d45aed7-ab1f-40f4-a38c-68b46c34fae3",
+  "slug": "kymco--people-s-125-150-200-20-22",
+  "parent_id": "add6a100-65e5-4be3-9eac-889ca86bf697",
+  "full_path": "my-bike/kymco/people-s-125-150-200-20-22"
+ },
+ {
+  "id": "45516c00-2b3a-4df5-8330-3f0fb4a9b7eb",
+  "slug": "kymco--people-s-300-19-21",
+  "parent_id": "add6a100-65e5-4be3-9eac-889ca86bf697",
+  "full_path": "my-bike/kymco/people-s-300-19-21"
+ },
+ {
+  "id": "667683ef-526c-492c-9133-c087507f41ca",
+  "slug": "kymco--people-s-50-125-200-05-15",
+  "parent_id": "add6a100-65e5-4be3-9eac-889ca86bf697",
+  "full_path": "my-bike/kymco/people-s-50-125-200-05-15"
+ },
+ {
+  "id": "d9aa8747-48b6-47e8-956f-4a4bc702532e",
+  "slug": "kymco--x-town-125-300-city-20-21",
+  "parent_id": "add6a100-65e5-4be3-9eac-889ca86bf697",
+  "full_path": "my-bike/kymco/x-town-125-300-city-20-21"
+ },
+ {
+  "id": "647149d8-8198-4712-877d-6219965af38d",
+  "slug": "kymco--xciting-250-300-500-05-09",
+  "parent_id": "add6a100-65e5-4be3-9eac-889ca86bf697",
+  "full_path": "my-bike/kymco/xciting-250-300-500-05-09"
+ },
+ {
+  "id": "551de79c-365b-423a-962c-b21624ab6bcf",
+  "slug": "kymco--xciting-400i-13-17",
+  "parent_id": "add6a100-65e5-4be3-9eac-889ca86bf697",
+  "full_path": "my-bike/kymco/xciting-400i-13-17"
+ },
+ {
+  "id": "2aacef8a-21a5-4525-abf1-cb764ea26804",
+  "slug": "kymco--xciting-r-300i-500i-09-14",
+  "parent_id": "add6a100-65e5-4be3-9eac-889ca86bf697",
+  "full_path": "my-bike/kymco/xciting-r-300i-500i-09-14"
+ },
+ {
+  "id": "c81ea962-3cc9-464d-b60c-19fadc6b7de3",
+  "slug": "kymco--xciting-s400i-18-21",
+  "parent_id": "add6a100-65e5-4be3-9eac-889ca86bf697",
+  "full_path": "my-bike/kymco/xciting-s400i-18-21"
+ },
+ {
+  "id": "9108b6c3-c069-453f-a3c2-1601565316bc",
+  "slug": "kymco--xtown-125-300-16-21",
+  "parent_id": "add6a100-65e5-4be3-9eac-889ca86bf697",
+  "full_path": "my-bike/kymco/xtown-125-300-16-21"
+ },
+ {
+  "id": "33776f27-28af-4fe7-bf43-ce236928d808",
+  "slug": "lipantika",
+  "parent_id": null,
+  "full_path": "lipantika"
+ },
+ {
+  "id": "2b42d9bb-9014-493e-99cb-eb1ccc705161",
+  "slug": "lipantika--chain-lubes",
+  "parent_id": "33776f27-28af-4fe7-bf43-ce236928d808",
+  "full_path": "lipantika/chain-lubes"
+ },
+ {
+  "id": "11152bd7-9ee2-4e6b-b6d6-ec325e817c01",
+  "slug": "lipantika--chemicals",
+  "parent_id": "33776f27-28af-4fe7-bf43-ce236928d808",
+  "full_path": "lipantika/chemicals"
+ },
+ {
+  "id": "c874f5d0-cbed-4c13-ba22-b4f3e38d0a8a",
+  "slug": "lipantika--fork-oils",
+  "parent_id": "33776f27-28af-4fe7-bf43-ce236928d808",
+  "full_path": "lipantika/fork-oils"
+ },
+ {
+  "id": "fc034089-44f7-438a-af2d-9b446c82dff6",
+  "slug": "lipantika--moto-2t",
+  "parent_id": "33776f27-28af-4fe7-bf43-ce236928d808",
+  "full_path": "lipantika/moto-2t"
+ },
+ {
+  "id": "ce7c35a2-1a39-403e-8d37-deb702298ce0",
+  "slug": "lipantika--moto-4t",
+  "parent_id": "33776f27-28af-4fe7-bf43-ce236928d808",
+  "full_path": "lipantika/moto-4t"
+ },
+ {
+  "id": "e10a615f-f65d-4d2c-b6df-7f62b9d6ce54",
+  "slug": "lipantika--scooter",
+  "parent_id": "33776f27-28af-4fe7-bf43-ce236928d808",
+  "full_path": "lipantika/scooter"
+ },
+ {
+  "id": "fe470e96-3864-441a-a6a7-fc9bdd057eae",
+  "slug": "morbidelli--t-1002-vx-25",
+  "parent_id": "b500ff27-1ac5-423e-b77c-3a839e7992ea",
+  "full_path": "my-bike/morbidelli/t-1002-vx-25"
+ },
+ {
+  "id": "ea94cedf-7616-4655-91bd-e5c43289a9d6",
+  "slug": "moto-guzzi--breva-850-1100-1200-05-12",
+  "parent_id": "13dd8e2c-c789-490f-9968-9e830a739636",
+  "full_path": "my-bike/moto-guzzi/breva-850-1100-1200-05-12"
+ },
+ {
+  "id": "fa2a00ab-38ff-44eb-8919-783d4e92dba5",
+  "slug": "moto-guzzi--norge-850-1200-06-16",
+  "parent_id": "13dd8e2c-c789-490f-9968-9e830a739636",
+  "full_path": "my-bike/moto-guzzi/norge-850-1200-06-16"
+ },
+ {
+  "id": "66a1574b-455e-42f1-b9f0-1c6523ae5755",
+  "slug": "moto-guzzi--stelvio-1000-24",
+  "parent_id": "13dd8e2c-c789-490f-9968-9e830a739636",
+  "full_path": "my-bike/moto-guzzi/stelvio-1000-24"
+ },
+ {
+  "id": "0c4abb99-d138-4132-a838-847a79d89de0",
+  "slug": "moto-guzzi--stelvio-1200-08-16",
+  "parent_id": "13dd8e2c-c789-490f-9968-9e830a739636",
+  "full_path": "my-bike/moto-guzzi/stelvio-1200-08-16"
+ },
+ {
+  "id": "77ab1f88-2a92-49a6-8362-7b4c81591cf5",
+  "slug": "moto-guzzi--v100-mandello-1000-22-24",
+  "parent_id": "13dd8e2c-c789-490f-9968-9e830a739636",
+  "full_path": "my-bike/moto-guzzi/v100-mandello-1000-22-24"
+ },
+ {
+  "id": "3b0e5355-0585-4646-a0ea-1a047b500135",
+  "slug": "moto-guzzi--v7-12-16",
+  "parent_id": "13dd8e2c-c789-490f-9968-9e830a739636",
+  "full_path": "my-bike/moto-guzzi/v7-12-16"
+ },
+ {
+  "id": "79e40153-49a3-496c-8f57-3b87979900c9",
+  "slug": "moto-guzzi--v7-850-stone-special-21-23",
+  "parent_id": "13dd8e2c-c789-490f-9968-9e830a739636",
+  "full_path": "my-bike/moto-guzzi/v7-850-stone-special-21-23"
+ },
+ {
+  "id": "dcd4b376-9683-4643-984b-cd08b1046609",
+  "slug": "moto-guzzi--v7-iii-stone-night-pack-19-20",
+  "parent_id": "13dd8e2c-c789-490f-9968-9e830a739636",
+  "full_path": "my-bike/moto-guzzi/v7-iii-stone-night-pack-19-20"
+ },
+ {
+  "id": "35162da4-551b-41d7-b1f6-d446606b29b7",
+  "slug": "moto-guzzi--v7-iii-stone-special-17-20",
+  "parent_id": "13dd8e2c-c789-490f-9968-9e830a739636",
+  "full_path": "my-bike/moto-guzzi/v7-iii-stone-special-17-20"
+ },
+ {
+  "id": "4564fa23-485c-4af6-8971-554eb290b5eb",
+  "slug": "moto-guzzi--v7-stone-21",
+  "parent_id": "13dd8e2c-c789-490f-9968-9e830a739636",
+  "full_path": "my-bike/moto-guzzi/v7-stone-21"
+ },
+ {
+  "id": "0407e096-d6dc-4f63-8296-b67a8eeee549",
+  "slug": "moto-guzzi--v85-tt-19-21",
+  "parent_id": "13dd8e2c-c789-490f-9968-9e830a739636",
+  "full_path": "my-bike/moto-guzzi/v85-tt-19-21"
+ },
+ {
+  "id": "9c0ec5fd-15f6-43fe-b501-a29e9a56aa87",
+  "slug": "moto-guzzi--v85-tt-24",
+  "parent_id": "13dd8e2c-c789-490f-9968-9e830a739636",
+  "full_path": "my-bike/moto-guzzi/v85-tt-24"
+ },
+ {
+  "id": "289e8ef2-5299-4263-86d9-d05f54151722",
+  "slug": "moto-guzzi--v9-roamer-v9-bobber-16-21",
+  "parent_id": "13dd8e2c-c789-490f-9968-9e830a739636",
+  "full_path": "my-bike/moto-guzzi/v9-roamer-v9-bobber-16-21"
+ },
+ {
+  "id": "3535a664-09ea-4e9f-a723-1aeb53557644",
+  "slug": "moto-morini--x-cape-700-25",
+  "parent_id": "e57e7402-a466-4e6a-87d2-a9c7386a8756",
+  "full_path": "my-bike/moto-morini/x-cape-700-25"
+ },
+ {
+  "id": "84306f65-ca49-41b8-8a17-e191fd3442ee",
+  "slug": "mpotes--aksesoyar-gia-mpotes",
+  "parent_id": "276705b7-18b5-420a-8409-5e75577779d4",
+  "full_path": "eksoplismos-anabath/mpotes/aksesoyar-gia-mpotes"
+ },
+ {
+  "id": "3b99d420-c093-4159-8bd9-d63a900706b9",
+  "slug": "mpotes--off-road",
+  "parent_id": "276705b7-18b5-420a-8409-5e75577779d4",
+  "full_path": "eksoplismos-anabath/mpotes/off-road"
+ },
+ {
+  "id": "4bf7edb9-57dd-44e6-a4a4-c987eecb868d",
+  "slug": "mpotes--racing-mpotes",
+  "parent_id": "276705b7-18b5-420a-8409-5e75577779d4",
+  "full_path": "eksoplismos-anabath/mpotes/racing-mpotes"
+ },
+ {
+  "id": "e77f231c-bd54-444b-859c-3baf0118009d",
+  "slug": "mpotes--street",
+  "parent_id": "276705b7-18b5-420a-8409-5e75577779d4",
+  "full_path": "eksoplismos-anabath/mpotes/street"
+ },
+ {
+  "id": "37ffd75f-ba73-4f23-bcf3-84f420373a51",
+  "slug": "mpotes--urban-mpotes-sneakers",
+  "parent_id": "276705b7-18b5-420a-8409-5e75577779d4",
+  "full_path": "eksoplismos-anabath/mpotes/urban-mpotes-sneakers"
+ },
+ {
+  "id": "83fd3f5e-da87-499e-acdb-e90ea403ccf9",
+  "slug": "mpoyfan--4-epoxon",
+  "parent_id": "6d255dd3-93a7-4de2-b148-63f5ace5c699",
+  "full_path": "prosfores/endysh/mpoyfan/4-epoxon"
+ },
+ {
+  "id": "a9a23db6-2a82-4196-9fdc-ec4898b50433",
+  "slug": "mpoyfan--dermatina",
+  "parent_id": "6d255dd3-93a7-4de2-b148-63f5ace5c699",
+  "full_path": "prosfores/endysh/mpoyfan/dermatina"
+ },
+ {
+  "id": "d7d678a8-83ef-4749-9f15-847f35a8bdad",
+  "slug": "mpoyfan--kalokairina",
+  "parent_id": "6d255dd3-93a7-4de2-b148-63f5ace5c699",
+  "full_path": "prosfores/endysh/mpoyfan/kalokairina"
+ },
+ {
+  "id": "d8ac916d-6ff7-4089-89bc-2693562dc346",
+  "slug": "mtb--mtb-aksesoyar",
+  "parent_id": "b641251c-e5ff-4729-a413-9cd19b16ce82",
+  "full_path": "prosfores/mtb/mtb-aksesoyar"
+ },
+ {
+  "id": "b9d4c652-4392-42fd-a48b-60fe01a5a6ff",
+  "slug": "mtb--mtb-endysh",
+  "parent_id": "b641251c-e5ff-4729-a413-9cd19b16ce82",
+  "full_path": "prosfores/mtb/mtb-endysh"
+ },
+ {
+  "id": "e7d4a3e4-b759-493e-85cb-5312e51325b2",
+  "slug": "mtb--mtb-kranh",
+  "parent_id": "b641251c-e5ff-4729-a413-9cd19b16ce82",
+  "full_path": "prosfores/mtb/mtb-kranh"
+ },
+ {
+  "id": "8603f862-ecea-4996-bef0-42ea07fc6860",
+  "slug": "mtb--mtb-prostateytika",
+  "parent_id": "b641251c-e5ff-4729-a413-9cd19b16ce82",
+  "full_path": "prosfores/mtb/mtb-prostateytika"
+ },
+ {
+  "id": "b0e5b1b0-1996-477f-8eb6-df0a60ba186f",
+  "slug": "mx-enduro--mx-enduro-endysh",
+  "parent_id": "913c9681-9ab4-470d-9563-296dceece1e5",
+  "full_path": "prosfores/mx-enduro/mx-enduro-endysh"
+ },
+ {
+  "id": "1b5b5c3f-8c2a-4c81-8dc1-3359fcf99bdd",
+  "slug": "mx-enduro--mx-enduro-gantia",
+  "parent_id": "913c9681-9ab4-470d-9563-296dceece1e5",
+  "full_path": "prosfores/mx-enduro/mx-enduro-gantia"
+ },
+ {
+  "id": "b9f6b6ec-364b-4f0e-854a-a43cfdec0817",
+  "slug": "mx-enduro--mx-enduro-kranh",
+  "parent_id": "913c9681-9ab4-470d-9563-296dceece1e5",
+  "full_path": "prosfores/mx-enduro/mx-enduro-kranh"
+ },
+ {
+  "id": "264234bd-ff84-473d-bca6-947037dd5e7b",
+  "slug": "mx-enduro--mx-enduro-maskes",
+  "parent_id": "913c9681-9ab4-470d-9563-296dceece1e5",
+  "full_path": "prosfores/mx-enduro/mx-enduro-maskes"
+ },
+ {
+  "id": "3b562c56-b794-4fc4-b87e-f85816040fd5",
+  "slug": "mx-enduro--mx-enduro-mpotes",
+  "parent_id": "913c9681-9ab4-470d-9563-296dceece1e5",
+  "full_path": "prosfores/mx-enduro/mx-enduro-mpotes"
+ },
+ {
+  "id": "625b2e89-601f-4d22-af4f-dd2fb9c600e9",
+  "slug": "mx-enduro--mx-enduro-prostasia",
+  "parent_id": "913c9681-9ab4-470d-9563-296dceece1e5",
+  "full_path": "prosfores/mx-enduro/mx-enduro-prostasia"
+ },
+ {
+  "id": "ce8712af-4b71-4c83-b8b9-b036f587a671",
+  "slug": "my-bike",
+  "parent_id": null,
+  "full_path": "my-bike"
+ },
+ {
+  "id": "7e62f712-a232-4d25-a8bb-02c0df0da910",
+  "slug": "my-bike--aprilia",
+  "parent_id": "ce8712af-4b71-4c83-b8b9-b036f587a671",
+  "full_path": "my-bike/aprilia"
+ },
+ {
+  "id": "b0c29866-c407-4d89-825e-a78ac430a610",
+  "slug": "my-bike--benelli",
+  "parent_id": "ce8712af-4b71-4c83-b8b9-b036f587a671",
+  "full_path": "my-bike/benelli"
+ },
+ {
+  "id": "df7fb920-7e60-42fc-a70e-3b62fce97e62",
+  "slug": "my-bike--bmw",
+  "parent_id": "ce8712af-4b71-4c83-b8b9-b036f587a671",
+  "full_path": "my-bike/bmw"
+ },
+ {
+  "id": "8a833ded-f216-48d2-af6f-2dfcdd4e8025",
+  "slug": "my-bike--cf-moto",
+  "parent_id": "ce8712af-4b71-4c83-b8b9-b036f587a671",
+  "full_path": "my-bike/cf-moto"
+ },
+ {
+  "id": "1b491ae5-cb6b-4906-a4fa-4bde644d6f63",
+  "slug": "my-bike--ducati",
+  "parent_id": "ce8712af-4b71-4c83-b8b9-b036f587a671",
+  "full_path": "my-bike/ducati"
+ },
+ {
+  "id": "27a06c8c-1f51-4018-811a-84823067fc47",
+  "slug": "my-bike--gilera",
+  "parent_id": "ce8712af-4b71-4c83-b8b9-b036f587a671",
+  "full_path": "my-bike/gilera"
+ },
+ {
+  "id": "86dbe8fb-50f7-4648-8e61-8c787c22f7aa",
+  "slug": "my-bike--honda",
+  "parent_id": "ce8712af-4b71-4c83-b8b9-b036f587a671",
+  "full_path": "my-bike/honda"
+ },
+ {
+  "id": "d165dcb0-1f45-431b-a011-89450bb1964e",
+  "slug": "my-bike--husqvarna",
+  "parent_id": "ce8712af-4b71-4c83-b8b9-b036f587a671",
+  "full_path": "my-bike/husqvarna"
+ },
+ {
+  "id": "351a1c78-6014-443b-a1eb-40893126373b",
+  "slug": "my-bike--kawasaki",
+  "parent_id": "ce8712af-4b71-4c83-b8b9-b036f587a671",
+  "full_path": "my-bike/kawasaki"
+ },
+ {
+  "id": "e9b784ea-ff6b-4755-93f6-69f2dfcd06a0",
+  "slug": "my-bike--keeway",
+  "parent_id": "ce8712af-4b71-4c83-b8b9-b036f587a671",
+  "full_path": "my-bike/keeway"
+ },
+ {
+  "id": "8d857fc6-1537-4f51-a939-a0576127603c",
+  "slug": "my-bike--kove",
+  "parent_id": "ce8712af-4b71-4c83-b8b9-b036f587a671",
+  "full_path": "my-bike/kove"
+ },
+ {
+  "id": "92a82a94-c2dd-4e3b-8e24-8432df1e529c",
+  "slug": "my-bike--ktm",
+  "parent_id": "ce8712af-4b71-4c83-b8b9-b036f587a671",
+  "full_path": "my-bike/ktm"
+ },
+ {
+  "id": "add6a100-65e5-4be3-9eac-889ca86bf697",
+  "slug": "my-bike--kymco",
+  "parent_id": "ce8712af-4b71-4c83-b8b9-b036f587a671",
+  "full_path": "my-bike/kymco"
+ },
+ {
+  "id": "8c6923c3-10c1-4ce4-8f86-ea28cfe81d2c",
+  "slug": "my-bike--mbk",
+  "parent_id": "ce8712af-4b71-4c83-b8b9-b036f587a671",
+  "full_path": "my-bike/mbk"
+ },
+ {
+  "id": "b500ff27-1ac5-423e-b77c-3a839e7992ea",
+  "slug": "my-bike--morbidelli",
+  "parent_id": "ce8712af-4b71-4c83-b8b9-b036f587a671",
+  "full_path": "my-bike/morbidelli"
+ },
+ {
+  "id": "13dd8e2c-c789-490f-9968-9e830a739636",
+  "slug": "my-bike--moto-guzzi",
+  "parent_id": "ce8712af-4b71-4c83-b8b9-b036f587a671",
+  "full_path": "my-bike/moto-guzzi"
+ },
+ {
+  "id": "e57e7402-a466-4e6a-87d2-a9c7386a8756",
+  "slug": "my-bike--moto-morini",
+  "parent_id": "ce8712af-4b71-4c83-b8b9-b036f587a671",
+  "full_path": "my-bike/moto-morini"
+ },
+ {
+  "id": "563b6c24-0be7-4d91-a402-62bcb9f40aac",
+  "slug": "my-bike--peugeot",
+  "parent_id": "ce8712af-4b71-4c83-b8b9-b036f587a671",
+  "full_path": "my-bike/peugeot"
+ },
+ {
+  "id": "0625736a-6a1a-457a-abb7-fca7fa3192f5",
+  "slug": "my-bike--piaggio",
+  "parent_id": "ce8712af-4b71-4c83-b8b9-b036f587a671",
+  "full_path": "my-bike/piaggio"
+ },
+ {
+  "id": "4496966a-c758-4d3e-9eaf-680719c949ef",
+  "slug": "my-bike--qj-motor",
+  "parent_id": "ce8712af-4b71-4c83-b8b9-b036f587a671",
+  "full_path": "my-bike/qj-motor"
+ },
+ {
+  "id": "a2519367-3419-4bf9-8a79-2b7a6ea3defe",
+  "slug": "my-bike--royal-enfield",
+  "parent_id": "ce8712af-4b71-4c83-b8b9-b036f587a671",
+  "full_path": "my-bike/royal-enfield"
+ },
+ {
+  "id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "slug": "my-bike--suzuki",
+  "parent_id": "ce8712af-4b71-4c83-b8b9-b036f587a671",
+  "full_path": "my-bike/suzuki"
+ },
+ {
+  "id": "d4fa7cf2-e1c5-4efc-b475-3d39bf292236",
+  "slug": "my-bike--sym",
+  "parent_id": "ce8712af-4b71-4c83-b8b9-b036f587a671",
+  "full_path": "my-bike/sym"
+ },
+ {
+  "id": "0283a6e1-ba63-4e07-acde-96598d1c1c07",
+  "slug": "my-bike--triumph",
+  "parent_id": "ce8712af-4b71-4c83-b8b9-b036f587a671",
+  "full_path": "my-bike/triumph"
+ },
+ {
+  "id": "6f1dd5fe-916b-4932-bd6a-0a652bdc7585",
+  "slug": "my-bike--voge",
+  "parent_id": "ce8712af-4b71-4c83-b8b9-b036f587a671",
+  "full_path": "my-bike/voge"
+ },
+ {
+  "id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "slug": "my-bike--yamaha",
+  "parent_id": "ce8712af-4b71-4c83-b8b9-b036f587a671",
+  "full_path": "my-bike/yamaha"
+ },
+ {
+  "id": "2df37e97-f533-4045-8bc9-8b37689377f6",
+  "slug": "my-bike--zontes",
+  "parent_id": "ce8712af-4b71-4c83-b8b9-b036f587a671",
+  "full_path": "my-bike/zontes"
+ },
+ {
+  "id": "a46cddb2-5118-4ee2-bba0-f5edece3155c",
+  "slug": "off-road",
+  "parent_id": null,
+  "full_path": "off-road"
+ },
+ {
+  "id": "db890211-e315-4c57-93b7-22590f149200",
+  "slug": "off-road--off-road-anabaths",
+  "parent_id": "a46cddb2-5118-4ee2-bba0-f5edece3155c",
+  "full_path": "off-road/off-road-anabaths"
+ },
+ {
+  "id": "aebf070c-3972-401f-8781-4f050b68103a",
+  "slug": "off-road--off-road-motosikleta",
+  "parent_id": "a46cddb2-5118-4ee2-bba0-f5edece3155c",
+  "full_path": "off-road/off-road-motosikleta"
+ },
+ {
+  "id": "ec03dedd-5e27-4aed-a69a-a432fe9944da",
+  "slug": "off-road-anabaths--adiabroxa-mx-enduro",
+  "parent_id": "db890211-e315-4c57-93b7-22590f149200",
+  "full_path": "off-road/off-road-anabaths/adiabroxa-mx-enduro"
+ },
+ {
+  "id": "562b50a9-fa4e-4894-a101-c6a1fc3b3c10",
+  "slug": "off-road-anabaths--aksesoyar-maskes",
+  "parent_id": "db890211-e315-4c57-93b7-22590f149200",
+  "full_path": "off-road/off-road-anabaths/aksesoyar-maskes"
+ },
+ {
+  "id": "eedf44cf-9b45-498a-a2d4-632aa377e8c1",
+  "slug": "off-road-anabaths--endysh-off-road",
+  "parent_id": "db890211-e315-4c57-93b7-22590f149200",
+  "full_path": "off-road/off-road-anabaths/endysh-off-road"
+ },
+ {
+  "id": "19e3f9e1-fc23-4276-939e-06f5a7f53498",
+  "slug": "off-road-anabaths--gantia",
+  "parent_id": "db890211-e315-4c57-93b7-22590f149200",
+  "full_path": "off-road/off-road-anabaths/gantia"
+ },
+ {
+  "id": "06563f3c-0a29-4f50-8f7f-d549c77b525e",
+  "slug": "off-road-anabaths--kaltses-yposthriksh-arthroseon",
+  "parent_id": "db890211-e315-4c57-93b7-22590f149200",
+  "full_path": "off-road/off-road-anabaths/kaltses-yposthriksh-arthroseon"
+ },
+ {
+  "id": "5d59cc98-5058-4ea8-b353-6bf12a8331ff",
+  "slug": "off-road-anabaths--kolara-laimoy",
+  "parent_id": "db890211-e315-4c57-93b7-22590f149200",
+  "full_path": "off-road/off-road-anabaths/kolara-laimoy"
+ },
+ {
+  "id": "cf83a693-4913-4bd8-ae7a-8cfd58139373",
+  "slug": "off-road-anabaths--kranh-mx-enduro",
+  "parent_id": "db890211-e315-4c57-93b7-22590f149200",
+  "full_path": "off-road/off-road-anabaths/kranh-mx-enduro"
+ },
+ {
+  "id": "65fd2784-87c8-4932-ab8f-ad0f5c864f08",
+  "slug": "off-road-anabaths--mpotes",
+  "parent_id": "db890211-e315-4c57-93b7-22590f149200",
+  "full_path": "off-road/off-road-anabaths/mpotes"
+ },
+ {
+  "id": "0488f759-ded0-4a88-b21a-7c4e389f03f4",
+  "slug": "off-road-anabaths--prostasies-off-road",
+  "parent_id": "db890211-e315-4c57-93b7-22590f149200",
+  "full_path": "off-road/off-road-anabaths/prostasies-off-road"
+ },
+ {
+  "id": "b2bf390d-465d-472e-9260-2b9d01ccd201",
+  "slug": "off-road-anabaths--tsantes-sakidia",
+  "parent_id": "db890211-e315-4c57-93b7-22590f149200",
+  "full_path": "off-road/off-road-anabaths/tsantes-sakidia"
+ },
+ {
+  "id": "d4131e52-431e-4898-84b2-43bf8ab64d6c",
+  "slug": "off-road-motosikleta--eksarthmata-aksesoyar",
+  "parent_id": "aebf070c-3972-401f-8781-4f050b68103a",
+  "full_path": "off-road/off-road-motosikleta/eksarthmata-aksesoyar"
+ },
+ {
+  "id": "e403d279-8a4a-44de-bafd-2883ea0454f1",
+  "slug": "off-road-motosikleta--plastika-merh",
+  "parent_id": "aebf070c-3972-401f-8781-4f050b68103a",
+  "full_path": "off-road/off-road-motosikleta/plastika-merh"
+ },
+ {
+  "id": "1814d045-457e-46b2-83af-04404f847b0a",
+  "slug": "off-road-motosikleta--prostasies-xerion-xoyftes",
+  "parent_id": "aebf070c-3972-401f-8781-4f050b68103a",
+  "full_path": "off-road/off-road-motosikleta/prostasies-xerion-xoyftes"
+ },
+ {
+  "id": "6812b91c-0304-4673-81ff-a5aa584dd73d",
+  "slug": "paidika--endysh-prostasies",
+  "parent_id": "97d1ac0f-40b1-406b-af3f-ee55cf5257ac",
+  "full_path": "eksoplismos-anabath/paidika/endysh-prostasies"
+ },
+ {
+  "id": "e27005de-0fa3-4064-91b1-36d6ee733585",
+  "slug": "paidika--kranh",
+  "parent_id": "97d1ac0f-40b1-406b-af3f-ee55cf5257ac",
+  "full_path": "eksoplismos-anabath/paidika/kranh"
+ },
+ {
+  "id": "2c702fbf-ad95-41dd-991b-457eb92bf55a",
+  "slug": "peugeot--belville-125-200-17-20",
+  "parent_id": "563b6c24-0be7-4d91-a402-62bcb9f40aac",
+  "full_path": "my-bike/peugeot/belville-125-200-17-20"
+ },
+ {
+  "id": "71a4fa77-f3a7-4d56-9088-0eb0625905e9",
+  "slug": "peugeot--django-evo-125-25",
+  "parent_id": "563b6c24-0be7-4d91-a402-62bcb9f40aac",
+  "full_path": "my-bike/peugeot/django-evo-125-25"
+ },
+ {
+  "id": "1f0c4821-0fac-4bc6-9ad7-c6988945c449",
+  "slug": "peugeot--lxr-125-200-09-16",
+  "parent_id": "563b6c24-0be7-4d91-a402-62bcb9f40aac",
+  "full_path": "my-bike/peugeot/lxr-125-200-09-16"
+ },
+ {
+  "id": "2d8816b0-90e5-4792-84dd-3ac0d9f81f13",
+  "slug": "peugeot--sv-250-02",
+  "parent_id": "563b6c24-0be7-4d91-a402-62bcb9f40aac",
+  "full_path": "my-bike/peugeot/sv-250-02"
+ },
+ {
+  "id": "2e0e5246-acfa-41d7-8443-e5ad08b9c67c",
+  "slug": "peugeot--tweet-50-125-150-10-21",
+  "parent_id": "563b6c24-0be7-4d91-a402-62bcb9f40aac",
+  "full_path": "my-bike/peugeot/tweet-50-125-150-10-21"
+ },
+ {
+  "id": "5834ebd8-78d4-47ff-bf57-61c6c7bc7aa7",
+  "slug": "peugeot--tweet-50-125-200-fl-gt-allure-23-25",
+  "parent_id": "563b6c24-0be7-4d91-a402-62bcb9f40aac",
+  "full_path": "my-bike/peugeot/tweet-50-125-200-fl-gt-allure-23-25"
+ },
+ {
+  "id": "4a2bd633-f6fe-4275-b11b-885b7cfa5130",
+  "slug": "peugeot--xp400-gt-xp400-allure-23",
+  "parent_id": "563b6c24-0be7-4d91-a402-62bcb9f40aac",
+  "full_path": "my-bike/peugeot/xp400-gt-xp400-allure-23"
+ },
+ {
+  "id": "fdb4d4c5-3505-4d34-99bb-d90e24520b69",
+  "slug": "piaggio--beverly-125-200-01-04",
+  "parent_id": "0625736a-6a1a-457a-abb7-fca7fa3192f5",
+  "full_path": "my-bike/piaggio/beverly-125-200-01-04"
+ },
+ {
+  "id": "67b224f8-d4a8-4526-b7f0-da0cb074fc1e",
+  "slug": "piaggio--beverly-125-250-400-04-07",
+  "parent_id": "0625736a-6a1a-457a-abb7-fca7fa3192f5",
+  "full_path": "my-bike/piaggio/beverly-125-250-400-04-07"
+ },
+ {
+  "id": "9b3c40e1-2281-4e62-a3f1-154ac8fc6a2a",
+  "slug": "piaggio--beverly-125ie-300ie-350-10-20",
+  "parent_id": "0625736a-6a1a-457a-abb7-fca7fa3192f5",
+  "full_path": "my-bike/piaggio/beverly-125ie-300ie-350-10-20"
+ },
+ {
+  "id": "2f4809ca-2c42-422f-9eca-4cd0e1b47ac3",
+  "slug": "piaggio--beverly-300-400-hpe-21",
+  "parent_id": "0625736a-6a1a-457a-abb7-fca7fa3192f5",
+  "full_path": "my-bike/piaggio/beverly-300-400-hpe-21"
+ },
+ {
+  "id": "c871b41b-b279-42e3-a5fb-d09c6966ec31",
+  "slug": "piaggio--beverly-500-03-07",
+  "parent_id": "0625736a-6a1a-457a-abb7-fca7fa3192f5",
+  "full_path": "my-bike/piaggio/beverly-500-03-07"
+ },
+ {
+  "id": "04cc71e4-ba6e-4f7f-8e53-0145271018f5",
+  "slug": "piaggio--beverly-cruiser-250-500-07-11",
+  "parent_id": "0625736a-6a1a-457a-abb7-fca7fa3192f5",
+  "full_path": "my-bike/piaggio/beverly-cruiser-250-500-07-11"
+ },
+ {
+  "id": "674eb316-734a-4982-b4f0-e2ed86071285",
+  "slug": "piaggio--beverly-tourer-125-250-300-400-08-10",
+  "parent_id": "0625736a-6a1a-457a-abb7-fca7fa3192f5",
+  "full_path": "my-bike/piaggio/beverly-tourer-125-250-300-400-08-10"
+ },
+ {
+  "id": "3725c1e4-4dcd-48aa-a832-500eebd1725d",
+  "slug": "piaggio--carnaby-cruiser-300-09-12",
+  "parent_id": "0625736a-6a1a-457a-abb7-fca7fa3192f5",
+  "full_path": "my-bike/piaggio/carnaby-cruiser-300-09-12"
+ },
+ {
+  "id": "908363f0-ea90-4ef4-90d7-1f5ed24d0255",
+  "slug": "piaggio--fly-50-100-125-150-04-17",
+  "parent_id": "0625736a-6a1a-457a-abb7-fca7fa3192f5",
+  "full_path": "my-bike/piaggio/fly-50-100-125-150-04-17"
+ },
+ {
+  "id": "195a9b81-36e7-4250-9ba7-32a097bd1d5a",
+  "slug": "piaggio--liberty-50-125-150-09-15",
+  "parent_id": "0625736a-6a1a-457a-abb7-fca7fa3192f5",
+  "full_path": "my-bike/piaggio/liberty-50-125-150-09-15"
+ },
+ {
+  "id": "1c40c9fb-3605-4ab3-b24a-899c59665675",
+  "slug": "piaggio--liberty-50-125-150-200-02-08",
+  "parent_id": "0625736a-6a1a-457a-abb7-fca7fa3192f5",
+  "full_path": "my-bike/piaggio/liberty-50-125-150-200-02-08"
+ },
+ {
+  "id": "1653eaa9-e0a1-49f3-be84-a3e0d4c2886c",
+  "slug": "piaggio--liberty-50-125-150-2025",
+  "parent_id": "0625736a-6a1a-457a-abb7-fca7fa3192f5",
+  "full_path": "my-bike/piaggio/liberty-50-125-150-2025"
+ },
+ {
+  "id": "abfe32e3-3098-445f-8dc8-d0166571f8c9",
+  "slug": "piaggio--liberty-50-125-150-i-get-liberty-50-125-150-16-21",
+  "parent_id": "0625736a-6a1a-457a-abb7-fca7fa3192f5",
+  "full_path": "my-bike/piaggio/liberty-50-125-150-i-get-liberty-50-125-150-16-21"
+ },
+ {
+  "id": "4cc1ed34-5923-4bdf-8318-b36ec4a1123c",
+  "slug": "piaggio--medley-125-150-16-19",
+  "parent_id": "0625736a-6a1a-457a-abb7-fca7fa3192f5",
+  "full_path": "my-bike/piaggio/medley-125-150-16-19"
+ },
+ {
+  "id": "52be4b7f-0e40-413b-a003-b874d1caf298",
+  "slug": "piaggio--medley-125-150-i-get-medley-s-125-150-i-get-20-21",
+  "parent_id": "0625736a-6a1a-457a-abb7-fca7fa3192f5",
+  "full_path": "my-bike/piaggio/medley-125-150-i-get-medley-s-125-150-i-get-20-21"
+ },
+ {
+  "id": "481a141f-371b-4558-b47b-a94808b2149b",
+  "slug": "piaggio--mp3-125-250-300-400-06-11",
+  "parent_id": "0625736a-6a1a-457a-abb7-fca7fa3192f5",
+  "full_path": "my-bike/piaggio/mp3-125-250-300-400-06-11"
+ },
+ {
+  "id": "4aff15ca-7ccc-4dcf-9957-268ffd81a8e1",
+  "slug": "piaggio--mp3-300-hpe-19-21",
+  "parent_id": "0625736a-6a1a-457a-abb7-fca7fa3192f5",
+  "full_path": "my-bike/piaggio/mp3-300-hpe-19-21"
+ },
+ {
+  "id": "3814cbe2-5551-4b3a-a9b4-4b3cbc981789",
+  "slug": "piaggio--mp3-300ie-sport-business-da-agosto-2014-17-mp3-500ie-sport-business-14-17",
+  "parent_id": "0625736a-6a1a-457a-abb7-fca7fa3192f5",
+  "full_path": "my-bike/piaggio/mp3-300ie-sport-business-da-agosto-2014-17-mp3-500ie-sport-business-14-17"
+ },
+ {
+  "id": "b445ecfa-9586-49a6-b2b2-52000b271d35",
+  "slug": "piaggio--mp3-310-25",
+  "parent_id": "0625736a-6a1a-457a-abb7-fca7fa3192f5",
+  "full_path": "my-bike/piaggio/mp3-310-25"
+ },
+ {
+  "id": "7309f7db-230a-45ff-8f79-106f974016cb",
+  "slug": "piaggio--mp3-350-500-sport-business-18-21",
+  "parent_id": "0625736a-6a1a-457a-abb7-fca7fa3192f5",
+  "full_path": "my-bike/piaggio/mp3-350-500-sport-business-18-21"
+ },
+ {
+  "id": "45973653-37e1-4d85-8705-26988e3a7ae3",
+  "slug": "piaggio--mp3-hpe-400-400-sport-530-exclusive-22-23",
+  "parent_id": "0625736a-6a1a-457a-abb7-fca7fa3192f5",
+  "full_path": "my-bike/piaggio/mp3-hpe-400-400-sport-530-exclusive-22-23"
+ },
+ {
+  "id": "cfef2350-8bd9-4a17-acd4-7f072a7a04d8",
+  "slug": "piaggio--mp3-touring-300-400-11-mp3-business-500-12-13-mp3-sport-500-12-13-mp3-300-business-12-14-mp3-300-sport-12-14",
+  "parent_id": "0625736a-6a1a-457a-abb7-fca7fa3192f5",
+  "full_path": "my-bike/piaggio/mp3-touring-300-400-11-mp3-business-500-12-13-mp3-sport-500-12-13-mp3-300-business-12-14-mp3-300-sport-12-14"
+ },
+ {
+  "id": "c4f2bb69-7042-4e80-92b8-7703ac42be11",
+  "slug": "piaggio--mp3-yourban-125-300-11-18",
+  "parent_id": "0625736a-6a1a-457a-abb7-fca7fa3192f5",
+  "full_path": "my-bike/piaggio/mp3-yourban-125-300-11-18"
+ },
+ {
+  "id": "976e12f6-f159-4de4-ae62-765771339073",
+  "slug": "piaggio--piaggio-1-21-22",
+  "parent_id": "0625736a-6a1a-457a-abb7-fca7fa3192f5",
+  "full_path": "my-bike/piaggio/piaggio-1-21-22"
+ },
+ {
+  "id": "c0622f42-bea6-4452-82bf-da25e4f55bba",
+  "slug": "piaggio--typhoon-50-125-11-19",
+  "parent_id": "0625736a-6a1a-457a-abb7-fca7fa3192f5",
+  "full_path": "my-bike/piaggio/typhoon-50-125-11-19"
+ },
+ {
+  "id": "48a05d46-0a91-4ae8-8d5c-c421fb403190",
+  "slug": "piaggio--vespa-125-200-granturismo-03-08",
+  "parent_id": "0625736a-6a1a-457a-abb7-fca7fa3192f5",
+  "full_path": "my-bike/piaggio/vespa-125-200-granturismo-03-08"
+ },
+ {
+  "id": "588e425d-a074-4b17-9b05-a573eb88a7da",
+  "slug": "piaggio--vespa-gts-125-150-250-300-06-21",
+  "parent_id": "0625736a-6a1a-457a-abb7-fca7fa3192f5",
+  "full_path": "my-bike/piaggio/vespa-gts-125-150-250-300-06-21"
+ },
+ {
+  "id": "ff2fe5a8-3779-46a9-9b14-8570d4d00092",
+  "slug": "piaggio--vespa-gts-125-150-300-super-08-21",
+  "parent_id": "0625736a-6a1a-457a-abb7-fca7fa3192f5",
+  "full_path": "my-bike/piaggio/vespa-gts-125-150-300-super-08-21"
+ },
+ {
+  "id": "8b5fb02f-d642-42f6-85b4-ec621f9b8f73",
+  "slug": "piaggio--vespa-gts-125-300-gts-125-300-super-23-24",
+  "parent_id": "0625736a-6a1a-457a-abb7-fca7fa3192f5",
+  "full_path": "my-bike/piaggio/vespa-gts-125-300-gts-125-300-super-23-24"
+ },
+ {
+  "id": "2eb9d78c-2fee-4eaf-9969-deb0e83257b0",
+  "slug": "piaggio--vespa-gts-310-gts-310-super-gts-310-super-sport-25",
+  "parent_id": "0625736a-6a1a-457a-abb7-fca7fa3192f5",
+  "full_path": "my-bike/piaggio/vespa-gts-310-gts-310-super-gts-310-super-sport-25"
+ },
+ {
+  "id": "3ad330e7-ca2c-43e4-8afb-1fcfa8db6eba",
+  "slug": "piaggio--vespa-lx-50-125-150-05-14",
+  "parent_id": "0625736a-6a1a-457a-abb7-fca7fa3192f5",
+  "full_path": "my-bike/piaggio/vespa-lx-50-125-150-05-14"
+ },
+ {
+  "id": "d762b635-4de7-4686-9755-8e69f0cc6de9",
+  "slug": "piaggio--vespa-primavera-50-125-150-14-21",
+  "parent_id": "0625736a-6a1a-457a-abb7-fca7fa3192f5",
+  "full_path": "my-bike/piaggio/vespa-primavera-50-125-150-14-21"
+ },
+ {
+  "id": "2ce91e56-6359-4f51-8369-41a2a62588e0",
+  "slug": "piaggio--vespa-px-125-150-11-17",
+  "parent_id": "0625736a-6a1a-457a-abb7-fca7fa3192f5",
+  "full_path": "my-bike/piaggio/vespa-px-125-150-11-17"
+ },
+ {
+  "id": "719ae4ae-8ce3-41c3-be29-e755de2ffaf0",
+  "slug": "piaggio--vespa-s-50-125-150-07-14",
+  "parent_id": "0625736a-6a1a-457a-abb7-fca7fa3192f5",
+  "full_path": "my-bike/piaggio/vespa-s-50-125-150-07-14"
+ },
+ {
+  "id": "70cd8cf2-0142-43b3-84e3-252ddcac2378",
+  "slug": "piaggio--vespa-sprint-50-125-150-14-21",
+  "parent_id": "0625736a-6a1a-457a-abb7-fca7fa3192f5",
+  "full_path": "my-bike/piaggio/vespa-sprint-50-125-150-14-21"
+ },
+ {
+  "id": "fe32be9f-0a78-4281-aa3e-d240a181c56d",
+  "slug": "piaggio--x-evo-125-250-400-07-11",
+  "parent_id": "0625736a-6a1a-457a-abb7-fca7fa3192f5",
+  "full_path": "my-bike/piaggio/x-evo-125-250-400-07-11"
+ },
+ {
+  "id": "1c90a1da-f32a-4283-b227-6bb41311c34b",
+  "slug": "piaggio--x10-125-350-500-12-16",
+  "parent_id": "0625736a-6a1a-457a-abb7-fca7fa3192f5",
+  "full_path": "my-bike/piaggio/x10-125-350-500-12-16"
+ },
+ {
+  "id": "d0bfe2e1-fb09-49c6-9a5d-455062f127c0",
+  "slug": "piaggio--x8-125-150-200-250-400-04-10",
+  "parent_id": "0625736a-6a1a-457a-abb7-fca7fa3192f5",
+  "full_path": "my-bike/piaggio/x8-125-150-200-250-400-04-10"
+ },
+ {
+  "id": "853b46c7-c54c-43bc-a39f-4866797a3b3e",
+  "slug": "piaggio--x9-125-180-250-00-02",
+  "parent_id": "0625736a-6a1a-457a-abb7-fca7fa3192f5",
+  "full_path": "my-bike/piaggio/x9-125-180-250-00-02"
+ },
+ {
+  "id": "484367cc-8df7-4df2-8d0c-5763b2475002",
+  "slug": "piaggio--x9-200-250-500-evolution-03-08",
+  "parent_id": "0625736a-6a1a-457a-abb7-fca7fa3192f5",
+  "full_path": "my-bike/piaggio/x9-200-250-500-evolution-03-08"
+ },
+ {
+  "id": "67e29a80-1776-47d3-9ad3-7a3732786df1",
+  "slug": "piaggio--x9-500-01-02",
+  "parent_id": "0625736a-6a1a-457a-abb7-fca7fa3192f5",
+  "full_path": "my-bike/piaggio/x9-500-01-02"
+ },
+ {
+  "id": "d4a8d994-8500-4d2b-9023-eb630de43e6e",
+  "slug": "piaggio--zip-50-125-00-12",
+  "parent_id": "0625736a-6a1a-457a-abb7-fca7fa3192f5",
+  "full_path": "my-bike/piaggio/zip-50-125-00-12"
+ },
+ {
+  "id": "3901520f-7ace-4b79-adc1-cbc6d369c05d",
+  "slug": "piaggio--zip-50-2t-4t-13-21",
+  "parent_id": "0625736a-6a1a-457a-abb7-fca7fa3192f5",
+  "full_path": "my-bike/piaggio/zip-50-2t-4t-13-21"
+ },
+ {
+  "id": "35033009-49ac-455b-866f-b00fff7d16f5",
+  "slug": "podhlatika",
+  "parent_id": null,
+  "full_path": "podhlatika"
+ },
+ {
+  "id": "5b2e6cee-defd-4e7e-99cd-ffcb0b4777fd",
+  "slug": "podhlatika--aksesoyar-podhlath",
+  "parent_id": "35033009-49ac-455b-866f-b00fff7d16f5",
+  "full_path": "podhlatika/aksesoyar-podhlath"
+ },
+ {
+  "id": "034896b6-2715-45d6-96a9-37d8591b1570",
+  "slug": "podhlatika--aksesoyar-podhlatoy",
+  "parent_id": "35033009-49ac-455b-866f-b00fff7d16f5",
+  "full_path": "podhlatika/aksesoyar-podhlatoy"
+ },
+ {
+  "id": "b5137663-c810-422f-b794-740ae3fd99a0",
+  "slug": "podhlatika--antikleptika-podhlatoy",
+  "parent_id": "35033009-49ac-455b-866f-b00fff7d16f5",
+  "full_path": "podhlatika/antikleptika-podhlatoy"
+ },
+ {
+  "id": "00d8faac-005d-429e-b221-0804a495c3e5",
+  "slug": "podhlatika--podhlatika-kranh",
+  "parent_id": "35033009-49ac-455b-866f-b00fff7d16f5",
+  "full_path": "podhlatika/podhlatika-kranh"
+ },
+ {
+  "id": "b91acb4b-12e6-4c83-8694-cf3374ae9d89",
+  "slug": "podhlatika--podhlatika-papoytsia",
+  "parent_id": "35033009-49ac-455b-866f-b00fff7d16f5",
+  "full_path": "podhlatika/podhlatika-papoytsia"
+ },
+ {
+  "id": "da117a03-a00f-4b06-839c-9892f0294eb6",
+  "slug": "podhlatika--podhlatikh-endysh",
+  "parent_id": "35033009-49ac-455b-866f-b00fff7d16f5",
+  "full_path": "podhlatika/podhlatikh-endysh"
+ },
+ {
+  "id": "a6c8f984-e035-49f2-8479-ecdb3825a892",
+  "slug": "podhlatika--prostasies-podhlath",
+  "parent_id": "35033009-49ac-455b-866f-b00fff7d16f5",
+  "full_path": "podhlatika/prostasies-podhlath"
+ },
+ {
+  "id": "9e664923-1231-47b0-8681-aff770316580",
+  "slug": "podhlatikh-endysh--kaltses",
+  "parent_id": "da117a03-a00f-4b06-839c-9892f0294eb6",
+  "full_path": "podhlatika/podhlatikh-endysh/kaltses"
+ },
+ {
+  "id": "e432d1fe-a41c-4d30-b5d0-b5ab396f049a",
+  "slug": "podhlatikh-endysh--podhlatika-gantia",
+  "parent_id": "da117a03-a00f-4b06-839c-9892f0294eb6",
+  "full_path": "podhlatika/podhlatikh-endysh/podhlatika-gantia"
+ },
+ {
+  "id": "79749318-3592-4e0f-a5f7-ef41ec84dac9",
+  "slug": "podhlatikh-endysh--podhlatika-pantelonia",
+  "parent_id": "da117a03-a00f-4b06-839c-9892f0294eb6",
+  "full_path": "podhlatika/podhlatikh-endysh/podhlatika-pantelonia"
+ },
+ {
+  "id": "1de7ec51-395e-4b0b-b7db-ae89a3d9c996",
+  "slug": "podhlatikh-endysh--podhlatikes-mployzes",
+  "parent_id": "da117a03-a00f-4b06-839c-9892f0294eb6",
+  "full_path": "podhlatika/podhlatikh-endysh/podhlatikes-mployzes"
+ },
+ {
+  "id": "8989f321-c902-4b40-a821-f7988bc316fe",
+  "slug": "prosfores",
+  "parent_id": null,
+  "full_path": "prosfores"
+ },
+ {
+  "id": "7f7bd263-4967-4499-99cd-3479996e3534",
+  "slug": "prosfores--aksesoyar-anabath",
+  "parent_id": "8989f321-c902-4b40-a821-f7988bc316fe",
+  "full_path": "prosfores/aksesoyar-anabath"
+ },
+ {
+  "id": "c9b3d128-8265-49e1-9059-49edeea378af",
+  "slug": "prosfores--aksesoyar-motosykletas",
+  "parent_id": "8989f321-c902-4b40-a821-f7988bc316fe",
+  "full_path": "prosfores/aksesoyar-motosykletas"
+ },
+ {
+  "id": "edd98a4d-4287-4154-9c46-c70f3fe8c7d8",
+  "slug": "prosfores--endysh",
+  "parent_id": "8989f321-c902-4b40-a821-f7988bc316fe",
+  "full_path": "prosfores/endysh"
+ },
+ {
+  "id": "ce3ce10c-69f9-4e9c-bb09-b2ddfdb791f3",
+  "slug": "prosfores--kranh",
+  "parent_id": "8989f321-c902-4b40-a821-f7988bc316fe",
+  "full_path": "prosfores/kranh"
+ },
+ {
+  "id": "2e495758-3195-4920-87dc-7d23f748605f",
+  "slug": "prosfores--mpotes",
+  "parent_id": "8989f321-c902-4b40-a821-f7988bc316fe",
+  "full_path": "prosfores/mpotes"
+ },
+ {
+  "id": "b641251c-e5ff-4729-a413-9cd19b16ce82",
+  "slug": "prosfores--mtb",
+  "parent_id": "8989f321-c902-4b40-a821-f7988bc316fe",
+  "full_path": "prosfores/mtb"
+ },
+ {
+  "id": "913c9681-9ab4-470d-9563-296dceece1e5",
+  "slug": "prosfores--mx-enduro",
+  "parent_id": "8989f321-c902-4b40-a821-f7988bc316fe",
+  "full_path": "prosfores/mx-enduro"
+ },
+ {
+  "id": "91cd1579-b77c-46e5-82ff-cd314707aa9d",
+  "slug": "qj-motor--fort-350-24",
+  "parent_id": "4496966a-c758-4d3e-9eaf-680719c949ef",
+  "full_path": "my-bike/qj-motor/fort-350-24"
+ },
+ {
+  "id": "00ed998c-205e-423a-836d-bacaaec87e6d",
+  "slug": "qj-motor--srt-600-sx-24",
+  "parent_id": "4496966a-c758-4d3e-9eaf-680719c949ef",
+  "full_path": "my-bike/qj-motor/srt-600-sx-24"
+ },
+ {
+  "id": "5e128c39-468d-48e1-aeea-47c11372c907",
+  "slug": "royal-enfield--bear-650-25",
+  "parent_id": "a2519367-3419-4bf9-8a79-2b7a6ea3defe",
+  "full_path": "my-bike/royal-enfield/bear-650-25"
+ },
+ {
+  "id": "e0e383d5-c208-4ff2-af15-0466504656de",
+  "slug": "royal-enfield--classic-500-19-20",
+  "parent_id": "a2519367-3419-4bf9-8a79-2b7a6ea3defe",
+  "full_path": "my-bike/royal-enfield/classic-500-19-20"
+ },
+ {
+  "id": "511cae11-3178-4318-8e6d-7d25591cd9f8",
+  "slug": "royal-enfield--classic-650-25",
+  "parent_id": "a2519367-3419-4bf9-8a79-2b7a6ea3defe",
+  "full_path": "my-bike/royal-enfield/classic-650-25"
+ },
+ {
+  "id": "b266d9a5-b063-4cd3-be2a-0fe88a11e5f5",
+  "slug": "royal-enfield--continental-gt-650-20-23",
+  "parent_id": "a2519367-3419-4bf9-8a79-2b7a6ea3defe",
+  "full_path": "my-bike/royal-enfield/continental-gt-650-20-23"
+ },
+ {
+  "id": "deaba8cc-b8b1-474e-aeaf-edc259a8dfe3",
+  "slug": "royal-enfield--guerrilla-450-24",
+  "parent_id": "a2519367-3419-4bf9-8a79-2b7a6ea3defe",
+  "full_path": "my-bike/royal-enfield/guerrilla-450-24"
+ },
+ {
+  "id": "30823c46-b543-477e-8012-8e55ff8f65b0",
+  "slug": "royal-enfield--himalayan-18-20",
+  "parent_id": "a2519367-3419-4bf9-8a79-2b7a6ea3defe",
+  "full_path": "my-bike/royal-enfield/himalayan-18-20"
+ },
+ {
+  "id": "f4b661ae-ae2d-4d28-ac2b-0469c2bc30e6",
+  "slug": "royal-enfield--himalayan-21-23",
+  "parent_id": "a2519367-3419-4bf9-8a79-2b7a6ea3defe",
+  "full_path": "my-bike/royal-enfield/himalayan-21-23"
+ },
+ {
+  "id": "7b91d8e1-344e-49f9-9d10-d69cb1e67dc7",
+  "slug": "royal-enfield--himalayan-450-24",
+  "parent_id": "a2519367-3419-4bf9-8a79-2b7a6ea3defe",
+  "full_path": "my-bike/royal-enfield/himalayan-450-24"
+ },
+ {
+  "id": "95d148e4-8a8b-4705-a74d-72908e8de239",
+  "slug": "royal-enfield--hntr-350-22",
+  "parent_id": "a2519367-3419-4bf9-8a79-2b7a6ea3defe",
+  "full_path": "my-bike/royal-enfield/hntr-350-22"
+ },
+ {
+  "id": "dc3da7d7-951f-413a-b712-90cdadf4a7a1",
+  "slug": "royal-enfield--interceptor-650-19-22",
+  "parent_id": "a2519367-3419-4bf9-8a79-2b7a6ea3defe",
+  "full_path": "my-bike/royal-enfield/interceptor-650-19-22"
+ },
+ {
+  "id": "8cab4fd9-2f16-4c11-9547-0dc08d52e739",
+  "slug": "royal-enfield--meteor-350-21-23",
+  "parent_id": "a2519367-3419-4bf9-8a79-2b7a6ea3defe",
+  "full_path": "my-bike/royal-enfield/meteor-350-21-23"
+ },
+ {
+  "id": "519df80d-09c4-4a39-97ff-dd136a6c1044",
+  "slug": "royal-enfield--scram-411-22-23",
+  "parent_id": "a2519367-3419-4bf9-8a79-2b7a6ea3defe",
+  "full_path": "my-bike/royal-enfield/scram-411-22-23"
+ },
+ {
+  "id": "382c0536-b167-4386-96f4-96a47ae53e15",
+  "slug": "royal-enfield--shotgun-650-24-25",
+  "parent_id": "a2519367-3419-4bf9-8a79-2b7a6ea3defe",
+  "full_path": "my-bike/royal-enfield/shotgun-650-24-25"
+ },
+ {
+  "id": "f79b5be1-2736-430a-9680-a970063475c8",
+  "slug": "royal-enfield--super-meteor-650-23",
+  "parent_id": "a2519367-3419-4bf9-8a79-2b7a6ea3defe",
+  "full_path": "my-bike/royal-enfield/super-meteor-650-23"
+ },
+ {
+  "id": "246c1462-fec2-4a81-b62a-a965335cf095",
+  "slug": "soft-bags--sakoi-oyras",
+  "parent_id": "d18e01b2-2d9b-4b39-8a76-17e4260302cd",
+  "full_path": "eksoplismos-motosikletas/soft-bags/sakoi-oyras"
+ },
+ {
+  "id": "569ac3e1-84de-4ff8-af2a-d5ca946b9230",
+  "slug": "soft-bags--sakoi-plainoi",
+  "parent_id": "d18e01b2-2d9b-4b39-8a76-17e4260302cd",
+  "full_path": "eksoplismos-motosikletas/soft-bags/sakoi-plainoi"
+ },
+ {
+  "id": "bf794a07-2833-4baa-b769-8ef16578491c",
+  "slug": "soft-bags--sakoi-scooter",
+  "parent_id": "d18e01b2-2d9b-4b39-8a76-17e4260302cd",
+  "full_path": "eksoplismos-motosikletas/soft-bags/sakoi-scooter"
+ },
+ {
+  "id": "ff4d7fe8-9d97-4df1-8b9f-23d12b3d140c",
+  "slug": "soft-bags--tank-bags",
+  "parent_id": "d18e01b2-2d9b-4b39-8a76-17e4260302cd",
+  "full_path": "eksoplismos-motosikletas/soft-bags/tank-bags"
+ },
+ {
+  "id": "ec68bcf7-b80b-4e9e-9d83-e1750e841f98",
+  "slug": "suzuki--1300-hayabusa-21-22",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/1300-hayabusa-21-22"
+ },
+ {
+  "id": "490ab37e-4f72-4ef7-8e6c-0340f57e4859",
+  "slug": "suzuki--address-110-15-21",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/address-110-15-21"
+ },
+ {
+  "id": "4bfe0cfd-2043-4910-941d-1f882d04f258",
+  "slug": "suzuki--address-125-23",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/address-125-23"
+ },
+ {
+  "id": "3d08d00d-f265-4a03-8eae-4f14c9d8c98d",
+  "slug": "suzuki--an-250-400-burgman-03-06",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/an-250-400-burgman-03-06"
+ },
+ {
+  "id": "537e8fe8-1546-420f-a9c8-6b69daa4be7d",
+  "slug": "suzuki--an-250-400-burgman-98-02",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/an-250-400-burgman-98-02"
+ },
+ {
+  "id": "661d56b3-95b8-4a26-a087-f2ff282ef1ea",
+  "slug": "suzuki--an-250-400-business-01-03",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/an-250-400-business-01-03"
+ },
+ {
+  "id": "9bb307e9-59fa-40c7-805e-3dbe201339bd",
+  "slug": "suzuki--an-400-burgman-type-s-05",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/an-400-burgman-type-s-05"
+ },
+ {
+  "id": "75fbe1c2-9bed-4bdb-a6c5-73660760f60a",
+  "slug": "suzuki--an-650-burgman-executive-02-12",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/an-650-burgman-executive-02-12"
+ },
+ {
+  "id": "1eed9a22-cb3b-435d-9b19-6758170a2b57",
+  "slug": "suzuki--burgman-125-200-abs-14-21",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/burgman-125-200-abs-14-21"
+ },
+ {
+  "id": "4bf73f5f-069f-487f-bc91-486b610d049c",
+  "slug": "suzuki--burgman-125-200-k7-k8-k9-l0-l1-l2-l3-06-13",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/burgman-125-200-k7-k8-k9-l0-l1-l2-l3-06-13"
+ },
+ {
+  "id": "34684fe7-eff3-4944-a442-d3f1cb501d5a",
+  "slug": "suzuki--burgman-400-17-21",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/burgman-400-17-21"
+ },
+ {
+  "id": "2a529fac-4d95-4d3e-87ac-7f821356e5c9",
+  "slug": "suzuki--burgman-400-k7-k8-k9-l0-l1-l2-l3-l4-l5-l6-06-16",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/burgman-400-k7-k8-k9-l0-l1-l2-l3-l4-l5-l6-06-16"
+ },
+ {
+  "id": "d6d9cf09-93bf-432b-83df-70030386f9b7",
+  "slug": "suzuki--burgman-650-650-executive-13-20",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/burgman-650-650-executive-13-20"
+ },
+ {
+  "id": "f5cbacc2-4b35-4234-a2e8-0cd7f5f42dec",
+  "slug": "suzuki--dl-1000-v-strom-02-11",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/dl-1000-v-strom-02-11"
+ },
+ {
+  "id": "6fff1cc1-17ca-487e-a4ee-16bb087de01d",
+  "slug": "suzuki--dl-1000-v-strom-14-16",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/dl-1000-v-strom-14-16"
+ },
+ {
+  "id": "bdb9a0d4-5f34-4ae8-9ba5-d8d62dc2e860",
+  "slug": "suzuki--dl-1000-v-strom-17-19",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/dl-1000-v-strom-17-19"
+ },
+ {
+  "id": "faa5fbfe-5f8a-411d-b9e6-e316b169a26d",
+  "slug": "suzuki--dl-650-v-strom-04-11",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/dl-650-v-strom-04-11"
+ },
+ {
+  "id": "0858c510-0598-4a5b-a6e3-669eaac8996e",
+  "slug": "suzuki--dl-650-v-strom-17-22",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/dl-650-v-strom-17-22"
+ },
+ {
+  "id": "28ac587e-f3a4-4fa4-b16d-b8bd467e2c36",
+  "slug": "suzuki--dl-650-v-strom-l2-l3-l4-l5-l6-11-16",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/dl-650-v-strom-l2-l3-l4-l5-l6-11-16"
+ },
+ {
+  "id": "5f8ca2bf-fa5f-4475-a9de-7122aa0fa2c9",
+  "slug": "suzuki--dr-650-96-2012",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/dr-650-96-2012"
+ },
+ {
+  "id": "2ea8574e-0e7d-4390-9c9c-65f8165c8634",
+  "slug": "suzuki--gladius-650-09-16",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/gladius-650-09-16"
+ },
+ {
+  "id": "ecf1fb57-39ff-4590-921b-78ccfce84bbe",
+  "slug": "suzuki--gs-500-e-01-07-gs-500-f-04",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/gs-500-e-01-07-gs-500-f-04"
+ },
+ {
+  "id": "153a739c-42eb-4545-b97a-71ed139c0809",
+  "slug": "suzuki--gsf-1200-bandit-96-99",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/gsf-1200-bandit-96-99"
+ },
+ {
+  "id": "897a8861-3b9c-4fdf-9b37-ff74c319dca8",
+  "slug": "suzuki--gsf-1200-bandit-bandit-s-00-05",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/gsf-1200-bandit-bandit-s-00-05"
+ },
+ {
+  "id": "4086ab8f-138b-4477-aeb0-2f39cae2b54e",
+  "slug": "suzuki--gsf-1200-bandit-bandit-s-06",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/gsf-1200-bandit-bandit-s-06"
+ },
+ {
+  "id": "6b3837bb-9f98-464d-9ddf-ab5a8c68786e",
+  "slug": "suzuki--gsf-1250-bandit-bandit-s-07-11",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/gsf-1250-bandit-bandit-s-07-11"
+ },
+ {
+  "id": "577f8b32-af02-40d6-890f-be85fe06dbbe",
+  "slug": "suzuki--gsf-600-bandit-s-00-04",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/gsf-600-bandit-s-00-04"
+ },
+ {
+  "id": "1a65091b-ee44-45cd-834f-82c5874f7abb",
+  "slug": "suzuki--gsf-600-bandit-s-96-99",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/gsf-600-bandit-s-96-99"
+ },
+ {
+  "id": "883dbe7e-208e-4b39-ba07-10cb676a00ce",
+  "slug": "suzuki--gsf-650-bandit-bandit-s-bandit-abs-05-06",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/gsf-650-bandit-bandit-s-bandit-abs-05-06"
+ },
+ {
+  "id": "c3a07d6d-c3ce-45cb-a7d9-2d3ec4f2465a",
+  "slug": "suzuki--gsf-650-bandit-gsf-650-bandit-s-k7-k8-07-11",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/gsf-650-bandit-gsf-650-bandit-s-k7-k8-07-11"
+ },
+ {
+  "id": "dd1ff8c8-028a-4c64-8106-2d28e5f5dbb7",
+  "slug": "suzuki--gsf-650-bandit-gsf-650-bandit-s-k9-l0-l1-l2-l3-l4-09-15",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/gsf-650-bandit-gsf-650-bandit-s-k9-l0-l1-l2-l3-l4-09-15"
+ },
+ {
+  "id": "57d93ab5-23cc-47c8-918e-2416f84bbefa",
+  "slug": "suzuki--gsr-600-06-11",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/gsr-600-06-11"
+ },
+ {
+  "id": "a7c7cfd2-a1fe-4481-bed9-388910f59874",
+  "slug": "suzuki--gsr-750-11-16",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/gsr-750-11-16"
+ },
+ {
+  "id": "4a663642-a8f7-4402-8cad-57607481f2e6",
+  "slug": "suzuki--gsx-1200-98-02",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/gsx-1200-98-02"
+ },
+ {
+  "id": "87d46e66-3439-4353-a846-f8d03a5a8f0a",
+  "slug": "suzuki--gsx-1300r-hayabusa-08-16",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/gsx-1300r-hayabusa-08-16"
+ },
+ {
+  "id": "fbaa268f-cb62-49cf-8378-16df1005b96a",
+  "slug": "suzuki--gsx-1400-02-09",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/gsx-1400-02-09"
+ },
+ {
+  "id": "9af2e115-582b-4fc4-81d3-b458324bae5b",
+  "slug": "suzuki--gsx-650f-08-14-gsx-1250f-10-16",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/gsx-650f-08-14-gsx-1250f-10-16"
+ },
+ {
+  "id": "e903520c-7fc9-4203-9d11-f6f8631b496c",
+  "slug": "suzuki--gsx-750-98-02",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/gsx-750-98-02"
+ },
+ {
+  "id": "3af3ca8e-322b-4d19-bb7b-8e9282232bf3",
+  "slug": "suzuki--gsx-r-600-750-06-10",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/gsx-r-600-750-06-10"
+ },
+ {
+  "id": "c30a3ad6-ddcc-45c1-8617-cbbd4a0a6f1f",
+  "slug": "suzuki--gsx-s1000-21",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/gsx-s1000-21"
+ },
+ {
+  "id": "aa55517e-4d2c-4e85-bf3e-9c6d05a21f12",
+  "slug": "suzuki--gsx-s1000-gx-24",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/gsx-s1000-gx-24"
+ },
+ {
+  "id": "d1ab5934-6d4c-4488-991e-e758c4f9847f",
+  "slug": "suzuki--gsx-s1000f-gsx-s1000-15-20",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/gsx-s1000f-gsx-s1000-15-20"
+ },
+ {
+  "id": "8aa0ebf7-1d22-4a7f-8525-009ebbf7a49e",
+  "slug": "suzuki--gsx-s1000gt-22",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/gsx-s1000gt-22"
+ },
+ {
+  "id": "b4fd98d9-0d61-4faa-896e-b5f914dbb77c",
+  "slug": "suzuki--gsx-s750-17-21",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/gsx-s750-17-21"
+ },
+ {
+  "id": "2c0931d1-7d63-4985-900e-e74aa9eb5591",
+  "slug": "suzuki--inazuma-250-12-16",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/inazuma-250-12-16"
+ },
+ {
+  "id": "afeaa5ed-5bb5-4bef-867d-0c5aa28c9a0a",
+  "slug": "suzuki--katana-1000-19-21",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/katana-1000-19-21"
+ },
+ {
+  "id": "1bce7fa5-adb2-4c2e-bc59-d8eb83bf8b54",
+  "slug": "suzuki--sixteen-125-150-08-16",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/sixteen-125-150-08-16"
+ },
+ {
+  "id": "5abd3ef9-2d74-4c31-affb-86b0061aeac7",
+  "slug": "suzuki--sv-1000-sv-1000-s-03-08",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/sv-1000-sv-1000-s-03-08"
+ },
+ {
+  "id": "7d07048d-f404-4412-b879-14e728f2e397",
+  "slug": "suzuki--sv-650-16-21",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/sv-650-16-21"
+ },
+ {
+  "id": "2e10c492-5543-4df8-bb72-701f95bd5f1e",
+  "slug": "suzuki--sv-650-sv-650-s-03-08",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/sv-650-sv-650-s-03-08"
+ },
+ {
+  "id": "67d971ba-8a41-484c-9fa8-8619403e1843",
+  "slug": "suzuki--tu-250x-97-04",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/tu-250x-97-04"
+ },
+ {
+  "id": "8d98a442-156e-4b2e-bf22-5cd40d42e508",
+  "slug": "suzuki--uh-125-150-burgman-02-06",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/uh-125-150-burgman-02-06"
+ },
+ {
+  "id": "44e18ff6-7e8d-4882-8a0f-8e86d0be83d7",
+  "slug": "suzuki--v-strom-1050-20-21-v-strom-1050-xt-20-21",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/v-strom-1050-20-21-v-strom-1050-xt-20-21"
+ },
+ {
+  "id": "9cd26e3d-747e-4d80-b672-fdb6f4fa8426",
+  "slug": "suzuki--v-strom-1050-de-23",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/v-strom-1050-de-23"
+ },
+ {
+  "id": "c4c2c314-246b-4167-b2c7-f0a06c7cb790",
+  "slug": "suzuki--v-strom-250-17-21",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/v-strom-250-17-21"
+ },
+ {
+  "id": "3f9fd232-749d-4c42-83c7-075fab23918e",
+  "slug": "suzuki--v-strom-800de-23",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/v-strom-800de-23"
+ },
+ {
+  "id": "f85debc3-2d93-441b-a687-580b10ad6656",
+  "slug": "suzuki--v-strom-800se-23",
+  "parent_id": "189d623d-263e-4b8e-8b5f-25cb45970bee",
+  "full_path": "my-bike/suzuki/v-strom-800se-23"
+ },
+ {
+  "id": "bd167724-b277-41b2-92d0-3d6578ddc8f7",
+  "slug": "sym--adx-125-24",
+  "parent_id": "d4fa7cf2-e1c5-4efc-b475-3d39bf292236",
+  "full_path": "my-bike/sym/adx-125-24"
+ },
+ {
+  "id": "cd10508a-a573-4d47-bd2e-a47fc58cf166",
+  "slug": "sym--adx-300-24",
+  "parent_id": "d4fa7cf2-e1c5-4efc-b475-3d39bf292236",
+  "full_path": "my-bike/sym/adx-300-24"
+ },
+ {
+  "id": "ab059d8b-975a-4856-99b8-510b83c56340",
+  "slug": "sym--adx-tg-400-25",
+  "parent_id": "d4fa7cf2-e1c5-4efc-b475-3d39bf292236",
+  "full_path": "my-bike/sym/adx-tg-400-25"
+ },
+ {
+  "id": "477542ae-1a73-47c7-8ba8-025eec68fde1",
+  "slug": "sym--citycom-300-08-19",
+  "parent_id": "d4fa7cf2-e1c5-4efc-b475-3d39bf292236",
+  "full_path": "my-bike/sym/citycom-300-08-19"
+ },
+ {
+  "id": "d8b1e8cf-9890-46d3-98ea-c20b5e16450c",
+  "slug": "sym--cruisym-300-17-21",
+  "parent_id": "d4fa7cf2-e1c5-4efc-b475-3d39bf292236",
+  "full_path": "my-bike/sym/cruisym-300-17-21"
+ },
+ {
+  "id": "dc986d7d-b450-45e9-8929-7db897312f54",
+  "slug": "sym--fiddle-125-euro-5-20",
+  "parent_id": "d4fa7cf2-e1c5-4efc-b475-3d39bf292236",
+  "full_path": "my-bike/sym/fiddle-125-euro-5-20"
+ },
+ {
+  "id": "a7934e9a-4437-469b-a07a-69a1b0af7479",
+  "slug": "sym--fiddle-ii-50-125-09-14-sym-ii-50-125-15-20",
+  "parent_id": "d4fa7cf2-e1c5-4efc-b475-3d39bf292236",
+  "full_path": "my-bike/sym/fiddle-ii-50-125-09-14-sym-ii-50-125-15-20"
+ },
+ {
+  "id": "e4586950-2f7c-4b87-8e0e-e491db7f0eef",
+  "slug": "sym--hd-300-19-21",
+  "parent_id": "d4fa7cf2-e1c5-4efc-b475-3d39bf292236",
+  "full_path": "my-bike/sym/hd-300-19-21"
+ },
+ {
+  "id": "f34f5111-8ad4-49db-abd8-42ff98da3997",
+  "slug": "sym--hd-evo-125-200-07-16",
+  "parent_id": "d4fa7cf2-e1c5-4efc-b475-3d39bf292236",
+  "full_path": "my-bike/sym/hd-evo-125-200-07-16"
+ },
+ {
+  "id": "7de22318-dd05-496b-b654-4f3a550477ff",
+  "slug": "sym--hd2-125-200-11-16",
+  "parent_id": "d4fa7cf2-e1c5-4efc-b475-3d39bf292236",
+  "full_path": "my-bike/sym/hd2-125-200-11-16"
+ },
+ {
+  "id": "0bbd9f10-0724-4140-9a55-4281ea6cb25f",
+  "slug": "sym--jet-14-125-200-17-20",
+  "parent_id": "d4fa7cf2-e1c5-4efc-b475-3d39bf292236",
+  "full_path": "my-bike/sym/jet-14-125-200-17-20"
+ },
+ {
+  "id": "cc973a5c-f94c-495c-b33a-94021dc69f3a",
+  "slug": "sym--jet-14-evo-125-200-e5-24",
+  "parent_id": "d4fa7cf2-e1c5-4efc-b475-3d39bf292236",
+  "full_path": "my-bike/sym/jet-14-evo-125-200-e5-24"
+ },
+ {
+  "id": "2de52ed8-2022-4c7a-ba50-a42ffa97701b",
+  "slug": "sym--jet-x-125-21-23",
+  "parent_id": "d4fa7cf2-e1c5-4efc-b475-3d39bf292236",
+  "full_path": "my-bike/sym/jet-x-125-21-23"
+ },
+ {
+  "id": "1e7bf79e-ef0b-4f8d-b4ff-a54316f0cdd2",
+  "slug": "sym--joymax-250-05-08-joymax-evo-09-11-gts-11-12",
+  "parent_id": "d4fa7cf2-e1c5-4efc-b475-3d39bf292236",
+  "full_path": "my-bike/sym/joymax-250-05-08-joymax-evo-09-11-gts-11-12"
+ },
+ {
+  "id": "e8d79630-6db5-46bc-952c-4c33e7106771",
+  "slug": "sym--joymax-300i-12-19",
+  "parent_id": "d4fa7cf2-e1c5-4efc-b475-3d39bf292236",
+  "full_path": "my-bike/sym/joymax-300i-12-19"
+ },
+ {
+  "id": "79076e21-c5ef-4ff8-aac6-07d6b384e28e",
+  "slug": "sym--joymax-z-300-19-20",
+  "parent_id": "d4fa7cf2-e1c5-4efc-b475-3d39bf292236",
+  "full_path": "my-bike/sym/joymax-z-300-19-20"
+ },
+ {
+  "id": "9e79dcf4-b0fd-47fc-9988-fd4349071021",
+  "slug": "sym--joymax-z-300-21",
+  "parent_id": "d4fa7cf2-e1c5-4efc-b475-3d39bf292236",
+  "full_path": "my-bike/sym/joymax-z-300-21"
+ },
+ {
+  "id": "c18b3ee6-1d39-4aa8-ae74-eb6254906311",
+  "slug": "sym--joyride-300-22",
+  "parent_id": "d4fa7cf2-e1c5-4efc-b475-3d39bf292236",
+  "full_path": "my-bike/sym/joyride-300-22"
+ },
+ {
+  "id": "106420db-7a46-41a4-b201-97888b2b8a4a",
+  "slug": "sym--joyride-evo-125-200-09-21",
+  "parent_id": "d4fa7cf2-e1c5-4efc-b475-3d39bf292236",
+  "full_path": "my-bike/sym/joyride-evo-125-200-09-21"
+ },
+ {
+  "id": "a542b96f-3786-443c-847e-f379ef791c5d",
+  "slug": "sym--maxsym-400-21",
+  "parent_id": "d4fa7cf2-e1c5-4efc-b475-3d39bf292236",
+  "full_path": "my-bike/sym/maxsym-400-21"
+ },
+ {
+  "id": "36bb175d-21ea-4d2e-9519-d7cf51986bcf",
+  "slug": "sym--maxsym-400-600-11-20",
+  "parent_id": "d4fa7cf2-e1c5-4efc-b475-3d39bf292236",
+  "full_path": "my-bike/sym/maxsym-400-600-11-20"
+ },
+ {
+  "id": "87458fa7-8766-4f2a-be5a-00430b251f46",
+  "slug": "sym--maxsym-tl-500-20-21",
+  "parent_id": "d4fa7cf2-e1c5-4efc-b475-3d39bf292236",
+  "full_path": "my-bike/sym/maxsym-tl-500-20-21"
+ },
+ {
+  "id": "213675dc-dc3f-4bda-8c20-5dc93413c048",
+  "slug": "sym--symphony-125-euro-5-20",
+  "parent_id": "d4fa7cf2-e1c5-4efc-b475-3d39bf292236",
+  "full_path": "my-bike/sym/symphony-125-euro-5-20"
+ },
+ {
+  "id": "bc8ee339-6d74-4fa3-aa15-443e16cc3576",
+  "slug": "sym--symphony-125-euro-5-21",
+  "parent_id": "d4fa7cf2-e1c5-4efc-b475-3d39bf292236",
+  "full_path": "my-bike/sym/symphony-125-euro-5-21"
+ },
+ {
+  "id": "d5f3bd7b-335f-426a-946b-8f1d4c8afdad",
+  "slug": "sym--symphony-s-50-125-150-151-09-20",
+  "parent_id": "d4fa7cf2-e1c5-4efc-b475-3d39bf292236",
+  "full_path": "my-bike/sym/symphony-s-50-125-150-151-09-20"
+ },
+ {
+  "id": "5df8095d-34f7-4f2b-8322-7bb711531699",
+  "slug": "sym--symphony-sr-50-125-151-10-16",
+  "parent_id": "d4fa7cf2-e1c5-4efc-b475-3d39bf292236",
+  "full_path": "my-bike/sym/symphony-sr-50-125-151-10-16"
+ },
+ {
+  "id": "887c5dc3-5bc5-458f-8123-a39aa5594060",
+  "slug": "sym--symphony-st-150-200-22",
+  "parent_id": "d4fa7cf2-e1c5-4efc-b475-3d39bf292236",
+  "full_path": "my-bike/sym/symphony-st-150-200-22"
+ },
+ {
+  "id": "120e45fd-c97e-427c-8054-8b2aa6ac9798",
+  "slug": "sym--symphony-st-50-125-200-15-20",
+  "parent_id": "d4fa7cf2-e1c5-4efc-b475-3d39bf292236",
+  "full_path": "my-bike/sym/symphony-st-50-125-200-15-20"
+ },
+ {
+  "id": "4875df8f-d1e8-48c1-ba36-76608363f08e",
+  "slug": "sym--symphony-st-50-125-200-21-22",
+  "parent_id": "d4fa7cf2-e1c5-4efc-b475-3d39bf292236",
+  "full_path": "my-bike/sym/symphony-st-50-125-200-21-22"
+ },
+ {
+  "id": "f210e76a-a638-45ad-864e-e04f78c01472",
+  "slug": "systhmata-prosarmoghs--gia-kentrikes-balitses",
+  "parent_id": "024e77c2-c532-42d9-a6f0-52dba5c5b8f8",
+  "full_path": "eksoplismos-motosikletas/systhmata-prosarmoghs/gia-kentrikes-balitses"
+ },
+ {
+  "id": "b91f122e-52bd-4d85-9716-67bf7e3ce487",
+  "slug": "systhmata-prosarmoghs--gia-plaines-balitses",
+  "parent_id": "024e77c2-c532-42d9-a6f0-52dba5c5b8f8",
+  "full_path": "eksoplismos-motosikletas/systhmata-prosarmoghs/gia-plaines-balitses"
+ },
+ {
+  "id": "4b05fb36-188d-405d-8cec-56110ae8d817",
+  "slug": "systhmata-prosarmoghs--gia-rezerboyar",
+  "parent_id": "024e77c2-c532-42d9-a6f0-52dba5c5b8f8",
+  "full_path": "eksoplismos-motosikletas/systhmata-prosarmoghs/gia-rezerboyar"
+ },
+ {
+  "id": "00d7c01c-2a07-433a-8b12-b19fe68dbf20",
+  "slug": "systhmata-prosarmoghs--gia-sakoys",
+  "parent_id": "024e77c2-c532-42d9-a6f0-52dba5c5b8f8",
+  "full_path": "eksoplismos-motosikletas/systhmata-prosarmoghs/gia-sakoys"
+ },
+ {
+  "id": "335adf8a-9c16-426c-b704-3cda8744c923",
+  "slug": "triumph--bonneville-865",
+  "parent_id": "0283a6e1-ba63-4e07-acde-96598d1c1c07",
+  "full_path": "my-bike/triumph/bonneville-865"
+ },
+ {
+  "id": "15fb575f-fe5b-41e3-8b08-9d259b4ef875",
+  "slug": "triumph--bonneville-t100-17-22",
+  "parent_id": "0283a6e1-ba63-4e07-acde-96598d1c1c07",
+  "full_path": "my-bike/triumph/bonneville-t100-17-22"
+ },
+ {
+  "id": "d7ccc103-c682-4246-a8ee-e463dc634ab6",
+  "slug": "triumph--bonneville-t120-16-22",
+  "parent_id": "0283a6e1-ba63-4e07-acde-96598d1c1c07",
+  "full_path": "my-bike/triumph/bonneville-t120-16-22"
+ },
+ {
+  "id": "8414453f-7753-4098-ba61-eb2762c22670",
+  "slug": "triumph--scrambler-1200-19-24",
+  "parent_id": "0283a6e1-ba63-4e07-acde-96598d1c1c07",
+  "full_path": "my-bike/triumph/scrambler-1200-19-24"
+ },
+ {
+  "id": "e7c7d0d0-9e67-4f99-af0b-971b22a2ecf3",
+  "slug": "triumph--scrambler-400-24",
+  "parent_id": "0283a6e1-ba63-4e07-acde-96598d1c1c07",
+  "full_path": "my-bike/triumph/scrambler-400-24"
+ },
+ {
+  "id": "4a9a6dd9-dfc4-4b9a-b81f-61fc6ead37af",
+  "slug": "triumph--speed-400-24",
+  "parent_id": "0283a6e1-ba63-4e07-acde-96598d1c1c07",
+  "full_path": "my-bike/triumph/speed-400-24"
+ },
+ {
+  "id": "d096a5d6-d0be-4829-bd88-3be5b463e92b",
+  "slug": "triumph--speed-triple-1050-08-10",
+  "parent_id": "0283a6e1-ba63-4e07-acde-96598d1c1c07",
+  "full_path": "my-bike/triumph/speed-triple-1050-08-10"
+ },
+ {
+  "id": "0cbf9fb1-e09d-41cf-9954-2a71d353fdab",
+  "slug": "triumph--speed-triple-1050-11-15",
+  "parent_id": "0283a6e1-ba63-4e07-acde-96598d1c1c07",
+  "full_path": "my-bike/triumph/speed-triple-1050-11-15"
+ },
+ {
+  "id": "9a3a4e38-ee6d-4777-92db-6944fdc223bb",
+  "slug": "triumph--speed-triple-1050-16-17",
+  "parent_id": "0283a6e1-ba63-4e07-acde-96598d1c1c07",
+  "full_path": "my-bike/triumph/speed-triple-1050-16-17"
+ },
+ {
+  "id": "9caab243-6c2f-4dfb-8b51-c29f726d2ead",
+  "slug": "triumph--speed-triple-1050-18-21",
+  "parent_id": "0283a6e1-ba63-4e07-acde-96598d1c1c07",
+  "full_path": "my-bike/triumph/speed-triple-1050-18-21"
+ },
+ {
+  "id": "d187e6ff-78b3-431e-949c-ace5ccf9d370",
+  "slug": "triumph--speed-triple-1200-rs-21-22",
+  "parent_id": "0283a6e1-ba63-4e07-acde-96598d1c1c07",
+  "full_path": "my-bike/triumph/speed-triple-1200-rs-21-22"
+ },
+ {
+  "id": "04a9570b-bcb7-4188-805d-b0fe710208a6",
+  "slug": "triumph--speed-twin-1200-19-20",
+  "parent_id": "0283a6e1-ba63-4e07-acde-96598d1c1c07",
+  "full_path": "my-bike/triumph/speed-twin-1200-19-20"
+ },
+ {
+  "id": "76c18428-15ea-461d-acc6-315389886495",
+  "slug": "triumph--sprint-gt-1050-10-16",
+  "parent_id": "0283a6e1-ba63-4e07-acde-96598d1c1c07",
+  "full_path": "my-bike/triumph/sprint-gt-1050-10-16"
+ },
+ {
+  "id": "2002de79-c401-4a95-ad1c-a819b240b7a1",
+  "slug": "triumph--st-1050-sprint-05-11",
+  "parent_id": "0283a6e1-ba63-4e07-acde-96598d1c1c07",
+  "full_path": "my-bike/triumph/st-1050-sprint-05-11"
+ },
+ {
+  "id": "ed2eb3f1-16a7-4c19-aae9-a07480e1d70b",
+  "slug": "triumph--street-scrambler-900-17-20",
+  "parent_id": "0283a6e1-ba63-4e07-acde-96598d1c1c07",
+  "full_path": "my-bike/triumph/street-scrambler-900-17-20"
+ },
+ {
+  "id": "7ddb27d1-d5b0-4661-8d0b-b74f315a5245",
+  "slug": "triumph--street-triple-675-07-12",
+  "parent_id": "0283a6e1-ba63-4e07-acde-96598d1c1c07",
+  "full_path": "my-bike/triumph/street-triple-675-07-12"
+ },
+ {
+  "id": "f2810eeb-9b49-4ea2-b4cf-29cb14a3c6de",
+  "slug": "triumph--street-triple-675-13-16",
+  "parent_id": "0283a6e1-ba63-4e07-acde-96598d1c1c07",
+  "full_path": "my-bike/triumph/street-triple-675-13-16"
+ },
+ {
+  "id": "19ea3aef-d2ae-4256-aedb-8c19a3e0c3bb",
+  "slug": "triumph--street-triple-765-17-19",
+  "parent_id": "0283a6e1-ba63-4e07-acde-96598d1c1c07",
+  "full_path": "my-bike/triumph/street-triple-765-17-19"
+ },
+ {
+  "id": "56885a9a-458d-4dd6-97dd-b382badee7e9",
+  "slug": "triumph--street-triple-765-20",
+  "parent_id": "0283a6e1-ba63-4e07-acde-96598d1c1c07",
+  "full_path": "my-bike/triumph/street-triple-765-20"
+ },
+ {
+  "id": "5ad8c55c-eac4-41e4-bbd0-676670a848f8",
+  "slug": "triumph--street-twin-900-16-22",
+  "parent_id": "0283a6e1-ba63-4e07-acde-96598d1c1c07",
+  "full_path": "my-bike/triumph/street-twin-900-16-22"
+ },
+ {
+  "id": "8f57af5e-bdc8-4cde-8a6c-2be89a572578",
+  "slug": "triumph--tiger-1050-07-12",
+  "parent_id": "0283a6e1-ba63-4e07-acde-96598d1c1c07",
+  "full_path": "my-bike/triumph/tiger-1050-07-12"
+ },
+ {
+  "id": "22a908bd-f33d-445e-aa3d-1140cde043a5",
+  "slug": "triumph--tiger-1200-18",
+  "parent_id": "0283a6e1-ba63-4e07-acde-96598d1c1c07",
+  "full_path": "my-bike/triumph/tiger-1200-18"
+ },
+ {
+  "id": "a60e9e30-2f05-4bf9-9d29-9353afdd9358",
+  "slug": "triumph--tiger-1200-gt-22",
+  "parent_id": "0283a6e1-ba63-4e07-acde-96598d1c1c07",
+  "full_path": "my-bike/triumph/tiger-1200-gt-22"
+ },
+ {
+  "id": "8ec3e070-1875-49d6-875b-e2df015b87c8",
+  "slug": "triumph--tiger-1200-gt-explorer-22",
+  "parent_id": "0283a6e1-ba63-4e07-acde-96598d1c1c07",
+  "full_path": "my-bike/triumph/tiger-1200-gt-explorer-22"
+ },
+ {
+  "id": "d1b7e9ce-d965-44b1-9c9e-ed6afab5ff17",
+  "slug": "triumph--tiger-800-800-xc-800-xr-11-17",
+  "parent_id": "0283a6e1-ba63-4e07-acde-96598d1c1c07",
+  "full_path": "my-bike/triumph/tiger-800-800-xc-800-xr-11-17"
+ },
+ {
+  "id": "e8aaeefc-04d1-4477-ba50-b2b0fdf92c15",
+  "slug": "triumph--tiger-800-xc-800-xr-18-19",
+  "parent_id": "0283a6e1-ba63-4e07-acde-96598d1c1c07",
+  "full_path": "my-bike/triumph/tiger-800-xc-800-xr-18-19"
+ },
+ {
+  "id": "9fd336f0-84fb-4951-b640-c15c1b1f53b9",
+  "slug": "triumph--tiger-900-20-23",
+  "parent_id": "0283a6e1-ba63-4e07-acde-96598d1c1c07",
+  "full_path": "my-bike/triumph/tiger-900-20-23"
+ },
+ {
+  "id": "336a971c-02bd-49bd-8767-a7f3578114f9",
+  "slug": "triumph--tiger-900-24",
+  "parent_id": "0283a6e1-ba63-4e07-acde-96598d1c1c07",
+  "full_path": "my-bike/triumph/tiger-900-24"
+ },
+ {
+  "id": "0b636e38-866d-4765-896b-e6bbb0f842e0",
+  "slug": "triumph--tiger-explorer-1200-12-15",
+  "parent_id": "0283a6e1-ba63-4e07-acde-96598d1c1c07",
+  "full_path": "my-bike/triumph/tiger-explorer-1200-12-15"
+ },
+ {
+  "id": "9b1416e9-4bbb-4c79-b9aa-0d2829400a6d",
+  "slug": "triumph--tiger-explorer-1200-16-17",
+  "parent_id": "0283a6e1-ba63-4e07-acde-96598d1c1c07",
+  "full_path": "my-bike/triumph/tiger-explorer-1200-16-17"
+ },
+ {
+  "id": "480d98d6-6215-41c3-9856-22ce455ab81d",
+  "slug": "triumph--tiger-sport-1050-13-20",
+  "parent_id": "0283a6e1-ba63-4e07-acde-96598d1c1c07",
+  "full_path": "my-bike/triumph/tiger-sport-1050-13-20"
+ },
+ {
+  "id": "f0a6f47b-9904-4849-8308-56a872da7546",
+  "slug": "triumph--tiger-sport-660-22",
+  "parent_id": "0283a6e1-ba63-4e07-acde-96598d1c1c07",
+  "full_path": "my-bike/triumph/tiger-sport-660-22"
+ },
+ {
+  "id": "56f785ff-1e7f-48ab-a1c1-0b9d19b98829",
+  "slug": "triumph--trident-660-21",
+  "parent_id": "0283a6e1-ba63-4e07-acde-96598d1c1c07",
+  "full_path": "my-bike/triumph/trident-660-21"
+ },
+ {
+  "id": "1bd73c05-a67d-43dd-815d-ee7a7b479b76",
+  "slug": "voge--brivido-300-r-21",
+  "parent_id": "6f1dd5fe-916b-4932-bd6a-0a652bdc7585",
+  "full_path": "my-bike/voge/brivido-300-r-21"
+ },
+ {
+  "id": "887104da-03bd-4bfc-9559-90b2efbffede",
+  "slug": "voge--brivido-500-r-21",
+  "parent_id": "6f1dd5fe-916b-4932-bd6a-0a652bdc7585",
+  "full_path": "my-bike/voge/brivido-500-r-21"
+ },
+ {
+  "id": "cfe9adb6-c22e-48b2-9cb3-3e1aa04b88d5",
+  "slug": "voge--sr1-125-23-24",
+  "parent_id": "6f1dd5fe-916b-4932-bd6a-0a652bdc7585",
+  "full_path": "my-bike/voge/sr1-125-23-24"
+ },
+ {
+  "id": "b1c9b8cb-7e6d-4a5e-99cd-6ac0cc83ce8b",
+  "slug": "voge--sr3-250-24",
+  "parent_id": "6f1dd5fe-916b-4932-bd6a-0a652bdc7585",
+  "full_path": "my-bike/voge/sr3-250-24"
+ },
+ {
+  "id": "fc28e2fb-7396-4095-91fd-0213ad89b439",
+  "slug": "voge--sr4-350-22",
+  "parent_id": "6f1dd5fe-916b-4932-bd6a-0a652bdc7585",
+  "full_path": "my-bike/voge/sr4-350-22"
+ },
+ {
+  "id": "da9bb3f3-32ea-436d-9113-e58d4c6281a0",
+  "slug": "voge--trofeo-300-ac-20-21",
+  "parent_id": "6f1dd5fe-916b-4932-bd6a-0a652bdc7585",
+  "full_path": "my-bike/voge/trofeo-300-ac-20-21"
+ },
+ {
+  "id": "3e1b3d86-bd6f-471b-ad88-23ecb51e2f69",
+  "slug": "voge--trofeo-300ac-scrambler-22",
+  "parent_id": "6f1dd5fe-916b-4932-bd6a-0a652bdc7585",
+  "full_path": "my-bike/voge/trofeo-300ac-scrambler-22"
+ },
+ {
+  "id": "724a345b-505a-4f2e-bf91-b5cba8885ae6",
+  "slug": "voge--trofeo-500ac-22",
+  "parent_id": "6f1dd5fe-916b-4932-bd6a-0a652bdc7585",
+  "full_path": "my-bike/voge/trofeo-500ac-22"
+ },
+ {
+  "id": "5a8301e5-a059-4ebd-9673-ba6dab5c7a56",
+  "slug": "voge--valico-500ds-20-21",
+  "parent_id": "6f1dd5fe-916b-4932-bd6a-0a652bdc7585",
+  "full_path": "my-bike/voge/valico-500ds-20-21"
+ },
+ {
+  "id": "430b5c01-d554-4043-bccf-4167904b75da",
+  "slug": "voge--valico-525-dsx-23",
+  "parent_id": "6f1dd5fe-916b-4932-bd6a-0a652bdc7585",
+  "full_path": "my-bike/voge/valico-525-dsx-23"
+ },
+ {
+  "id": "87c38ad4-9420-4636-97d0-cd1fb6a8bc4d",
+  "slug": "voge--valico-525-dsx-24",
+  "parent_id": "6f1dd5fe-916b-4932-bd6a-0a652bdc7585",
+  "full_path": "my-bike/voge/valico-525-dsx-24"
+ },
+ {
+  "id": "8905d9e9-b234-4de6-8298-fa4d7df459cd",
+  "slug": "voge--valico-650ds-21",
+  "parent_id": "6f1dd5fe-916b-4932-bd6a-0a652bdc7585",
+  "full_path": "my-bike/voge/valico-650ds-21"
+ },
+ {
+  "id": "bdfc7593-4abd-4647-a377-5806d559dacc",
+  "slug": "voge--valico-800-rally-25",
+  "parent_id": "6f1dd5fe-916b-4932-bd6a-0a652bdc7585",
+  "full_path": "my-bike/voge/valico-800-rally-25"
+ },
+ {
+  "id": "27663aeb-4445-4ffe-9e61-f438eecbbf00",
+  "slug": "voge--valico-900-dsx-24",
+  "parent_id": "6f1dd5fe-916b-4932-bd6a-0a652bdc7585",
+  "full_path": "my-bike/voge/valico-900-dsx-24"
+ },
+ {
+  "id": "b6e31da3-e995-4b59-b713-21aa731372f5",
+  "slug": "yamaha--aerox-r-50-13-20",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/aerox-r-50-13-20"
+ },
+ {
+  "id": "cc5dde98-6b2c-4734-b740-f1c4a76cdb69",
+  "slug": "yamaha--bt-1100-bulldog-02-09",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/bt-1100-bulldog-02-09"
+ },
+ {
+  "id": "3c6e1e24-a868-48b2-a5d3-9af6aed0e0d5",
+  "slug": "yamaha--bw-s-125-10-16",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/bw-s-125-10-16"
+ },
+ {
+  "id": "af4cc92f-e8f0-4eb7-8c37-248ed5bcb9ae",
+  "slug": "yamaha--bw-s-50-05-17",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/bw-s-50-05-17"
+ },
+ {
+  "id": "5135966c-c729-44e8-9b37-648edfb958a1",
+  "slug": "yamaha--cignus-x-125-04-06",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/cignus-x-125-04-06"
+ },
+ {
+  "id": "8c5f81a9-0bfd-45bc-9a3b-c711e86454bc",
+  "slug": "yamaha--cignus-x-125-07-15",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/cignus-x-125-07-15"
+ },
+ {
+  "id": "7b4334fb-f1ac-4756-8ca4-393f3f6788c4",
+  "slug": "yamaha--d-elight-114-13-16",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/d-elight-114-13-16"
+ },
+ {
+  "id": "a91cdcc0-847e-4acd-b968-0bc632ca1f33",
+  "slug": "yamaha--d-elight-125-17-20",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/d-elight-125-17-20"
+ },
+ {
+  "id": "4a936513-521f-4fd7-9ec0-3a4d8d6553b2",
+  "slug": "yamaha--d-elight-125-21",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/d-elight-125-21"
+ },
+ {
+  "id": "13902368-e9d0-4503-979d-72280d56561f",
+  "slug": "yamaha--fj-1100",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/fj-1100"
+ },
+ {
+  "id": "f2365cf8-b7c1-48b3-ad09-8a353e5ec905",
+  "slug": "yamaha--fj-1200-87-99",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/fj-1200-87-99"
+ },
+ {
+  "id": "56bbe621-4a90-4ae6-8268-9dfe974d602a",
+  "slug": "yamaha--fjr-1300-01-05",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/fjr-1300-01-05"
+ },
+ {
+  "id": "ebc258e2-a485-49ab-babd-d0f49709d44d",
+  "slug": "yamaha--fjr-1300-06-12",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/fjr-1300-06-12"
+ },
+ {
+  "id": "d146af97-ac68-4bad-bcaf-a260a3efeaf6",
+  "slug": "yamaha--fjr-1300-13-20",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/fjr-1300-13-20"
+ },
+ {
+  "id": "deebbd25-2d2e-4b62-b36e-280d04991247",
+  "slug": "yamaha--fz1-1000-06-15",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/fz1-1000-06-15"
+ },
+ {
+  "id": "ee7ab741-8e67-47f6-a0d9-ceb9b54d7692",
+  "slug": "yamaha--fz1-fazer-1000-06-15",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/fz1-fazer-1000-06-15"
+ },
+ {
+  "id": "2b4b228d-c484-4969-9edc-7a1c00cc3455",
+  "slug": "yamaha--fz6-fz6-600-fazer-04-06",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/fz6-fz6-600-fazer-04-06"
+ },
+ {
+  "id": "bb1a90e7-7b63-4ec9-85ea-6d19492d7af0",
+  "slug": "yamaha--fz6-s2-fz6-600-fazer-s2-07-11",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/fz6-s2-fz6-600-fazer-s2-07-11"
+ },
+ {
+  "id": "bfb6c82f-9d69-4b08-93ca-6bf18711c62f",
+  "slug": "yamaha--fz8-fazer-8-800-10-15",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/fz8-fazer-8-800-10-15"
+ },
+ {
+  "id": "7cbaba7b-96f3-4f5b-a4c2-0b1a000761a7",
+  "slug": "yamaha--fzs-1000-fazer-01-02",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/fzs-1000-fazer-01-02"
+ },
+ {
+  "id": "d26fed92-5daf-49f0-bc38-4da9714a2dae",
+  "slug": "yamaha--fzs-1000-fazer-03-05",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/fzs-1000-fazer-03-05"
+ },
+ {
+  "id": "4024f5cd-b1df-4d8d-a346-5277f75b829f",
+  "slug": "yamaha--fzs-600-fazer-98-03",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/fzs-600-fazer-98-03"
+ },
+ {
+  "id": "d9438f31-a4df-4055-91c2-acc7e203d5aa",
+  "slug": "yamaha--majesty-125-150-180-01-11",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/majesty-125-150-180-01-11"
+ },
+ {
+  "id": "4e249249-06a5-45c9-9a21-175bacd6d33a",
+  "slug": "yamaha--majesty-250-00-07",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/majesty-250-00-07"
+ },
+ {
+  "id": "f9c5d62f-a972-42cb-b016-c5857bf91876",
+  "slug": "yamaha--majesty-400-04-08",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/majesty-400-04-08"
+ },
+ {
+  "id": "587ee755-7648-47e6-8f42-a87395db481f",
+  "slug": "yamaha--majesty-400-09-14",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/majesty-400-09-14"
+ },
+ {
+  "id": "14b0b5d3-27d3-41af-b7a9-820667263562",
+  "slug": "yamaha--majesty-s-125-14-17",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/majesty-s-125-14-17"
+ },
+ {
+  "id": "83dc670a-56bd-425e-9f16-2f8320ac8968",
+  "slug": "yamaha--mt-03-321-16-19",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/mt-03-321-16-19"
+ },
+ {
+  "id": "70573249-62d6-49e7-bac1-2a80eb8a0ef0",
+  "slug": "yamaha--mt-03-321-20-21",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/mt-03-321-20-21"
+ },
+ {
+  "id": "b55eb47d-93b2-4457-8ad3-5a02d3480475",
+  "slug": "yamaha--mt-03-660-06-14",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/mt-03-660-06-14"
+ },
+ {
+  "id": "1149b37b-6572-4eb7-aecc-2f7f27a89ea8",
+  "slug": "yamaha--mt-07-14-17",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/mt-07-14-17"
+ },
+ {
+  "id": "9d476c01-616b-447b-8278-56e1605acd13",
+  "slug": "yamaha--mt-07-18-20",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/mt-07-18-20"
+ },
+ {
+  "id": "e7c8c890-63a0-4f58-bb76-3a61b712e3c2",
+  "slug": "yamaha--mt-07-21",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/mt-07-21"
+ },
+ {
+  "id": "5c043b5a-9c9a-46ba-b84e-b3c760ea58e7",
+  "slug": "yamaha--mt-07-25",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/mt-07-25"
+ },
+ {
+  "id": "61810a2f-e20f-40e1-9194-24fbc3f30769",
+  "slug": "yamaha--mt-07-tracer-16-19",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/mt-07-tracer-16-19"
+ },
+ {
+  "id": "c25e96a5-abe6-4640-8790-a5d46d94ff7f",
+  "slug": "yamaha--mt-09-13-16",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/mt-09-13-16"
+ },
+ {
+  "id": "c5b6d7a7-9b5b-4683-b4d2-8393c59b2047",
+  "slug": "yamaha--mt-09-17-20",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/mt-09-17-20"
+ },
+ {
+  "id": "c7d6e535-6571-430e-bd26-38a3fc8830fd",
+  "slug": "yamaha--mt-09-24",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/mt-09-24"
+ },
+ {
+  "id": "a74bd0c0-cc91-44c1-a611-72787bfbeb8f",
+  "slug": "yamaha--mt-09-mt-09-sp-21",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/mt-09-mt-09-sp-21"
+ },
+ {
+  "id": "6b4af744-606f-4d43-9b4c-1981477c09fa",
+  "slug": "yamaha--mt-09-tracer-15-17",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/mt-09-tracer-15-17"
+ },
+ {
+  "id": "492c6ecc-3aca-490e-9e42-beae81fea57a",
+  "slug": "yamaha--mt-10-16-21",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/mt-10-16-21"
+ },
+ {
+  "id": "80c7823b-39e0-4c14-8bf8-c4f7d5a35bc7",
+  "slug": "yamaha--mt-10-22-25",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/mt-10-22-25"
+ },
+ {
+  "id": "587664db-4b45-496e-995d-4d87c1d1c90b",
+  "slug": "yamaha--n-max-125-155-15-20",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/n-max-125-155-15-20"
+ },
+ {
+  "id": "54920cf2-0ef6-4335-b8d8-317530fe3e92",
+  "slug": "yamaha--n-max-125-155-21",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/n-max-125-155-21"
+ },
+ {
+  "id": "b4d7a7de-a9b5-49e8-bfcf-6410e7006256",
+  "slug": "yamaha--n-max-125-25",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/n-max-125-25"
+ },
+ {
+  "id": "520dc583-d4fe-4dcd-9f16-b116d0e81231",
+  "slug": "yamaha--neo-s-50-08-21",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/neo-s-50-08-21"
+ },
+ {
+  "id": "de3d443b-465a-4015-a160-0b541a6fc047",
+  "slug": "yamaha--neo-s-50-100-97-02",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/neo-s-50-100-97-02"
+ },
+ {
+  "id": "c2c62b89-1432-47f1-b55e-e9ed229f3d1c",
+  "slug": "yamaha--niken-900-19-21",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/niken-900-19-21"
+ },
+ {
+  "id": "91c9189f-e16f-4750-8f9e-eb00e94ef92b",
+  "slug": "yamaha--niken-gt-900-19-21",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/niken-gt-900-19-21"
+ },
+ {
+  "id": "a5031eab-8176-4ae4-9e92-3be79053ed1b",
+  "slug": "yamaha--t-max-500-01-07",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/t-max-500-01-07"
+ },
+ {
+  "id": "df28c6bc-94f7-45b3-ad52-dfb3f219c0b3",
+  "slug": "yamaha--t-max-500-08-11",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/t-max-500-08-11"
+ },
+ {
+  "id": "dadf6b05-f080-4998-b17e-216e69572db5",
+  "slug": "yamaha--t-max-530-12-16",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/t-max-530-12-16"
+ },
+ {
+  "id": "94a79440-6db3-4a3f-bd8c-5d7ba749be2d",
+  "slug": "yamaha--t-max-530-17-19",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/t-max-530-17-19"
+ },
+ {
+  "id": "bf8d9f54-e4e2-46b2-9367-34378eb4ea22",
+  "slug": "yamaha--t-max-560-20-21",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/t-max-560-20-21"
+ },
+ {
+  "id": "5ae6d3a6-d3f3-4d12-b472-0cb505fc7d5e",
+  "slug": "yamaha--t-max-560-22",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/t-max-560-22"
+ },
+ {
+  "id": "8e5c88aa-bec2-44c8-ae9e-c7b6af415a31",
+  "slug": "yamaha--tdm-850-96-01",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/tdm-850-96-01"
+ },
+ {
+  "id": "6325b0d2-35fd-4883-9881-81baa9d11882",
+  "slug": "yamaha--tdm-900-02-14",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/tdm-900-02-14"
+ },
+ {
+  "id": "a4e608c9-1991-4fe8-af03-e16859c09479",
+  "slug": "yamaha--tenere-700-19-20",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/tenere-700-19-20"
+ },
+ {
+  "id": "a9bbcf08-219a-434f-9224-79490a4b09ad",
+  "slug": "yamaha--tenere-700-21",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/tenere-700-21"
+ },
+ {
+  "id": "539fb1f8-a063-4a96-9268-a7e64feb1541",
+  "slug": "yamaha--tenere-700-25",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/tenere-700-25"
+ },
+ {
+  "id": "c461994e-8c6e-4d8e-bbd5-810be9c0ae28",
+  "slug": "yamaha--tenere-700-world-raid-22",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/tenere-700-world-raid-22"
+ },
+ {
+  "id": "640cb3cd-21cd-4248-af41-448df6d9fa38",
+  "slug": "yamaha--tracer-7-25",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/tracer-7-25"
+ },
+ {
+  "id": "deb6b411-b6ed-4836-b5ae-564bf8d0f78d",
+  "slug": "yamaha--tracer-7-gt-25-26",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/tracer-7-gt-25-26"
+ },
+ {
+  "id": "f9c4b21c-4073-4df9-91f6-7d45bd0cf707",
+  "slug": "yamaha--tracer-700-20-23",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/tracer-700-20-23"
+ },
+ {
+  "id": "3f25efcc-d77c-4d95-b097-abe4a2692fc7",
+  "slug": "yamaha--tracer-9-21-22",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/tracer-9-21-22"
+ },
+ {
+  "id": "d4276489-691e-44ea-9548-62bc1f8ebf66",
+  "slug": "yamaha--tracer-9-tracer-9-gt-tracer-9-gt-25",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/tracer-9-tracer-9-gt-tracer-9-gt-25"
+ },
+ {
+  "id": "cd54c938-280c-4c9b-8003-b2cda5788bbd",
+  "slug": "yamaha--tracer-900-tracer-900-gt-18-20",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/tracer-900-tracer-900-gt-18-20"
+ },
+ {
+  "id": "31285eb2-1e8e-4142-a0f2-8e5370f87fdc",
+  "slug": "yamaha--tricity-125-155-14-21",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/tricity-125-155-14-21"
+ },
+ {
+  "id": "6adc198a-9733-48c6-8ce7-25f7127708ab",
+  "slug": "yamaha--tricity-125-25",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/tricity-125-25"
+ },
+ {
+  "id": "745d0767-d59a-4bc2-ae07-459115b475e5",
+  "slug": "yamaha--tricity-300-20-21",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/tricity-300-20-21"
+ },
+ {
+  "id": "cb9de816-be60-4834-a014-8b62011c035a",
+  "slug": "yamaha--v-max-1200",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/v-max-1200"
+ },
+ {
+  "id": "2bb8f6fa-46f5-4338-a999-f831153a6303",
+  "slug": "yamaha--vity-125-10-15",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/vity-125-10-15"
+ },
+ {
+  "id": "b6198d12-1b69-4660-af15-4c861e777bb1",
+  "slug": "yamaha--wr250r-08-13",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/wr250r-08-13"
+ },
+ {
+  "id": "95ef8b79-dafc-459b-b18c-0fbd14f5212d",
+  "slug": "yamaha--x-city-125-250-07-17",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/x-city-125-250-07-17"
+ },
+ {
+  "id": "920b0545-e2b2-49d9-9b5b-051e1776f0eb",
+  "slug": "yamaha--x-max-125-18-21",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/x-max-125-18-21"
+ },
+ {
+  "id": "26e0b4a9-bc14-4d0d-a5b0-7cd701f17a6b",
+  "slug": "yamaha--x-max-125-250-05-09",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/x-max-125-250-05-09"
+ },
+ {
+  "id": "71e0a154-c2e5-4217-8339-71d3cbfea036",
+  "slug": "yamaha--x-max-125-250-10-13",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/x-max-125-250-10-13"
+ },
+ {
+  "id": "49f222e8-ede6-44cd-93dc-8f6334c68628",
+  "slug": "yamaha--x-max-125-250-14-17",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/x-max-125-250-14-17"
+ },
+ {
+  "id": "bc1b4f7f-1bf3-4649-b8e9-d67f72e7845d",
+  "slug": "yamaha--x-max-300-17-21",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/x-max-300-17-21"
+ },
+ {
+  "id": "15cdefff-d4d6-4d3a-81de-04119b914be7",
+  "slug": "yamaha--x-max-300-23",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/x-max-300-23"
+ },
+ {
+  "id": "338215d5-0ce3-49db-bdb4-9c698d948197",
+  "slug": "yamaha--x-max-400-13-16",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/x-max-400-13-16"
+ },
+ {
+  "id": "5f372c4f-e70f-42c3-8a7a-15bfad863591",
+  "slug": "yamaha--x-max-400-18-21",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/x-max-400-18-21"
+ },
+ {
+  "id": "a575a914-fb53-4cd6-a32b-0239bcbe8740",
+  "slug": "yamaha--xc-300-versity-03-07",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/xc-300-versity-03-07"
+ },
+ {
+  "id": "ddf13cf4-b742-4583-8a07-37b8fe9e39a0",
+  "slug": "yamaha--xenter-125-150-12-21",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/xenter-125-150-12-21"
+ },
+ {
+  "id": "14af12b7-3c3a-4bb9-af13-0a2d33da7d9c",
+  "slug": "yamaha--xj-600-diversion-91-95",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/xj-600-diversion-91-95"
+ },
+ {
+  "id": "2e481416-123e-4ca4-b661-838e3e40cb56",
+  "slug": "yamaha--xj-600-diversion-96-03",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/xj-600-diversion-96-03"
+ },
+ {
+  "id": "00be234a-e1e8-4409-bb99-3fcd0e5e3187",
+  "slug": "yamaha--xj-600-diversion-n-96-99",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/xj-600-diversion-n-96-99"
+ },
+ {
+  "id": "16e94017-055f-41d2-b70b-c9f9052a98c0",
+  "slug": "yamaha--xj6-09-12-xj6-diversion-xj6-diversion-f-600-09-13",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/xj6-09-12-xj6-diversion-xj6-diversion-f-600-09-13"
+ },
+ {
+  "id": "586da620-fa0b-46ef-a147-724fd4629c65",
+  "slug": "yamaha--xj6-600-13-15",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/xj6-600-13-15"
+ },
+ {
+  "id": "1b0e4eae-5b07-4532-9ec3-fd68d3a123e5",
+  "slug": "yamaha--xjr-1200-95-98",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/xjr-1200-95-98"
+ },
+ {
+  "id": "26778093-afb8-4059-917c-f53668393144",
+  "slug": "yamaha--xjr-1300-07-14",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/xjr-1300-07-14"
+ },
+ {
+  "id": "5b40f9ea-cd67-4e7d-bbba-7ecda5bbb23a",
+  "slug": "yamaha--xjr-1300-98-02",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/xjr-1300-98-02"
+ },
+ {
+  "id": "fa1567ec-a229-40d3-8651-5f2d529736b9",
+  "slug": "yamaha--xsr700-16-21",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/xsr700-16-21"
+ },
+ {
+  "id": "7b5c69da-f5c8-42c7-ab37-384cde5f049e",
+  "slug": "yamaha--xsr900-16-21",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/xsr900-16-21"
+ },
+ {
+  "id": "6cda429b-54e7-4ef0-8202-1c4960373475",
+  "slug": "yamaha--xt-1200z-super-tenere-10-20",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/xt-1200z-super-tenere-10-20"
+ },
+ {
+  "id": "ae5d7180-9103-4740-8f93-7e5c5419aeee",
+  "slug": "yamaha--xt-660-r-xt-660-x-04-06",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/xt-660-r-xt-660-x-04-06"
+ },
+ {
+  "id": "a7345c40-1588-4e83-9d5e-393af854c4b3",
+  "slug": "yamaha--xt-660-r-xt-660-x-07-16",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/xt-660-r-xt-660-x-07-16"
+ },
+ {
+  "id": "fe88423f-42ff-475a-8507-741294db541c",
+  "slug": "yamaha--xt-660z-tenere-08-16",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/xt-660z-tenere-08-16"
+ },
+ {
+  "id": "45e529e9-9289-4dba-87d1-d539ef093486",
+  "slug": "yamaha--xt1200ze-super-tenere-14-20",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/xt1200ze-super-tenere-14-20"
+ },
+ {
+  "id": "fb3ceb64-653a-4bfe-964e-c1925aab2814",
+  "slug": "yamaha--xtz-750-super-tenere-89-99",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/xtz-750-super-tenere-89-99"
+ },
+ {
+  "id": "4e05f472-570e-4f69-a84e-9933238d290e",
+  "slug": "yamaha--xv-1100-virago-89-99",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/xv-1100-virago-89-99"
+ },
+ {
+  "id": "9333a805-6142-4c7a-abe7-99bcb3c8f9d0",
+  "slug": "yamaha--xv-750-virago-89-98",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/xv-750-virago-89-98"
+ },
+ {
+  "id": "a75f9886-9639-45fe-94f9-830e336947e2",
+  "slug": "yamaha--xvs-1100-drag-star-99-02",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/xvs-1100-drag-star-99-02"
+ },
+ {
+  "id": "3db13eea-27b3-4438-b1c1-66e3af5d861b",
+  "slug": "yamaha--xvs-650-drag-star-97-02",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/xvs-650-drag-star-97-02"
+ },
+ {
+  "id": "02333d9a-9b51-426b-8b51-b5c1ff799603",
+  "slug": "yamaha--xvs-650a-drag-star-classic-98-07",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/xvs-650a-drag-star-classic-98-07"
+ },
+ {
+  "id": "e75d9aea-6953-4f26-ac26-6091eace0f61",
+  "slug": "yamaha--yzf-600-r6-06-07",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/yzf-600-r6-06-07"
+ },
+ {
+  "id": "a1b9f84a-9080-4635-a91d-6481665eab9c",
+  "slug": "yamaha--yzf-600-thunder-cat-96-02",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/yzf-600-thunder-cat-96-02"
+ },
+ {
+  "id": "b09fdf45-d9f3-43ca-9b48-dd6573a8667a",
+  "slug": "yamaha--yzf-r1-1000-09-12",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/yzf-r1-1000-09-12"
+ },
+ {
+  "id": "25812b43-5a81-4456-92b7-e1cac1332f02",
+  "slug": "yamaha--yzf-r7-21-22",
+  "parent_id": "5e568d53-f35d-46d4-b784-d838aaf74689",
+  "full_path": "my-bike/yamaha/yzf-r7-21-22"
+ },
+ {
+  "id": "a9e86ec0-3fe9-4344-9514-df9ee4dc6e11",
+  "slug": "zontes--125-g1-21-24",
+  "parent_id": "2df37e97-f533-4045-8bc9-8b37689377f6",
+  "full_path": "my-bike/zontes/125-g1-21-24"
+ },
+ {
+  "id": "7b8f07b3-bbc6-4d07-8a48-7ac5a5530646",
+  "slug": "zontes--350d-23-24",
+  "parent_id": "2df37e97-f533-4045-8bc9-8b37689377f6",
+  "full_path": "my-bike/zontes/350d-23-24"
+ },
+ {
+  "id": "e651e163-961d-46d8-9cea-5789ae5f3617",
+  "slug": "zontes--350e-23-24",
+  "parent_id": "2df37e97-f533-4045-8bc9-8b37689377f6",
+  "full_path": "my-bike/zontes/350e-23-24"
+ },
+ {
+  "id": "ac779fdd-d494-4823-a5fb-6f866c845073",
+  "slug": "zontes--368-g-25",
+  "parent_id": "2df37e97-f533-4045-8bc9-8b37689377f6",
+  "full_path": "my-bike/zontes/368-g-25"
+ },
+ {
+  "id": "64e4d84f-2a1a-40e5-b242-37b0cdc2f986",
+  "slug": "zontes--703-f-25-20265",
+  "parent_id": "2df37e97-f533-4045-8bc9-8b37689377f6",
+  "full_path": "my-bike/zontes/703-f-25-20265"
+ }
+]
