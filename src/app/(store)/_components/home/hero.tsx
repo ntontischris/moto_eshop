@@ -26,7 +26,7 @@ export function Hero() {
           muted
           loop
           playsInline
-          preload="metadata"
+          preload="none"
           poster={HERO_POSTER}
         >
           <source src={HERO_VIDEO} type="video/mp4" />
@@ -53,10 +53,7 @@ export function Hero() {
         </p>
 
         <div className="v3-hero-cta">
-          <Link
-            className="v3-btn-primary"
-            href={`/category/${HELMET_SLUG}`}
-          >
+          <Link className="v3-btn-primary" href={`/category/${HELMET_SLUG}`}>
             Αγόρασε κράνη <span aria-hidden="true">→</span>
           </Link>
           <Link className="v3-hero-btn2" href="/category/prosfores">
@@ -102,19 +99,11 @@ export function Hero() {
           overflow: hidden; }
         .v3-hero-bg img {
           filter: saturate(1.05) contrast(1.05);
-          animation: v3-kb 26s ease-in-out infinite alternate;
+          transform: scale(1.04);
         }
         .v3-hero-vid {
           position: absolute; inset: 0; width: 100%; height: 100%;
           object-fit: cover; opacity: .92;
-          animation: v3-kb 26s ease-in-out infinite alternate;
-        }
-        @keyframes v3-kb {
-          from { transform: scale(1.02) translate3d(0,0,0); }
-          to { transform: scale(1.12) translate3d(-1.5%,-1%,0); }
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .v3-hero-bg img, .v3-hero-vid { animation: none; }
         }
         .v3-hero-scrim {
           position: absolute; inset: 0;

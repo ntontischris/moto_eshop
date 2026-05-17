@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server";
+import { cacheTag, cacheLife } from "next/cache";
 
 export interface Category {
   id: string;
@@ -55,7 +55,11 @@ function rowToCategory(data: {
 }
 
 export async function getCategory(slug: string): Promise<Category | null> {
-  const supabase = await createClient();
+  "use cache";
+  cacheTag("categories");
+  cacheLife("hours");
+  const { createAdminClient } = await import("@/lib/supabase/admin");
+  const supabase = createAdminClient();
   const { data, error } = await supabase
     .from("categories")
     .select(
@@ -72,7 +76,11 @@ export async function getCategory(slug: string): Promise<Category | null> {
 export async function getCategoryByPath(
   fullPath: string,
 ): Promise<Category | null> {
-  const supabase = await createClient();
+  "use cache";
+  cacheTag("categories");
+  cacheLife("hours");
+  const { createAdminClient } = await import("@/lib/supabase/admin");
+  const supabase = createAdminClient();
   const { data, error } = await supabase
     .from("categories")
     .select(
@@ -86,7 +94,11 @@ export async function getCategoryByPath(
 }
 
 export async function getCategoryTree(): Promise<CategoryTreeNode[]> {
-  const supabase = await createClient();
+  "use cache";
+  cacheTag("categories");
+  cacheLife("hours");
+  const { createAdminClient } = await import("@/lib/supabase/admin");
+  const supabase = createAdminClient();
 
   const { data, error } = await supabase
     .from("categories")
@@ -123,7 +135,11 @@ export async function getCategoryTree(): Promise<CategoryTreeNode[]> {
 export async function getCategoryBreadcrumbs(
   slug: string,
 ): Promise<BreadcrumbItem[]> {
-  const supabase = await createClient();
+  "use cache";
+  cacheTag("categories");
+  cacheLife("hours");
+  const { createAdminClient } = await import("@/lib/supabase/admin");
+  const supabase = createAdminClient();
   const crumbs: BreadcrumbItem[] = [{ label: "Αρχική", href: "/" }];
 
   const ancestors: { name: string; slug: string }[] = [];
@@ -155,7 +171,11 @@ export async function getCategoryBreadcrumbs(
 export async function getSubcategories(
   parentSlug: string,
 ): Promise<Category[]> {
-  const supabase = await createClient();
+  "use cache";
+  cacheTag("categories");
+  cacheLife("hours");
+  const { createAdminClient } = await import("@/lib/supabase/admin");
+  const supabase = createAdminClient();
 
   const { data: parent } = await supabase
     .from("categories")

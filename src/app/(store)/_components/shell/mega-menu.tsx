@@ -80,17 +80,18 @@ function RootItem({
         </span>
       </button>
 
-      <div
-        className="v3-mm-panel"
-        aria-hidden={!isOpen}
-        style={{ maxHeight: isOpen ? "600px" : "0", opacity: isOpen ? 1 : 0 }}
-      >
-        <div className="v3-mm-panel-inner">
-          {root.children.map((l2) => (
-            <L2Column key={l2.slug} l2={l2} />
-          ))}
+      {/* Panel content is mounted ONLY when open — keeps the full NAV tree
+          (hundreds of nodes) out of the SSR HTML / RSC payload / hydration
+          on every page. NAV is already in the JS bundle (static import). */}
+      {isOpen && (
+        <div className="v3-mm-panel" role="region">
+          <div className="v3-mm-panel-inner">
+            {root.children.map((l2) => (
+              <L2Column key={l2.slug} l2={l2} />
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
@@ -185,11 +186,15 @@ export function MegaMenu() {
           border-radius: 0 0 var(--v3-radius) var(--v3-radius);
           box-shadow: var(--v3-shadow);
           overflow: hidden;
-          transition: max-height .16s ease, opacity .16s ease;
           z-index: 191;
+          animation: v3-mm-in .14s ease both;
+        }
+        @keyframes v3-mm-in {
+          from { opacity: 0; transform: translateY(-6px); }
+          to { opacity: 1; transform: none; }
         }
         @media (prefers-reduced-motion: reduce) {
-          .v3-mm-panel { transition: none; }
+          .v3-mm-panel { animation: none; }
           .v3-mm-chevron { transition: none; }
         }
         .v3-mm-panel-inner {

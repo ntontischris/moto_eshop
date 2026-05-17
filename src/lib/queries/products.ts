@@ -119,7 +119,11 @@ async function resolveCategoryPath(
 }
 
 export async function getProduct(slug: string): Promise<Product | null> {
-  const supabase = await createClient();
+  "use cache";
+  cacheTag("products");
+  cacheLife("hours");
+  const { createAdminClient } = await import("@/lib/supabase/admin");
+  const supabase = createAdminClient();
 
   const { data, error } = await supabase
     .from("products")
@@ -196,6 +200,9 @@ export async function getProduct(slug: string): Promise<Product | null> {
 export async function getProductsByCategory(
   options: GetProductsByCategoryOptions,
 ): Promise<PaginatedResult<ProductListItem>> {
+  "use cache";
+  cacheTag("products");
+  cacheLife("hours");
   const {
     categorySlug,
     page = 1,
@@ -209,7 +216,8 @@ export async function getProductsByCategory(
     minRating,
   } = options;
 
-  const supabase = await createClient();
+  const { createAdminClient } = await import("@/lib/supabase/admin");
+  const supabase = createAdminClient();
   const offset = (page - 1) * perPage;
   const { column, ascending } = SORT_MAP[sort];
 
@@ -309,7 +317,11 @@ export async function getProductsByCategory(
 export async function getProductFilters(
   categorySlug: string,
 ): Promise<ProductFilters> {
-  const supabase = await createClient();
+  "use cache";
+  cacheTag("products");
+  cacheLife("hours");
+  const { createAdminClient } = await import("@/lib/supabase/admin");
+  const supabase = createAdminClient();
 
   const fullPath = await resolveCategoryPath(supabase, categorySlug);
 
@@ -409,7 +421,11 @@ export async function getRelatedProducts(
   categorySlug: string,
   limit = 8,
 ): Promise<ProductListItem[]> {
-  const supabase = await createClient();
+  "use cache";
+  cacheTag("products");
+  cacheLife("hours");
+  const { createAdminClient } = await import("@/lib/supabase/admin");
+  const supabase = createAdminClient();
 
   const { data: cat } = await supabase
     .from("categories")
