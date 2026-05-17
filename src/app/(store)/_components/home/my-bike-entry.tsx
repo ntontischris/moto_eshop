@@ -31,7 +31,7 @@ export function MyBikeEntry() {
               <option value="">Επίλεξε μοντέλο</option>
             </select>
           </label>
-          <Link className="v3-btn-primary" href="/preview/v3/category/my-bike">
+          <Link className="v3-btn-primary" href="/category/my-bike">
             Βρες εξοπλισμό
           </Link>
           <p className="v3-mb-note">Η επιλογή ανά μηχανή έρχεται σύντομα.</p>

@@ -170,7 +170,7 @@ export function CategoryDrawer({ open, onClose }: CategoryDrawerProps) {
                   {root.children.map((l2) => (
                     <li key={l2.slug}>
                       <Link
-                        href={`/preview/v3/category/${l2.slug}`}
+                        href={`/category/${l2.slug}`}
                         onClick={handleClose}
                         style={{
                           display: "block",

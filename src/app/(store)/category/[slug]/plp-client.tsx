@@ -42,7 +42,7 @@ export function PLPClient({
   children,
 }: PLPClientProps) {
   const router = useRouter();
-  const basePath = `/preview/v3/category/${slug}`;
+  const basePath = `/category/${slug}`;
   const push = (next: PlpState) => router.push(basePath + buildPlpQuery(next));
 
   const brandName = (s: string) =>
@@ -79,7 +79,7 @@ export function PLPClient({
   return (
     <div className="v3-plp">
       <nav className="v3-plp-bc" aria-label="Breadcrumb">
-        <Link href="/preview/v3">Αρχική</Link>
+        <Link href="/">Αρχική</Link>
         <span aria-hidden="true">/</span>
         <span>{title}</span>
       </nav>
@@ -94,7 +94,7 @@ export function PLPClient({
           {subcategories.map((s) => (
             <Link
               key={s.slug}
-              href={`/preview/v3/category/${s.slug}`}
+              href={`/category/${s.slug}`}
               className="v3-plp-chip"
             >
               {s.name}

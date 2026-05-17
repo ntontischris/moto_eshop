@@ -62,7 +62,7 @@ export default async function V3Home() {
 
   const shortcuts: ShortcutItem[] = SHORTCUTS.map((s) => ({
     label: s.label,
-    href: `/preview/v3/category/${s.match}`,
+    href: `/category/${s.match}`,
     valid: flat.has(s.match),
   }));
 
@@ -76,7 +76,7 @@ export default async function V3Home() {
         <ProductRail
           title="Δημοφιλή"
           products={bestRes.data}
-          href="/preview/v3/category/eksoplismos-anabath"
+          href="/category/eksoplismos-anabath"
         />
       </Reveal>
       <EditorialBand />

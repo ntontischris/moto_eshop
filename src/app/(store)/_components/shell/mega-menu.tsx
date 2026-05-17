@@ -13,13 +13,13 @@ function L2Column({ l2 }: { l2: NavL2 }) {
 
   return (
     <div className="v3-mm-col">
-      <Link href={`/preview/v3/category/${l2.slug}`} className="v3-mm-col-head">
+      <Link href={`/category/${l2.slug}`} className="v3-mm-col-head">
         {l2.el}
       </Link>
       {visible.map((l3) => (
         <Link
           key={l3.slug}
-          href={`/preview/v3/category/${l3.slug}`}
+          href={`/category/${l3.slug}`}
           className="v3-mm-l3-link"
         >
           {l3.el}
@@ -27,7 +27,7 @@ function L2Column({ l2 }: { l2: NavL2 }) {
       ))}
       {overflow > 0 && (
         <Link
-          href={`/preview/v3/category/${l2.slug}`}
+          href={`/category/${l2.slug}`}
           className="v3-mm-l3-link v3-mm-more"
         >
           +{overflow} ακόμη
@@ -53,7 +53,7 @@ function RootItem({
   if (!hasPanel) {
     return (
       <Link
-        href={`/preview/v3/category/${root.slug}`}
+        href={`/category/${root.slug}`}
         className={`v3-mm-root-link${root.sale ? " v3-mm-sale" : ""}`}
       >
         {root.el}

@@ -123,7 +123,7 @@ export function Header() {
       <header className="v3-header">
         <div className="v3-header-inner">
           <Link
-            href="/preview/v3"
+            href="/"
             className="v3-wordmark"
             aria-label="MotoMarket αρχική"
           >

@@ -55,11 +55,11 @@ export function Hero() {
         <div className="v3-hero-cta">
           <Link
             className="v3-btn-primary"
-            href={`/preview/v3/category/${HELMET_SLUG}`}
+            href={`/category/${HELMET_SLUG}`}
           >
             Αγόρασε κράνη <span aria-hidden="true">→</span>
           </Link>
-          <Link className="v3-hero-btn2" href="/preview/v3/category/prosfores">
+          <Link className="v3-hero-btn2" href="/category/prosfores">
             Προσφορές
           </Link>
           <a className="v3-hero-btn3" href="#my-bike">

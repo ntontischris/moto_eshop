@@ -25,7 +25,7 @@ export async function generateMetadata({
       cat.seo_intro ??
       cat.description ??
       `${cat.name} από όλα τα κορυφαία brands.`,
-    alternates: { canonical: `${BASE_URL}/preview/v3/category/${slug}` },
+    alternates: { canonical: `${BASE_URL}/category/${slug}` },
   };
 }
 

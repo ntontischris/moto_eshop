@@ -21,9 +21,9 @@ export function PDPClient({
   return (
     <div className="v3-pdp">
       <nav className="v3-pdp-bc" aria-label="Breadcrumb">
-        <Link href="/preview/v3">Αρχική</Link>
+        <Link href="/">Αρχική</Link>
         <span aria-hidden="true">/</span>
-        <Link href={`/preview/v3/category/${product.category_slug}`}>
+        <Link href={`/category/${product.category_slug}`}>
           {product.category_name}
         </Link>
         <span aria-hidden="true">/</span>

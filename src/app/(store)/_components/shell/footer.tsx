@@ -122,7 +122,7 @@ export function Footer() {
             <ul className="v3-footer-links">
               {TOP_NAV_ROOTS.map((root) => (
                 <li key={root.slug}>
-                  <Link href={`/preview/v3/category/${root.slug}`}>
+                  <Link href={`/category/${root.slug}`}>
                     {root.el}
                   </Link>
                 </li>

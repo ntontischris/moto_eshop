@@ -87,7 +87,7 @@ export function MobileNav() {
       <CategoryDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
 
       <nav className="v3-mobile-nav" aria-label="Κινητή πλοήγηση">
-        <Link href="/preview/v3" className="v3-mob-item">
+        <Link href="/" className="v3-mob-item">
           <span className="v3-mob-icon" aria-hidden="true">
             🏠
           </span>

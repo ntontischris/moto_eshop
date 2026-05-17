@@ -33,7 +33,7 @@ export function EditorialBand() {
         </p>
         <Link
           className="v3-btn-primary"
-          href="/preview/v3/category/eksoplismos-anabath"
+          href="/category/eksoplismos-anabath"
         >
           Δες τον εξοπλισμό <span aria-hidden="true">→</span>
         </Link>

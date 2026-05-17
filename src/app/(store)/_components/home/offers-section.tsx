@@ -19,7 +19,7 @@ export function OffersSection({ products }: { products: ProductListItem[] }) {
               <span className="v3-off-tag v3-display">Προσφορές</span>
             </h2>
           </div>
-          <Link href="/preview/v3/category/prosfores" className="v3-off-all">
+          <Link href="/category/prosfores" className="v3-off-all">
             Όλες οι προσφορές <span aria-hidden="true">→</span>
           </Link>
         </div>

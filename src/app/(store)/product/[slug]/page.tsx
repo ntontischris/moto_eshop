@@ -17,7 +17,7 @@ export async function generateMetadata({
   return {
     title: `${p.brand} ${p.name} | MotoMarket`,
     description: p.description ?? p.name,
-    alternates: { canonical: `${BASE_URL}/preview/v3/product/${slug}` },
+    alternates: { canonical: `${BASE_URL}/product/${slug}` },
     openGraph: { images: p.images.map((i) => i.url), type: "website" },
   };
 }
@@ -55,7 +55,7 @@ export default async function V3ProductPage({
       : undefined,
     offers: {
       "@type": "Offer",
-      url: `${BASE_URL}/preview/v3/product/${slug}`,
+      url: `${BASE_URL}/product/${slug}`,
       priceCurrency: "EUR",
       price: product.price.toFixed(2),
       availability:

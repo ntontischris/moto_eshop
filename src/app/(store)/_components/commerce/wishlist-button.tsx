@@ -1,6 +1,6 @@
 "use client";
 
-import { useV3 } from "@/app/preview/v3/_components/shell/v3-provider";
+import { useV3 } from "../shell/v3-provider";
 
 export function WishlistButton({ slug }: { slug: string }) {
   const { wishlist, toggleWishlist } = useV3();

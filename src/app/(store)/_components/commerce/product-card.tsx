@@ -13,7 +13,7 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product }: ProductCardProps) {
-  const href = `/preview/v3/product/${product.slug}`;
+  const href = `/product/${product.slug}`;
 
   /* Badges — only from real fields, no fabrication */
   const badges: { label: string; tone: Tone }[] = [];
