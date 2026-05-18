@@ -90,33 +90,6 @@ export function HeritageStrip() {
           <Stat key={s.label} stat={s} run={run} />
         ))}
       </div>
-      <style precedence="default">{`
-        .v3-hs {
-          padding: clamp(56px, 8vw, 96px) var(--v3-gutter);
-          background: var(--v3-carbon);
-          border-top: 1px solid var(--v3-line);
-        }
-        .v3-hs-inner {
-          max-width: 1180px; margin: 0 auto; display: grid;
-          grid-template-columns: repeat(4, 1fr); gap: 16px; text-align: center;
-        }
-        .v3-hs-cell {
-          display: flex; flex-direction: column; gap: 8px;
-          padding: 18px; border-right: 1px solid var(--v3-line);
-        }
-        .v3-hs-cell:last-child { border-right: 0; }
-        .v3-hs-value {
-          font-size: clamp(2rem, 5vw, 3.6rem); font-weight: 900;
-          color: var(--v3-bone); transform: skewX(-6deg);
-          font-variant-numeric: tabular-nums;
-        }
-        .v3-hs-label { font-size: .82rem; color: var(--v3-bone-dim);
-          letter-spacing: .03em; }
-        @media (max-width: 720px) {
-          .v3-hs-inner { grid-template-columns: repeat(2, 1fr); }
-          .v3-hs-cell:nth-child(2) { border-right: 0; }
-        }
-      `}</style>
     </section>
   );
 }

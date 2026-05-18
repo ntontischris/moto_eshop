@@ -26,23 +26,6 @@ export function SizeSelector({
           </button>
         ))}
       </div>
-      <style precedence="default">{`
-        .v3-size-row { display: flex; flex-wrap: wrap; gap: 8px; }
-        .v3-size-chip {
-          min-width: 48px; height: 44px; padding: 0 14px; cursor: pointer;
-          background: var(--v3-surface); color: var(--v3-bone);
-          border: 1px solid var(--v3-line); border-radius: 8px;
-          font-weight: 700; font-size: .9rem;
-          transition: border-color .12s, background .12s;
-        }
-        .v3-size-chip:hover { border-color: var(--v3-bone-dim); }
-        .v3-size-chip.is-on {
-          border-color: var(--v3-red); background: var(--v3-red); color: #fff;
-        }
-        .v3-size-chip:focus-visible {
-          outline: 2px solid var(--v3-cyan); outline-offset: 2px;
-        }
-      `}</style>
     </div>
   );
 }

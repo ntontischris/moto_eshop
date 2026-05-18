@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { getCategoryTree } from "@/lib/queries/categories";
 import { getProductsByCategory } from "@/lib/queries/products";
 import { Hero } from "./_components/home/hero";
 import {
@@ -32,30 +31,19 @@ const SHORTCUTS: { label: string; match: string }[] = [
   { label: "Off-road", match: "off-road" },
 ];
 
-function collectSlugs(
-  nodes: { slug: string; children: unknown[] }[],
-): string[] {
-  return nodes.flatMap((n) => [
-    n.slug,
-    ...collectSlugs(
-      (n.children as { slug: string; children: unknown[] }[]) ?? [],
-    ),
-  ]);
-}
-
 export default async function V3Home() {
-  const tree = await getCategoryTree();
-  const flat = new Set(collectSlugs(tree));
-
+  // Stage 2: do NOT fetch+flatten the whole category tree (it serialized
+  // the entire taxonomy incl. my-bike's 811 descendants into the RSC
+  // payload just to validate 8 hardcoded slugs). Trust the curated slugs.
   const [bestRes, offersRes] = await Promise.all([
     getProductsByCategory({
       categorySlug: "eksoplismos-anabath",
-      perPage: 10,
+      perPage: 8,
       sort: "popular",
     }),
     getProductsByCategory({
       categorySlug: "eksoplismos-anabath",
-      perPage: 10,
+      perPage: 8,
       sort: "newest",
     }),
   ]);
@@ -63,7 +51,7 @@ export default async function V3Home() {
   const shortcuts: ShortcutItem[] = SHORTCUTS.map((s) => ({
     label: s.label,
     href: `/category/${s.match}`,
-    valid: flat.has(s.match),
+    valid: true,
   }));
 
   return (

@@ -1,5 +1,6 @@
 import { Sofia_Sans_Extra_Condensed, Commissioner } from "next/font/google";
 import "./_styles/tokens.css";
+import "./_styles/components.css";
 import { V3Provider } from "./_components/shell/v3-provider";
 import { UtilityBar } from "./_components/shell/utility-bar";
 import { Header } from "./_components/shell/header";

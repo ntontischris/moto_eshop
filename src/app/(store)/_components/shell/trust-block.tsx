@@ -58,32 +58,6 @@ export function TrustBlock() {
           </div>
         ))}
       </div>
-      <style precedence="default">{`
-        .v3-trust { padding: 56px var(--v3-gutter); background: var(--v3-graphite); }
-        .v3-trust-grid {
-          max-width: 1320px; margin: 0 auto; display: grid;
-          grid-template-columns: repeat(5, 1fr); gap: 16px;
-        }
-        .v3-trust-cell {
-          background: var(--v3-surface); border: 1px solid var(--v3-line);
-          border-radius: var(--v3-radius); padding: 22px 18px; text-align: center;
-        }
-        .v3-trust-cell svg { color: var(--v3-red); }
-        .v3-trust-cell h3 {
-          margin: 12px 0 4px; font-size: .98rem; font-weight: 700;
-          color: var(--v3-bone);
-        }
-        .v3-trust-cell p {
-          margin: 0; font-size: .82rem; line-height: 1.45;
-          color: var(--v3-bone-dim);
-        }
-        @media (max-width: 900px) {
-          .v3-trust-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (max-width: 520px) {
-          .v3-trust-grid { grid-template-columns: 1fr; }
-        }
-      `}</style>
     </section>
   );
 }

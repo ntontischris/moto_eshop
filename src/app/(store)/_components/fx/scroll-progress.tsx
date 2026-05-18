@@ -39,19 +39,6 @@ export function ScrollProgress() {
   return (
     <div className="v3-prog" aria-hidden="true">
       <div ref={ref} className="v3-prog-bar" />
-      <style precedence="default">{`
-        .v3-prog {
-          position: fixed; top: 0; left: 0; right: 0; height: 3px;
-          z-index: 200; background: transparent; pointer-events: none;
-        }
-        .v3-prog-bar {
-          height: 100%; transform: scaleX(0); transform-origin: 0 50%;
-          background: linear-gradient(90deg,
-            var(--v3-red), var(--v3-red-bright));
-          box-shadow: 0 0 12px rgba(228,17,31,.6);
-        }
-        @media (prefers-reduced-motion: reduce) { .v3-prog { display: none; } }
-      `}</style>
     </div>
   );
 }

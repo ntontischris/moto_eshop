@@ -53,27 +53,6 @@ export function ProductGallery({
           ))}
         </div>
       )}
-      <style precedence="default">{`
-        .v3-gal { display: flex; flex-direction: column; gap: 12px; }
-        .v3-gal-main {
-          position: relative; width: 100%; aspect-ratio: 1 / 1;
-          border-radius: var(--v3-radius); overflow: hidden;
-          background: var(--v3-surface); border: 1px solid var(--v3-line);
-        }
-        .v3-gal--empty { aspect-ratio: 1 / 1; background: var(--v3-surface);
-          border-radius: var(--v3-radius); }
-        .v3-gal-thumbs { display: flex; gap: 10px; flex-wrap: wrap; }
-        .v3-gal-thumb {
-          position: relative; width: 72px; height: 72px; padding: 0;
-          border-radius: 8px; overflow: hidden; cursor: pointer;
-          background: var(--v3-surface);
-          border: 2px solid var(--v3-line);
-        }
-        .v3-gal-thumb.is-active { border-color: var(--v3-red); }
-        .v3-gal-thumb:focus-visible {
-          outline: 2px solid var(--v3-cyan); outline-offset: 2px;
-        }
-      `}</style>
     </div>
   );
 }

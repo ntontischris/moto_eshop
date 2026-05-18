@@ -47,18 +47,6 @@ export function Reveal({
       style={{ transitionDelay: delay ? `${delay}ms` : undefined }}
     >
       {children}
-      <style precedence="default">{`
-        .v3-reveal {
-          opacity: 0;
-          transform: translate3d(0, 22px, 0);
-          transition: opacity .65s ease, transform .65s ease;
-          will-change: opacity, transform;
-        }
-        .v3-reveal.is-in { opacity: 1; transform: none; will-change: auto; }
-        @media (prefers-reduced-motion: reduce) {
-          .v3-reveal { opacity: 1; transform: none; transition: none; }
-        }
-      `}</style>
       <noscript>
         <style>{`.v3-reveal{opacity:1;transform:none;}`}</style>
       </noscript>

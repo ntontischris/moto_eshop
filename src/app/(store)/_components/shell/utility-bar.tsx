@@ -28,47 +28,14 @@ function LangToggle() {
 
 export function UtilityBar() {
   return (
-    <>
-      <style>{`
-        .v3-utility-bar {
-          background: var(--v3-graphite);
-          border-bottom: 1px solid var(--v3-line);
-          height: 34px;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          padding: 0 var(--v3-gutter);
-          font-size: 12px;
-          color: var(--v3-bone-dim);
-          gap: 12px;
-        }
-        .v3-utility-links {
-          display: flex;
-          align-items: center;
-          gap: 20px;
-        }
-        .v3-utility-links a {
-          color: var(--v3-bone-dim);
-          text-decoration: none;
-          font-size: 12px;
-          transition: color .15s;
-        }
-        .v3-utility-links a:hover { color: var(--v3-bone); }
-        .v3-utility-links a:focus-visible {
-          outline: 2px solid var(--v3-cyan);
-          outline-offset: 2px;
-          border-radius: 2px;
-        }
-      `}</style>
-      <div className="v3-utility-bar">
-        <LangToggle />
-        <nav className="v3-utility-links" aria-label="Βοηθητική πλοήγηση">
-          <a href="#">Λογαριασμός</a>
-          <a href="#">Λίστα επιθυμιών</a>
-          <a href="#">Παρακολούθηση παραγγελίας</a>
-          <a href="#">Βοήθεια</a>
-        </nav>
-      </div>
-    </>
+    <div className="v3-utility-bar">
+      <LangToggle />
+      <nav className="v3-utility-links" aria-label="Βοηθητική πλοήγηση">
+        <a href="#">Λογαριασμός</a>
+        <a href="#">Λίστα επιθυμιών</a>
+        <a href="#">Παρακολούθηση παραγγελίας</a>
+        <a href="#">Βοήθεια</a>
+      </nav>
+    </div>
   );
 }

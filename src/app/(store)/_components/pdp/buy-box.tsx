@@ -118,46 +118,6 @@ export function BuyBox({ product }: { product: Product }) {
         <li>Αλλαγή μεγέθους εντός 14 ημερών</li>
         <li>Ασφαλείς πληρωμές · επίσημος προμηθευτής</li>
       </ul>
-
-      <style precedence="default">{`
-        .v3-bb { display: flex; flex-direction: column; gap: 16px; }
-        .v3-bb-brand {
-          margin: 0; font-family: var(--v3-display);
-          text-transform: uppercase; letter-spacing: .18em;
-          font-size: .82rem; font-weight: 800; color: var(--v3-red);
-        }
-        .v3-bb h1 {
-          margin: 0; font-family: var(--v3-display);
-          font-size: clamp(1.9rem, 4.2vw, 3rem);
-          font-weight: 900; color: var(--v3-bone); line-height: 1.02;
-          text-transform: uppercase; transform: skewX(-5deg);
-        }
-        .v3-bb-meta {
-          display: flex; gap: 16px; font-size: .82rem;
-          color: var(--v3-bone-dim);
-        }
-        .v3-bb-price { font-size: 1.15rem; }
-        .v3-bb-badges { display: flex; flex-wrap: wrap; gap: 8px; }
-        .v3-bb-size-head {
-          display: flex; justify-content: space-between; align-items: baseline;
-          margin-bottom: 10px; font-size: .9rem; color: var(--v3-bone);
-          font-weight: 700;
-        }
-        .v3-bb-size-head a { font-size: .8rem; color: var(--v3-cyan);
-          text-decoration: none; font-weight: 600; }
-        .v3-bb-note { margin: 8px 0 0; font-size: .76rem;
-          color: var(--v3-bone-dim); }
-        .v3-bb-cta { width: 100%; font-size: 1rem; }
-        .v3-bb-cta:disabled { opacity: .5; cursor: not-allowed; }
-        .v3-bb-trust {
-          list-style: none; margin: 4px 0 0; padding: 16px 0 0;
-          border-top: 1px solid var(--v3-line);
-          display: flex; flex-direction: column; gap: 8px;
-          font-size: .82rem; color: var(--v3-bone-dim);
-        }
-        .v3-bb-trust li::before { content: "✓"; color: var(--v3-green);
-          margin-right: 8px; font-weight: 700; }
-      `}</style>
     </div>
   );
 }

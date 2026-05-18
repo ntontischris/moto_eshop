@@ -111,46 +111,6 @@ export function MobileFilterDrawer({
           </div>
         </div>
       )}
-
-      <style precedence="default">{`
-        .v3-mfd-trigger {
-          display: none; height: 44px; padding: 0 18px; cursor: pointer;
-          background: var(--v3-surface); color: var(--v3-bone);
-          border: 1px solid var(--v3-line); border-radius: 8px; font-weight: 700;
-        }
-        .v3-mfd-overlay { position: fixed; inset: 0; z-index: 120;
-          display: flex; align-items: flex-end; }
-        .v3-mfd-backdrop {
-          position: absolute; inset: 0; border: 0; cursor: pointer;
-          background: rgba(0,0,0,.6);
-        }
-        .v3-mfd-panel {
-          position: relative; width: 100%; max-height: 86vh;
-          display: flex; flex-direction: column;
-          background: var(--v3-graphite);
-          border-top-left-radius: 16px; border-top-right-radius: 16px;
-          border-top: 1px solid var(--v3-line);
-        }
-        .v3-mfd-head {
-          display: flex; align-items: center; justify-content: space-between;
-          padding: 16px 20px; border-bottom: 1px solid var(--v3-line);
-          color: var(--v3-bone);
-        }
-        .v3-mfd-head button {
-          background: none; border: 0; color: var(--v3-bone-dim);
-          font-size: 1.1rem; cursor: pointer;
-        }
-        .v3-mfd-body { overflow-y: auto; padding: 20px; }
-        .v3-mfd-apply {
-          margin: 0 16px 16px; text-align: center;
-        }
-        @media (max-width: 960px) {
-          .v3-mfd-trigger { display: inline-block; }
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .v3-mfd-panel { transition: none; }
-        }
-      `}</style>
     </>
   );
 }
