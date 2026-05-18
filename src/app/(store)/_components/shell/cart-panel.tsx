@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useEffect, useRef } from "react";
 import { useV3 } from "./v3-provider";
 import { cartLineKey } from "./v3-provider";
@@ -244,22 +245,18 @@ export function CartPanel() {
             borderTop: "1px solid var(--v3-line)",
           }}
         >
-          <button
-            disabled
+          <Link
+            href="/cart"
+            onClick={() => setCartOpen(false)}
+            className="v3-btn-primary"
             style={{
               width: "100%",
-              background: "var(--v3-line)",
-              color: "var(--v3-bone-dim)",
-              border: "none",
-              borderRadius: "var(--v3-radius)",
-              padding: "14px",
-              fontWeight: 700,
-              fontSize: 14,
-              cursor: "not-allowed",
+              justifyContent: "center",
+              textDecoration: "none",
             }}
           >
-            Ολοκλήρωση (σύντομα)
-          </button>
+            Δες καλάθι &amp; ολοκλήρωση
+          </Link>
         </div>
       </div>
     </div>
