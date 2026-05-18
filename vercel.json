@@ -1,0 +1,13 @@
+{
+  "functions": {
+    "src/app/api/backfill-images/route.ts": {
+      "maxDuration": 60
+    }
+  },
+  "crons": [
+    {
+      "path": "/api/backfill-images",
+      "schedule": "*/5 * * * *"
+    }
+  ]
+}
