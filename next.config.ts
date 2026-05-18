@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
     root: path.resolve(__dirname),
   },
   images: {
+    formats: ["image/avif", "image/webp"],
     // Allow our internal image proxy paths with query strings (Next.js 16 requirement).
     // Allow all local paths — when localPatterns is set, anything missing here
     // is blocked, so include both /api/image-proxy (with query string) and

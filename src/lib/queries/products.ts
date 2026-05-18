@@ -130,7 +130,7 @@ export async function getProduct(slug: string): Promise<Product | null> {
     .select(
       `
       id, slug, name, description, price, compare_at_price,
-      sku, stock, certification, rider_type, specs, images,
+      sku, stock, certification, rider_type, specs, images, images_cdn,
       view_count, average_rating, review_count, created_at,
       brands ( name, slug ),
       categories ( slug, name )
@@ -160,7 +160,12 @@ export async function getProduct(slug: string): Promise<Product | null> {
     }
     return url;
   }
-  const rawImages = (data.images as unknown[]) ?? [];
+  // Prefer mirrored Supabase-Storage images (images_cdn) when present —
+  // they are our own CDN URLs (next/image-optimizable); fall back to the
+  // legacy images (proxied below) for not-yet-migrated products.
+  const cdn = data.images_cdn as unknown[] | null;
+  const rawImages =
+    cdn && cdn.length ? cdn : ((data.images as unknown[]) ?? []);
   const images: ProductImage[] = rawImages.map((img, idx) => {
     if (typeof img === "string") {
       return { url: proxyIfLegacy(img), alt: data.name ?? "", position: idx };
@@ -231,7 +236,7 @@ export async function getProductsByCategory(
     .from("products")
     .select(
       `id, slug, name, price, compare_at_price, stock, certification,
-       rider_type, images, average_rating, review_count,
+       rider_type, images, images_cdn, average_rating, review_count,
        brands ( name, slug ), categories!inner ( slug, full_path )`,
       { count: "exact" },
     )
@@ -283,7 +288,11 @@ export async function getProductsByCategory(
       slug: string;
     } | null;
     const c = row.categories as unknown as { slug: string } | null;
-    const imgs = (row.images as unknown as ProductImage[]) ?? [];
+    const cdn = row.images_cdn as unknown as ProductImage[] | null;
+    const imgs =
+      cdn && cdn.length
+        ? cdn
+        : ((row.images as unknown as ProductImage[]) ?? []);
     const img = primaryImage(imgs);
 
     return {
@@ -440,7 +449,7 @@ export async function getRelatedProducts(
     .select(
       `
       id, slug, name, price, compare_at_price, stock, certification,
-      rider_type, images, average_rating, review_count,
+      rider_type, images, images_cdn, average_rating, review_count,
       brands ( name, slug ), categories ( slug )
     `,
     )
@@ -458,7 +467,11 @@ export async function getRelatedProducts(
       slug: string;
     } | null;
     const c = row.categories as unknown as { slug: string } | null;
-    const imgs = (row.images as unknown as ProductImage[]) ?? [];
+    const cdn = row.images_cdn as unknown as ProductImage[] | null;
+    const imgs =
+      cdn && cdn.length
+        ? cdn
+        : ((row.images as unknown as ProductImage[]) ?? []);
     const img = primaryImage(imgs);
 
     return {

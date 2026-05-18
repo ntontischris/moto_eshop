@@ -28,6 +28,12 @@ export function SmartImage({
     );
   }
 
+  // Mirrored images live on Supabase Storage → next/image CAN optimize
+  // them (AVIF/WebP, sized, CDN). Legacy /api/image-proxy URLs make the
+  // optimizer 400 on Vercel, so those stay unoptimized (proxy already
+  // serves a cached JPEG; browser fetches it directly).
+  const isMirrored = src.includes(".supabase.co/storage/");
+
   return (
     <Image
       src={src}
@@ -35,11 +41,7 @@ export function SmartImage({
       fill
       priority={priority}
       sizes={sizes}
-      /* Bypass the Next image optimizer: it returns 400 for our
-         /api/image-proxy URLs on Vercel. The proxy already serves a
-         valid JPEG with 1-year immutable cache, so the browser fetches
-         it directly (CDN-cached after first hit). */
-      unoptimized
+      unoptimized={!isMirrored}
       style={{ objectFit: "cover" }}
       onError={() => setFailed(true)}
     />
