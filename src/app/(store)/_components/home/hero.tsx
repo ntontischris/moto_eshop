@@ -1,10 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
-import { HERO_VIDEO, HERO_POSTER } from "../../_lib/assets";
+import { HERO_POSTER } from "../../_lib/assets";
 
-/* Hero — full-bleed cinematic frame. LCP = optimized poster <Image priority>;
-   the muted loop video sits above it and only enhances (preload metadata, no
-   layout shift, paused under reduced-motion). No scroll-jacking. */
+/* Hero — static full-bleed image (LCP = optimized poster <Image priority>).
+   No video: PRD bans a video hero, the old clip read as a stray remnant,
+   and dropping it removes ~1.9MB + autoplay decode from the critical path. */
 
 const HELMET_SLUG = "eksoplismos-anabath";
 
@@ -20,17 +20,6 @@ export function Hero() {
           sizes="100vw"
           style={{ objectFit: "cover" }}
         />
-        <video
-          className="v3-hero-vid"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="none"
-          poster={HERO_POSTER}
-        >
-          <source src={HERO_VIDEO} type="video/mp4" />
-        </video>
         <span className="v3-hero-scrim" />
       </div>
 
