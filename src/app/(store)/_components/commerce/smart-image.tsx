@@ -53,6 +53,11 @@ export function SmartImage({
       fill
       priority={priority}
       sizes={sizes}
+      /* Bypass the Next image optimizer: it returns 400 for our
+         /api/image-proxy URLs on Vercel. The proxy already serves a
+         valid JPEG with 1-year immutable cache, so the browser fetches
+         it directly (CDN-cached after first hit). */
+      unoptimized
       style={{ objectFit: "cover" }}
       onError={() => setFailed(true)}
     />
