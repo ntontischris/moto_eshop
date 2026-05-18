@@ -1,11 +1,19 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useV3 } from "./v3-provider";
 import { CartPanel } from "./cart-panel";
 
 export function Header() {
   const { cartCount, cartOpen, setCartOpen } = useV3();
+  const router = useRouter();
+
+  function onSearch(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const q = String(new FormData(e.currentTarget).get("q") ?? "").trim();
+    if (q.length >= 2) router.push(`/search?q=${encodeURIComponent(q)}`);
+  }
 
   return (
     <>
@@ -15,13 +23,10 @@ export function Header() {
             Moto<span>Market</span>
           </Link>
 
-          <form
-            role="search"
-            className="v3-search-form"
-            onSubmit={(e) => e.preventDefault()}
-          >
+          <form role="search" className="v3-search-form" onSubmit={onSearch}>
             <input
               type="search"
+              name="q"
               className="v3-search-input"
               aria-label="Αναζήτηση σε 11.000+ προϊόντα…"
               placeholder="Αναζήτηση σε 11.000+ προϊόντα…"

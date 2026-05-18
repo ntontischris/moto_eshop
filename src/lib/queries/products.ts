@@ -130,7 +130,7 @@ export async function getProduct(slug: string): Promise<Product | null> {
     .select(
       `
       id, slug, name, description, price, compare_at_price,
-      sku, stock, certification, rider_type, specs, images, images_cdn,
+      sku, stock, certification, rider_type, specs, images,
       view_count, average_rating, review_count, created_at,
       brands ( name, slug ),
       categories ( slug, name )
@@ -160,12 +160,7 @@ export async function getProduct(slug: string): Promise<Product | null> {
     }
     return url;
   }
-  // Prefer mirrored Supabase-Storage images (images_cdn) when present —
-  // they are our own CDN URLs (next/image-optimizable); fall back to the
-  // legacy images (proxied below) for not-yet-migrated products.
-  const cdn = data.images_cdn as unknown[] | null;
-  const rawImages =
-    cdn && cdn.length ? cdn : ((data.images as unknown[]) ?? []);
+  const rawImages = (data.images as unknown[]) ?? [];
   const images: ProductImage[] = rawImages.map((img, idx) => {
     if (typeof img === "string") {
       return { url: proxyIfLegacy(img), alt: data.name ?? "", position: idx };
@@ -236,7 +231,7 @@ export async function getProductsByCategory(
     .from("products")
     .select(
       `id, slug, name, price, compare_at_price, stock, certification,
-       rider_type, images, images_cdn, average_rating, review_count,
+       rider_type, images, average_rating, review_count,
        brands ( name, slug ), categories!inner ( slug, full_path )`,
       { count: "exact" },
     )
@@ -281,18 +276,16 @@ export async function getProductsByCategory(
     return { data: [], total: 0, page, perPage, totalPages: 0 };
   }
 
-  const total = count ?? 0;
+  // .or() with referencedTable can make PostgREST omit the exact count;
+  // fall back to the page rows so the label/grid never read as empty.
+  const total = typeof count === "number" ? count : (data?.length ?? 0);
   const products: ProductListItem[] = (data ?? []).map((row) => {
     const brand = row.brands as unknown as {
       name: string;
       slug: string;
     } | null;
     const c = row.categories as unknown as { slug: string } | null;
-    const cdn = row.images_cdn as unknown as ProductImage[] | null;
-    const imgs =
-      cdn && cdn.length
-        ? cdn
-        : ((row.images as unknown as ProductImage[]) ?? []);
+    const imgs = (row.images as unknown as ProductImage[]) ?? [];
     const img = primaryImage(imgs);
 
     return {
@@ -304,6 +297,92 @@ export async function getProductsByCategory(
       price: row.price,
       compare_at_price: row.compare_at_price,
       category_slug: c?.slug ?? categorySlug,
+      stock: row.stock,
+      certification: row.certification,
+      rider_type: row.rider_type,
+      primary_image_url: img?.url ?? "/images/placeholder-product.webp",
+      primary_image_alt: img?.alt ?? row.name,
+      average_rating: row.average_rating,
+      review_count: row.review_count,
+    };
+  });
+
+  return {
+    data: products,
+    total,
+    page,
+    perPage,
+    totalPages: Math.ceil(total / perPage),
+  };
+}
+
+export async function searchProducts(
+  q: string,
+  page = 1,
+  perPage = 24,
+): Promise<PaginatedResult<ProductListItem>> {
+  const term = q.trim();
+  if (term.length < 2) {
+    return { data: [], total: 0, page, perPage, totalPages: 0 };
+  }
+  const { createAdminClient } = await import("@/lib/supabase/admin");
+  const supabase = createAdminClient();
+  const offset = (page - 1) * perPage;
+  const safe = term.replace(/[%_,*()]/g, " ");
+  // Builder .ilike() uses SQL "%" wildcards…
+  const like = `%${safe}%`;
+  // …but the PostgREST .or() string uses "*" wildcards instead.
+  const orLike = `*${safe}*`;
+
+  // Match product name OR a brand whose name matches the term.
+  const { data: brandRows } = await supabase
+    .from("brands")
+    .select("id")
+    .ilike("name", like);
+  const brandIds = (brandRows ?? []).map((b) => b.id);
+  const orFilter =
+    brandIds.length > 0
+      ? `name.ilike.${orLike},brand_id.in.(${brandIds.join(",")})`
+      : `name.ilike.${orLike}`;
+
+  const { data, error, count } = await supabase
+    .from("products")
+    .select(
+      `id, slug, name, price, compare_at_price, stock, certification,
+       rider_type, images, average_rating, review_count,
+       brands ( name, slug ), categories ( slug )`,
+      { count: "exact" },
+    )
+    .eq("status", "active")
+    .or(orFilter)
+    .order("view_count", { ascending: false })
+    .range(offset, offset + perPage - 1);
+
+  if (error) {
+    console.error("[searchProducts]", error.message);
+    return { data: [], total: 0, page, perPage, totalPages: 0 };
+  }
+
+  // .or() + embedded selects can make PostgREST omit the exact count;
+  // fall back to the rows we got so results still render.
+  const total = typeof count === "number" ? count : (data?.length ?? 0);
+  const products: ProductListItem[] = (data ?? []).map((row) => {
+    const brand = row.brands as unknown as {
+      name: string;
+      slug: string;
+    } | null;
+    const c = row.categories as unknown as { slug: string } | null;
+    const imgs = (row.images as unknown as ProductImage[]) ?? [];
+    const img = primaryImage(imgs);
+    return {
+      id: row.id,
+      slug: row.slug,
+      name: row.name,
+      brand: brand?.name ?? "",
+      brand_slug: brand?.slug ?? "",
+      price: row.price,
+      compare_at_price: row.compare_at_price,
+      category_slug: c?.slug ?? "",
       stock: row.stock,
       certification: row.certification,
       rider_type: row.rider_type,
@@ -449,7 +528,7 @@ export async function getRelatedProducts(
     .select(
       `
       id, slug, name, price, compare_at_price, stock, certification,
-      rider_type, images, images_cdn, average_rating, review_count,
+      rider_type, images, average_rating, review_count,
       brands ( name, slug ), categories ( slug )
     `,
     )
@@ -467,11 +546,7 @@ export async function getRelatedProducts(
       slug: string;
     } | null;
     const c = row.categories as unknown as { slug: string } | null;
-    const cdn = row.images_cdn as unknown as ProductImage[] | null;
-    const imgs =
-      cdn && cdn.length
-        ? cdn
-        : ((row.images as unknown as ProductImage[]) ?? []);
+    const imgs = (row.images as unknown as ProductImage[]) ?? [];
     const img = primaryImage(imgs);
 
     return {
