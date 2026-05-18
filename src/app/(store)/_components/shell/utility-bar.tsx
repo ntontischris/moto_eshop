@@ -31,7 +31,7 @@ export function UtilityBar() {
     <div className="v3-utility-bar">
       <LangToggle />
       <nav className="v3-utility-links" aria-label="Βοηθητική πλοήγηση">
-        <a href="#">Λογαριασμός</a>
+        <a href="/account">Λογαριασμός</a>
         <a href="#">Λίστα επιθυμιών</a>
         <a href="#">Παρακολούθηση παραγγελίας</a>
         <a href="#">Βοήθεια</a>
