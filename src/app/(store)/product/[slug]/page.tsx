@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import { getProduct, getRelatedProducts } from "@/lib/queries/products";
 import { ProductCard } from "../../_components/commerce/product-card";
 import { PDPClient } from "./pdp-client";
@@ -22,7 +23,17 @@ export async function generateMetadata({
   };
 }
 
-export default async function V3ProductPage({
+export default function V3ProductPage(props: {
+  params: Promise<{ slug: string }>;
+}) {
+  return (
+    <Suspense fallback={<ProductPageFallback />}>
+      <V3ProductPageContent {...props} />
+    </Suspense>
+  );
+}
+
+async function V3ProductPageContent({
   params,
 }: {
   params: Promise<{ slug: string }>;
@@ -79,5 +90,20 @@ export default async function V3ProductPage({
         ))}
       />
     </>
+  );
+}
+
+function ProductPageFallback() {
+  return (
+    <div className="v3-pdp" aria-hidden="true">
+      <div className="v3-pdp-top">
+        <div className="v3-gal v3-gal--empty" />
+        <div className="v3-bb">
+          <div className="h-8 w-3/4 rounded bg-white/10" />
+          <div className="mt-4 h-28 rounded bg-white/10" />
+          <div className="mt-4 h-12 rounded bg-white/10" />
+        </div>
+      </div>
+    </div>
   );
 }

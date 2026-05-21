@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import { Suspense } from "react";
 import { Heart } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { getUserWishlist } from "@/lib/queries/wishlist";
@@ -10,7 +11,15 @@ import { WishlistButton } from "@/components/wishlist/wishlist-button";
 
 export const metadata = { title: "Αγαπημένα | MotoMarket" };
 
-export default async function WishlistPage() {
+export default function WishlistPage() {
+  return (
+    <Suspense fallback={<WishlistFallback />}>
+      <WishlistContent />
+    </Suspense>
+  );
+}
+
+async function WishlistContent() {
   const supabase = await createClient();
   const {
     data: { user },
@@ -87,6 +96,19 @@ export default async function WishlistPage() {
               </div>
             </div>
           </article>
+        ))}
+      </div>
+    </main>
+  );
+}
+
+function WishlistFallback() {
+  return (
+    <main className="container mx-auto px-4 py-8" aria-hidden="true">
+      <div className="mb-6 h-8 w-56 rounded bg-muted" />
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4">
+        {Array.from({ length: 4 }).map((_, index) => (
+          <div className="h-80 rounded-lg bg-muted" key={index} />
         ))}
       </div>
     </main>

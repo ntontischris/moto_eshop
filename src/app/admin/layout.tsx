@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Suspense } from "react";
 import { requireAdmin } from "@/lib/auth/guards";
 
 export const metadata: Metadata = {
@@ -25,7 +26,17 @@ const NAV_ITEMS = [
   { href: "/admin/users", label: "Χρήστες", icon: Users },
 ];
 
-export default async function AdminLayout({
+export default function AdminLayout(props: {
+  children: React.ReactNode;
+}) {
+  return (
+    <Suspense fallback={<AdminLayoutFallback />}>
+      <AdminLayoutContent {...props} />
+    </Suspense>
+  );
+}
+
+async function AdminLayoutContent({
   children,
 }: {
   children: React.ReactNode;
@@ -76,6 +87,20 @@ export default async function AdminLayout({
       {/* Main content */}
       <main className="flex-1 overflow-y-auto">
         <div className="mx-auto max-w-7xl px-6 py-8">{children}</div>
+      </main>
+    </div>
+  );
+}
+
+function AdminLayoutFallback() {
+  return (
+    <div className="flex min-h-screen bg-bg-deep" aria-hidden="true">
+      <aside className="h-screen w-64 shrink-0 border-r border-border-default bg-bg-surface" />
+      <main className="flex-1 px-6 py-8">
+        <div className="mx-auto max-w-7xl space-y-4">
+          <div className="h-8 w-56 rounded bg-bg-elevated" />
+          <div className="h-64 rounded-xl bg-bg-surface" />
+        </div>
       </main>
     </div>
   );

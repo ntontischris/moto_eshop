@@ -80,7 +80,7 @@
 .v3-display {
   font-family: var(--v3-display);
   font-weight: 800;
-  letter-spacing: -0.015em;
+  letter-spacing: 0;
   line-height: 0.92;
   text-transform: uppercase;
 }

@@ -34,7 +34,7 @@ export function Badge({ label, tone = "neutral" }: BadgeProps) {
         borderRadius: "4px",
         fontSize: "0.68rem",
         fontWeight: 600,
-        letterSpacing: "0.03em",
+        letterSpacing: 0,
         lineHeight: 1.6,
         whiteSpace: "nowrap",
         fontFamily: "var(--v3-font)",

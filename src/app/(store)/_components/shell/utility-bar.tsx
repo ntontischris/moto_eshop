@@ -1,40 +1,19 @@
-"use client";
-
-import { useV3 } from "./v3-provider";
-
-function LangToggle() {
-  const { lang, setLang } = useV3();
-  return (
-    <button
-      onClick={() => setLang(lang === "el" ? "en" : "el")}
-      aria-label="Εναλλαγή γλώσσας"
-      style={{
-        background: "none",
-        border: "1px solid var(--v3-line)",
-        borderRadius: 4,
-        color: "var(--v3-bone-dim)",
-        cursor: "pointer",
-        fontSize: 11,
-        fontWeight: 600,
-        letterSpacing: "0.08em",
-        padding: "2px 8px",
-        transition: "color .15s, border-color .15s",
-      }}
-    >
-      {lang === "el" ? "EN" : "ΕΛ"}
-    </button>
-  );
-}
+import Link from "next/link";
 
 export function UtilityBar() {
   return (
     <div className="v3-utility-bar">
-      <LangToggle />
+      <div className="v3-utility-status" aria-label="Store status">
+        <span>Official brands</span>
+        <i aria-hidden="true" />
+        <span>Αποστολή 1-3 ημέρες</span>
+        <i aria-hidden="true" />
+        <span>Αλλαγές μεγέθους</span>
+      </div>
       <nav className="v3-utility-links" aria-label="Βοηθητική πλοήγηση">
-        <a href="/account">Λογαριασμός</a>
-        <a href="#">Λίστα επιθυμιών</a>
-        <a href="#">Παρακολούθηση παραγγελίας</a>
-        <a href="#">Βοήθεια</a>
+        <Link href="/account">Λογαριασμός</Link>
+        <Link href="/wishlist">Wishlist</Link>
+        <a href="tel:+302109535195">210 95 35 195</a>
       </nav>
     </div>
   );

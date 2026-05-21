@@ -24,7 +24,7 @@ export function Reveal({
       typeof IntersectionObserver === "undefined" ||
       window.matchMedia("(prefers-reduced-motion: reduce)").matches
     ) {
-      setShown(true);
+      requestAnimationFrame(() => setShown(true));
       return;
     }
     const io = new IntersectionObserver(

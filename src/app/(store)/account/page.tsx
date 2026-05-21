@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { getAuthUser } from "@/lib/auth/guards";
 import { createClient } from "@/lib/supabase/server";
 import { formatPrice } from "../_lib/format";
@@ -10,7 +11,15 @@ export const metadata: Metadata = {
   robots: { index: false },
 };
 
-export default async function AccountPage() {
+export default function AccountPage() {
+  return (
+    <Suspense fallback={<AccountFallback />}>
+      <AccountContent />
+    </Suspense>
+  );
+}
+
+async function AccountContent() {
   const user = await getAuthUser();
 
   if (!user) {
@@ -73,6 +82,15 @@ export default async function AccountPage() {
       </section>
 
       <AccStyles />
+    </div>
+  );
+}
+
+function AccountFallback() {
+  return (
+    <div className="v3-acc" aria-hidden="true">
+      <div className="h-10 w-72 rounded bg-white/10" />
+      <div className="mt-4 h-24 rounded bg-white/10" />
     </div>
   );
 }

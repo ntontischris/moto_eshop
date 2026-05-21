@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getProductsByCategory } from "@/lib/queries/products";
 import { Hero } from "./_components/home/hero";
+import { RaceControlPanel } from "./_components/home/race-control-panel";
 import {
   CategoryShortcutGrid,
   type ShortcutItem,
@@ -9,32 +10,76 @@ import { ProductRail } from "./_components/home/product-rail";
 import { OffersSection } from "./_components/home/offers-section";
 import { MyBikeEntry } from "./_components/home/my-bike-entry";
 import { BrandCarousel } from "./_components/home/brand-carousel";
-import { HeritageStrip } from "./_components/home/heritage-strip";
 import { EditorialBand } from "./_components/home/editorial-band";
 import { TrustBlock } from "./_components/shell/trust-block";
 import { Reveal } from "./_components/fx/reveal";
 
 export const metadata: Metadata = {
-  title: "MotoMarket — Εξοπλισμός μηχανής & αναβάτη",
+  title: "MotoMarket | Premium εξοπλισμός μοτοσυκλέτας",
   description:
-    "Κράνη, μπουφάν, γάντια, μπότες και αξεσουάρ από επίσημους προμηθευτές.",
+    "Κράνη, μπουφάν, γάντια, μπότες, αξεσουάρ και ανταλλακτικά μοτοσυκλέτας από επίσημα brands.",
 };
 
-const SHORTCUTS: { label: string; match: string }[] = [
-  { label: "Κράνη", match: "eksoplismos-anabath" },
-  { label: "Μπουφάν", match: "endysh--mpoyfan" },
-  { label: "Γάντια", match: "endysh--gantia" },
-  { label: "Μπότες", match: "endysh--mpotes" },
-  { label: "Βαλίτσες", match: "eksoplismos-motosikletas" },
-  { label: "Λιπαντικά", match: "lipantika" },
-  { label: "Quad Lock", match: "aksesoyar" },
-  { label: "Off-road", match: "off-road" },
+const SHORTCUTS: ShortcutItem[] = [
+  {
+    label: "Κράνη",
+    href: "/category/eksoplismos-anabath",
+    valid: true,
+    brief: "ECE 22.06 / full face / modular",
+    imageKey: "helmet",
+  },
+  {
+    label: "Μπουφάν",
+    href: "/category/endysh--mpoyfan",
+    valid: true,
+    brief: "Leather / textile / air",
+    imageKey: "apparel",
+  },
+  {
+    label: "Γάντια",
+    href: "/category/endysh--gantia",
+    valid: true,
+    brief: "Track grip / daily control",
+    imageKey: "gloves",
+  },
+  {
+    label: "Μπότες",
+    href: "/category/endysh--mpotes",
+    valid: true,
+    brief: "Sport / touring / waterproof",
+    imageKey: "boots",
+  },
+  {
+    label: "Βαλίτσες",
+    href: "/category/eksoplismos-motosikletas",
+    valid: true,
+    brief: "Top case / side cases",
+    imageKey: "topCase",
+  },
+  {
+    label: "Αναλώσιμα",
+    href: "/category/lipantika",
+    valid: true,
+    brief: "Λάδια / chain care / χημικά",
+    imageKey: "exhaust",
+  },
+  {
+    label: "Quad Lock",
+    href: "/search?q=Quad%20Lock",
+    valid: true,
+    brief: "Phone cockpit",
+    imageKey: "helmetFront",
+  },
+  {
+    label: "Off-road",
+    href: "/category/off-road",
+    valid: true,
+    brief: "Enduro / adventure",
+    imageKey: "tyre",
+  },
 ];
 
 export default async function V3Home() {
-  // Stage 2: do NOT fetch+flatten the whole category tree (it serialized
-  // the entire taxonomy incl. my-bike's 811 descendants into the RSC
-  // payload just to validate 8 hardcoded slugs). Trust the curated slugs.
   const [bestRes, offersRes] = await Promise.all([
     getProductsByCategory({
       categorySlug: "eksoplismos-anabath",
@@ -48,26 +93,25 @@ export default async function V3Home() {
     }),
   ]);
 
-  const shortcuts: ShortcutItem[] = SHORTCUTS.map((s) => ({
-    label: s.label,
-    href: `/category/${s.match}`,
-    valid: true,
-  }));
-
   return (
-    <>
+    <div className="v3-home-reconstruction v3-home-ride-commerce">
       <Hero />
       <Reveal>
-        <CategoryShortcutGrid items={shortcuts} />
+        <RaceControlPanel />
+      </Reveal>
+      <Reveal>
+        <CategoryShortcutGrid items={SHORTCUTS} />
       </Reveal>
       <Reveal>
         <ProductRail
-          title="Δημοφιλή"
+          title="Πρώτες επιλογές αναβάτη"
           products={bestRes.data}
           href="/category/eksoplismos-anabath"
         />
       </Reveal>
-      <EditorialBand />
+      <Reveal>
+        <EditorialBand />
+      </Reveal>
       <Reveal>
         <OffersSection products={offersRes.data} />
       </Reveal>
@@ -78,11 +122,8 @@ export default async function V3Home() {
         <BrandCarousel />
       </Reveal>
       <Reveal>
-        <HeritageStrip />
-      </Reveal>
-      <Reveal>
         <TrustBlock />
       </Reveal>
-    </>
+    </div>
   );
 }

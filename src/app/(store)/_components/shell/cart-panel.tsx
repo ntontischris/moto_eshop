@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useRef } from "react";
+import { formatPrice } from "../../_lib/format";
+import { getCartRecommendations } from "../../_lib/cart-recommendations";
 import { useV3 } from "./v3-provider";
 import { cartLineKey } from "./v3-provider";
 
@@ -10,21 +12,20 @@ export function CartPanel() {
   const panelRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const returnFocusRef = useRef<Element | null>(null);
+  const recommendations = getCartRecommendations(cart);
+  const subtotal = cart.reduce((sum, line) => sum + line.price * line.qty, 0);
 
-  // Capture the element that had focus before the panel opened
   useEffect(() => {
     if (cartOpen) {
       returnFocusRef.current = document.activeElement;
-      // Move focus into the dialog after paint
       const id = setTimeout(() => closeRef.current?.focus(), 50);
       return () => clearTimeout(id);
-    } else {
-      // Restore focus to the trigger element when panel closes
-      if (returnFocusRef.current instanceof HTMLElement) {
-        returnFocusRef.current.focus();
-      }
-      returnFocusRef.current = null;
     }
+
+    if (returnFocusRef.current instanceof HTMLElement) {
+      returnFocusRef.current.focus();
+    }
+    returnFocusRef.current = null;
   }, [cartOpen]);
 
   const handleKey = useCallback(
@@ -65,200 +66,111 @@ export function CartPanel() {
   if (!cartOpen) return null;
 
   return (
-    <div
-      role="dialog"
-      aria-label="Καλάθι αγορών"
-      aria-modal="true"
-      style={{
-        position: "fixed",
-        inset: 0,
-        zIndex: 300,
-        display: "flex",
-        justifyContent: "flex-end",
-      }}
-    >
-      {/* backdrop */}
-      <div
+    <div className="v3-cart-panel-shell" role="presentation">
+      <button
+        className="v3-cart-panel-backdrop"
+        type="button"
+        aria-label="Κλείσιμο καλαθιού"
         onClick={() => setCartOpen(false)}
-        style={{
-          position: "absolute",
-          inset: 0,
-          background: "rgba(0,0,0,.6)",
-        }}
-        aria-hidden="true"
       />
-      <div
+      <aside
         ref={panelRef}
-        style={{
-          position: "relative",
-          width: "min(420px, 100vw)",
-          background: "var(--v3-surface)",
-          borderLeft: "1px solid var(--v3-line)",
-          display: "flex",
-          flexDirection: "column",
-          boxShadow: "var(--v3-shadow)",
-          overflowY: "auto",
-        }}
+        className="v3-cart-panel"
+        role="dialog"
+        aria-label="Καλάθι αγορών"
+        aria-modal="true"
       >
-        {/* header */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            padding: "16px 20px",
-            borderBottom: "1px solid var(--v3-line)",
-          }}
-        >
-          <span
-            style={{ fontWeight: 700, fontSize: 16, color: "var(--v3-bone)" }}
-          >
-            Καλάθι
-          </span>
+        <header className="v3-cart-panel-head">
+          <div>
+            <p className="v3-label">MotoMarket cart</p>
+            <h2>Καλάθι</h2>
+          </div>
           <button
             ref={closeRef}
+            className="v3-cart-panel-close"
+            type="button"
             onClick={() => setCartOpen(false)}
             aria-label="Κλείσιμο καλαθιού"
-            style={{
-              background: "none",
-              border: "none",
-              color: "var(--v3-bone-dim)",
-              cursor: "pointer",
-              fontSize: 22,
-              lineHeight: 1,
-              padding: "4px 8px",
-            }}
           >
-            ✕
+            ×
           </button>
-        </div>
+        </header>
 
-        {/* body */}
-        <div style={{ flex: 1, padding: "20px" }}>
-          {cart.length === 0 ? (
-            <p
-              style={{
-                color: "var(--v3-bone-dim)",
-                textAlign: "center",
-                marginTop: 40,
-              }}
+        {cart.length === 0 ? (
+          <div className="v3-cart-panel-empty">
+            <p>Το καλάθι σου είναι άδειο.</p>
+            <Link
+              className="v3-btn-primary"
+              href="/category/eksoplismos-anabath"
+              onClick={() => setCartOpen(false)}
             >
-              Το καλάθι είναι άδειο
-            </p>
-          ) : (
-            <ul
-              style={{
-                listStyle: "none",
-                margin: 0,
-                padding: 0,
-                display: "flex",
-                flexDirection: "column",
-                gap: 16,
-              }}
-            >
-              {cart.map((line) => (
-                <li
-                  key={cartLineKey(line)}
-                  style={{
-                    display: "flex",
-                    gap: 12,
-                    borderBottom: "1px solid var(--v3-line)",
-                    paddingBottom: 16,
-                  }}
-                >
-                  {line.image && (
-                    /* eslint-disable-next-line @next/next/no-img-element */
-                    <img
-                      src={line.image}
-                      alt={line.name}
-                      width={64}
-                      height={64}
-                      style={{
-                        objectFit: "cover",
-                        borderRadius: 6,
-                        flexShrink: 0,
-                      }}
-                    />
-                  )}
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <div
-                      style={{
-                        fontWeight: 600,
-                        fontSize: 13,
-                        color: "var(--v3-bone)",
-                        whiteSpace: "nowrap",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                      }}
-                    >
-                      {line.name}
-                    </div>
-                    <div
-                      style={{
-                        fontSize: 11,
-                        color: "var(--v3-bone-dim)",
-                        marginTop: 2,
-                      }}
-                    >
-                      {line.brand}
-                    </div>
-                    {line.size && (
-                      <div
-                        style={{ fontSize: 11, color: "var(--v3-bone-dim)" }}
-                      >
-                        Μέγεθος: {line.size}
-                      </div>
+              Συνέχισε αγορές <span aria-hidden="true">→</span>
+            </Link>
+          </div>
+        ) : (
+          <>
+            <div className="v3-cart-panel-body">
+              <ul className="v3-cart-panel-lines">
+                {cart.map((line) => (
+                  <li className="v3-cart-panel-line" key={cartLineKey(line)}>
+                    {line.image && (
+                      /* eslint-disable-next-line @next/next/no-img-element */
+                      <img src={line.image} alt={line.name} />
                     )}
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        marginTop: 6,
-                      }}
-                    >
-                      <span
-                        style={{ fontSize: 12, color: "var(--v3-bone-dim)" }}
+                    <div className="v3-cart-panel-info">
+                      <span>{line.brand}</span>
+                      <Link
+                        href={`/product/${line.slug}`}
+                        onClick={() => setCartOpen(false)}
                       >
-                        × {line.qty}
-                      </span>
-                      <span
-                        style={{
-                          fontWeight: 700,
-                          fontSize: 14,
-                          color: "var(--v3-bone)",
-                        }}
-                      >
-                        {(line.price * line.qty).toFixed(2)} €
-                      </span>
+                        {line.name}
+                      </Link>
+                      {line.size && <em>Μέγεθος: {line.size}</em>}
+                      <small>
+                        {line.qty} × {formatPrice(line.price)}
+                      </small>
                     </div>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
+                    <strong>{formatPrice(line.price * line.qty)}</strong>
+                  </li>
+                ))}
+              </ul>
 
-        {/* footer */}
-        <div
-          style={{
-            padding: "16px 20px",
-            borderTop: "1px solid var(--v3-line)",
-          }}
-        >
-          <Link
-            href="/cart"
-            onClick={() => setCartOpen(false)}
-            className="v3-btn-primary"
-            style={{
-              width: "100%",
-              justifyContent: "center",
-              textDecoration: "none",
-            }}
-          >
-            Δες καλάθι &amp; ολοκλήρωση
-          </Link>
-        </div>
-      </div>
+              <section className="v3-cart-panel-recs" aria-label="Προτάσεις καλαθιού">
+                <p className="v3-label">Complete your ride</p>
+                <h3>Ταιριάζει με το καλάθι σου</h3>
+                <div className="v3-cart-rec-list">
+                  {recommendations.map((rec) => (
+                    <Link
+                      key={rec.title}
+                      href={rec.href}
+                      className="v3-cart-rec-card"
+                      onClick={() => setCartOpen(false)}
+                    >
+                      <span>{rec.tag}</span>
+                      <strong>{rec.title}</strong>
+                      <em>{rec.reason}</em>
+                    </Link>
+                  ))}
+                </div>
+              </section>
+            </div>
+
+            <footer className="v3-cart-panel-foot">
+              <div>
+                <span>Υποσύνολο</span>
+                <strong>{formatPrice(subtotal)}</strong>
+              </div>
+              <Link
+                href="/cart"
+                onClick={() => setCartOpen(false)}
+                className="v3-btn-primary"
+              >
+                Δες καλάθι & ολοκλήρωση
+              </Link>
+            </footer>
+          </>
+        )}
+      </aside>
     </div>
   );
 }

@@ -3,7 +3,9 @@
    Hero video/poster are local (same-origin) — poster is the LCP element. */
 
 export const HERO_VIDEO = "/hero-variants-optimized/4-track-action.mp4";
-export const HERO_POSTER = "/hero-variants/cinematic-hero-poster.jpg";
+export const HERO_POSTER = "/hero-variants/motomarket-luxury-pit-hero.webp";
+export const HERO_POSTER_MOBILE =
+  "/hero-variants/motomarket-luxury-pit-mobile.webp";
 export const EDITORIAL_VIDEO = "/hero-variants-optimized/6-workshop.mp4";
 
 const HF =

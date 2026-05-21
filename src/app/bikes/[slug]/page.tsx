@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { createClient } from "@/lib/supabase/server";
 import { getCompatibleProductIds } from "@/lib/queries/compatibility";
 import { ProductGrid } from "@/components/product/product-grid";
@@ -34,7 +35,15 @@ export async function generateMetadata({
   };
 }
 
-export default async function BikeProductsPage({
+export default function BikeProductsPage(props: BikePageProps) {
+  return (
+    <Suspense fallback={<BikeProductsFallback />}>
+      <BikeProductsContent {...props} />
+    </Suspense>
+  );
+}
+
+async function BikeProductsContent({
   params,
   searchParams,
 }: BikePageProps) {
@@ -119,6 +128,22 @@ export default async function BikeProductsPage({
         {products.length} συμβατά προϊόντα
       </p>
       <ProductGrid products={products} />
+    </main>
+  );
+}
+
+function BikeProductsFallback() {
+  return (
+    <main className="container mx-auto px-4 py-10" aria-hidden="true">
+      <div className="mb-8 space-y-3">
+        <div className="h-8 w-72 rounded bg-muted" />
+        <div className="h-4 w-40 rounded bg-muted" />
+      </div>
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {Array.from({ length: 4 }).map((_, index) => (
+          <div className="h-80 rounded-lg bg-muted" key={index} />
+        ))}
+      </div>
     </main>
   );
 }

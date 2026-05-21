@@ -6,6 +6,7 @@ export interface CartLine {
   slug: string;
   name: string;
   brand: string;
+  categorySlug?: string | null;
   price: number;
   size: string | null;
   image: string;
@@ -19,6 +20,8 @@ export function cartLineKey(line: Pick<CartLine, "slug" | "size">): string {
 interface V3Context {
   lang: "el" | "en";
   setLang(l: "el" | "en"): void;
+  mode: "dark" | "light";
+  toggleMode(): void;
   cart: CartLine[];
   addToCart(line: CartLine): void;
   removeFromCart(key: string): void;
@@ -36,6 +39,7 @@ const Ctx = createContext<V3Context | null>(null);
 
 const CART_KEY = "mm-v3-cart";
 const WISH_KEY = "mm-v3-wishlist";
+const MODE_KEY = "mm-v3-mode";
 
 function load<T>(key: string, fallback: T): T {
   if (typeof window === "undefined") return fallback;
@@ -49,6 +53,7 @@ function load<T>(key: string, fallback: T): T {
 
 export function V3Provider({ children }: { children: React.ReactNode }) {
   const [lang, setLang] = useState<"el" | "en">("el");
+  const [mode, setMode] = useState<"dark" | "light">("dark");
   const [cart, setCart] = useState<CartLine[]>([]);
   const [cartOpen, setCartOpen] = useState(false);
   const [wishlist, setWishlist] = useState<string[]>([]);
@@ -57,10 +62,23 @@ export function V3Provider({ children }: { children: React.ReactNode }) {
   // Load persisted state once on mount (SSR-safe — empty on first render,
   // so server and client markup match; populated right after).
   useEffect(() => {
-    setCart(load<CartLine[]>(CART_KEY, []));
-    setWishlist(load<string[]>(WISH_KEY, []));
-    hydrated.current = true;
+    queueMicrotask(() => {
+      setCart(load<CartLine[]>(CART_KEY, []));
+      setWishlist(load<string[]>(WISH_KEY, []));
+      setMode(load<"dark" | "light">(MODE_KEY, "dark"));
+      hydrated.current = true;
+    });
   }, []);
+
+  useEffect(() => {
+    document.documentElement.dataset.v3Mode = mode;
+    if (!hydrated.current) return;
+    try {
+      window.localStorage.setItem(MODE_KEY, JSON.stringify(mode));
+    } catch {
+      /* ignore */
+    }
+  }, [mode]);
 
   // Persist on change (skip the pre-hydration render so we don't clobber
   // stored data with the initial empty arrays).
@@ -117,6 +135,10 @@ export function V3Provider({ children }: { children: React.ReactNode }) {
     );
   }
 
+  function toggleMode() {
+    setMode((current) => (current === "dark" ? "light" : "dark"));
+  }
+
   const cartCount = cart.reduce((sum, l) => sum + l.qty, 0);
   const cartTotal = cart.reduce((sum, l) => sum + l.price * l.qty, 0);
 
@@ -125,6 +147,8 @@ export function V3Provider({ children }: { children: React.ReactNode }) {
       value={{
         lang,
         setLang,
+        mode,
+        toggleMode,
         cart,
         addToCart,
         removeFromCart,
