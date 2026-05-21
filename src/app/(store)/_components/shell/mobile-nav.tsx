@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useState } from "react";
+import { Bike, Home, Menu, Search, ShoppingBag } from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
 import { useV3 } from "./v3-provider";
 import { CategoryDrawer } from "./category-drawer";
 
@@ -15,16 +16,20 @@ export function MobileNav() {
     input?.scrollIntoView({ behavior: "smooth", block: "center" });
   }, []);
 
+  useEffect(() => {
+    const open = () => setDrawerOpen(true);
+    window.addEventListener("v3:open-menu", open);
+    return () => window.removeEventListener("v3:open-menu", open);
+  }, []);
+
   return (
     <>
       <CategoryDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
 
       <nav className="v3-mobile-nav" aria-label="Κινητή πλοήγηση">
         <Link href="/" className="v3-mob-item">
-          <span className="v3-mob-icon" aria-hidden="true">
-            🏠
-          </span>
-          Αρχική
+          <Home size={18} aria-hidden="true" />
+          Home
         </Link>
 
         <button
@@ -33,22 +38,19 @@ export function MobileNav() {
           aria-label="Άνοιγμα κατηγοριών"
           aria-expanded={drawerOpen}
         >
-          <span className="v3-mob-icon" aria-hidden="true">
-            ☰
-          </span>
-          Κατηγορίες
+          <Menu size={18} aria-hidden="true" />
+          Menu
         </button>
 
-        <button
-          className="v3-mob-item"
-          onClick={focusSearch}
-          aria-label="Αναζήτηση"
-        >
-          <span className="v3-mob-icon" aria-hidden="true">
-            🔍
-          </span>
-          Αναζήτηση
+        <button className="v3-mob-item" onClick={focusSearch} aria-label="Αναζήτηση">
+          <Search size={18} aria-hidden="true" />
+          Search
         </button>
+
+        <a href="#my-bike" className="v3-mob-item">
+          <Bike size={18} aria-hidden="true" />
+          Bike
+        </a>
 
         <button
           className="v3-mob-item"
@@ -56,24 +58,15 @@ export function MobileNav() {
           aria-label={`Καλάθι, ${cartCount} προϊόντα`}
         >
           <span className="v3-mob-badge">
-            <span className="v3-mob-icon" aria-hidden="true">
-              🛒
-            </span>
+            <ShoppingBag size={18} aria-hidden="true" />
             {cartCount > 0 && (
               <span className="v3-mob-badge-count" aria-hidden="true">
                 {cartCount}
               </span>
             )}
           </span>
-          Καλάθι
+          Cart
         </button>
-
-        <a href="#" className="v3-mob-item" aria-label="Λίστα επιθυμιών">
-          <span className="v3-mob-icon" aria-hidden="true">
-            ♡
-          </span>
-          Λίστα
-        </a>
       </nav>
     </>
   );

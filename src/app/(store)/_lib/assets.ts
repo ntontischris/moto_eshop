@@ -1,10 +1,10 @@
-/* Curated existing assets reused for the v3 prototype.
+/* Curated existing assets reused for the storefront.
    Higgsfield CloudFront host is already allow-listed in next.config.ts.
-   Hero video/poster are local (same-origin) — poster is the LCP element. */
+   Hero poster is local (same-origin) — it is the LCP element. */
 
-export const HERO_VIDEO = "/hero-variants-optimized/4-track-action.mp4";
-export const HERO_POSTER = "/hero-variants/cinematic-hero-poster.jpg";
-export const EDITORIAL_VIDEO = "/hero-variants-optimized/6-workshop.mp4";
+export const HERO_POSTER = "/hero-variants/motomarket-luxury-pit-hero.webp";
+export const HERO_POSTER_MOBILE =
+  "/hero-variants/motomarket-luxury-pit-mobile.webp";
 
 const HF =
   "https://d8j0ntlcm91z4.cloudfront.net/user_34y7dNWX6no0cgRVdzxt5wPZ7a9";

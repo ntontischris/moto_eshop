@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { Suspense } from "react";
 import { createClient } from "@/lib/supabase/server";
 import {
   getBikeMakes,
@@ -12,7 +13,15 @@ import { GarageCard } from "@/components/garage/garage-card";
 
 export const metadata = { title: "Το Γκαράζ μου | MotoMarket" };
 
-export default async function GaragePage() {
+export default function GaragePage() {
+  return (
+    <Suspense fallback={<GarageFallback />}>
+      <GarageContent />
+    </Suspense>
+  );
+}
+
+async function GarageContent() {
   const supabase = await createClient();
   const {
     data: { user },
@@ -70,6 +79,18 @@ export default async function GaragePage() {
           Δεν έχεις προσθέσει μηχανές ακόμα.
         </p>
       )}
+    </main>
+  );
+}
+
+function GarageFallback() {
+  return (
+    <main className="mx-auto max-w-2xl space-y-10 px-4 py-12" aria-hidden="true">
+      <div className="space-y-3">
+        <div className="h-8 w-48 rounded bg-muted" />
+        <div className="h-4 w-full max-w-md rounded bg-muted" />
+      </div>
+      <div className="h-64 rounded-lg bg-muted" />
     </main>
   );
 }

@@ -179,7 +179,15 @@ export async function generateMetadata({
 // ────────────────────────────────────────────────────────────────────────
 // Page
 // ────────────────────────────────────────────────────────────────────────
-export default async function CatchAllPage({
+export default function CatchAllPage(props: PageProps) {
+  return (
+    <Suspense fallback={<CatchAllFallback />}>
+      <CatchAllContent {...props} />
+    </Suspense>
+  );
+}
+
+async function CatchAllContent({
   params,
   searchParams,
 }: PageProps) {
@@ -201,6 +209,22 @@ export default async function CatchAllPage({
 
   // category
   return <CategoryView fullPath={resolved.fullPath} searchParams={sp} />;
+}
+
+function CatchAllFallback() {
+  return (
+    <main className="container mx-auto px-4 py-10" aria-hidden="true">
+      <div className="mb-8 space-y-3">
+        <div className="h-8 w-80 max-w-full rounded bg-muted" />
+        <div className="h-4 w-48 rounded bg-muted" />
+      </div>
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {Array.from({ length: 4 }).map((_, index) => (
+          <div className="h-80 rounded-lg bg-muted" key={index} />
+        ))}
+      </div>
+    </main>
+  );
 }
 
 // ────────────────────────────────────────────────────────────────────────

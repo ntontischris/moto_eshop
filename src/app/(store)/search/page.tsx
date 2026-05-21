@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { searchProducts } from "@/lib/queries/products";
 import { ProductCard } from "../_components/commerce/product-card";
 
@@ -10,7 +11,17 @@ export const metadata: Metadata = {
 
 const PER_PAGE = 24;
 
-export default async function SearchPage({
+export default function SearchPage(props: {
+  searchParams: Promise<{ q?: string; page?: string }>;
+}) {
+  return (
+    <Suspense fallback={<SearchFallback />}>
+      <SearchContent {...props} />
+    </Suspense>
+  );
+}
+
+async function SearchContent({
   searchParams,
 }: {
   searchParams: Promise<{ q?: string; page?: string }>;
@@ -111,6 +122,19 @@ export default async function SearchPage({
           .v3-srch-grid { grid-template-columns: 1fr; }
         }
       `}</style>
+    </div>
+  );
+}
+
+function SearchFallback() {
+  return (
+    <div className="v3-srch" aria-hidden="true">
+      <div className="h-8 w-52 rounded bg-white/10" />
+      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {Array.from({ length: 4 }).map((_, index) => (
+          <div className="h-80 rounded-lg bg-white/10" key={index} />
+        ))}
+      </div>
     </div>
   );
 }

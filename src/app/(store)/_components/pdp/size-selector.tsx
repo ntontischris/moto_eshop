@@ -1,7 +1,5 @@
 "use client";
 
-/* SizeSelector — size chips (real buttons, not a dropdown). */
-
 export function SizeSelector({
   sizes,
   value,
@@ -14,15 +12,15 @@ export function SizeSelector({
   return (
     <div className="v3-size">
       <div className="v3-size-row" role="group" aria-label="Επιλογή μεγέθους">
-        {sizes.map((s) => (
+        {sizes.map((size) => (
           <button
-            key={s}
+            key={size}
             type="button"
-            aria-pressed={value === s}
-            className={`v3-size-chip${value === s ? " is-on" : ""}`}
-            onClick={() => onChange(s)}
+            aria-pressed={value === size}
+            className={`v3-size-chip${value === size ? " is-on" : ""}`}
+            onClick={() => onChange(size)}
           >
-            {s}
+            {size}
           </button>
         ))}
       </div>

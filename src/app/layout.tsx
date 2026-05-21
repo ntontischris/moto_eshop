@@ -1,16 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { Suspense } from "react";
 import { Russo_One, Chakra_Petch } from "next/font/google";
 import { Providers } from "./providers";
-import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
-import { MobileNav } from "@/components/layout/mobile-nav";
-import { RootShell } from "@/components/layout/root-shell";
-import { CartProviderServer } from "@/lib/cart/cart-provider-server";
-import {
-  getCachedCategoryTree,
-  getSiteSettings,
-} from "@/lib/cache/cached-queries";
 import "@/app/globals.css";
 
 const russoOne = Russo_One({
@@ -29,11 +19,11 @@ const chakraPetch = Chakra_Petch({
 
 export const metadata: Metadata = {
   title: {
-    default: "MotoMarket — Εξοπλισμός Μοτοσυκλέτας",
+    default: "MotoMarket - Premium εξοπλισμός μοτοσυκλέτας",
     template: "%s | MotoMarket",
   },
   description:
-    "Το μεγαλύτερο ηλεκτρονικό κατάστημα εξοπλισμού μοτοσυκλέτας στην Ελλάδα. Κράνη, ενδυμασία, μπότες, γάντια και αξεσουάρ από τις κορυφαίες μάρκες.",
+    "Premium e-shop για εξοπλισμό αναβάτη και μοτοσυκλέτας: κράνη, μπουφάν, γάντια, μπότες, αξεσουάρ και ανταλλακτικά.",
   keywords: [
     "μοτοσυκλέτα",
     "εξοπλισμός μοτοσυκλέτας",
@@ -47,22 +37,22 @@ export const metadata: Metadata = {
     type: "website",
     locale: "el_GR",
     siteName: "MotoMarket",
-    title: "MotoMarket — Εξοπλισμός Μοτοσυκλέτας",
+    title: "MotoMarket - Premium εξοπλισμός μοτοσυκλέτας",
     description:
-      "Το μεγαλύτερο ηλεκτρονικό κατάστημα εξοπλισμού μοτοσυκλέτας στην Ελλάδα.",
+      "Luxury, performance-first e-shop για εξοπλισμό μοτοσυκλέτας στην Ελλάδα.",
   },
   twitter: {
     card: "summary_large_image",
     title: "MotoMarket",
-    description: "Εξοπλισμός μοτοσυκλέτας online",
+    description: "Premium εξοπλισμός μοτοσυκλέτας online",
   },
   robots: { index: true, follow: true },
 };
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#1A1A1A" },
-    { media: "(prefers-color-scheme: dark)", color: "#1A1A1A" },
+    { media: "(prefers-color-scheme: light)", color: "#050608" },
+    { media: "(prefers-color-scheme: dark)", color: "#050608" },
   ],
   width: "device-width",
   initialScale: 1,
@@ -72,16 +62,7 @@ interface RootLayoutProps {
   children: React.ReactNode;
 }
 
-export default async function RootLayout({ children }: RootLayoutProps) {
-  const [categoryTree, settings] = await Promise.all([
-    getCachedCategoryTree(),
-    getSiteSettings(),
-  ]);
-
-  const announcement = settings.announcement as
-    | { text: string; active: boolean }
-    | undefined;
-
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html
       lang="el"
@@ -89,33 +70,8 @@ export default async function RootLayout({ children }: RootLayoutProps) {
       className={`${russoOne.variable} ${chakraPetch.variable}`}
     >
       <body className="min-h-screen bg-background font-sans antialiased">
-        <Providers>
-          <Suspense>
-            <CartProviderServer>
-              <RootShell
-                chrome={
-                  <div className="flex min-h-screen flex-col">
-                    <Suspense>
-                      <Header
-                        categoryTree={categoryTree}
-                        announcement={announcement}
-                      />
-                    </Suspense>
-                    <Suspense>
-                      <main className="flex-1 pb-16 md:pb-0">{children}</main>
-                    </Suspense>
-                    <Footer categoryTree={categoryTree} />
-                    <Suspense>
-                      <MobileNav />
-                    </Suspense>
-                  </div>
-                }
-              >
-                {children}
-              </RootShell>
-            </CartProviderServer>
-          </Suspense>
-        </Providers>
+        {children}
+        <Providers />
       </body>
     </html>
   );

@@ -1,40 +1,55 @@
 import Link from "next/link";
+import { Bike, ChevronRight, SlidersHorizontal } from "lucide-react";
 
-/* MyBikeEntry — fitment entry point. Selects are display-only for MVP
-   (no fake behavior); CTA links to the my-bike category root. */
+const STEPS = ["Μάρκα", "Μοντέλο", "Χρήση", "Setup"];
 
 export function MyBikeEntry() {
   return (
-    <section
-      className="v3-mb"
-      id="my-bike"
-      aria-label="Βρες εξοπλισμό για τη μηχανή σου"
-    >
+    <section className="v3-mb v3-mb--reconstructed" id="my-bike" aria-label="Bike finder">
       <div className="v3-mb-inner">
         <div className="v3-mb-copy">
-          <h2>Βρες εξοπλισμό για τη μηχανή σου</h2>
+          <p className="v3-label">Bike finder</p>
+          <h2 className="v3-display">Αγόρασε γύρω από τη μηχανή σου.</h2>
           <p>
-            Επίλεξε μάρκα και μοντέλο για να δεις προτεινόμενο εξοπλισμό και
-            αξεσουάρ συμβατά με τη μηχανή σου.
+            Βαλίτσες, βάσεις, ζελατίνες, λιπαντικά και αξεσουάρ που ταιριάζουν
+            στον τρόπο που οδηγείς.
           </p>
         </div>
-        <div className="v3-mb-form">
-          <label className="v3-mb-field">
-            <span>Μάρκα</span>
-            <select disabled defaultValue="">
-              <option value="">Επίλεξε μάρκα</option>
-            </select>
-          </label>
-          <label className="v3-mb-field">
-            <span>Μοντέλο</span>
-            <select disabled defaultValue="">
-              <option value="">Επίλεξε μοντέλο</option>
-            </select>
-          </label>
-          <Link className="v3-btn-primary" href="/category/my-bike">
-            Βρες εξοπλισμό
-          </Link>
-          <p className="v3-mb-note">Η επιλογή ανά μηχανή έρχεται σύντομα.</p>
+
+        <div className="v3-mb-console">
+          <div className="v3-mb-console-head">
+            <Bike size={22} aria-hidden="true" />
+            <span>Garage selector</span>
+            <SlidersHorizontal size={18} aria-hidden="true" />
+          </div>
+          <div className="v3-mb-steps">
+            {STEPS.map((step, i) => (
+              <span key={step}>
+                <em>{String(i + 1).padStart(2, "0")}</em>
+                {step}
+              </span>
+            ))}
+          </div>
+          <div className="v3-mb-form">
+            <label className="v3-mb-field">
+              <span>Μάρκα</span>
+              <select disabled defaultValue="">
+                <option value="">Επίλεξε μάρκα</option>
+              </select>
+            </label>
+            <label className="v3-mb-field">
+              <span>Μοντέλο</span>
+              <select disabled defaultValue="">
+                <option value="">Επίλεξε μοντέλο</option>
+              </select>
+            </label>
+            <Link className="v3-btn-primary" href="/category/my-bike">
+              Βρες setup <ChevronRight size={18} aria-hidden="true" />
+            </Link>
+          </div>
+          <p className="v3-mb-note">
+            Η επιλογή ανά ακριβές μοντέλο ενεργοποιείται σύντομα.
+          </p>
         </div>
       </div>
     </section>

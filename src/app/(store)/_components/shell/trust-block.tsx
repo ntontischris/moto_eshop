@@ -1,60 +1,46 @@
-/* TrustBlock — static reassurance band (Server Component). Only true claims. */
+import { CreditCard, Headphones, PackageCheck, RotateCcw, ShieldCheck } from "lucide-react";
 
-const ITEMS: { title: string; line: string; icon: React.ReactNode }[] = [
+const ITEMS = [
   {
-    title: "Γρήγορη αποστολή",
-    line: "Παράδοση 1–3 εργάσιμες σε όλη την Ελλάδα.",
-    icon: (
-      <path d="M3 7h11v8H3zM14 10h4l3 3v2h-7zM7 19a2 2 0 100-4 2 2 0 000 4zM18 19a2 2 0 100-4 2 2 0 000 4z" />
-    ),
+    title: "Official supply",
+    line: "Γνήσια προϊόντα από επιλεγμένους κατασκευαστές.",
+    icon: ShieldCheck,
   },
   {
-    title: "Επίσημοι προμηθευτές",
-    line: "Γνήσια προϊόντα από εξουσιοδοτημένα brands.",
-    icon: <path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z" />,
+    title: "Fast delivery",
+    line: "Αποστολές 1-3 εργάσιμες σε όλη την Ελλάδα.",
+    icon: PackageCheck,
   },
   {
-    title: "Αλλαγές & επιστροφές",
-    line: "Εύκολη αλλαγή μεγέθους εντός 14 ημερών.",
-    icon: (
-      <path d="M4 9a8 8 0 0114-5l2 2M20 15a8 8 0 01-14 5l-2-2M4 4v6h6M20 20v-6h-6" />
-    ),
+    title: "Fit confidence",
+    line: "Αλλαγές μεγέθους για κράνη, μπουφάν, γάντια και μπότες.",
+    icon: RotateCcw,
   },
   {
-    title: "Ασφαλείς πληρωμές",
-    line: "Κρυπτογραφημένες συναλλαγές, πολλαπλοί τρόποι.",
-    icon: <path d="M6 10V8a6 6 0 0112 0v2M5 10h14v10H5zM12 14v3" />,
+    title: "Secure checkout",
+    line: "Καθαρή ροή πληρωμής και ασφαλείς συναλλαγές.",
+    icon: CreditCard,
   },
   {
-    title: "Παραλαβή από κατάστημα",
-    line: "Δυνατότητα παραλαβής από το φυσικό κατάστημα.",
-    icon: (
-      <path d="M4 9l1-5h14l1 5M4 9h16v11H4zM4 9a3 3 0 006 0 3 3 0 006 0 3 3 0 004 0M10 20v-5h4v5" />
-    ),
+    title: "Rider support",
+    line: "Τηλεφωνική βοήθεια για επιλογή προϊόντων.",
+    icon: Headphones,
   },
 ];
 
 export function TrustBlock() {
   return (
-    <section className="v3-trust" aria-label="Γιατί MotoMarket">
+    <section className="v3-trust v3-trust--reconstructed" aria-label="Γιατί MotoMarket">
+      <div className="v3-trust-head">
+        <p className="v3-label">Trust</p>
+        <h2 className="v3-display">Αγορά με σιγουριά.</h2>
+      </div>
       <div className="v3-trust-grid">
-        {ITEMS.map((it) => (
-          <div key={it.title} className="v3-trust-cell">
-            <svg
-              viewBox="0 0 24 24"
-              width="28"
-              height="28"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.6"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              {it.icon}
-            </svg>
-            <h3>{it.title}</h3>
-            <p>{it.line}</p>
+        {ITEMS.map(({ title, line, icon: Icon }) => (
+          <div key={title} className="v3-trust-cell">
+            <Icon size={26} aria-hidden="true" />
+            <h3>{title}</h3>
+            <p>{line}</p>
           </div>
         ))}
       </div>

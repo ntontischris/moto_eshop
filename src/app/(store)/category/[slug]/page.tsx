@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import { getCategory, getSubcategories } from "@/lib/queries/categories";
 import {
   getProductFilters,
@@ -31,7 +32,18 @@ export async function generateMetadata({
 
 type SearchParams = Record<string, string | string[] | undefined>;
 
-export default async function V3CategoryPage({
+export default function V3CategoryPage(props: {
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<SearchParams>;
+}) {
+  return (
+    <Suspense fallback={<CategoryPageFallback />}>
+      <V3CategoryPageContent {...props} />
+    </Suspense>
+  );
+}
+
+async function V3CategoryPageContent({
   params,
   searchParams,
 }: {
@@ -76,5 +88,34 @@ export default async function V3CategoryPage({
         <ProductCard key={p.id} product={p} />
       ))}
     </PLPClient>
+  );
+}
+
+function CategoryPageFallback() {
+  return (
+    <section className="v3-rail v3-rail--reconstructed" aria-hidden="true">
+      <div className="v3-rail-inner">
+        <div className="v3-rail-head">
+          <div className="v3-rail-htitle">
+            <div>
+              <p className="v3-label">MotoMarket</p>
+              <h2 className="v3-display">Loading collection</h2>
+            </div>
+          </div>
+        </div>
+        <div className="v3-rail-track">
+          {Array.from({ length: 4 }).map((_, index) => (
+            <div className="v3-product-card" key={index}>
+              <div className="v3-product-image" />
+              <div className="v3-product-body">
+                <div className="h-4 w-24 rounded bg-white/10" />
+                <div className="h-6 w-4/5 rounded bg-white/10" />
+                <div className="h-10 rounded bg-white/10" />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }

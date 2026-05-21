@@ -1,12 +1,23 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Η παραγγελία καταχωρήθηκε | MotoMarket",
   robots: { index: false },
 };
 
-export default async function CheckoutSuccess({
+export default function CheckoutSuccess(props: {
+  searchParams: Promise<{ order?: string }>;
+}) {
+  return (
+    <Suspense fallback={<CheckoutSuccessFallback />}>
+      <CheckoutSuccessContent {...props} />
+    </Suspense>
+  );
+}
+
+async function CheckoutSuccessContent({
   searchParams,
 }: {
   searchParams: Promise<{ order?: string }>;
@@ -62,6 +73,16 @@ export default async function CheckoutSuccess({
           font-size: .85rem; }
         .v3-ok-cont:hover { color: var(--v3-bone); }
       `}</style>
+    </div>
+  );
+}
+
+function CheckoutSuccessFallback() {
+  return (
+    <div className="v3-ok" aria-hidden="true">
+      <div className="v3-ok-mark" />
+      <h1 className="v3-display">Loading</h1>
+      <p className="v3-ok-lead">Preparing confirmation</p>
     </div>
   );
 }
