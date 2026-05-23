@@ -11,6 +11,7 @@ import { OffersSection } from "./_components/home/offers-section";
 import { SocialProof } from "./_components/home/social-proof";
 import { MyBikeEntry } from "./_components/home/my-bike-entry";
 import { BrandCarousel } from "./_components/home/brand-carousel";
+import { NewsletterBand } from "./_components/home/newsletter-band";
 import { EditorialBand } from "./_components/home/editorial-band";
 import { TrustBlock } from "./_components/shell/trust-block";
 import { Reveal } from "./_components/fx/reveal";
@@ -124,6 +125,9 @@ export default async function V3Home() {
       </Reveal>
       <Reveal>
         <BrandCarousel />
+      </Reveal>
+      <Reveal>
+        <NewsletterBand />
       </Reveal>
       <Reveal>
         <TrustBlock />
