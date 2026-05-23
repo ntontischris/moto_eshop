@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 import { subscribeToNewsletter } from "@/lib/actions/newsletter";
 
 type State = "idle" | "loading" | "done" | "error";
@@ -23,25 +23,22 @@ export function NewsletterBand() {
   return (
     <section className="v3-nl" aria-label="Newsletter">
       <div className="v3-nl-inner">
-        <div className="v3-nl-copy">
-          <p className="v3-label">Μπες στο pit-lane</p>
-          <h2 className="v3-display">
-            −10% στην πρώτη σου
-            <br />
-            <em>παραγγελία.</em>
-          </h2>
-          <p className="v3-nl-sub">
-            Νέες παραλαβές, προσφορές & gear — πρώτος. Χωρίς σπαμ.
-          </p>
-        </div>
+        <p className="v3-label">Μπες στο pit-lane</p>
+        <h2 className="v3-display v3-nl-title">
+          −10% στην πρώτη σου παραγγελία.
+        </h2>
+        <p className="v3-nl-sub">
+          Νέες παραλαβές & προσφορές — πρώτος στη γραμμή εκκίνησης.
+        </p>
 
         {state === "done" ? (
           <p className="v3-nl-done" role="status">
+            <Check size={18} aria-hidden="true" />
             {message}
           </p>
         ) : (
           <form className="v3-nl-form" onSubmit={handleSubmit} noValidate>
-            <div className="v3-nl-field">
+            <div className="v3-nl-capsule" data-error={state === "error"}>
               <input
                 type="email"
                 inputMode="email"
@@ -53,21 +50,20 @@ export function NewsletterBand() {
                 aria-label="Το email σου"
                 disabled={state === "loading"}
               />
-              <button type="submit" disabled={state === "loading"}>
-                {state === "loading" ? (
-                  "..."
-                ) : (
-                  <>
-                    Εγγραφή <ArrowRight size={16} aria-hidden="true" />
-                  </>
-                )}
+              <button
+                type="submit"
+                aria-label="Εγγραφή"
+                disabled={state === "loading"}
+              >
+                <ArrowRight size={18} aria-hidden="true" />
               </button>
             </div>
-            {state === "error" && (
-              <span className="v3-nl-err" role="alert">
-                {message}
-              </span>
-            )}
+            <span
+              className="v3-nl-fine"
+              role={state === "error" ? "alert" : undefined}
+            >
+              {state === "error" ? message : "Χωρίς σπαμ. Διαγραφή όποτε θες."}
+            </span>
           </form>
         )}
       </div>
