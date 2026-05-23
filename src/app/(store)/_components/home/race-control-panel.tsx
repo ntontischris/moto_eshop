@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -80,12 +80,36 @@ const TRUST = [
 
 export function RaceControlPanel() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isAutoPaused, setIsAutoPaused] = useState(false);
   const activeRide = RIDES[activeIndex];
+
+  useEffect(() => {
+    if (isAutoPaused) {
+      return;
+    }
+
+    const intervalId = window.setInterval(() => {
+      setActiveIndex((current) => (current + 1) % RIDES.length);
+    }, 3000);
+
+    return () => window.clearInterval(intervalId);
+  }, [isAutoPaused]);
 
   return (
     <section
       className="v3-ride-selector v3-ride-selector--cinema"
+      data-auto-paused={isAutoPaused ? "true" : undefined}
       aria-label="Αγορές ανά χρήση"
+      onMouseEnter={() => setIsAutoPaused(true)}
+      onMouseLeave={() => setIsAutoPaused(false)}
+      onFocusCapture={() => setIsAutoPaused(true)}
+      onBlurCapture={(event) => {
+        const nextFocused = event.relatedTarget as Node | null;
+
+        if (!event.currentTarget.contains(nextFocused)) {
+          setIsAutoPaused(false);
+        }
+      }}
     >
       <div className="v3-ride-selector-inner">
         <div className="v3-ride-head">

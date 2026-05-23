@@ -2,9 +2,9 @@
    Higgsfield CloudFront host is already allow-listed in next.config.ts.
    Hero poster is local (same-origin) — it is the LCP element. */
 
-export const HERO_POSTER = "/hero-variants/motomarket-luxury-pit-hero.webp";
+export const HERO_POSTER = "/hero-variants/motomarket-race-control-hero.webp";
 export const HERO_POSTER_MOBILE =
-  "/hero-variants/motomarket-luxury-pit-mobile.webp";
+  "/hero-variants/motomarket-race-control-mobile.webp";
 
 const HF =
   "https://d8j0ntlcm91z4.cloudfront.net/user_34y7dNWX6no0cgRVdzxt5wPZ7a9";
