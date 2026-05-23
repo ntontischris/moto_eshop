@@ -14,12 +14,18 @@ interface ProductCardProps {
   compact?: boolean;
 }
 
-export function ProductCard({ product, rank, compact = false }: ProductCardProps) {
+export function ProductCard({
+  product,
+  rank,
+  compact = false,
+}: ProductCardProps) {
   const href = `/product/${product.slug}`;
   const badges: { label: string; tone: Tone }[] = [];
 
-  if (product.certification) badges.push({ label: product.certification, tone: "tech" });
-  if (product.rider_type) badges.push({ label: product.rider_type, tone: "neutral" });
+  if (product.certification)
+    badges.push({ label: product.certification, tone: "tech" });
+  if (product.rider_type)
+    badges.push({ label: product.rider_type, tone: "neutral" });
 
   const visibleBadges = badges.slice(0, compact ? 1 : 2);
   const rating =
@@ -31,24 +37,50 @@ export function ProductCard({ product, rank, compact = false }: ProductCardProps
   return (
     <article className={`v3-product-card${compact ? " is-compact" : ""}`}>
       <div className="v3-product-stage">
-        <Link href={href} className="v3-product-image" aria-label={product.name}>
+        <Link
+          href={href}
+          className="v3-product-image"
+          aria-label={product.name}
+        >
           {rank !== undefined && (
             <span className="v3-product-rank" aria-hidden="true">
               {String(rank).padStart(2, "0")}
             </span>
           )}
-          <SmartImage
-            src={product.primary_image_url}
-            alt={product.primary_image_alt || product.name}
-            sizes={compact ? "(max-width: 520px) 58vw, 220px" : "(max-width: 520px) 72vw, 280px"}
-          />
+          <span className="v3-product-shot is-primary">
+            <SmartImage
+              src={product.primary_image_url}
+              alt={product.primary_image_alt || product.name}
+              sizes={
+                compact
+                  ? "(max-width: 520px) 58vw, 220px"
+                  : "(max-width: 520px) 72vw, 280px"
+              }
+            />
+          </span>
+          {product.secondary_image_url && (
+            <span className="v3-product-shot is-alt" aria-hidden="true">
+              <SmartImage
+                src={product.secondary_image_url}
+                alt=""
+                sizes={
+                  compact
+                    ? "(max-width: 520px) 58vw, 220px"
+                    : "(max-width: 520px) 72vw, 280px"
+                }
+              />
+            </span>
+          )}
         </Link>
         <WishlistButton slug={product.slug} />
       </div>
 
       <div className="v3-product-body">
         <div className="v3-product-topline">
-          <Link href={`/search?q=${encodeURIComponent(product.brand)}`} className="v3-card__brand">
+          <Link
+            href={`/search?q=${encodeURIComponent(product.brand)}`}
+            className="v3-card__brand"
+          >
             {product.brand}
           </Link>
           <AvailabilityBadge stock={product.stock} />

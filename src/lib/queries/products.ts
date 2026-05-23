@@ -44,6 +44,7 @@ export interface ProductListItem {
   rider_type: string | null;
   primary_image_url: string;
   primary_image_alt: string;
+  secondary_image_url?: string | null;
   average_rating: number | null;
   review_count: number;
 }
@@ -95,6 +96,13 @@ const SORT_MAP: Record<SortOption, { column: string; ascending: boolean }> = {
 function primaryImage(images: ProductImage[]): ProductImage | null {
   if (images.length === 0) return null;
   return [...images].sort((a, b) => a.position - b.position)[0] ?? null;
+}
+
+// Second image (by position) powers the on-hover swap in product cards.
+// Null when a product has only one shot — the card falls back to a zoom.
+function secondaryImage(images: ProductImage[]): ProductImage | null {
+  if (images.length < 2) return null;
+  return [...images].sort((a, b) => a.position - b.position)[1] ?? null;
 }
 
 /**
@@ -302,6 +310,7 @@ export async function getProductsByCategory(
       rider_type: row.rider_type,
       primary_image_url: img?.url ?? "/images/placeholder-product.webp",
       primary_image_alt: img?.alt ?? row.name,
+      secondary_image_url: secondaryImage(imgs)?.url ?? null,
       average_rating: row.average_rating,
       review_count: row.review_count,
     };
@@ -388,6 +397,7 @@ export async function searchProducts(
       rider_type: row.rider_type,
       primary_image_url: img?.url ?? "/images/placeholder-product.webp",
       primary_image_alt: img?.alt ?? row.name,
+      secondary_image_url: secondaryImage(imgs)?.url ?? null,
       average_rating: row.average_rating,
       review_count: row.review_count,
     };
@@ -563,6 +573,7 @@ export async function getRelatedProducts(
       rider_type: row.rider_type,
       primary_image_url: img?.url ?? "/images/placeholder-product.webp",
       primary_image_alt: img?.alt ?? row.name,
+      secondary_image_url: secondaryImage(imgs)?.url ?? null,
       average_rating: row.average_rating,
       review_count: row.review_count,
     };

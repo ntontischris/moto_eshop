@@ -8465,6 +8465,31 @@ html[data-v3-mode="light"] .v3-rail--garage-wall .v3-product-card {
   transform: scale(1.035);
 }
 
+/* === product card hover image swap (Nour-inspired) === */
+.v3-gallery-shot,
+.v3-product-shot {
+  position: absolute;
+  inset: 0;
+}
+
+.v3-gallery-shot.is-alt,
+.v3-product-shot.is-alt {
+  opacity: 0;
+  transition: opacity 0.55s ease;
+}
+
+.v3-gallery-card:hover .v3-gallery-shot.is-alt,
+.v3-product-card:hover .v3-product-shot.is-alt {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v3-gallery-shot.is-alt,
+  .v3-product-shot.is-alt {
+    transition: none;
+  }
+}
+
 .v3-gallery-card button {
   top: 12px !important;
   right: 12px !important;

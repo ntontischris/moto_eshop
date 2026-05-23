@@ -47,11 +47,25 @@ export function ProductRail({ title, products, href }: ProductRailProps) {
                     {String(index + 1).padStart(2, "0")}
                   </span>
                   <Link href={productHref} aria-label={p.name}>
-                    <SmartImage
-                      src={p.primary_image_url}
-                      alt={p.primary_image_alt || p.name}
-                      sizes="(max-width: 680px) 48vw, (max-width: 1100px) 31vw, 19vw"
-                    />
+                    <span className="v3-gallery-shot is-primary">
+                      <SmartImage
+                        src={p.primary_image_url}
+                        alt={p.primary_image_alt || p.name}
+                        sizes="(max-width: 680px) 48vw, (max-width: 1100px) 31vw, 19vw"
+                      />
+                    </span>
+                    {p.secondary_image_url && (
+                      <span
+                        className="v3-gallery-shot is-alt"
+                        aria-hidden="true"
+                      >
+                        <SmartImage
+                          src={p.secondary_image_url}
+                          alt=""
+                          sizes="(max-width: 680px) 48vw, (max-width: 1100px) 31vw, 19vw"
+                        />
+                      </span>
+                    )}
                   </Link>
                   <WishlistButton slug={p.slug} />
                 </div>
