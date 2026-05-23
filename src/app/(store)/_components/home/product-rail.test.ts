@@ -65,15 +65,19 @@ describe("product rail", () => {
     expect(componentsCss).toContain("border-radius: 18px");
   });
 
-  it("scrolls horizontally with mouse drag and native touch", () => {
+  it("scrolls freely only while the mouse button is held", () => {
     expect(scrollerSource).toContain("v3-gallery-grid");
     expect(scrollerSource).toContain("ProductRailCard");
     expect(scrollerSource).toContain("onPointerDown");
     expect(scrollerSource).toContain('pointerType !== "mouse"');
+    expect(scrollerSource).toContain("setPointerCapture");
     expect(scrollerSource).toContain("scrollLeft");
+    // moving with no button held must NOT scroll
+    expect(scrollerSource).toContain("down.current");
+    // native image drag must not hijack the drag-scroll
+    expect(scrollerSource).toContain("onDragStart");
     expect(scrollerSource).toContain("is-dragging");
     expect(componentsCss).toContain("overflow-x: auto");
-    expect(componentsCss).toContain("scroll-snap-type: x proximity");
     expect(componentsCss).toContain(".v3-gallery-grid.is-dragging");
   });
 });

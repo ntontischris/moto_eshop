@@ -10,43 +10,51 @@ export function ProductRailScroller({
   products: ProductListItem[];
 }) {
   const trackRef = useRef<HTMLDivElement>(null);
-  const drag = useRef({ startX: 0, startScroll: 0, moved: false });
+  const down = useRef(false);
+  const startX = useRef(0);
+  const startScroll = useRef(0);
+  const moved = useRef(false);
   const [dragging, setDragging] = useState(false);
 
-  function onPointerMove(e: PointerEvent) {
-    const el = trackRef.current;
-    if (!el) return;
-    const dx = e.clientX - drag.current.startX;
-    if (Math.abs(dx) > 5) drag.current.moved = true;
-    el.scrollLeft = drag.current.startScroll - dx;
-  }
-
-  function onPointerUp() {
-    setDragging(false);
-    window.removeEventListener("pointermove", onPointerMove);
-  }
-
-  // Mouse drag-to-scroll on desktop; touch/pen keep native momentum scroll.
+  // Mouse drag-to-scroll. Touch/pen keep native momentum scrolling.
   function onPointerDown(e: React.PointerEvent<HTMLDivElement>) {
     if (e.pointerType !== "mouse") return;
     const el = trackRef.current;
     if (!el) return;
-    drag.current = {
-      startX: e.clientX,
-      startScroll: el.scrollLeft,
-      moved: false,
-    };
+    down.current = true;
+    moved.current = false;
+    startX.current = e.clientX;
+    startScroll.current = el.scrollLeft;
+    el.setPointerCapture(e.pointerId);
     setDragging(true);
-    window.addEventListener("pointermove", onPointerMove);
-    window.addEventListener("pointerup", onPointerUp, { once: true });
   }
 
-  // Swallow the click that ends a drag so it doesn't navigate to a product.
+  // Only scrolls while the button is actually held (down.current). Once
+  // released, moving the mouse does nothing.
+  function onPointerMove(e: React.PointerEvent<HTMLDivElement>) {
+    if (!down.current) return;
+    const el = trackRef.current;
+    if (!el) return;
+    const dx = e.clientX - startX.current;
+    if (Math.abs(dx) > 5) moved.current = true;
+    el.scrollLeft = startScroll.current - dx;
+  }
+
+  function endDrag(e: React.PointerEvent<HTMLDivElement>) {
+    if (!down.current) return;
+    down.current = false;
+    setDragging(false);
+    const el = trackRef.current;
+    if (el?.hasPointerCapture(e.pointerId))
+      el.releasePointerCapture(e.pointerId);
+  }
+
+  // Swallow the click that ends a drag so it doesn't open a product.
   function onClickCapture(e: React.MouseEvent) {
-    if (drag.current.moved) {
+    if (moved.current) {
       e.preventDefault();
       e.stopPropagation();
-      drag.current.moved = false;
+      moved.current = false;
     }
   }
 
@@ -55,7 +63,11 @@ export function ProductRailScroller({
       ref={trackRef}
       className={`v3-gallery-grid${dragging ? " is-dragging" : ""}`}
       onPointerDown={onPointerDown}
+      onPointerMove={onPointerMove}
+      onPointerUp={endDrag}
+      onPointerCancel={endDrag}
       onClickCapture={onClickCapture}
+      onDragStart={(e) => e.preventDefault()}
     >
       {products.map((p, i) => (
         <ProductRailCard key={p.id} product={p} rank={i + 1} />

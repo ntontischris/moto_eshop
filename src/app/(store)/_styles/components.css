@@ -8428,12 +8428,10 @@ html[data-v3-mode="light"] .v3-rail--garage-wall .v3-product-card {
   display: flex;
   gap: clamp(14px, 1.5vw, 22px);
   overflow-x: auto;
-  scroll-snap-type: x proximity;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
   cursor: grab;
   padding: 4px 2px 20px;
-  scroll-padding-left: 2px;
 }
 
 .v3-rail--nour-gallery .v3-gallery-grid::-webkit-scrollbar {
@@ -8442,14 +8440,12 @@ html[data-v3-mode="light"] .v3-rail--garage-wall .v3-product-card {
 
 .v3-rail--nour-gallery .v3-gallery-grid.is-dragging {
   cursor: grabbing;
-  scroll-snap-type: none;
   user-select: none;
 }
 
 .v3-gallery-card {
   position: relative;
   flex: 0 0 clamp(220px, 22vw, 272px);
-  scroll-snap-align: start;
   display: grid;
   gap: 14px;
   transform: perspective(900px) rotateX(0deg) rotateY(0deg);
