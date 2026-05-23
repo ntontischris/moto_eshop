@@ -31,6 +31,9 @@ export function ProductRailCard({
       ? product.gallery_image_urls
       : [product.primary_image_url];
   const [active, setActive] = useState(0);
+  // Only the first image loads up front; the rest mount on first hover so the
+  // rail never downloads every gallery shot for all 16 products at once.
+  const [armed, setArmed] = useState(false);
   const cardRef = useRef<HTMLElement>(null);
   const frame = useRef<number | null>(null);
   const cycle = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -78,6 +81,7 @@ export function ProductRailCard({
   }
 
   function handleEnter() {
+    setArmed(true);
     startCycle();
     const el = cardRef.current;
     if (!el || prefersReducedMotion()) return;
@@ -110,7 +114,7 @@ export function ProductRailCard({
           {String(rank).padStart(2, "0")}
         </span>
         <Link href={productHref} aria-label={product.name}>
-          {images.map((src, i) => (
+          {(armed ? images : images.slice(0, 1)).map((src, i) => (
             <span
               key={`${src}-${i}`}
               className={`v3-gallery-shot${i === active ? " is-active" : ""}`}

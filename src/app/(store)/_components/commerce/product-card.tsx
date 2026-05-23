@@ -39,6 +39,9 @@ export function ProductCard({
       : [product.primary_image_url];
 
   const [active, setActive] = useState(0);
+  // Only the first image loads up front; the rest mount on first hover so a
+  // grid never downloads every gallery shot for products you don't inspect.
+  const [armed, setArmed] = useState(false);
   const cardRef = useRef<HTMLElement>(null);
   const frame = useRef<number | null>(null);
   const cycle = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -83,6 +86,7 @@ export function ProductCard({
   }
 
   function handleEnter() {
+    setArmed(true);
     startCycle();
     const el = cardRef.current;
     if (!el || prefersReducedMotion()) return;
@@ -135,7 +139,7 @@ export function ProductCard({
               {String(rank).padStart(2, "0")}
             </span>
           )}
-          {images.map((src, i) => (
+          {(armed ? images : images.slice(0, 1)).map((src, i) => (
             <span
               key={`${src}-${i}`}
               className={`v3-product-shot${i === active ? " is-active" : ""}`}
