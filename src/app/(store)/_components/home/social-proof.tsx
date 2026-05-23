@@ -1,40 +1,93 @@
-import { Star } from "lucide-react";
+import { Star, ArrowUpRight } from "lucide-react";
 import { PROOF_STATS, PROOF_QUOTES } from "../../_lib/social-proof";
 
+function Stars() {
+  return (
+    <div className="v3-proof-stars" aria-label="5 στα 5 αστέρια">
+      {Array.from({ length: 5 }).map((_, i) => (
+        <Star key={i} size={13} fill="currentColor" strokeWidth={0} />
+      ))}
+    </div>
+  );
+}
+
 export function SocialProof() {
+  // Duplicate the quotes so the marquee can loop seamlessly.
+  const ticker = [...PROOF_QUOTES, ...PROOF_QUOTES];
+
   return (
     <section className="v3-proof" aria-label="Αξιολογήσεις πελατών">
       <div className="v3-proof-inner">
         <div className="v3-proof-head">
           <p className="v3-label">Η εμπιστοσύνη των αναβατών</p>
-          <h2 className="v3-display">Χιλιάδες αναβάτες μάς εμπιστεύονται.</h2>
+          <h2 className="v3-display">
+            Χιλιάδες αναβάτες.
+            <br />
+            <em>Μία βαθμολογία: άριστα.</em>
+          </h2>
         </div>
 
-        <div className="v3-proof-stats">
-          {PROOF_STATS.map((s) => (
-            <div key={s.label} className="v3-proof-stat">
-              <strong>
-                {s.value}
-                <span>{s.unit}</span>
-              </strong>
-              <span className="v3-proof-stat-label">{s.label}</span>
-            </div>
-          ))}
-        </div>
-
-        <div className="v3-proof-quotes">
-          {PROOF_QUOTES.map((q) => (
-            <figure key={q.author} className="v3-proof-quote">
-              <div className="v3-proof-stars" aria-label="5 στα 5 αστέρια">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} size={14} fill="currentColor" strokeWidth={0} />
-                ))}
+        <div className="v3-proof-scores">
+          {PROOF_STATS.map((s) => {
+            const inner = (
+              <>
+                <strong className="v3-proof-score-value">
+                  {s.value}
+                  <span>{s.unit}</span>
+                </strong>
+                <span className="v3-proof-score-meta">
+                  <span className="v3-proof-score-src">{s.source}</span>
+                  <span className="v3-proof-score-label">{s.label}</span>
+                </span>
+                {s.href && (
+                  <span className="v3-proof-score-cta">
+                    Δες τις κριτικές
+                    <ArrowUpRight size={14} aria-hidden="true" />
+                  </span>
+                )}
+              </>
+            );
+            return s.href ? (
+              <a
+                key={s.source}
+                className="v3-proof-score is-link"
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {inner}
+              </a>
+            ) : (
+              <div key={s.source} className="v3-proof-score">
+                {inner}
               </div>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="v3-proof-ticker">
+        <div className="v3-proof-track">
+          {ticker.map((q, i) => (
+            <a
+              key={`${q.author}-${i}`}
+              className="v3-proof-quote"
+              href={q.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-hidden={i >= PROOF_QUOTES.length ? true : undefined}
+              tabIndex={i >= PROOF_QUOTES.length ? -1 : undefined}
+            >
+              <Stars />
               <blockquote>{q.body}</blockquote>
               <figcaption>
-                {q.author} <span>· via {q.source}</span>
+                <span className="v3-proof-quote-author">{q.author}</span>
+                <span className="v3-proof-quote-src">
+                  via {q.source}
+                  <ArrowUpRight size={12} aria-hidden="true" />
+                </span>
               </figcaption>
-            </figure>
+            </a>
           ))}
         </div>
       </div>
