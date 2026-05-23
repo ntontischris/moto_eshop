@@ -8435,6 +8435,9 @@ html[data-v3-mode="light"] .v3-rail--garage-wall .v3-product-card {
   min-width: 0;
   display: grid;
   gap: 14px;
+  transform: perspective(900px) rotateX(0deg) rotateY(0deg);
+  transition: transform 0.5s ease;
+  will-change: transform;
 }
 
 .v3-gallery-plate {
@@ -8445,6 +8448,10 @@ html[data-v3-mode="light"] .v3-rail--garage-wall .v3-product-card {
   background:
     linear-gradient(180deg, #f9f7f2, #ebe6dc);
   border: 1px solid rgba(245,243,238,.08);
+  border-radius: 18px;
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.35),
+    0 22px 48px rgba(0, 0, 0, 0.5);
 }
 
 .v3-gallery-plate a {
@@ -8502,12 +8509,8 @@ html[data-v3-mode="light"] .v3-rail--garage-wall .v3-product-card {
   justify-content: center;
   gap: 5px;
   pointer-events: none;
-  opacity: 0;
+  opacity: 0.85;
   transition: opacity 0.3s ease;
-}
-
-.v3-gallery-card:hover .v3-gallery-dots {
-  opacity: 1;
 }
 
 .v3-gallery-dot {
