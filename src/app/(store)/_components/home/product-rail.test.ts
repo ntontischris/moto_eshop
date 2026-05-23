@@ -5,6 +5,10 @@ const railSource = readFileSync(
   new URL("./product-rail.tsx", import.meta.url),
   "utf8",
 );
+const scrollerSource = readFileSync(
+  new URL("./product-rail-scroller.tsx", import.meta.url),
+  "utf8",
+);
 const cardSource = readFileSync(
   new URL("./product-rail-card.tsx", import.meta.url),
   "utf8",
@@ -17,13 +21,11 @@ const componentsCss = readFileSync(
 describe("product rail", () => {
   it("renders a Nour-inspired lightweight product gallery", () => {
     expect(railSource).toContain(
-      "const galleryProducts = products.slice(0, 5);",
+      "const galleryProducts = products.slice(0, 16);",
     );
     expect(railSource).toContain("v3-rail--nour-gallery");
-    expect(railSource).toContain("v3-gallery-grid");
     expect(railSource).toContain("New arrivals");
-    expect(railSource).toContain("galleryProducts.map");
-    expect(railSource).toContain("ProductRailCard");
+    expect(railSource).toContain("ProductRailScroller");
     expect(railSource).not.toContain("ProductRailCarousel");
     expect(railSource).not.toContain("v3-rail--garage-wall");
   });
@@ -53,6 +55,7 @@ describe("product rail", () => {
     expect(cardSource).toContain("useEffect");
     expect(cardSource).toContain("setInterval");
     expect(cardSource).toContain("CYCLE_MS = 1700");
+    expect(cardSource).toContain("IntersectionObserver");
     expect(cardSource).toContain("prefers-reduced-motion");
     expect(cardSource).toContain("perspective(900px)");
     expect(cardSource).toContain("rotateX");
@@ -60,5 +63,17 @@ describe("product rail", () => {
     expect(componentsCss).toContain(".v3-gallery-shot.is-active");
     expect(componentsCss).toContain(".v3-gallery-dots");
     expect(componentsCss).toContain("border-radius: 18px");
+  });
+
+  it("scrolls horizontally with mouse drag and native touch", () => {
+    expect(scrollerSource).toContain("v3-gallery-grid");
+    expect(scrollerSource).toContain("ProductRailCard");
+    expect(scrollerSource).toContain("onPointerDown");
+    expect(scrollerSource).toContain('pointerType !== "mouse"');
+    expect(scrollerSource).toContain("scrollLeft");
+    expect(scrollerSource).toContain("is-dragging");
+    expect(componentsCss).toContain("overflow-x: auto");
+    expect(componentsCss).toContain("scroll-snap-type: x proximity");
+    expect(componentsCss).toContain(".v3-gallery-grid.is-dragging");
   });
 });

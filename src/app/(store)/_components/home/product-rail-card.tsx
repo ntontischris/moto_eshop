@@ -10,7 +10,7 @@ import { WishlistButton } from "../commerce/wishlist-button";
 
 const CYCLE_MS = 1700;
 const TILT_MAX = 7;
-const SIZES = "(max-width: 680px) 48vw, (max-width: 1100px) 31vw, 19vw";
+const SIZES = "(max-width: 680px) 72vw, (max-width: 1180px) 34vw, 272px";
 
 function prefersReducedMotion() {
   return (
@@ -34,28 +34,46 @@ export function ProductRailCard({
   const cardRef = useRef<HTMLElement>(null);
   const frame = useRef<number | null>(null);
 
-  // Auto-advance through every image on its own; stagger the start by rank
-  // so the cards in a row don't all flip in unison.
+  // Auto-advance through every image, but only while the card is on screen —
+  // keeps a long horizontal rail cheap when most cards are scrolled away.
   useEffect(() => {
     if (images.length < 2 || prefersReducedMotion()) return;
+    const el = cardRef.current;
+    if (!el) return;
+
     let interval: ReturnType<typeof setInterval> | undefined;
-    const start = setTimeout(() => {
+    const start = () => {
+      if (interval) return;
       interval = setInterval(
         () => setActive((i) => (i + 1) % images.length),
         CYCLE_MS,
       );
-    }, rank * 320);
-    return () => {
-      clearTimeout(start);
-      if (interval) clearInterval(interval);
     };
-  }, [images.length, rank]);
+    const stop = () => {
+      if (interval) {
+        clearInterval(interval);
+        interval = undefined;
+      }
+    };
 
-  // Subtle 3D tilt toward the cursor for depth. Ref + rAF so it never
-  // triggers React re-renders, and disabled under reduced-motion.
+    const io = new IntersectionObserver(
+      ([entry]) => (entry?.isIntersecting ? start() : stop()),
+      { threshold: 0.25 },
+    );
+    io.observe(el);
+
+    return () => {
+      io.disconnect();
+      stop();
+    };
+  }, [images.length]);
+
+  // Subtle 3D tilt toward the cursor. Skipped while a button is held (the
+  // rail is being dragged) and under reduced-motion. Ref + rAF only, so it
+  // never triggers a React re-render.
   function handleMove(e: React.MouseEvent<HTMLElement>) {
     const el = cardRef.current;
-    if (!el || prefersReducedMotion()) return;
+    if (!el || e.buttons !== 0 || prefersReducedMotion()) return;
     const rect = el.getBoundingClientRect();
     const px = (e.clientX - rect.left) / rect.width;
     const py = (e.clientY - rect.top) / rect.height;
@@ -69,7 +87,9 @@ export function ProductRailCard({
 
   function handleEnter() {
     const el = cardRef.current;
-    if (el) el.style.transition = "transform 0.1s ease-out";
+    if (!el || prefersReducedMotion()) return;
+    el.style.willChange = "transform";
+    el.style.transition = "transform 0.1s ease-out";
   }
 
   function handleLeave() {
@@ -78,6 +98,7 @@ export function ProductRailCard({
     if (frame.current) cancelAnimationFrame(frame.current);
     el.style.transition = "transform 0.5s ease";
     el.style.transform = "perspective(900px) rotateX(0deg) rotateY(0deg)";
+    el.style.willChange = "auto";
   }
 
   const productHref = `/product/${product.slug}`;

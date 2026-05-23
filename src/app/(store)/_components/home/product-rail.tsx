@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { ProductListItem } from "@/lib/queries/products";
-import { ProductRailCard } from "./product-rail-card";
+import { ProductRailScroller } from "./product-rail-scroller";
 
 export interface ProductRailProps {
   title: string;
@@ -11,7 +11,7 @@ export interface ProductRailProps {
 export function ProductRail({ title, products, href }: ProductRailProps) {
   if (products.length === 0) return null;
 
-  const galleryProducts = products.slice(0, 5);
+  const galleryProducts = products.slice(0, 16);
 
   return (
     <section
@@ -33,11 +33,7 @@ export function ProductRail({ title, products, href }: ProductRailProps) {
           )}
         </div>
 
-        <div className="v3-gallery-grid">
-          {galleryProducts.map((p, index) => (
-            <ProductRailCard key={p.id} product={p} rank={index + 1} />
-          ))}
-        </div>
+        <ProductRailScroller products={galleryProducts} />
       </div>
     </section>
   );

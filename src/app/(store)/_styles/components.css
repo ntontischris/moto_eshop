@@ -8425,19 +8425,35 @@ html[data-v3-mode="light"] .v3-rail--garage-wall .v3-product-card {
 }
 
 .v3-rail--nour-gallery .v3-gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: clamp(12px, 1.25vw, 20px);
+  display: flex;
+  gap: clamp(14px, 1.5vw, 22px);
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  cursor: grab;
+  padding: 4px 2px 20px;
+  scroll-padding-left: 2px;
+}
+
+.v3-rail--nour-gallery .v3-gallery-grid::-webkit-scrollbar {
+  display: none;
+}
+
+.v3-rail--nour-gallery .v3-gallery-grid.is-dragging {
+  cursor: grabbing;
+  scroll-snap-type: none;
+  user-select: none;
 }
 
 .v3-gallery-card {
   position: relative;
-  min-width: 0;
+  flex: 0 0 clamp(220px, 22vw, 272px);
+  scroll-snap-align: start;
   display: grid;
   gap: 14px;
   transform: perspective(900px) rotateX(0deg) rotateY(0deg);
   transition: transform 0.5s ease;
-  will-change: transform;
 }
 
 .v3-gallery-plate {
@@ -8449,6 +8465,8 @@ html[data-v3-mode="light"] .v3-rail--garage-wall .v3-product-card {
     linear-gradient(180deg, #f9f7f2, #ebe6dc);
   border: 1px solid rgba(245,243,238,.08);
   border-radius: 18px;
+  transform: translateZ(0);
+  isolation: isolate;
   box-shadow:
     0 2px 6px rgba(0, 0, 0, 0.35),
     0 22px 48px rgba(0, 0, 0, 0.5);
@@ -8463,12 +8481,6 @@ html[data-v3-mode="light"] .v3-rail--garage-wall .v3-product-card {
 .v3-gallery-plate img {
   object-fit: cover !important;
   padding: 0 !important;
-  transform: scale(1.001);
-  transition: transform 0.6s ease;
-}
-
-.v3-gallery-card:hover .v3-gallery-plate img {
-  transform: scale(1.06);
 }
 
 /* === product card hover image swap (Nour-inspired) === */
@@ -8638,8 +8650,8 @@ html[data-v3-mode="light"] .v3-gallery-cta:hover {
 }
 
 @media (max-width: 1180px) {
-  .v3-rail--nour-gallery .v3-gallery-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+  .v3-rail--nour-gallery .v3-gallery-card {
+    flex-basis: clamp(210px, 34vw, 250px);
   }
 }
 
@@ -8662,8 +8674,11 @@ html[data-v3-mode="light"] .v3-gallery-cta:hover {
   }
 
   .v3-rail--nour-gallery .v3-gallery-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 18px 10px;
+    gap: 14px;
+  }
+
+  .v3-rail--nour-gallery .v3-gallery-card {
+    flex-basis: 72vw;
   }
 
   .v3-gallery-info {
@@ -8687,11 +8702,8 @@ html[data-v3-mode="light"] .v3-gallery-cta:hover {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .v3-gallery-plate img {
+  .v3-gallery-card {
+    transform: none;
     transition: none;
-  }
-
-  .v3-gallery-card:hover .v3-gallery-plate img {
-    transform: scale(1.001);
   }
 }
