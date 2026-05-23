@@ -8700,26 +8700,35 @@ html[data-v3-mode="light"] .v3-gallery-cta:hover {
   }
 
   .v3-rail--nour-gallery .v3-gallery-card {
-    flex-basis: 72vw;
+    flex-basis: 66vw;
+  }
+
+  /* shorter image on phones so the whole card fits the screen */
+  .v3-rail--nour-gallery .v3-gallery-plate {
+    aspect-ratio: 4 / 5;
   }
 
   .v3-gallery-info {
-    gap: 7px;
+    gap: 6px;
   }
 
   .v3-gallery-topline {
-    display: grid;
-    justify-items: start;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
   }
 
   .v3-gallery-name {
-    min-height: 2.5em;
-    font-size: .9rem;
+    min-height: 2.2em;
+    font-size: .88rem;
   }
 
   .v3-gallery-footer {
-    display: grid;
-    align-items: start;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
   }
 }
 
