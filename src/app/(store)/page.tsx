@@ -8,6 +8,7 @@ import {
 } from "./_components/home/category-shortcut-grid";
 import { ProductRail } from "./_components/home/product-rail";
 import { OffersSection } from "./_components/home/offers-section";
+import { SocialProof } from "./_components/home/social-proof";
 import { MyBikeEntry } from "./_components/home/my-bike-entry";
 import { BrandCarousel } from "./_components/home/brand-carousel";
 import { EditorialBand } from "./_components/home/editorial-band";
@@ -114,6 +115,9 @@ export default async function V3Home() {
       </Reveal>
       <Reveal>
         <OffersSection products={offersRes.data} />
+      </Reveal>
+      <Reveal>
+        <SocialProof />
       </Reveal>
       <Reveal>
         <MyBikeEntry />
