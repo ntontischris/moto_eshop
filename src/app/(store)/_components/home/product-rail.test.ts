@@ -50,16 +50,17 @@ describe("product rail", () => {
     expect(componentsCss).toContain("padding: 0 !important;");
   });
 
-  it("auto-cycles every product image and tilts the card in 3D", () => {
+  it("auto-cycles every product image on a timer, only while on screen", () => {
     expect(cardSource).toContain("gallery_image_urls");
     expect(cardSource).toContain("useEffect");
     expect(cardSource).toContain("setInterval");
     expect(cardSource).toContain("CYCLE_MS = 1700");
     expect(cardSource).toContain("IntersectionObserver");
     expect(cardSource).toContain("prefers-reduced-motion");
-    expect(cardSource).toContain("perspective(900px)");
-    expect(cardSource).toContain("rotateX");
     expect(cardSource).toContain("is-active");
+    // hovering must NOT drive the cards (no cursor-follow tilt)
+    expect(cardSource).not.toContain("onMouseMove");
+    expect(cardSource).not.toContain("rotateX");
     expect(componentsCss).toContain(".v3-gallery-shot.is-active");
     expect(componentsCss).toContain(".v3-gallery-dots");
     expect(componentsCss).toContain("border-radius: 18px");

@@ -8452,8 +8452,6 @@ html[data-v3-mode="light"] .v3-rail--garage-wall .v3-product-card {
   scroll-snap-align: start;
   display: grid;
   gap: 14px;
-  transform: perspective(900px) rotateX(0deg) rotateY(0deg);
-  transition: transform 0.5s ease;
 }
 
 .v3-gallery-plate {
@@ -8698,12 +8696,5 @@ html[data-v3-mode="light"] .v3-gallery-cta:hover {
   .v3-gallery-footer {
     display: grid;
     align-items: start;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .v3-gallery-card {
-    transform: none;
-    transition: none;
   }
 }
