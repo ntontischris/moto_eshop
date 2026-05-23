@@ -9,6 +9,7 @@ import { SmartImage } from "../commerce/smart-image";
 import { WishlistButton } from "../commerce/wishlist-button";
 
 const CYCLE_MS = 1700;
+const TILT_MAX = 7;
 const SIZES = "(max-width: 680px) 72vw, (max-width: 1180px) 34vw, 272px";
 
 function prefersReducedMotion() {
@@ -31,10 +32,10 @@ export function ProductRailCard({
       : [product.primary_image_url];
   const [active, setActive] = useState(0);
   const cardRef = useRef<HTMLElement>(null);
+  const frame = useRef<number | null>(null);
 
   // Auto-advance through every image, but only while the card is on screen —
   // keeps a long horizontal rail cheap when most cards are scrolled away.
-  // Time-driven only: moving the mouse over a card never changes it.
   useEffect(() => {
     if (images.length < 2 || prefersReducedMotion()) return;
     const el = cardRef.current;
@@ -67,10 +68,49 @@ export function ProductRailCard({
     };
   }, [images.length]);
 
+  // Subtle 3D tilt toward the cursor. Skipped while a button is held (the
+  // rail is being dragged) and under reduced-motion. Ref + rAF only, so it
+  // never triggers a React re-render.
+  function handleMove(e: React.MouseEvent<HTMLElement>) {
+    const el = cardRef.current;
+    if (!el || e.buttons !== 0 || prefersReducedMotion()) return;
+    const rect = el.getBoundingClientRect();
+    const px = (e.clientX - rect.left) / rect.width;
+    const py = (e.clientY - rect.top) / rect.height;
+    const rx = (0.5 - py) * TILT_MAX * 2;
+    const ry = (px - 0.5) * TILT_MAX * 2;
+    if (frame.current) cancelAnimationFrame(frame.current);
+    frame.current = requestAnimationFrame(() => {
+      el.style.transform = `perspective(900px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) translateZ(14px)`;
+    });
+  }
+
+  function handleEnter() {
+    const el = cardRef.current;
+    if (!el || prefersReducedMotion()) return;
+    el.style.willChange = "transform";
+    el.style.transition = "transform 0.1s ease-out";
+  }
+
+  function handleLeave() {
+    const el = cardRef.current;
+    if (!el) return;
+    if (frame.current) cancelAnimationFrame(frame.current);
+    el.style.transition = "transform 0.5s ease";
+    el.style.transform = "perspective(900px) rotateX(0deg) rotateY(0deg)";
+    el.style.willChange = "auto";
+  }
+
   const productHref = `/product/${product.slug}`;
 
   return (
-    <article ref={cardRef} className="v3-gallery-card">
+    <article
+      ref={cardRef}
+      className="v3-gallery-card"
+      onMouseEnter={handleEnter}
+      onMouseMove={handleMove}
+      onMouseLeave={handleLeave}
+    >
       <div className="v3-gallery-plate">
         <span className="v3-gallery-rank" aria-hidden="true">
           {String(rank).padStart(2, "0")}
