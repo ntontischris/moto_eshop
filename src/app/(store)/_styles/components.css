@@ -8459,7 +8459,7 @@ html[data-v3-mode="light"] .v3-rail--garage-wall .v3-product-card {
   aspect-ratio: 3 / 4;
   background:
     linear-gradient(180deg, #f9f7f2, #ebe6dc);
-  border: 1px solid rgba(245,243,238,.08);
+  border: 1px solid rgba(228, 17, 31, 0.5);
   border-radius: 18px;
   transform: translateZ(0);
   isolation: isolate;
