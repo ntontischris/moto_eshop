@@ -33,40 +33,32 @@ export function ProductRailCard({
   const [active, setActive] = useState(0);
   const cardRef = useRef<HTMLElement>(null);
   const frame = useRef<number | null>(null);
+  const cycle = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  // Auto-advance through every image, but only while the card is on screen —
-  // keeps a long horizontal rail cheap when most cards are scrolled away.
-  useEffect(() => {
-    if (images.length < 2 || prefersReducedMotion()) return;
-    const el = cardRef.current;
-    if (!el) return;
-
-    let interval: ReturnType<typeof setInterval> | undefined;
-    const start = () => {
-      if (interval) return;
-      interval = setInterval(
-        () => setActive((i) => (i + 1) % images.length),
-        CYCLE_MS,
-      );
-    };
-    const stop = () => {
-      if (interval) {
-        clearInterval(interval);
-        interval = undefined;
-      }
-    };
-
-    const io = new IntersectionObserver(
-      ([entry]) => (entry?.isIntersecting ? start() : stop()),
-      { threshold: 0.25 },
+  // Cycle through the product's images ONLY while it is hovered. Every other
+  // card stays on its first photo, so the rail never feels busy or dizzying.
+  function startCycle() {
+    if (images.length < 2 || prefersReducedMotion() || cycle.current) return;
+    cycle.current = setInterval(
+      () => setActive((i) => (i + 1) % images.length),
+      CYCLE_MS,
     );
-    io.observe(el);
+  }
+  function stopCycle() {
+    if (cycle.current) {
+      clearInterval(cycle.current);
+      cycle.current = null;
+    }
+    setActive(0);
+  }
 
-    return () => {
-      io.disconnect();
-      stop();
-    };
-  }, [images.length]);
+  // Safety net: clear the timer if the card unmounts mid-hover.
+  useEffect(
+    () => () => {
+      if (cycle.current) clearInterval(cycle.current);
+    },
+    [],
+  );
 
   // Subtle 3D tilt toward the cursor. Skipped while a button is held (the
   // rail is being dragged) and under reduced-motion. Ref + rAF only, so it
@@ -86,6 +78,7 @@ export function ProductRailCard({
   }
 
   function handleEnter() {
+    startCycle();
     const el = cardRef.current;
     if (!el || prefersReducedMotion()) return;
     el.style.willChange = "transform";
@@ -93,6 +86,7 @@ export function ProductRailCard({
   }
 
   function handleLeave() {
+    stopCycle();
     const el = cardRef.current;
     if (!el) return;
     if (frame.current) cancelAnimationFrame(frame.current);
