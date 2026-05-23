@@ -5,6 +5,10 @@ const railSource = readFileSync(
   new URL("./product-rail.tsx", import.meta.url),
   "utf8",
 );
+const cardSource = readFileSync(
+  new URL("./product-rail-card.tsx", import.meta.url),
+  "utf8",
+);
 const componentsCss = readFileSync(
   new URL("../../_styles/components.css", import.meta.url),
   "utf8",
@@ -18,20 +22,21 @@ describe("product rail", () => {
     expect(railSource).toContain("v3-rail--nour-gallery");
     expect(railSource).toContain("v3-gallery-grid");
     expect(railSource).toContain("New arrivals");
+    expect(railSource).toContain("galleryProducts.map");
+    expect(railSource).toContain("ProductRailCard");
     expect(railSource).not.toContain("ProductRailCarousel");
     expect(railSource).not.toContain("v3-rail--garage-wall");
   });
 
   it("keeps product commerce data quiet but visible", () => {
-    expect(railSource).toContain("galleryProducts.map");
-    expect(railSource).toContain("v3-gallery-plate");
-    expect(railSource).toContain("v3-gallery-info");
-    expect(railSource).toContain("AvailabilityBadge");
-    expect(railSource).toContain("PriceDisplay");
-    expect(railSource).toContain("v3-gallery-cta");
+    expect(cardSource).toContain("v3-gallery-plate");
+    expect(cardSource).toContain("v3-gallery-info");
+    expect(cardSource).toContain("AvailabilityBadge");
+    expect(cardSource).toContain("PriceDisplay");
+    expect(cardSource).toContain("v3-gallery-cta");
   });
 
-  it("styles the gallery with calm image plates and no destructive image effects", () => {
+  it("fills the image plate edge to edge instead of letterboxing it", () => {
     expect(componentsCss).toContain(
       "/* === nour inspired product gallery === */",
     );
@@ -39,22 +44,17 @@ describe("product rail", () => {
     expect(componentsCss).toContain(".v3-gallery-plate");
     expect(componentsCss).toContain("aspect-ratio: 3 / 4");
     expect(componentsCss).toContain(".v3-gallery-plate img");
-    expect(componentsCss).toContain("object-fit: contain !important");
-    expect(componentsCss).not.toContain(
-      ".v3-rail--nour-gallery .v3-gallery-plate img {\n  mix-blend-mode",
-    );
+    expect(componentsCss).toContain("object-fit: cover !important");
+    expect(componentsCss).toContain("padding: 0 !important;");
   });
 
-  it("swaps to a second product image on hover when one exists", () => {
-    expect(railSource).toContain("p.secondary_image_url");
-    expect(railSource).toContain('className="v3-gallery-shot is-primary"');
-    expect(railSource).toContain('className="v3-gallery-shot is-alt"');
-    expect(componentsCss).toContain(
-      "/* === product card hover image swap (Nour-inspired) === */",
-    );
-    expect(componentsCss).toContain(".v3-gallery-shot.is-alt");
-    expect(componentsCss).toContain(
-      ".v3-gallery-card:hover .v3-gallery-shot.is-alt",
-    );
+  it("cycles through every product image on hover", () => {
+    expect(cardSource).toContain("gallery_image_urls");
+    expect(cardSource).toContain("setInterval");
+    expect(cardSource).toContain("prefers-reduced-motion");
+    expect(cardSource).toContain("v3-gallery-shot");
+    expect(cardSource).toContain("is-active");
+    expect(componentsCss).toContain(".v3-gallery-shot.is-active");
+    expect(componentsCss).toContain(".v3-gallery-dots");
   });
 });

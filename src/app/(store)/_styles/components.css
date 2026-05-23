@@ -8454,15 +8454,14 @@ html[data-v3-mode="light"] .v3-rail--garage-wall .v3-product-card {
 }
 
 .v3-gallery-plate img {
-  object-fit: contain !important;
-  padding: clamp(12px, 2vw, 22px) !important;
-  filter: drop-shadow(0 18px 22px rgba(0,0,0,.18));
-  transform: scale(.98);
-  transition: transform .38s ease;
+  object-fit: cover !important;
+  padding: 0 !important;
+  transform: scale(1.001);
+  transition: transform 0.6s ease;
 }
 
 .v3-gallery-card:hover .v3-gallery-plate img {
-  transform: scale(1.035);
+  transform: scale(1.06);
 }
 
 /* === product card hover image swap (Nour-inspired) === */
@@ -8472,19 +8471,62 @@ html[data-v3-mode="light"] .v3-rail--garage-wall .v3-product-card {
   inset: 0;
 }
 
-.v3-gallery-shot.is-alt,
+/* landing rail: cycle through every product image on hover */
+.v3-gallery-shot {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.v3-gallery-shot.is-active {
+  opacity: 1;
+}
+
+/* shared card: two-image swap on hover */
 .v3-product-shot.is-alt {
   opacity: 0;
   transition: opacity 0.55s ease;
 }
 
-.v3-gallery-card:hover .v3-gallery-shot.is-alt,
 .v3-product-card:hover .v3-product-shot.is-alt {
   opacity: 1;
 }
 
+/* cycle position indicator */
+.v3-gallery-dots {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 10px;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.v3-gallery-card:hover .v3-gallery-dots {
+  opacity: 1;
+}
+
+.v3-gallery-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(245, 243, 238, 0.4);
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease;
+}
+
+.v3-gallery-dot.is-active {
+  background: var(--v3-red);
+  transform: scale(1.25);
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .v3-gallery-shot.is-alt,
+  .v3-gallery-shot,
   .v3-product-shot.is-alt {
     transition: none;
   }
@@ -8497,12 +8539,20 @@ html[data-v3-mode="light"] .v3-rail--garage-wall .v3-product-card {
 
 .v3-gallery-rank {
   position: absolute;
-  left: 12px;
-  top: 12px;
+  left: 10px;
+  top: 10px;
   z-index: 2;
-  color: rgba(22,24,28,.66);
+  display: grid;
+  place-items: center;
+  min-width: 26px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 4px;
+  background: rgba(5, 6, 8, 0.72);
+  color: var(--v3-bone);
+  border: 1px solid rgba(245, 243, 238, 0.16);
   font-family: var(--v3-display);
-  font-size: .8rem;
+  font-size: 0.72rem;
   font-weight: 900;
 }
 
@@ -8639,6 +8689,6 @@ html[data-v3-mode="light"] .v3-gallery-cta:hover {
   }
 
   .v3-gallery-card:hover .v3-gallery-plate img {
-    transform: scale(.98);
+    transform: scale(1.001);
   }
 }
