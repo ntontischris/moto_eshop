@@ -4,8 +4,11 @@ import Image from "next/image";
 import { useState } from "react";
 
 /* SmartImage — next/image (fill) with a branded fallback when the source
-   fails (e.g. legacy origin unreachable). Keeps CWV intact: still lazy +
-   sized, no extra request on success, placeholder is pure CSS. */
+   fails. Keeps CWV intact: lazy + sized, srcset where we can optimize. */
+
+const LEGACY_HOST = "motomarket-shop.gr";
+
+type Stage = "opt" | "raw" | "fail";
 
 export function SmartImage({
   src,
@@ -18,9 +21,10 @@ export function SmartImage({
   sizes: string;
   priority?: boolean;
 }) {
-  const [failed, setFailed] = useState(false);
+  // opt = try optimized · raw = direct unoptimized fallback · fail = placeholder.
+  const [stage, setStage] = useState<Stage>("opt");
 
-  if (!src || failed) {
+  if (!src || stage === "fail") {
     return (
       <span className="v3-imgph" aria-hidden={alt ? undefined : true}>
         <span className="v3-imgph-mark">MM</span>
@@ -28,22 +32,36 @@ export function SmartImage({
     );
   }
 
-  // Mirrored images live on Supabase Storage → next/image CAN optimize
-  // them (AVIF/WebP, sized, CDN). Legacy /api/image-proxy URLs make the
-  // optimizer 400 on Vercel, so those stay unoptimized (proxy already
-  // serves a cached JPEG; browser fetches it directly).
-  const isMirrored = src.includes(".supabase.co/storage/");
+  const isSupabase = src.includes(".supabase.co/storage/");
+  const isLegacy = src.includes(LEGACY_HOST);
+
+  // Supabase-mirrored images optimize directly. The legacy eshop 403s the
+  // optimizer's UA, so route those through our same-origin proxy — Next can
+  // then emit AVIF/WebP + a sized srcset. If the optimizer ever fails we fall
+  // back to the raw image, then the placeholder, so the catalog never breaks.
+  let url = src;
+  let unoptimized = true;
+  if (isSupabase) {
+    unoptimized = false;
+  } else if (isLegacy && stage === "opt") {
+    url = `/api/image-proxy?url=${encodeURIComponent(src)}`;
+    unoptimized = false;
+  }
+
+  function handleError() {
+    setStage(isLegacy && stage === "opt" ? "raw" : "fail");
+  }
 
   return (
     <Image
-      src={src}
+      src={url}
       alt={alt}
       fill
       priority={priority}
       sizes={sizes}
-      unoptimized={!isMirrored}
+      unoptimized={unoptimized}
       style={{ objectFit: "cover" }}
-      onError={() => setFailed(true)}
+      onError={handleError}
     />
   );
 }

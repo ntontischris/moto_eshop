@@ -51,12 +51,17 @@ export async function GET(req: NextRequest): Promise<Response> {
     });
   }
 
-  return new Response(upstream.body, {
+  // Buffer the body so we can emit an accurate Content-Length. The Next.js
+  // image optimizer rejects responses with a missing/empty Content-Length,
+  // which is why optimizing through this proxy used to 400.
+  const body = await upstream.arrayBuffer();
+
+  return new Response(body, {
     status: 200,
     headers: {
       "Content-Type": upstream.headers.get("content-type") ?? "image/jpeg",
       "Cache-Control": "public, max-age=31536000, immutable",
-      "Content-Length": upstream.headers.get("content-length") ?? "",
+      "Content-Length": String(body.byteLength),
     },
   });
 }
