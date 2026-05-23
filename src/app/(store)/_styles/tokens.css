@@ -41,17 +41,8 @@
       rgba(52, 198, 214, 0.06),
       transparent 60%
     ),
-    repeating-linear-gradient(
-      45deg,
-      rgba(255, 255, 255, 0.014) 0 2px,
-      transparent 2px 5px
-    ),
-    repeating-linear-gradient(
-      -45deg,
-      rgba(255, 255, 255, 0.014) 0 2px,
-      transparent 2px 5px
-    );
-  background-attachment: fixed, fixed, scroll, scroll;
+    var(--v3-weave);
+  background-attachment: fixed, fixed, scroll;
 }
 
 /* fine grain overlay — sits above bg, below content, never blocks input */
@@ -67,6 +58,15 @@
 .v3-root > * {
   position: relative;
   z-index: 1;
+}
+
+/* reusable diagonal weave — added into section BACKGROUNDS (behind content) */
+.v3-root {
+  --v3-weave: repeating-linear-gradient(
+    -45deg,
+    rgba(245, 243, 238, 0.05) 0 1px,
+    transparent 1px 9px
+  );
 }
 
 .v3-root img,

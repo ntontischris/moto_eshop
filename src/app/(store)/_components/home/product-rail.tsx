@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { ProductListItem } from "@/lib/queries/products";
-import { ProductCard } from "../commerce/product-card";
+import { ProductRailScroller } from "./product-rail-scroller";
 
 export interface ProductRailProps {
   title: string;
@@ -11,13 +11,18 @@ export interface ProductRailProps {
 export function ProductRail({ title, products, href }: ProductRailProps) {
   if (products.length === 0) return null;
 
+  const galleryProducts = products.slice(0, 16);
+
   return (
-    <section className="v3-rail v3-rail--reconstructed" aria-label={title}>
+    <section
+      className="v3-rail v3-rail--reconstructed v3-rail--nour-gallery"
+      aria-label={title}
+    >
       <div className="v3-rail-inner">
         <div className="v3-rail-head">
           <div className="v3-rail-htitle">
             <div>
-              <p className="v3-label">Ready to shop</p>
+              <p className="v3-label">New arrivals</p>
               <h2 className="v3-display">{title}</h2>
             </div>
           </div>
@@ -27,13 +32,8 @@ export function ProductRail({ title, products, href }: ProductRailProps) {
             </Link>
           )}
         </div>
-        <div className="v3-rail-track">
-          {products.map((p, i) => (
-            <div key={p.id} className="v3-rail-item">
-              <ProductCard product={p} rank={i + 1} />
-            </div>
-          ))}
-        </div>
+
+        <ProductRailScroller products={galleryProducts} />
       </div>
     </section>
   );

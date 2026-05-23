@@ -10,7 +10,7 @@ export function EditorialBand() {
           src={PHOTO.editorial}
           alt="Premium εξοπλισμός MotoMarket"
           fill
-          sizes="100vw"
+          sizes="(max-width: 860px) 100vw, 58vw"
           style={{ objectFit: "cover" }}
         />
         <span className="v3-ed-scrim" aria-hidden="true" />

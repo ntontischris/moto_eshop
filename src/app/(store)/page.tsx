@@ -83,7 +83,7 @@ export default async function V3Home() {
   const [bestRes, offersRes] = await Promise.all([
     getProductsByCategory({
       categorySlug: "eksoplismos-anabath",
-      perPage: 8,
+      perPage: 16,
       sort: "popular",
     }),
     getProductsByCategory({
