@@ -2,8 +2,9 @@
  * Curated (not live-fetched) — Skroutz/Google block bots. Update periodically.
  *
  * Sources (verified 2026-05-24):
- *  - Google — "Moto Market SA, Καλαμαριά Θεσσαλονίκης": 4.9★ / 2,727 reviews
- *      (brand/physical stores), via Google Maps + citymaps.gr aggregation
+ *  - Google — "Moto Market SA, Καλαμαριά Θεσσαλονίκης": 4.9★ / 3,172 reviews
+ *      (brand/physical stores, count as of 2026-05-24 — round DOWN when
+ *      updating the label so it is never an overclaim)
  *  - Skroutz — "Motomarket-Shop" (eshop), shop 1002: 5.0★ / 75 reviews,
  *      50+ orders/week, 10+ years on the platform
  *  - Business operating for ~4 decades
@@ -33,7 +34,7 @@ export const PROOF_STATS: ProofStat[] = [
   {
     value: "4.9",
     unit: "★",
-    label: "2.700+ αξιολογήσεις",
+    label: "3.100+ αξιολογήσεις",
     source: "Google",
     href: GOOGLE_REVIEWS_URL,
   },
