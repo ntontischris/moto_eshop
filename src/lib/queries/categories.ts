@@ -26,6 +26,12 @@ export interface BreadcrumbItem {
   href: string;
 }
 
+export interface BikeBrand {
+  name: string;
+  slug: string;
+  models: { name: string; slug: string }[];
+}
+
 function rowToCategory(data: {
   id: string;
   slug: string;
@@ -70,6 +76,52 @@ export async function getCategory(slug: string): Promise<Category | null> {
     .single();
   if (error || !data) return null;
   return rowToCategory(data as Parameters<typeof rowToCategory>[0]);
+}
+
+/** Brands (L2 under "my-bike") with their models (L3), for the bike finder. */
+export async function getMyBikeBrands(): Promise<BikeBrand[]> {
+  "use cache";
+  cacheTag("categories");
+  cacheLife("hours");
+  const { createAdminClient } = await import("@/lib/supabase/admin");
+  const supabase = createAdminClient();
+
+  const { data: root } = await supabase
+    .from("categories")
+    .select("id")
+    .eq("slug", "my-bike")
+    .single();
+  if (!root) return [];
+
+  const { data: brands } = await supabase
+    .from("categories")
+    .select("id, name, slug")
+    .eq("parent_id", root.id)
+    .order("name", { ascending: true });
+  if (!brands?.length) return [];
+
+  const { data: models } = await supabase
+    .from("categories")
+    .select("name, slug, parent_id")
+    .in(
+      "parent_id",
+      brands.map((b) => b.id),
+    )
+    .order("name", { ascending: true });
+
+  const byBrand = new Map<string, { name: string; slug: string }[]>();
+  for (const m of models ?? []) {
+    const pid = m.parent_id as string;
+    const list = byBrand.get(pid) ?? [];
+    list.push({ name: m.name, slug: m.slug });
+    byBrand.set(pid, list);
+  }
+
+  return brands.map((b) => ({
+    name: b.name,
+    slug: b.slug,
+    models: byBrand.get(b.id) ?? [],
+  }));
 }
 
 /** Resolve a category by its full hierarchical path (Option B clean URLs). */
