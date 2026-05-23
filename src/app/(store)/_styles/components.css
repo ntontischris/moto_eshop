@@ -5454,6 +5454,22 @@ html[data-v3-mode="light"] .v3-product-card .v3-card__cta:hover {
   }
 }
 
+/* offers deal strip on phones: match the homepage rail (no oversized cards) */
+@media (max-width: 680px) {
+  .v3-off--reconstructed .v3-off-track {
+    grid-auto-columns: 66vw;
+  }
+  .v3-product-card.is-compact {
+    gap: 9px;
+    padding: 7px;
+  }
+  /* keep the compact deal card as lean as the rail card */
+  .v3-product-card.is-compact .v3-product-meta,
+  .v3-product-card.is-compact .v3-card__badges {
+    display: none;
+  }
+}
+
 @media (max-width: 920px) {
   .v3-hero--ride-commerce .v3-hero-bg img {
     object-position: 70% top;
