@@ -8445,11 +8445,36 @@ html[data-v3-mode="light"] .v3-rail--garage-wall .v3-product-card {
 
 .v3-gallery-card {
   position: relative;
+  box-sizing: border-box;
   flex: 0 0 clamp(220px, 22vw, 272px);
   display: grid;
   gap: 14px;
+  padding: 11px 11px 14px;
+  border: 1px solid rgba(228, 17, 31, 0.42);
+  border-radius: 20px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.03),
+    rgba(255, 255, 255, 0.008)
+  );
   transform: perspective(900px) rotateX(0deg) rotateY(0deg);
   transition: transform 0.5s ease;
+}
+
+/* red backlight glow that lights up while the card is hovered/tilting */
+.v3-gallery-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 0 26px 2px rgba(228, 17, 31, 0.5);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.v3-gallery-card:hover::after {
+  opacity: 1;
 }
 
 .v3-gallery-plate {
@@ -8459,8 +8484,8 @@ html[data-v3-mode="light"] .v3-rail--garage-wall .v3-product-card {
   aspect-ratio: 3 / 4;
   background:
     linear-gradient(180deg, #f9f7f2, #ebe6dc);
-  border: 1px solid rgba(228, 17, 31, 0.5);
-  border-radius: 18px;
+  border: 1px solid rgba(245, 243, 238, 0.08);
+  border-radius: 14px;
   transform: translateZ(0);
   isolation: isolate;
   box-shadow:

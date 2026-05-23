@@ -66,7 +66,8 @@ describe("product rail", () => {
     expect(cardSource).toContain("is-active");
     expect(componentsCss).toContain(".v3-gallery-shot.is-active");
     expect(componentsCss).toContain(".v3-gallery-dots");
-    expect(componentsCss).toContain("border-radius: 18px");
+    expect(componentsCss).toContain("border-radius: 20px");
+    expect(componentsCss).toContain(".v3-gallery-card::after");
   });
 
   it("scrolls freely only while the mouse button is held", () => {
