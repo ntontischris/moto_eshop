@@ -8,7 +8,7 @@ import { PriceDisplay } from "../commerce/price-display";
 import { SmartImage } from "../commerce/smart-image";
 import { WishlistButton } from "../commerce/wishlist-button";
 
-const CYCLE_MS = 1700;
+const CYCLE_MS = 1300;
 const TILT_MAX = 7;
 const SIZES = "(max-width: 680px) 72vw, (max-width: 1180px) 34vw, 272px";
 

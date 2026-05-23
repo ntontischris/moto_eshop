@@ -8502,6 +8502,7 @@ html[data-v3-mode="light"] .v3-rail--garage-wall .v3-product-card {
 .v3-gallery-plate img {
   object-fit: cover !important;
   padding: 0 !important;
+  border-radius: 14px;
 }
 
 /* === product card hover image swap (Nour-inspired) === */

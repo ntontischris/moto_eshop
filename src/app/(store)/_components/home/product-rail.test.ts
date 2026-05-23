@@ -53,7 +53,7 @@ describe("product rail", () => {
   it("cycles a product's images only while it is hovered, and tilts in 3D", () => {
     expect(cardSource).toContain("gallery_image_urls");
     expect(cardSource).toContain("setInterval");
-    expect(cardSource).toContain("CYCLE_MS = 1700");
+    expect(cardSource).toContain("CYCLE_MS = 1300");
     expect(cardSource).toContain("startCycle");
     expect(cardSource).toContain("stopCycle");
     expect(cardSource).toContain("onMouseEnter");
