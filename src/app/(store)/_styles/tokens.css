@@ -60,13 +60,10 @@
   z-index: 1;
 }
 
-/* reusable diagonal weave — added into section BACKGROUNDS (behind content) */
+/* diagonal weave removed — kept as a no-op token so existing background
+   shorthands that reference it stay valid (cleaner, line-free sections). */
 .v3-root {
-  --v3-weave: repeating-linear-gradient(
-    -45deg,
-    rgba(245, 243, 238, 0.05) 0 1px,
-    transparent 1px 9px
-  );
+  --v3-weave: none;
 }
 
 .v3-root img,

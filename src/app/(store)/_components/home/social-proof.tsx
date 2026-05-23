@@ -29,11 +29,24 @@ export function SocialProof() {
 
         <div className="v3-proof-scores">
           {PROOF_STATS.map((s) => {
+            const isRating = s.unit === "★";
             const inner = (
               <>
+                {isRating && (
+                  <span className="v3-proof-score-stars" aria-hidden="true">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <Star
+                        key={i}
+                        size={16}
+                        fill="currentColor"
+                        strokeWidth={0}
+                      />
+                    ))}
+                  </span>
+                )}
                 <strong className="v3-proof-score-value">
                   {s.value}
-                  <span>{s.unit}</span>
+                  {!isRating && <span>{s.unit}</span>}
                 </strong>
                 <span className="v3-proof-score-meta">
                   <span className="v3-proof-score-src">{s.source}</span>

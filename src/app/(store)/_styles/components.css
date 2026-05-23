@@ -1355,9 +1355,7 @@
   inset: 0;
   background-image:
     linear-gradient(105deg, transparent 0 62%,
-      rgba(228,17,31,.28) 62.2%, transparent 62.6%),
-    repeating-linear-gradient(90deg,
-      rgba(245,243,238,.035) 0 1px, transparent 1px 80px);
+      rgba(228,17,31,.28) 62.2%, transparent 62.6%);
   mix-blend-mode: screen;
   opacity: .48;
 }
@@ -5519,8 +5517,7 @@ html[data-v3-mode="light"] .v3-product-card .v3-card__cta:hover {
 
 .v3-hero--ride-commerce::before {
   background:
-    linear-gradient(110deg, transparent 0 51%, rgba(228,17,31,.12) 61%, transparent 78%),
-    repeating-linear-gradient(90deg, rgba(255,255,255,.026) 0 1px, transparent 1px 84px);
+    linear-gradient(110deg, transparent 0 51%, rgba(228,17,31,.12) 61%, transparent 78%);
   opacity: .72;
 }
 
@@ -8692,9 +8689,9 @@ html[data-v3-mode="light"] .v3-gallery-cta:hover {
 .v3-proof {
   padding: clamp(54px, 7vw, 96px) 0;
   background:
-    radial-gradient(circle at 50% -10%, rgba(228, 17, 31, 0.16), transparent 46%),
-    var(--v3-weave),
-    #070809;
+    radial-gradient(120% 80% at 50% -18%, rgba(228, 17, 31, 0.24), transparent 56%),
+    radial-gradient(80% 60% at 50% 120%, rgba(228, 17, 31, 0.08), transparent 55%),
+    #060709;
   border-top: 1px solid rgba(245, 243, 238, 0.08);
   border-bottom: 1px solid rgba(245, 243, 238, 0.08);
   overflow: hidden;
@@ -8770,6 +8767,13 @@ html[data-v3-mode="light"] .v3-gallery-cta:hover {
 .v3-proof-score-value span {
   color: var(--v3-red);
   font-size: 0.5em;
+}
+
+.v3-proof-score-stars {
+  display: flex;
+  gap: 3px;
+  color: var(--v3-red);
+  margin-bottom: 2px;
 }
 
 .v3-proof-score-meta {
