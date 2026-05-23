@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ChevronRight, Star } from "lucide-react";
 import type { ProductListItem } from "@/lib/queries/products";
@@ -7,6 +10,16 @@ import { PriceDisplay } from "./price-display";
 import { AvailabilityBadge } from "./availability-badge";
 import { WishlistButton } from "./wishlist-button";
 import { getAvailabilityState } from "../../_lib/availability";
+
+const CYCLE_MS = 1300;
+const TILT_MAX = 7;
+
+function prefersReducedMotion() {
+  return (
+    typeof window !== "undefined" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
+}
 
 interface ProductCardProps {
   product: ProductListItem;
@@ -20,22 +33,97 @@ export function ProductCard({
   compact = false,
 }: ProductCardProps) {
   const href = `/product/${product.slug}`;
-  const badges: { label: string; tone: Tone }[] = [];
+  const images =
+    product.gallery_image_urls && product.gallery_image_urls.length > 0
+      ? product.gallery_image_urls
+      : [product.primary_image_url];
 
+  const [active, setActive] = useState(0);
+  const cardRef = useRef<HTMLElement>(null);
+  const frame = useRef<number | null>(null);
+  const cycle = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  // Cycle through the product's images ONLY while the card is hovered, so a
+  // dense grid never feels busy — every other card stays on its first photo.
+  function startCycle() {
+    if (images.length < 2 || prefersReducedMotion() || cycle.current) return;
+    cycle.current = setInterval(
+      () => setActive((i) => (i + 1) % images.length),
+      CYCLE_MS,
+    );
+  }
+  function stopCycle() {
+    if (cycle.current) {
+      clearInterval(cycle.current);
+      cycle.current = null;
+    }
+    setActive(0);
+  }
+
+  useEffect(
+    () => () => {
+      if (cycle.current) clearInterval(cycle.current);
+    },
+    [],
+  );
+
+  // Subtle 3D tilt toward the cursor. Ref + rAF only — never re-renders React.
+  function handleMove(e: React.MouseEvent<HTMLElement>) {
+    const el = cardRef.current;
+    if (!el || e.buttons !== 0 || prefersReducedMotion()) return;
+    const rect = el.getBoundingClientRect();
+    const px = (e.clientX - rect.left) / rect.width;
+    const py = (e.clientY - rect.top) / rect.height;
+    const rx = (0.5 - py) * TILT_MAX * 2;
+    const ry = (px - 0.5) * TILT_MAX * 2;
+    if (frame.current) cancelAnimationFrame(frame.current);
+    frame.current = requestAnimationFrame(() => {
+      el.style.transform = `perspective(900px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) translateZ(12px)`;
+    });
+  }
+
+  function handleEnter() {
+    startCycle();
+    const el = cardRef.current;
+    if (!el || prefersReducedMotion()) return;
+    el.style.willChange = "transform";
+    el.style.transition = "transform 0.1s ease-out";
+  }
+
+  function handleLeave() {
+    stopCycle();
+    const el = cardRef.current;
+    if (!el) return;
+    if (frame.current) cancelAnimationFrame(frame.current);
+    el.style.transition = "transform 0.5s ease";
+    el.style.transform = "perspective(900px) rotateX(0deg) rotateY(0deg)";
+    el.style.willChange = "auto";
+  }
+
+  const badges: { label: string; tone: Tone }[] = [];
   if (product.certification)
     badges.push({ label: product.certification, tone: "tech" });
   if (product.rider_type)
     badges.push({ label: product.rider_type, tone: "neutral" });
-
   const visibleBadges = badges.slice(0, compact ? 1 : 2);
+
   const rating =
     product.average_rating && product.review_count > 0
       ? product.average_rating.toFixed(1)
       : null;
   const availability = getAvailabilityState(product.stock);
+  const sizes = compact
+    ? "(max-width: 520px) 58vw, 220px"
+    : "(max-width: 520px) 72vw, 280px";
 
   return (
-    <article className={`v3-product-card${compact ? " is-compact" : ""}`}>
+    <article
+      ref={cardRef}
+      className={`v3-product-card${compact ? " is-compact" : ""}`}
+      onMouseEnter={handleEnter}
+      onMouseMove={handleMove}
+      onMouseLeave={handleLeave}
+    >
       <div className="v3-product-stage">
         <Link
           href={href}
@@ -47,28 +135,27 @@ export function ProductCard({
               {String(rank).padStart(2, "0")}
             </span>
           )}
-          <span className="v3-product-shot is-primary">
-            <SmartImage
-              src={product.primary_image_url}
-              alt={product.primary_image_alt || product.name}
-              sizes={
-                compact
-                  ? "(max-width: 520px) 58vw, 220px"
-                  : "(max-width: 520px) 72vw, 280px"
-              }
-            />
-          </span>
-          {product.secondary_image_url && (
-            <span className="v3-product-shot is-alt" aria-hidden="true">
+          {images.map((src, i) => (
+            <span
+              key={`${src}-${i}`}
+              className={`v3-product-shot${i === active ? " is-active" : ""}`}
+              aria-hidden={i === active ? undefined : true}
+            >
               <SmartImage
-                src={product.secondary_image_url}
-                alt=""
-                sizes={
-                  compact
-                    ? "(max-width: 520px) 58vw, 220px"
-                    : "(max-width: 520px) 72vw, 280px"
-                }
+                src={src}
+                alt={i === 0 ? product.primary_image_alt || product.name : ""}
+                sizes={sizes}
               />
+            </span>
+          ))}
+          {images.length > 1 && (
+            <span className="v3-gallery-dots" aria-hidden="true">
+              {images.map((src, i) => (
+                <span
+                  key={`${src}-dot-${i}`}
+                  className={`v3-gallery-dot${i === active ? " is-active" : ""}`}
+                />
+              ))}
             </span>
           )}
         </Link>

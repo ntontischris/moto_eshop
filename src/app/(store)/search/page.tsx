@@ -119,7 +119,7 @@ async function SearchContent({
           .v3-srch-grid { grid-template-columns: repeat(2, 1fr); }
         }
         @media (max-width: 480px) {
-          .v3-srch-grid { grid-template-columns: 1fr; }
+          .v3-srch-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
         }
       `}</style>
     </div>
