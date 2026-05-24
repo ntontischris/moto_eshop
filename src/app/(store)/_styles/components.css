@@ -9236,12 +9236,26 @@ html[data-v3-mode="light"] .v3-mb--reconstructed .v3-mb-console {
 
 .v3-mb-chips-row {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 2px;
+  -webkit-mask-image: linear-gradient(90deg, #000 87%, transparent);
+  mask-image: linear-gradient(90deg, #000 87%, transparent);
+}
+
+.v3-mb-chips-row::-webkit-scrollbar {
+  display: none;
 }
 
 .v3-mb-chip {
-  padding: 8px 14px;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 14px;
   border: 1px solid rgba(245, 243, 238, 0.16);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.04);
@@ -9285,6 +9299,67 @@ html[data-v3-mode="light"] .v3-mb-chip {
   border-color: rgba(22, 24, 28, 0.16);
   background: rgba(22, 24, 28, 0.03);
   color: #16181c;
+}
+
+/* manufacturer logos inside bike-finder chips (white-on-transparent) */
+/* scoped with .v3-mb-chip to beat the global ".v3-root img { height: auto }" reset */
+.v3-mb-chip .v3-mb-chip-logo {
+  flex: 0 0 auto;
+  display: block;
+  height: 16px;
+  width: auto;
+}
+/* white logos -> ink on light chips, but stay white on red hover/active */
+html[data-v3-mode="light"]
+  .v3-mb-chip:not(:hover):not([data-active="true"])
+  .v3-mb-chip-logo {
+  filter: brightness(0);
+}
+
+/* Official brands strip — real logos on light plates (beats .v3-bc-track li) */
+.v3-bc--reconstructed .v3-bc-track {
+  align-items: center;
+  gap: 16px;
+}
+.v3-bc--reconstructed .v3-bc-plate {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 62px;
+  padding: 0 22px;
+  background: #f7f6f3;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.34);
+  opacity: 0.94;
+  transition:
+    transform 0.25s ease,
+    opacity 0.25s ease,
+    box-shadow 0.25s ease;
+}
+.v3-bc--reconstructed .v3-bc-plate img {
+  display: block;
+  height: 30px;
+  width: auto;
+}
+.v3-bc--reconstructed .v3-bc-plate:hover {
+  opacity: 1;
+  transform: translateY(-3px);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.5);
+}
+html[data-v3-mode="light"] .v3-bc--reconstructed .v3-bc-plate {
+  border-color: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+@media (max-width: 680px) {
+  .v3-bc--reconstructed .v3-bc-plate {
+    height: 52px;
+    padding: 0 16px;
+  }
+  .v3-bc--reconstructed .v3-bc-plate img {
+    height: 24px;
+  }
 }
 
 /* bike finder — mobile-first cleanup (phones) */
@@ -9345,4 +9420,51 @@ html[data-v3-mode="light"] .v3-mb-chip {
       ),
       radial-gradient(110% 50% at 50% 0, rgba(228, 17, 31, 0.12), transparent 62%);
   }
+}
+
+/* bike finder — popular-brand chips rail with click arrows (works on desktop too) */
+.v3-mb-chips-rail {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.v3-mb-chips-rail .v3-mb-chips-row {
+  flex: 1;
+  min-width: 0;
+}
+
+.v3-mb-chips-arrow {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgba(245, 243, 238, 0.18);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--v3-bone);
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.v3-mb-chips-arrow:hover {
+  background: var(--v3-red);
+  border-color: var(--v3-red);
+  color: #fff;
+}
+
+html[data-v3-mode="light"] .v3-mb-chips-arrow {
+  border-color: rgba(22, 24, 28, 0.18);
+  background: rgba(22, 24, 28, 0.04);
+  color: #16181c;
+}
+
+html[data-v3-mode="light"] .v3-mb-chips-arrow:hover {
+  background: var(--v3-red);
+  border-color: var(--v3-red);
+  color: #fff;
 }

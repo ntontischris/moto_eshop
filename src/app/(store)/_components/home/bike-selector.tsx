@@ -1,9 +1,46 @@
 "use client";
 
-import { useState } from "react";
+/* eslint-disable @next/next/no-img-element -- small static manufacturer logos inside chips; white-on-transparent PNGs sized by CSS */
+
+import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Bike, ChevronRight, SlidersHorizontal } from "lucide-react";
+import {
+  Bike,
+  ChevronLeft,
+  ChevronRight,
+  SlidersHorizontal,
+} from "lucide-react";
 import type { BikeBrand } from "@/lib/queries/categories";
+
+/** Manufacturer logos available in /public/brands/bikes (white-on-transparent). */
+const BIKE_LOGOS = new Set([
+  "aprilia",
+  "benelli",
+  "bmw",
+  "cfmoto",
+  "ducati",
+  "gilera",
+  "honda",
+  "husqvarna",
+  "kawasaki",
+  "keeway",
+  "ktm",
+  "kymco",
+  "mbk",
+  "motoguzzi",
+  "peugeot",
+  "piaggio",
+  "qjmotor",
+  "royalenfield",
+  "suzuki",
+  "sym",
+  "triumph",
+  "voge",
+  "yamaha",
+  "zontes",
+]);
+
+const logoSlug = (name: string) => name.toLowerCase().replace(/[^a-z0-9]/g, "");
 
 const PRIORITY = [
   "Yamaha",
@@ -45,6 +82,11 @@ export function BikeSelector({ brands }: { brands: BikeBrand[] }) {
   const models = brands.find((b) => b.slug === brandSlug)?.models ?? [];
   const target = modelSlug || brandSlug;
   const popular = pickPopular(brands);
+  const chipsRef = useRef<HTMLDivElement>(null);
+
+  function scrollChips(dir: number) {
+    chipsRef.current?.scrollBy({ left: dir * 200, behavior: "smooth" });
+  }
 
   return (
     <div className="v3-mb-console">
@@ -107,21 +149,53 @@ export function BikeSelector({ brands }: { brands: BikeBrand[] }) {
 
       <div className="v3-mb-chips">
         <span className="v3-mb-chips-label">Δημοφιλείς μάρκες</span>
-        <div className="v3-mb-chips-row">
-          {popular.map((b) => (
-            <button
-              key={b.slug}
-              type="button"
-              className="v3-mb-chip"
-              data-active={b.slug === brandSlug}
-              onClick={() => {
-                setBrandSlug(b.slug);
-                setModelSlug("");
-              }}
-            >
-              {b.name}
-            </button>
-          ))}
+        <div className="v3-mb-chips-rail">
+          <button
+            type="button"
+            className="v3-mb-chips-arrow"
+            onClick={() => scrollChips(-1)}
+            aria-label="Προηγούμενες μάρκες"
+          >
+            <ChevronLeft size={16} aria-hidden="true" />
+          </button>
+          <div className="v3-mb-chips-row" ref={chipsRef}>
+            {popular.map((b) => {
+              const slug = logoSlug(b.name);
+              const hasLogo = BIKE_LOGOS.has(slug);
+              return (
+                <button
+                  key={b.slug}
+                  type="button"
+                  className="v3-mb-chip"
+                  data-active={b.slug === brandSlug}
+                  data-logo={hasLogo || undefined}
+                  onClick={() => {
+                    setBrandSlug(b.slug);
+                    setModelSlug("");
+                  }}
+                >
+                  {hasLogo && (
+                    <img
+                      className="v3-mb-chip-logo"
+                      src={`/brands/bikes/${slug}.png`}
+                      alt=""
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  )}
+                  <span>{b.name}</span>
+                </button>
+              );
+            })}
+          </div>
+          <button
+            type="button"
+            className="v3-mb-chips-arrow"
+            onClick={() => scrollChips(1)}
+            aria-label="Επόμενες μάρκες"
+          >
+            <ChevronRight size={16} aria-hidden="true" />
+          </button>
         </div>
       </div>
     </div>
