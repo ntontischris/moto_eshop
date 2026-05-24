@@ -486,6 +486,7 @@
   font-size: .82rem; color: var(--v3-bone-dim); font-weight: 600;
 }
 .v3-mb-field select {
+  width: 100%; max-width: 100%; box-sizing: border-box;
   height: 48px; padding: 0 12px; border-radius: var(--v3-radius);
   background: var(--v3-surface); color: var(--v3-bone);
   border: 1px solid var(--v3-line);
@@ -9292,18 +9293,24 @@ html[data-v3-mode="light"] .v3-mb-chip {
     padding: 44px 16px 50px;
   }
   .v3-mb--reconstructed .v3-mb-inner {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 20px;
+  }
+  /* let the grid/flex children shrink instead of forcing the track wide */
+  .v3-mb--reconstructed .v3-mb-copy,
+  .v3-mb--reconstructed .v3-mb-console {
+    min-width: 0;
   }
   .v3-mb--reconstructed .v3-mb-copy h2 {
     font-size: clamp(2rem, 8.5vw, 2.9rem);
+    overflow-wrap: anywhere;
   }
   .v3-mb--reconstructed .v3-mb-copy p {
     font-size: 0.92rem;
   }
   /* selects stacked full-width so long model names fit */
   .v3-mb-form {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 12px;
   }
   .v3-mb--reconstructed .v3-mb-console {
