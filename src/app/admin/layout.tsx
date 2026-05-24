@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
 import { requireAdmin } from "@/lib/auth/guards";
+import "@/app/globals.css";
+import { fontVars } from "@/app/_chrome";
 
 export const metadata: Metadata = {
   title: "Admin | MotoMarket",
@@ -26,21 +28,19 @@ const NAV_ITEMS = [
   { href: "/admin/users", label: "Χρήστες", icon: Users },
 ];
 
-export default function AdminLayout(props: {
-  children: React.ReactNode;
-}) {
+export default function AdminLayout(props: { children: React.ReactNode }) {
   return (
-    <Suspense fallback={<AdminLayoutFallback />}>
-      <AdminLayoutContent {...props} />
-    </Suspense>
+    <html lang="el" suppressHydrationWarning className={fontVars}>
+      <body className="min-h-screen bg-background font-sans antialiased">
+        <Suspense fallback={<AdminLayoutFallback />}>
+          <AdminLayoutContent {...props} />
+        </Suspense>
+      </body>
+    </html>
   );
 }
 
-async function AdminLayoutContent({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+async function AdminLayoutContent({ children }: { children: React.ReactNode }) {
   const user = await requireAdmin();
 
   return (
