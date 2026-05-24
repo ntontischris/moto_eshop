@@ -9253,12 +9253,17 @@ html[data-v3-mode="light"] .v3-mb--reconstructed .v3-mb-console {
   transition:
     border-color 0.2s ease,
     background 0.2s ease,
-    color 0.2s ease;
+    color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .v3-mb-chip:hover {
-  border-color: rgba(228, 17, 31, 0.6);
+  background: var(--v3-red);
+  border-color: var(--v3-red);
   color: #fff;
+  transform: translateY(-2px) scale(1.08);
+  box-shadow: 0 8px 22px rgba(228, 17, 31, 0.45);
 }
 
 .v3-mb-chip[data-active="true"] {
