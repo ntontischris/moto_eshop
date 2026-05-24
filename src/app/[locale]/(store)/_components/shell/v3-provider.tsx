@@ -18,8 +18,6 @@ export function cartLineKey(line: Pick<CartLine, "slug" | "size">): string {
 }
 
 interface V3Context {
-  lang: "el" | "en";
-  setLang(l: "el" | "en"): void;
   mode: "dark" | "light";
   toggleMode(): void;
   cart: CartLine[];
@@ -52,7 +50,6 @@ function load<T>(key: string, fallback: T): T {
 }
 
 export function V3Provider({ children }: { children: React.ReactNode }) {
-  const [lang, setLang] = useState<"el" | "en">("el");
   const [mode, setMode] = useState<"dark" | "light">("dark");
   const [cart, setCart] = useState<CartLine[]>([]);
   const [cartOpen, setCartOpen] = useState(false);
@@ -145,8 +142,6 @@ export function V3Provider({ children }: { children: React.ReactNode }) {
   return (
     <Ctx.Provider
       value={{
-        lang,
-        setLang,
         mode,
         toggleMode,
         cart,

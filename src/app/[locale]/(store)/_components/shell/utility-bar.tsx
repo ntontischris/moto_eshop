@@ -1,4 +1,5 @@
 import { Link } from "@/i18n/navigation";
+import { LanguageSwitcher } from "./language-switcher";
 
 export function UtilityBar() {
   return (
@@ -14,6 +15,7 @@ export function UtilityBar() {
         <Link href="/account">Λογαριασμός</Link>
         <Link href="/wishlist">Wishlist</Link>
         <a href="tel:+302109535195">210 95 35 195</a>
+        <LanguageSwitcher />
       </nav>
     </div>
   );
