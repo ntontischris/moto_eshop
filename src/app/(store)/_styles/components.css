@@ -9401,7 +9401,8 @@ html[data-v3-mode="light"] .v3-bc--reconstructed .v3-bc-plate {
   .v3-mb-chip {
     flex: 0 0 auto;
   }
-  .v3-mb-chips-arrow {
+  /* higher specificity so it beats the base `display:none` further down the file */
+  .v3-mb-chips-rail .v3-mb-chips-arrow {
     display: grid;
   }
   /* stronger scrim so the console + text stay crisp over the photo */
