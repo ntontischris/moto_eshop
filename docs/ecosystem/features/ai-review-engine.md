@@ -1,7 +1,7 @@
 # Feature deep-dive — AI Review Engine
 
-> Πυλώνας: [04 · AI Layer](../04-ai-layer.md) · Status: 🔵 ιδέα · Impact High / Effort Med
-> Εξάρτηση: Claude API · Google Business Profile API access · coupons (foundations)
+> Domains: [Reviews & social proof](../README.md) + [AI layer](../README.md) · Status: 🔵 ιδέα · Impact High / Effort Med
+> Εξάρτηση: Claude API · Google Business Profile API access · coupons (foundations) · post-purchase email ([[02-email-messaging]])
 
 **Δύο πράγματα μαζί:** (Α) έξυπνες, προσωπικές απαντήσεις στις κριτικές, και
 (Β) μετατροπή των ανθρώπων που έχουν ήδη αφήσει κριτική σε πελάτες του eshop.
@@ -77,7 +77,7 @@ reviewers — η Google δεν τα δίνει και το scraping/unsolicited 
 Όταν μπει AI πάνω στη διαχείριση του eshop (Odoo), το Review Engine είναι ένα
 από τα πρώτα «agents»: παρακολουθεί κριτικές → απαντά/escalάρει → ταΐζει
 insights (συχνά παράπονα, top προϊόντα, sentiment) στο dashboard.
-Δες [AI ops agents](../05-ops-automation.md) & [Owner insights](../04-ai-layer.md).
+Δες domains: AI ops agents (09 · Ops/Odoo) & Owner insights (08 · AI layer).
 
 ## Architecture sketch
 ```
@@ -99,8 +99,8 @@ insights (συχνά παράπονα, top προϊόντα, sentiment) στο d
 - Google Business Profile API access (σύνδεση του owner λογαριασμού).
 - Πεδία στο `reviews`: `ai_reply_draft`, `reply_status`, `sentiment`,
   `discount_code`, `responded_at`.
-- Discount-code generator + redemption tracking (δένει με checkout — δες
-  [coupons στα foundations](../01-commerce-foundations.md)).
+- Discount-code generator + redemption tracking (δένει με checkout — coupons,
+  domain 01 · Foundations).
 - Brand-voice config.
 - Claude API key + prompt-caching (φτηνότερο σε όγκο).
 
