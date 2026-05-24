@@ -9236,14 +9236,8 @@ html[data-v3-mode="light"] .v3-mb--reconstructed .v3-mb-console {
 
 .v3-mb-chips-row {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   gap: 8px;
-  overflow-x: auto;
-  scrollbar-width: none;
-  -webkit-overflow-scrolling: touch;
-  padding-bottom: 2px;
-  -webkit-mask-image: linear-gradient(90deg, #000 87%, transparent);
-  mask-image: linear-gradient(90deg, #000 87%, transparent);
 }
 
 .v3-mb-chips-row::-webkit-scrollbar {
@@ -9391,19 +9385,24 @@ html[data-v3-mode="light"] .v3-bc--reconstructed .v3-bc-plate {
   .v3-mb--reconstructed .v3-mb-console {
     padding: 18px;
   }
-  /* chips: one swipeable row instead of a tall wrap */
+  /* chips become a swipeable rail + arrows on phones (desktop wraps, no arrows) */
   .v3-mb-chips-row {
     flex-wrap: nowrap;
     overflow-x: auto;
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
     padding-bottom: 4px;
+    -webkit-mask-image: linear-gradient(90deg, #000 90%, transparent);
+    mask-image: linear-gradient(90deg, #000 90%, transparent);
   }
   .v3-mb-chips-row::-webkit-scrollbar {
     display: none;
   }
   .v3-mb-chip {
     flex: 0 0 auto;
+  }
+  .v3-mb-chips-arrow {
+    display: grid;
   }
   /* stronger scrim so the console + text stay crisp over the photo */
   .v3-mb-scrim {
@@ -9436,7 +9435,7 @@ html[data-v3-mode="light"] .v3-bc--reconstructed .v3-bc-plate {
 
 .v3-mb-chips-arrow {
   flex: 0 0 auto;
-  display: grid;
+  display: none;
   place-items: center;
   width: 30px;
   height: 30px;

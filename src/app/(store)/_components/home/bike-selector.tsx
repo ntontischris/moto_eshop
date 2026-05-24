@@ -53,8 +53,8 @@ const PRIORITY = [
   "Aprilia",
 ];
 
-/** Popular brands first, then fill from the rest — always 8 real chips. */
-function pickPopular(brands: BikeBrand[]): BikeBrand[] {
+/** All brands, popular ones first — quick-pick chips (with logos where we have them). */
+function orderBrands(brands: BikeBrand[]): BikeBrand[] {
   const out: BikeBrand[] = [];
   const taken = new Set<string>();
   for (const name of PRIORITY) {
@@ -65,7 +65,6 @@ function pickPopular(brands: BikeBrand[]): BikeBrand[] {
     }
   }
   for (const b of brands) {
-    if (out.length >= 8) break;
     if (!taken.has(b.slug)) {
       out.push(b);
       taken.add(b.slug);
@@ -81,7 +80,7 @@ export function BikeSelector({ brands }: { brands: BikeBrand[] }) {
 
   const models = brands.find((b) => b.slug === brandSlug)?.models ?? [];
   const target = modelSlug || brandSlug;
-  const popular = pickPopular(brands);
+  const popular = orderBrands(brands);
   const chipsRef = useRef<HTMLDivElement>(null);
 
   function scrollChips(dir: number) {
@@ -148,7 +147,7 @@ export function BikeSelector({ brands }: { brands: BikeBrand[] }) {
       </div>
 
       <div className="v3-mb-chips">
-        <span className="v3-mb-chips-label">Δημοφιλείς μάρκες</span>
+        <span className="v3-mb-chips-label">Όλες οι μάρκες</span>
         <div className="v3-mb-chips-rail">
           <button
             type="button"
