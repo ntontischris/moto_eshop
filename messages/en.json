@@ -1,0 +1,25 @@
+{
+  "common": {
+    "addToCart": "Add to cart",
+    "outOfStock": "Out of stock",
+    "inStock": "In stock",
+    "search": "Search",
+    "account": "Account",
+    "cart": "Cart",
+    "wishlist": "Wishlist",
+    "viewProduct": "View product",
+    "loading": "Loading…",
+    "close": "Close",
+    "menu": "Menu"
+  },
+  "nav": {
+    "home": "Home"
+  },
+  "lang": {
+    "switcherLabel": "Language"
+  },
+  "meta": {
+    "title": "MotoMarket - Premium motorcycle gear",
+    "description": "Premium e-shop for rider and motorcycle gear: helmets, jackets, gloves, boots, accessories and parts."
+  }
+}

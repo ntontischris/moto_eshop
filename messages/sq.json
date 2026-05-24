@@ -1,0 +1,25 @@
+{
+  "common": {
+    "addToCart": "Shto në shportë",
+    "outOfStock": "Pa stok",
+    "inStock": "Në stok",
+    "search": "Kërko",
+    "account": "Llogaria",
+    "cart": "Shporta",
+    "wishlist": "Lista e dëshirave",
+    "viewProduct": "Shiko produktin",
+    "loading": "Po ngarkohet…",
+    "close": "Mbyll",
+    "menu": "Menyja"
+  },
+  "nav": {
+    "home": "Ballina"
+  },
+  "lang": {
+    "switcherLabel": "Gjuha"
+  },
+  "meta": {
+    "title": "MotoMarket - Pajisje premium për motoçikleta",
+    "description": "Dyqan premium online për pajisje motoçiklisti dhe motoçiklete: kaska, xhaketa, doreza, çizme, aksesorë dhe pjesë."
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "common": {
+    "addToCart": "Adaugă în coș",
+    "outOfStock": "Stoc epuizat",
+    "inStock": "În stoc",
+    "search": "Căutare",
+    "account": "Cont",
+    "cart": "Coș",
+    "wishlist": "Listă de dorințe",
+    "viewProduct": "Vezi produsul",
+    "loading": "Se încarcă…",
+    "close": "Închide",
+    "menu": "Meniu"
+  },
+  "nav": {
+    "home": "Acasă"
+  },
+  "lang": {
+    "switcherLabel": "Limbă"
+  },
+  "meta": {
+    "title": "MotoMarket - Echipament premium pentru motociclete",
+    "description": "Magazin online premium pentru echipament de motociclist și motocicletă: căști, geci, mănuși, cizme, accesorii și piese."
+  }
+}

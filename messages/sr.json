@@ -1,0 +1,25 @@
+{
+  "common": {
+    "addToCart": "Dodaj u korpu",
+    "outOfStock": "Nema na stanju",
+    "inStock": "Na stanju",
+    "search": "Pretraga",
+    "account": "Nalog",
+    "cart": "Korpa",
+    "wishlist": "Lista želja",
+    "viewProduct": "Pogledaj proizvod",
+    "loading": "Učitavanje…",
+    "close": "Zatvori",
+    "menu": "Meni"
+  },
+  "nav": {
+    "home": "Početna"
+  },
+  "lang": {
+    "switcherLabel": "Jezik"
+  },
+  "meta": {
+    "title": "MotoMarket - Premium moto oprema",
+    "description": "Premium online prodavnica opreme za vozača i motocikl: kacige, jakne, rukavice, čizme, dodaci i delovi."
+  }
+}
