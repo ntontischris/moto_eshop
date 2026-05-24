@@ -9215,3 +9215,68 @@ html[data-v3-mode="light"] .v3-mb--reconstructed .v3-mb-console {
       radial-gradient(90% 60% at 50% 0, rgba(228, 17, 31, 0.12), transparent 60%);
   }
 }
+
+/* popular-brand quick chips inside the garage console */
+.v3-mb-chips {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(245, 243, 238, 0.12);
+}
+
+.v3-mb-chips-label {
+  display: block;
+  margin-bottom: 10px;
+  color: rgba(245, 243, 238, 0.55);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.v3-mb-chips-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.v3-mb-chip {
+  padding: 8px 14px;
+  border: 1px solid rgba(245, 243, 238, 0.16);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--v3-bone);
+  font-family: var(--v3-display);
+  font-weight: 800;
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.v3-mb-chip:hover {
+  border-color: rgba(228, 17, 31, 0.6);
+  color: #fff;
+}
+
+.v3-mb-chip[data-active="true"] {
+  background: var(--v3-red);
+  border-color: var(--v3-red);
+  color: #fff;
+}
+
+html[data-v3-mode="light"] .v3-mb-chips {
+  border-top-color: rgba(22, 24, 28, 0.12);
+}
+
+html[data-v3-mode="light"] .v3-mb-chips-label {
+  color: rgba(22, 24, 28, 0.55);
+}
+
+html[data-v3-mode="light"] .v3-mb-chip {
+  border-color: rgba(22, 24, 28, 0.16);
+  background: rgba(22, 24, 28, 0.03);
+  color: #16181c;
+}
