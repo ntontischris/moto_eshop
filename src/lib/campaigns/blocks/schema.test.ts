@@ -55,4 +55,35 @@ describe("blockSchema", () => {
     ];
     expect(blocksSchema.parse(blocks)).toHaveLength(2);
   });
+
+  it("applies the editorial default imagePosition", () => {
+    const parsed = blockSchema.parse({
+      type: "editorial",
+      title: "T",
+      body: "B",
+      imageUrl: "x",
+    });
+    if (parsed.type === "editorial") {
+      expect(parsed.imagePosition).toBe("left");
+    }
+  });
+
+  it("rejects a comparison with fewer than 2 products", () => {
+    expect(() =>
+      blockSchema.parse({ type: "comparison", productIds: ["only-one"] }),
+    ).toThrow();
+  });
+
+  it("parses faq, socialProof, brandStrip, stickyCta", () => {
+    const blocks = [
+      { type: "faq", items: [{ q: "Q?", a: "A." }] },
+      { type: "socialProof", stats: [{ label: "Riders", value: "10k" }] },
+      {
+        type: "brandStrip",
+        logos: [{ name: "AGV", imageUrl: "/agv.svg" }],
+      },
+      { type: "stickyCta", label: "Buy", href: "/lp/x" },
+    ];
+    expect(blocksSchema.parse(blocks)).toHaveLength(4);
+  });
 });

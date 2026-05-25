@@ -50,12 +50,62 @@ const countdownBlock = z.object({
   targetAt: z.string().min(1),
 });
 
+const editorialBlock = z.object({
+  type: z.literal("editorial"),
+  title: z.string().min(1),
+  body: z.string().min(1),
+  imageUrl: z.string().min(1),
+  imagePosition: z.enum(["left", "right"]).default("left"),
+});
+
+const comparisonBlock = z.object({
+  type: z.literal("comparison"),
+  title: z.string().optional(),
+  productIds: z.array(z.string()).min(2).max(4),
+});
+
+const faqBlock = z.object({
+  type: z.literal("faq"),
+  title: z.string().optional(),
+  items: z
+    .array(z.object({ q: z.string().min(1), a: z.string().min(1) }))
+    .min(1),
+});
+
+const socialProofBlock = z.object({
+  type: z.literal("socialProof"),
+  title: z.string().optional(),
+  stats: z
+    .array(z.object({ label: z.string().min(1), value: z.string().min(1) }))
+    .min(1),
+});
+
+const brandStripBlock = z.object({
+  type: z.literal("brandStrip"),
+  title: z.string().optional(),
+  logos: z
+    .array(z.object({ name: z.string().min(1), imageUrl: z.string().min(1) }))
+    .min(1),
+});
+
+const stickyCtaBlock = z.object({
+  type: z.literal("stickyCta"),
+  label: z.string().min(1),
+  href: z.string().min(1),
+});
+
 export const blockSchema = z.discriminatedUnion("type", [
   heroBlock,
   productRailBlock,
   richTextBlock,
   discountBannerBlock,
   countdownBlock,
+  editorialBlock,
+  comparisonBlock,
+  faqBlock,
+  socialProofBlock,
+  brandStripBlock,
+  stickyCtaBlock,
 ]);
 
 export const blocksSchema = z.array(blockSchema);
