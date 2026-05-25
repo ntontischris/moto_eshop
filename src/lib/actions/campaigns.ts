@@ -347,3 +347,57 @@ export async function cloneCampaign(id: string): Promise<CreateResult> {
   revalidatePath("/admin/campaigns");
   return { success: true, id: clone.id };
 }
+
+// ─── Product picker (for productRail / comparison blocks) ────────────
+
+export interface PickerProduct {
+  id: string;
+  name: string;
+  image: string | null;
+  brand: string;
+}
+
+function mapPicker(row: {
+  id: string;
+  name: string;
+  images: unknown;
+  brands: unknown;
+}): PickerProduct {
+  const imgs = (row.images as { url: string; position: number }[]) ?? [];
+  const sorted = [...imgs].sort((a, b) => a.position - b.position);
+  const brand = row.brands as { name: string } | null;
+  return {
+    id: row.id,
+    name: row.name,
+    image: sorted[0]?.url ?? null,
+    brand: brand?.name ?? "",
+  };
+}
+
+export async function searchProductsForPicker(
+  query: string,
+): Promise<PickerProduct[]> {
+  await assertAdmin();
+  if (!query || query.trim().length < 2) return [];
+  const supabase = createAdminClient();
+  const { data } = await supabase
+    .from("products")
+    .select("id, name, images, brands ( name )")
+    .ilike("name", `%${query.trim()}%`)
+    .eq("status", "active")
+    .limit(10);
+  return (data ?? []).map(mapPicker);
+}
+
+export async function getPickerProducts(
+  ids: string[],
+): Promise<PickerProduct[]> {
+  await assertAdmin();
+  if (ids.length === 0) return [];
+  const supabase = createAdminClient();
+  const { data } = await supabase
+    .from("products")
+    .select("id, name, images, brands ( name )")
+    .in("id", ids);
+  return (data ?? []).map(mapPicker);
+}
