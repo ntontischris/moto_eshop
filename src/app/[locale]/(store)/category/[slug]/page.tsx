@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import type { Locale } from "@/i18n/config";
+import { buildAlternates } from "@/i18n/metadata";
 import { getCategory, getSubcategories } from "@/lib/queries/categories";
 import {
   getProductFilters,
@@ -10,8 +11,6 @@ import {
 import { parsePlpParams } from "../../_lib/plp-params";
 import { ProductCard } from "../../_components/commerce/product-card";
 import { PLPClient } from "./plp-client";
-
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://motomarket.gr";
 
 export async function generateMetadata({
   params,
@@ -27,7 +26,7 @@ export async function generateMetadata({
       cat.seo_intro ??
       cat.description ??
       `${cat.name} από όλα τα κορυφαία brands.`,
-    alternates: { canonical: `${BASE_URL}/category/${slug}` },
+    alternates: buildAlternates(locale, `/category/${slug}`),
   };
 }
 

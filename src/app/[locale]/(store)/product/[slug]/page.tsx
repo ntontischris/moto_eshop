@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import type { Locale } from "@/i18n/config";
+import { buildAlternates } from "@/i18n/metadata";
 import { getProduct, getRelatedProducts } from "@/lib/queries/products";
 import { ProductCard } from "../../_components/commerce/product-card";
 import { PDPClient } from "./pdp-client";
@@ -19,7 +20,7 @@ export async function generateMetadata({
   return {
     title: `${p.brand} ${p.name} | MotoMarket`,
     description: p.description ?? p.name,
-    alternates: { canonical: `${BASE_URL}/product/${slug}` },
+    alternates: buildAlternates(locale, `/product/${slug}`),
     openGraph: { images: p.images.map((i) => i.url), type: "website" },
   };
 }

@@ -1,8 +1,20 @@
 import type { MetadataRoute } from "next";
 import { cacheTag, cacheLife } from "next/cache";
 import { createPublicClient } from "@/lib/supabase/public";
+import { routing } from "@/i18n/routing";
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://motomarket.gr";
+
+function localeAlternates(path: string): { languages: Record<string, string> } {
+  const abs = (l: string) =>
+    l === routing.defaultLocale
+      ? `${BASE_URL}${path}`
+      : `${BASE_URL}/${l}${path}`;
+  const languages: Record<string, string> = {};
+  for (const l of routing.locales) languages[l] = abs(l);
+  languages["x-default"] = abs(routing.defaultLocale);
+  return { languages };
+}
 
 async function getProductEntries(): Promise<MetadataRoute.Sitemap> {
   "use cache";
@@ -21,11 +33,13 @@ async function getProductEntries(): Promise<MetadataRoute.Sitemap> {
     const catSlug =
       (product.categories as unknown as { slug: string } | null)?.slug ??
       "products";
+    const path = `/${catSlug}/${product.slug}`;
     return {
-      url: `${BASE_URL}/${catSlug}/${product.slug}`,
+      url: `${BASE_URL}${path}`,
       lastModified: new Date(product.updated_at),
       changeFrequency: "weekly" as const,
       priority: 0.8,
+      alternates: localeAlternates(path),
     };
   });
 }
@@ -44,6 +58,7 @@ async function getCategoryEntries(): Promise<MetadataRoute.Sitemap> {
     lastModified: new Date(cat.created_at),
     changeFrequency: "daily" as const,
     priority: 0.7,
+    alternates: localeAlternates(`/${cat.slug}`),
   }));
 }
 
@@ -61,6 +76,7 @@ async function getBrandEntries(): Promise<MetadataRoute.Sitemap> {
     lastModified: new Date(brand.created_at),
     changeFrequency: "weekly" as const,
     priority: 0.6,
+    alternates: localeAlternates(`/brands/${brand.slug}`),
   }));
 }
 
@@ -85,6 +101,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: new Date(),
       changeFrequency,
       priority,
+      alternates: localeAlternates(path),
     }),
   );
 

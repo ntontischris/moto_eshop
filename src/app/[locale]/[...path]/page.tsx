@@ -20,6 +20,7 @@ import { redirect } from "@/i18n/navigation";
 import { Suspense } from "react";
 import type { Metadata } from "next";
 import type { Locale } from "@/i18n/config";
+import { buildAlternates } from "@/i18n/metadata";
 
 import {
   getProduct,
@@ -151,7 +152,10 @@ export async function generateMetadata({
     return {
       title: `${product.name} | ${product.brand} | MotoMarket`,
       description: product.description?.slice(0, 160) ?? product.name,
-      alternates: { canonical },
+      alternates: buildAlternates(
+        locale,
+        `/${resolved.canonicalPath.join("/")}`,
+      ),
       openGraph: {
         title: product.name,
         description: product.description?.slice(0, 160) ?? "",
@@ -172,7 +176,7 @@ export async function generateMetadata({
       description:
         category.description ??
         `Αγοράστε ${category.name} online στο MotoMarket.`,
-      alternates: { canonical: `${BASE_URL}/${resolved.fullPath}` },
+      alternates: buildAlternates(locale, `/${resolved.fullPath}`),
     };
   }
   return { title: "Δεν βρέθηκε" };

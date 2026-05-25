@@ -20,6 +20,9 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "meta" });
   return {
+    metadataBase: new URL(
+      process.env.NEXT_PUBLIC_SITE_URL ?? "https://motomarket.gr",
+    ),
     title: { default: t("title"), template: "%s | MotoMarket" },
     description: t("description"),
     keywords: [

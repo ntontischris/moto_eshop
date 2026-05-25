@@ -1,13 +1,15 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import type { Locale } from "@/i18n/config";
+import { buildAlternates } from "@/i18n/metadata";
 import { createClient } from "@/lib/supabase/server";
 import { getCompatibleProductIds } from "@/lib/queries/compatibility";
 import { ProductGrid } from "@/components/product/product-grid";
 import type { ProductListItem } from "@/lib/queries/products";
 
 interface BikePageProps {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: Locale; slug: string }>;
   searchParams: Promise<{ year?: string }>;
 }
 
@@ -24,7 +26,7 @@ export async function generateMetadata({
   params,
   searchParams,
 }: BikePageProps): Promise<Metadata> {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   const { year } = await searchParams;
   const parsed = parseSlug(slug);
   if (!parsed) return {};
@@ -32,6 +34,7 @@ export async function generateMetadata({
   return {
     title: `Εξαρτήματα για ${parsed.make} ${parsed.model}${year ? ` ${year}` : ""} | MotoMarket`,
     description: `Βρες συμβατά εξαρτήματα και αξεσουάρ για ${parsed.make} ${parsed.model}.`,
+    alternates: buildAlternates(locale, `/bikes/${slug}`),
   };
 }
 
@@ -43,10 +46,7 @@ export default function BikeProductsPage(props: BikePageProps) {
   );
 }
 
-async function BikeProductsContent({
-  params,
-  searchParams,
-}: BikePageProps) {
+async function BikeProductsContent({ params, searchParams }: BikePageProps) {
   const { slug } = await params;
   const { year } = await searchParams;
   const parsed = parseSlug(slug);
