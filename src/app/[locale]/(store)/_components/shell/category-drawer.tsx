@@ -2,9 +2,10 @@
 
 import { Link } from "@/i18n/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { NAV } from "@/lib/nav-data";
 import type { NavRoot } from "@/lib/nav-data";
+import { navLabel } from "@/lib/nav-i18n";
 import { LanguageSwitcher } from "./language-switcher";
 
 interface CategoryDrawerProps {
@@ -15,6 +16,7 @@ interface CategoryDrawerProps {
 export function CategoryDrawer({ open, onClose }: CategoryDrawerProps) {
   const t = useTranslations("shell");
   const tlang = useTranslations("lang");
+  const locale = useLocale();
   const [expanded, setExpanded] = useState<string | null>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const drawerRef = useRef<HTMLDivElement>(null);
@@ -180,7 +182,7 @@ export function CategoryDrawer({ open, onClose }: CategoryDrawerProps) {
                   textAlign: "left",
                 }}
               >
-                {root.el}
+                {navLabel(root.el, locale)}
                 {root.children.length > 0 && (
                   <span style={{ fontSize: 12, color: "var(--v3-bone-dim)" }}>
                     {expanded === root.slug ? "▴" : "▾"}
@@ -211,7 +213,7 @@ export function CategoryDrawer({ open, onClose }: CategoryDrawerProps) {
                           borderBottom: "1px solid var(--v3-line)",
                         }}
                       >
-                        {l2.el}
+                        {navLabel(l2.el, locale)}
                       </Link>
                     </li>
                   ))}

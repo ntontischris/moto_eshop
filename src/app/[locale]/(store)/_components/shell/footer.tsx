@@ -1,24 +1,38 @@
 import { Link } from "@/i18n/navigation";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { NAV } from "@/lib/nav-data";
+import { navLabel } from "@/lib/nav-i18n";
 
 const TOP_NAV_ROOTS = NAV.slice(0, 6);
 
 export async function Footer() {
   const t = await getTranslations("shell");
+  const locale = await getLocale();
 
   const SERVICE_LINKS = [
-    { key: "serviceShipping", label: t("serviceShipping") },
-    { key: "serviceReturns", label: t("serviceReturns") },
-    { key: "serviceWarranty", label: t("serviceWarranty") },
-    { key: "serviceContact", label: t("serviceContact") },
+    {
+      key: "serviceShipping",
+      label: t("serviceShipping"),
+      href: "/eksypiretisi/apostoles-epistrofes",
+    },
+    {
+      key: "serviceReturns",
+      label: t("serviceReturns"),
+      href: "/eksypiretisi/apostoles-epistrofes",
+    },
+    {
+      key: "serviceWarranty",
+      label: t("serviceWarranty"),
+      href: "/eksypiretisi/eggyisi",
+    },
+    { key: "serviceContact", label: t("serviceContact"), href: "/epikoinonia" },
   ] as const;
 
   const COMPANY_LINKS = [
-    { key: "companyAbout", label: t("companyAbout") },
-    { key: "companyCareers", label: t("companyCareers") },
-    { key: "companyPress", label: t("companyPress") },
-    { key: "companyPartners", label: t("companyPartners") },
+    { key: "companyAbout", label: t("companyAbout"), href: "/etaireia" },
+    { key: "companyCareers", label: t("companyCareers"), href: "#" },
+    { key: "companyPress", label: t("companyPress"), href: "#" },
+    { key: "companyPartners", label: t("companyPartners"), href: "#" },
   ] as const;
 
   const PAYMENT_METHODS = [
@@ -37,7 +51,9 @@ export async function Footer() {
           <ul className="v3-footer-links">
             {TOP_NAV_ROOTS.map((root) => (
               <li key={root.slug}>
-                <Link href={`/category/${root.slug}`}>{root.el}</Link>
+                <Link href={`/category/${root.slug}`}>
+                  {navLabel(root.el, locale)}
+                </Link>
               </li>
             ))}
           </ul>
@@ -47,9 +63,9 @@ export async function Footer() {
         <div>
           <div className="v3-footer-col-title">{t("footerService")}</div>
           <ul className="v3-footer-links">
-            {SERVICE_LINKS.map(({ key, label }) => (
+            {SERVICE_LINKS.map(({ key, label, href }) => (
               <li key={key}>
-                <a href="#">{label}</a>
+                <Link href={href}>{label}</Link>
               </li>
             ))}
           </ul>
@@ -59,9 +75,13 @@ export async function Footer() {
         <div>
           <div className="v3-footer-col-title">{t("footerCompany")}</div>
           <ul className="v3-footer-links">
-            {COMPANY_LINKS.map(({ key, label }) => (
+            {COMPANY_LINKS.map(({ key, label, href }) => (
               <li key={key}>
-                <a href="#">{label}</a>
+                {href === "#" ? (
+                  <a href="#">{label}</a>
+                ) : (
+                  <Link href={href}>{label}</Link>
+                )}
               </li>
             ))}
           </ul>
