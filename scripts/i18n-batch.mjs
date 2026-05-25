@@ -39,12 +39,44 @@ if (mode === "count") {
 } else if (mode === "fetch") {
   const offset = parseInt(process.argv[3], 10) || 0;
   const limit = parseInt(process.argv[4], 10) || 50;
-  const r = await fetch(
-    `${URL_}/rest/v1/products?select=id,name,description&status=eq.active&description=not.is.null&description=neq.&order=id&offset=${offset}&limit=${limit}`,
-    { headers: H },
-  );
-  const rows = await r.json();
-  console.log(JSON.stringify(rows));
+  const page = 1000;
+  // "done" marker = has an `sq` translation (agents write all 5 locales per
+  // product, so sq present ⇒ fully translated). Lets parallel agents skip
+  // finished products and makes the whole run resumable across sessions.
+  const done = new Set();
+  for (let f = 0; ; f += page) {
+    const r = await fetch(
+      `${URL_}/rest/v1/product_translations?select=product_id&locale=eq.sq`,
+      { headers: { ...H, Range: `${f}-${f + page - 1}` } },
+    );
+    const rows = await r.json();
+    if (!Array.isArray(rows) || rows.length === 0) break;
+    rows.forEach((x) => done.add(x.product_id));
+    if (rows.length < page) break;
+  }
+  // page through active products with a description, skip done, return the
+  // window [offset, offset+limit) of the UNDONE sequence.
+  const out = [];
+  let skipped = 0;
+  for (let pf = 0; ; pf += page) {
+    const r = await fetch(
+      `${URL_}/rest/v1/products?select=id,name,description&status=eq.active&description=not.is.null&description=neq.&order=id`,
+      { headers: { ...H, Range: `${pf}-${pf + page - 1}` } },
+    );
+    const rows = await r.json();
+    if (!Array.isArray(rows) || rows.length === 0) break;
+    for (const row of rows) {
+      if (done.has(row.id)) continue;
+      if (skipped < offset) {
+        skipped++;
+        continue;
+      }
+      out.push(row);
+      if (out.length >= limit) break;
+    }
+    if (out.length >= limit || rows.length < page) break;
+  }
+  console.log(JSON.stringify(out));
 } else if (mode === "write") {
   const path = process.argv[3];
   const items = JSON.parse(readFileSync(path, "utf8"));
