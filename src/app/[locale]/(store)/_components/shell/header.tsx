@@ -7,6 +7,7 @@ import { useRouter } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { useV3 } from "./v3-provider";
 import { CartPanel } from "./cart-panel";
+import { LanguageSwitcher } from "./language-switcher";
 
 export function Header() {
   const t = useTranslations("shell");
@@ -74,6 +75,8 @@ export function Header() {
               )}
               <span>{mode === "dark" ? "Light" : "Dark"}</span>
             </button>
+
+            <LanguageSwitcher />
 
             <button
               className="v3-cart-btn"

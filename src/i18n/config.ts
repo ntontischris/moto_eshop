@@ -11,6 +11,15 @@ export const localeNames: Record<Locale, string> = {
   sq: "Shqip",
 };
 
+export const localeFlags: Record<Locale, string> = {
+  el: "/flags/gr.svg",
+  en: "/flags/gb.svg",
+  bg: "/flags/bg.svg",
+  sr: "/flags/rs.svg",
+  ro: "/flags/ro.svg",
+  sq: "/flags/al.svg",
+};
+
 export function hasLocale(locale: string): locale is Locale {
   return locales.includes(locale as Locale);
 }

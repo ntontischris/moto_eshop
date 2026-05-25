@@ -1,6 +1,5 @@
 import { Link } from "@/i18n/navigation";
 import { getTranslations } from "next-intl/server";
-import { LanguageSwitcher } from "./language-switcher";
 
 export async function UtilityBar() {
   const t = await getTranslations("shell");
@@ -19,7 +18,6 @@ export async function UtilityBar() {
         <Link href="/account">{tc("account")}</Link>
         <Link href="/wishlist">{tc("wishlist")}</Link>
         <a href="tel:+302109535195">210 95 35 195</a>
-        <LanguageSwitcher />
       </nav>
     </div>
   );

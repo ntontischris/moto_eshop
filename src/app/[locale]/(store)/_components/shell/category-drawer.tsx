@@ -2,10 +2,12 @@
 
 import { Link } from "@/i18n/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { Moon, Sun } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { NAV } from "@/lib/nav-data";
 import type { NavRoot } from "@/lib/nav-data";
 import { navLabel } from "@/lib/nav-i18n";
+import { useV3 } from "./v3-provider";
 import { LanguageSwitcher } from "./language-switcher";
 
 interface CategoryDrawerProps {
@@ -15,8 +17,8 @@ interface CategoryDrawerProps {
 
 export function CategoryDrawer({ open, onClose }: CategoryDrawerProps) {
   const t = useTranslations("shell");
-  const tlang = useTranslations("lang");
   const locale = useLocale();
+  const { mode, toggleMode } = useV3();
   const [expanded, setExpanded] = useState<string | null>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const drawerRef = useRef<HTMLDivElement>(null);
@@ -131,30 +133,23 @@ export function CategoryDrawer({ open, onClose }: CategoryDrawerProps) {
           </button>
         </div>
 
-        <div
-          style={{
-            padding: "14px 20px",
-            borderBottom: "1px solid var(--v3-line)",
-            display: "flex",
-            flexDirection: "column",
-            gap: 8,
-          }}
-        >
-          <span
-            style={{
-              fontSize: 11,
-              fontWeight: 700,
-              color: "var(--v3-bone-dim)",
-              letterSpacing: ".08em",
-              textTransform: "uppercase",
-            }}
+        <div className="v3-drawer-settings">
+          <button
+            type="button"
+            className="v3-drawer-theme"
+            onClick={toggleMode}
+            aria-label={
+              mode === "dark" ? t("headerLightMode") : t("headerDarkMode")
+            }
           >
-            {tlang("switcherLabel")}
-          </span>
-          <LanguageSwitcher
-            className="v3-lang-switch v3-lang-switch--drawer"
-            onSwitch={handleClose}
-          />
+            {mode === "dark" ? (
+              <Sun size={16} aria-hidden="true" />
+            ) : (
+              <Moon size={16} aria-hidden="true" />
+            )}
+            <span>{mode === "dark" ? "Light" : "Dark"}</span>
+          </button>
+          <LanguageSwitcher onSwitch={handleClose} />
         </div>
 
         <ul style={{ listStyle: "none", margin: 0, padding: "8px 0" }}>
