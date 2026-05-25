@@ -127,7 +127,7 @@ async function overlayListNames(
   items: ProductListItem[],
   locale: Locale,
 ): Promise<ProductListItem[]> {
-  if (locale === "el" || items.length === 0) return items;
+  if (locale === "en" || items.length === 0) return items;
   const ids = items.map((p) => p.id);
   const { data: trs, error } = await supabase
     .from("product_translations")
@@ -267,10 +267,11 @@ export async function getProduct(
     created_at: data.created_at,
   };
 
-  if (locale === "el") return product;
+  if (locale === "en") return product;
 
-  // Translation fetch is best-effort: a missing table or empty result falls
-  // back to the Greek source so the page never blocks on i18n.
+  // The catalog source text in the DB is English, so `en` reads pass through
+  // above. Every other locale (incl. el) overlays translations; a missing table
+  // or empty result falls back to the English source so the page never blocks.
   const { data: tr } = await supabase
     .from("product_translations")
     .select("name,description")
