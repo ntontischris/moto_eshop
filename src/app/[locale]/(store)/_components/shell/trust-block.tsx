@@ -1,43 +1,60 @@
-import { CreditCard, Headphones, PackageCheck, RotateCcw, ShieldCheck } from "lucide-react";
+import { getTranslations } from "next-intl/server";
+import {
+  CreditCard,
+  Headphones,
+  PackageCheck,
+  RotateCcw,
+  ShieldCheck,
+} from "lucide-react";
 
-const ITEMS = [
-  {
-    title: "Official supply",
-    line: "Γνήσια προϊόντα από επιλεγμένους κατασκευαστές.",
-    icon: ShieldCheck,
-  },
-  {
-    title: "Fast delivery",
-    line: "Αποστολές 1-3 εργάσιμες σε όλη την Ελλάδα.",
-    icon: PackageCheck,
-  },
-  {
-    title: "Fit confidence",
-    line: "Αλλαγές μεγέθους για κράνη, μπουφάν, γάντια και μπότες.",
-    icon: RotateCcw,
-  },
-  {
-    title: "Secure checkout",
-    line: "Καθαρή ροή πληρωμής και ασφαλείς συναλλαγές.",
-    icon: CreditCard,
-  },
-  {
-    title: "Rider support",
-    line: "Τηλεφωνική βοήθεια για επιλογή προϊόντων.",
-    icon: Headphones,
-  },
-];
+export async function TrustBlock() {
+  const t = await getTranslations("shell");
 
-export function TrustBlock() {
+  const ITEMS = [
+    {
+      key: "official",
+      title: "Official supply",
+      line: t("trustOfficialLine"),
+      icon: ShieldCheck,
+    },
+    {
+      key: "delivery",
+      title: "Fast delivery",
+      line: t("trustDeliveryLine"),
+      icon: PackageCheck,
+    },
+    {
+      key: "fit",
+      title: "Fit confidence",
+      line: t("trustFitLine"),
+      icon: RotateCcw,
+    },
+    {
+      key: "secure",
+      title: "Secure checkout",
+      line: t("trustSecureLine"),
+      icon: CreditCard,
+    },
+    {
+      key: "support",
+      title: "Rider support",
+      line: t("trustSupportLine"),
+      icon: Headphones,
+    },
+  ];
+
   return (
-    <section className="v3-trust v3-trust--reconstructed" aria-label="Γιατί MotoMarket">
+    <section
+      className="v3-trust v3-trust--reconstructed"
+      aria-label={t("trustWhy")}
+    >
       <div className="v3-trust-head">
         <p className="v3-label">Trust</p>
-        <h2 className="v3-display">Αγορά με σιγουριά.</h2>
+        <h2 className="v3-display">{t("trustHeading")}</h2>
       </div>
       <div className="v3-trust-grid">
-        {ITEMS.map(({ title, line, icon: Icon }) => (
-          <div key={title} className="v3-trust-cell">
+        {ITEMS.map(({ key, title, line, icon: Icon }) => (
+          <div key={key} className="v3-trust-cell">
             <Icon size={26} aria-hidden="true" />
             <h3>{title}</h3>
             <p>{line}</p>

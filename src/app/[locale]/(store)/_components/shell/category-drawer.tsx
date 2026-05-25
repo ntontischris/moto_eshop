@@ -2,6 +2,7 @@
 
 import { Link } from "@/i18n/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 import { NAV } from "@/lib/nav-data";
 import type { NavRoot } from "@/lib/nav-data";
 
@@ -11,6 +12,7 @@ interface CategoryDrawerProps {
 }
 
 export function CategoryDrawer({ open, onClose }: CategoryDrawerProps) {
+  const t = useTranslations("shell");
   const [expanded, setExpanded] = useState<string | null>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const drawerRef = useRef<HTMLDivElement>(null);
@@ -77,7 +79,7 @@ export function CategoryDrawer({ open, onClose }: CategoryDrawerProps) {
       <div
         ref={drawerRef}
         role="dialog"
-        aria-label="Κατηγορίες"
+        aria-label={t("categoriesLabel")}
         aria-modal="true"
         aria-hidden={!open}
         style={{
@@ -106,12 +108,12 @@ export function CategoryDrawer({ open, onClose }: CategoryDrawerProps) {
           }}
         >
           <span style={{ fontWeight: 700, color: "var(--v3-bone)" }}>
-            Κατηγορίες
+            {t("categoriesLabel")}
           </span>
           <button
             ref={closeRef}
             onClick={handleClose}
-            aria-label="Κλείσιμο"
+            aria-label={t("categoriesLabel")}
             style={{
               background: "none",
               border: "none",

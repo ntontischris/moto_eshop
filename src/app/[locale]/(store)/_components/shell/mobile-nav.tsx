@@ -3,10 +3,13 @@
 import { Link } from "@/i18n/navigation";
 import { Bike, Home, Menu, Search, ShoppingBag } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { useV3 } from "./v3-provider";
 import { CategoryDrawer } from "./category-drawer";
 
 export function MobileNav() {
+  const t = useTranslations("shell");
+  const tc = useTranslations("common");
   const { cartCount, setCartOpen } = useV3();
   const [drawerOpen, setDrawerOpen] = useState(false);
 
@@ -26,25 +29,29 @@ export function MobileNav() {
     <>
       <CategoryDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
 
-      <nav className="v3-mobile-nav" aria-label="Κινητή πλοήγηση">
+      <nav className="v3-mobile-nav" aria-label={t("mobileNav")}>
         <Link href="/" className="v3-mob-item">
           <Home size={18} aria-hidden="true" />
-          Home
+          {tc("home")}
         </Link>
 
         <button
           className="v3-mob-item"
           onClick={() => setDrawerOpen(true)}
-          aria-label="Άνοιγμα κατηγοριών"
+          aria-label={t("mobileOpenCategories")}
           aria-expanded={drawerOpen}
         >
           <Menu size={18} aria-hidden="true" />
-          Menu
+          {tc("menu")}
         </button>
 
-        <button className="v3-mob-item" onClick={focusSearch} aria-label="Αναζήτηση">
+        <button
+          className="v3-mob-item"
+          onClick={focusSearch}
+          aria-label={t("mobileSearchLabel")}
+        >
           <Search size={18} aria-hidden="true" />
-          Search
+          {tc("search")}
         </button>
 
         <a href="#my-bike" className="v3-mob-item">
@@ -55,7 +62,7 @@ export function MobileNav() {
         <button
           className="v3-mob-item"
           onClick={() => setCartOpen(true)}
-          aria-label={`Καλάθι, ${cartCount} προϊόντα`}
+          aria-label={t("mobileCartLabel", { count: cartCount })}
         >
           <span className="v3-mob-badge">
             <ShoppingBag size={18} aria-hidden="true" />
@@ -65,7 +72,7 @@ export function MobileNav() {
               </span>
             )}
           </span>
-          Cart
+          {tc("cart")}
         </button>
       </nav>
     </>

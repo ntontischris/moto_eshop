@@ -1,31 +1,39 @@
 import { Link } from "@/i18n/navigation";
+import { getTranslations } from "next-intl/server";
 import { NAV } from "@/lib/nav-data";
-
-const SERVICE_LINKS = [
-  "Αποστολές",
-  "Επιστροφές",
-  "Εγγύηση",
-  "Επικοινωνία",
-] as const;
-
-const COMPANY_LINKS = [
-  "Σχετικά με εμάς",
-  "Καριέρα",
-  "Τύπος",
-  "Συνεργασίες",
-] as const;
-
-const PAYMENT_METHODS = ["Visa", "Mastercard", "IRIS", "Αντικαταβολή"] as const;
 
 const TOP_NAV_ROOTS = NAV.slice(0, 6);
 
-export function Footer() {
+export async function Footer() {
+  const t = await getTranslations("shell");
+
+  const SERVICE_LINKS = [
+    { key: "serviceShipping", label: t("serviceShipping") },
+    { key: "serviceReturns", label: t("serviceReturns") },
+    { key: "serviceWarranty", label: t("serviceWarranty") },
+    { key: "serviceContact", label: t("serviceContact") },
+  ] as const;
+
+  const COMPANY_LINKS = [
+    { key: "companyAbout", label: t("companyAbout") },
+    { key: "companyCareers", label: t("companyCareers") },
+    { key: "companyPress", label: t("companyPress") },
+    { key: "companyPartners", label: t("companyPartners") },
+  ] as const;
+
+  const PAYMENT_METHODS = [
+    "Visa",
+    "Mastercard",
+    "IRIS",
+    t("footerCod"),
+  ] as const;
+
   return (
     <footer className="v3-footer">
       <div className="v3-footer-grid">
         {/* Column 1: Categories */}
         <div>
-          <div className="v3-footer-col-title">Κατηγορίες</div>
+          <div className="v3-footer-col-title">{t("footerCategories")}</div>
           <ul className="v3-footer-links">
             {TOP_NAV_ROOTS.map((root) => (
               <li key={root.slug}>
@@ -37,10 +45,10 @@ export function Footer() {
 
         {/* Column 2: Service */}
         <div>
-          <div className="v3-footer-col-title">Εξυπηρέτηση</div>
+          <div className="v3-footer-col-title">{t("footerService")}</div>
           <ul className="v3-footer-links">
-            {SERVICE_LINKS.map((label) => (
-              <li key={label}>
+            {SERVICE_LINKS.map(({ key, label }) => (
+              <li key={key}>
                 <a href="#">{label}</a>
               </li>
             ))}
@@ -49,10 +57,10 @@ export function Footer() {
 
         {/* Column 3: Company */}
         <div>
-          <div className="v3-footer-col-title">Εταιρεία</div>
+          <div className="v3-footer-col-title">{t("footerCompany")}</div>
           <ul className="v3-footer-links">
-            {COMPANY_LINKS.map((label) => (
-              <li key={label}>
+            {COMPANY_LINKS.map(({ key, label }) => (
+              <li key={key}>
                 <a href="#">{label}</a>
               </li>
             ))}
@@ -61,10 +69,8 @@ export function Footer() {
       </div>
 
       <div className="v3-footer-bottom">
-        <span className="v3-footer-copyright">
-          © 2026 MotoMarket. Όλα τα δικαιώματα διατηρούνται.
-        </span>
-        <div className="v3-payment-row" aria-label="Αποδεκτοί τρόποι πληρωμής">
+        <span className="v3-footer-copyright">{t("footerCopyright")}</span>
+        <div className="v3-payment-row" aria-label={t("footerPayments")}>
           {PAYMENT_METHODS.map((method) => (
             <span key={method} className="v3-payment-chip">
               {method}

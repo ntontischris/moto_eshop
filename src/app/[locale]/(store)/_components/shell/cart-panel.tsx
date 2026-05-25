@@ -2,12 +2,15 @@
 
 import { Link } from "@/i18n/navigation";
 import { useCallback, useEffect, useRef } from "react";
+import { useTranslations } from "next-intl";
 import { formatPrice } from "../../_lib/format";
 import { getCartRecommendations } from "../../_lib/cart-recommendations";
 import { useV3 } from "./v3-provider";
 import { cartLineKey } from "./v3-provider";
 
 export function CartPanel() {
+  const t = useTranslations("shell");
+  const tc = useTranslations("common");
   const { cart, cartOpen, setCartOpen } = useV3();
   const panelRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
@@ -70,27 +73,27 @@ export function CartPanel() {
       <button
         className="v3-cart-panel-backdrop"
         type="button"
-        aria-label="Κλείσιμο καλαθιού"
+        aria-label={t("cartClose")}
         onClick={() => setCartOpen(false)}
       />
       <aside
         ref={panelRef}
         className="v3-cart-panel"
         role="dialog"
-        aria-label="Καλάθι αγορών"
+        aria-label={t("cartDialog")}
         aria-modal="true"
       >
         <header className="v3-cart-panel-head">
           <div>
             <p className="v3-label">MotoMarket cart</p>
-            <h2>Καλάθι</h2>
+            <h2>{tc("cart")}</h2>
           </div>
           <button
             ref={closeRef}
             className="v3-cart-panel-close"
             type="button"
             onClick={() => setCartOpen(false)}
-            aria-label="Κλείσιμο καλαθιού"
+            aria-label={t("cartClose")}
           >
             ×
           </button>
@@ -98,13 +101,13 @@ export function CartPanel() {
 
         {cart.length === 0 ? (
           <div className="v3-cart-panel-empty">
-            <p>Το καλάθι σου είναι άδειο.</p>
+            <p>{t("cartEmpty")}</p>
             <Link
               className="v3-btn-primary"
               href="/category/eksoplismos-anabath"
               onClick={() => setCartOpen(false)}
             >
-              Συνέχισε αγορές <span aria-hidden="true">→</span>
+              {tc("continueShopping")} <span aria-hidden="true">→</span>
             </Link>
           </div>
         ) : (
@@ -125,7 +128,9 @@ export function CartPanel() {
                       >
                         {line.name}
                       </Link>
-                      {line.size && <em>Μέγεθος: {line.size}</em>}
+                      {line.size && (
+                        <em>{t("cartSizeLabel", { size: line.size })}</em>
+                      )}
                       <small>
                         {line.qty} × {formatPrice(line.price)}
                       </small>
@@ -135,9 +140,12 @@ export function CartPanel() {
                 ))}
               </ul>
 
-              <section className="v3-cart-panel-recs" aria-label="Προτάσεις καλαθιού">
+              <section
+                className="v3-cart-panel-recs"
+                aria-label={t("cartRecs")}
+              >
                 <p className="v3-label">Complete your ride</p>
-                <h3>Ταιριάζει με το καλάθι σου</h3>
+                <h3>{t("cartFitsYour")}</h3>
                 <div className="v3-cart-rec-list">
                   {recommendations.map((rec) => (
                     <Link
@@ -157,7 +165,7 @@ export function CartPanel() {
 
             <footer className="v3-cart-panel-foot">
               <div>
-                <span>Υποσύνολο</span>
+                <span>{tc("subtotal")}</span>
                 <strong>{formatPrice(subtotal)}</strong>
               </div>
               <Link
@@ -165,7 +173,7 @@ export function CartPanel() {
                 onClick={() => setCartOpen(false)}
                 className="v3-btn-primary"
               >
-                Δες καλάθι & ολοκλήρωση
+                {tc("viewCart")}
               </Link>
             </footer>
           </>

@@ -4,11 +4,13 @@ import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 import { MEGA_MENU_CLOSE_DELAY_MS, MEGA_MENU_PANELS } from "./mega-menu-data";
 
 type PanelKey = (typeof MEGA_MENU_PANELS)[number]["key"];
 
 export function MegaMenu() {
+  const t = useTranslations("shell");
   const [open, setOpen] = useState<PanelKey>(MEGA_MENU_PANELS[0].key);
   const [isExpanded, setIsExpanded] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -48,7 +50,7 @@ export function MegaMenu() {
       className={`v3-mega-bar v3-mega-bar--reconstructed${
         isExpanded ? " is-expanded" : ""
       }`}
-      aria-label="Κύρια πλοήγηση"
+      aria-label={t("megaMenuNav")}
       onMouseEnter={() => openMenu()}
       onMouseLeave={scheduleClose}
       onFocus={() => openMenu()}
@@ -74,7 +76,7 @@ export function MegaMenu() {
         </div>
 
         <div className="v3-mega-quick">
-          <Link href="/category/prosfores">Προσφορές</Link>
+          <Link href="/category/prosfores">{t("headerOffers")}</Link>
           <Link href="#my-bike">Bike Finder</Link>
         </div>
       </div>
@@ -98,15 +100,23 @@ export function MegaMenu() {
               <span>{active.eyebrow}</span>
               <strong>{active.title}</strong>
               <em>
-                Άνοιγμα κατηγορίας <ArrowRight size={15} aria-hidden="true" />
+                {t("megaMenuOpenCategory")}{" "}
+                <ArrowRight size={15} aria-hidden="true" />
               </em>
             </span>
           </Link>
 
           <div className="v3-mega-content">
-            <div className="v3-mega-shortcuts" aria-label="Γρήγορες επιλογές">
+            <div
+              className="v3-mega-shortcuts"
+              aria-label={t("megaMenuQuickLinks")}
+            >
               {active.quickLinks.map((link) => (
-                <Link key={link.label} href={link.href} className="v3-mega-shortcut">
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  className="v3-mega-shortcut"
+                >
                   <strong>{link.label}</strong>
                   {link.meta && <span>{link.meta}</span>}
                 </Link>

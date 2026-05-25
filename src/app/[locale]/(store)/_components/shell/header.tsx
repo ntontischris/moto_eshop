@@ -4,10 +4,13 @@ import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import { Menu, Moon, Search, ShoppingBag, Sun, Tag, Zap } from "lucide-react";
 import { useRouter } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import { useV3 } from "./v3-provider";
 import { CartPanel } from "./cart-panel";
 
 export function Header() {
+  const t = useTranslations("shell");
+  const tc = useTranslations("common");
   const { cartCount, cartOpen, setCartOpen, mode, toggleMode } = useV3();
   const router = useRouter();
 
@@ -25,7 +28,7 @@ export function Header() {
     <>
       <header className="v3-header v3-header--reconstructed">
         <div className="v3-header-inner">
-          <Link href="/" className="v3-wordmark" aria-label="MotoMarket αρχική">
+          <Link href="/" className="v3-wordmark" aria-label={t("headerHome")}>
             <span className="v3-wordmark-logo">
               <Image src="/logo.png" alt="" width={188} height={56} priority />
             </span>
@@ -37,11 +40,15 @@ export function Header() {
               type="search"
               name="q"
               className="v3-search-input"
-              aria-label="Αναζήτηση προϊόντων"
-              placeholder="Κράνος, μπουφάν, AGV, GIVI, Quad Lock..."
+              aria-label={t("headerSearchInput")}
+              placeholder={t("headerSearchPlaceholder")}
               autoComplete="off"
             />
-            <button className="v3-search-submit" type="submit" aria-label="Αναζήτηση">
+            <button
+              className="v3-search-submit"
+              type="submit"
+              aria-label={t("headerSearchSubmit")}
+            >
               <Zap size={15} aria-hidden="true" />
             </button>
           </form>
@@ -49,7 +56,7 @@ export function Header() {
           <div className="v3-header-actions">
             <Link href="/category/prosfores" className="v3-header-drop">
               <Tag size={15} aria-hidden="true" />
-              Προσφορές
+              {t("headerOffers")}
             </Link>
 
             <button
@@ -57,9 +64,7 @@ export function Header() {
               type="button"
               onClick={toggleMode}
               aria-label={
-                mode === "dark"
-                  ? "Άνοιγμα ανοιχτής έκδοσης"
-                  : "Άνοιγμα σκοτεινής έκδοσης"
+                mode === "dark" ? t("headerLightMode") : t("headerDarkMode")
               }
             >
               {mode === "dark" ? (
@@ -73,11 +78,11 @@ export function Header() {
             <button
               className="v3-cart-btn"
               onClick={() => setCartOpen(!cartOpen)}
-              aria-label={`Καλάθι, ${cartCount} προϊόντα`}
+              aria-label={t("headerCartLabel", { count: cartCount })}
               aria-expanded={cartOpen}
             >
               <ShoppingBag size={17} aria-hidden="true" />
-              <span>Καλάθι</span>
+              <span>{tc("cart")}</span>
               {cartCount > 0 && (
                 <span className="v3-cart-badge" aria-hidden="true">
                   {cartCount}
@@ -89,7 +94,7 @@ export function Header() {
           <button
             className="v3-header-menu"
             type="button"
-            aria-label="Άνοιγμα μενού"
+            aria-label={t("headerOpenMenu")}
             onClick={openMenu}
           >
             <Menu size={20} aria-hidden="true" />
