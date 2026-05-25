@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
+import type { Locale } from "@/i18n/config";
 import { getProduct, getRelatedProducts } from "@/lib/queries/products";
 import { ProductCard } from "../../_components/commerce/product-card";
 import { PDPClient } from "./pdp-client";
@@ -10,10 +11,10 @@ const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://motomarket.gr";
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: Locale; slug: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params;
-  const p = await getProduct(slug);
+  const { locale, slug } = await params;
+  const p = await getProduct(slug, locale);
   if (!p) return { title: "Product not found" };
   return {
     title: `${p.brand} ${p.name} | MotoMarket`,
@@ -24,7 +25,7 @@ export async function generateMetadata({
 }
 
 export default function V3ProductPage(props: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: Locale; slug: string }>;
 }) {
   return (
     <Suspense fallback={<ProductPageFallback />}>
@@ -36,16 +37,17 @@ export default function V3ProductPage(props: {
 async function V3ProductPageContent({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: Locale; slug: string }>;
 }) {
-  const { slug } = await params;
-  const product = await getProduct(slug);
+  const { locale, slug } = await params;
+  const product = await getProduct(slug, locale);
   if (!product) notFound();
 
   const relatedAll = await getRelatedProducts(
     product.id,
     product.category_slug,
     8,
+    locale,
   );
   const related = relatedAll.filter((p) => p.slug !== product.slug).slice(0, 4);
 

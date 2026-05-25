@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { Locale } from "@/i18n/config";
 import { getProductsByCategory } from "@/lib/queries/products";
 import { Hero } from "./_components/home/hero";
 import { RaceControlPanel } from "./_components/home/race-control-panel";
@@ -81,18 +82,29 @@ const SHORTCUTS: ShortcutItem[] = [
   },
 ];
 
-export default async function V3Home() {
+export default async function V3Home({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}) {
+  const { locale } = await params;
   const [bestRes, offersRes] = await Promise.all([
-    getProductsByCategory({
-      categorySlug: "eksoplismos-anabath",
-      perPage: 16,
-      sort: "popular",
-    }),
-    getProductsByCategory({
-      categorySlug: "eksoplismos-anabath",
-      perPage: 8,
-      sort: "newest",
-    }),
+    getProductsByCategory(
+      {
+        categorySlug: "eksoplismos-anabath",
+        perPage: 16,
+        sort: "popular",
+      },
+      locale,
+    ),
+    getProductsByCategory(
+      {
+        categorySlug: "eksoplismos-anabath",
+        perPage: 8,
+        sort: "newest",
+      },
+      locale,
+    ),
   ]);
 
   return (

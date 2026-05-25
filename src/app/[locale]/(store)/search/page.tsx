@@ -1,6 +1,7 @@
 import { Link } from "@/i18n/navigation";
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import type { Locale } from "@/i18n/config";
 import { searchProducts } from "@/lib/queries/products";
 import { ProductCard } from "../_components/commerce/product-card";
 
@@ -12,6 +13,7 @@ export const metadata: Metadata = {
 const PER_PAGE = 24;
 
 export default function SearchPage(props: {
+  params: Promise<{ locale: Locale }>;
   searchParams: Promise<{ q?: string; page?: string }>;
 }) {
   return (
@@ -22,16 +24,19 @@ export default function SearchPage(props: {
 }
 
 async function SearchContent({
+  params,
   searchParams,
 }: {
+  params: Promise<{ locale: Locale }>;
   searchParams: Promise<{ q?: string; page?: string }>;
 }) {
+  const { locale } = await params;
   const sp = await searchParams;
   const q = (sp.q ?? "").trim();
   const page = Math.max(1, Number(sp.page) || 1);
 
   const res = q
-    ? await searchProducts(q, page, PER_PAGE)
+    ? await searchProducts(q, page, PER_PAGE, locale)
     : { data: [], total: 0, page: 1, perPage: PER_PAGE, totalPages: 0 };
 
   const base = `/search?q=${encodeURIComponent(q)}`;

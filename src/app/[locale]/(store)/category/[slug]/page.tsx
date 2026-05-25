@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
+import type { Locale } from "@/i18n/config";
 import { getCategory, getSubcategories } from "@/lib/queries/categories";
 import {
   getProductFilters,
@@ -15,10 +16,10 @@ const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://motomarket.gr";
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: Locale; slug: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params;
-  const cat = await getCategory(slug);
+  const { locale, slug } = await params;
+  const cat = await getCategory(slug, locale);
   if (!cat) return { title: "Category not found" };
   return {
     title: `${cat.name} | MotoMarket`,
@@ -33,7 +34,7 @@ export async function generateMetadata({
 type SearchParams = Record<string, string | string[] | undefined>;
 
 export default function V3CategoryPage(props: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: Locale; slug: string }>;
   searchParams: Promise<SearchParams>;
 }) {
   return (
@@ -47,29 +48,32 @@ async function V3CategoryPageContent({
   params,
   searchParams,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: Locale; slug: string }>;
   searchParams: Promise<SearchParams>;
 }) {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   const sp = await searchParams;
 
-  const cat = await getCategory(slug);
+  const cat = await getCategory(slug, locale);
   if (!cat) notFound();
 
   const state = parsePlpParams(sp);
 
   const [result, filters, subcats] = await Promise.all([
-    getProductsByCategory({
-      categorySlug: slug,
-      page: state.page,
-      perPage: 24,
-      sort: state.sort,
-      brands: state.brands.length ? state.brands : undefined,
-      priceMin: state.priceMin,
-      priceMax: state.priceMax,
-    }),
+    getProductsByCategory(
+      {
+        categorySlug: slug,
+        page: state.page,
+        perPage: 24,
+        sort: state.sort,
+        brands: state.brands.length ? state.brands : undefined,
+        priceMin: state.priceMin,
+        priceMax: state.priceMax,
+      },
+      locale,
+    ),
     getProductFilters(slug),
-    getSubcategories(slug),
+    getSubcategories(slug, locale),
   ]);
 
   return (

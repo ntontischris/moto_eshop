@@ -16,10 +16,10 @@
  */
 
 import { notFound } from "next/navigation";
-import { getLocale } from "next-intl/server";
 import { redirect } from "@/i18n/navigation";
 import { Suspense } from "react";
 import type { Metadata } from "next";
+import type { Locale } from "@/i18n/config";
 
 import {
   getProduct,
@@ -135,17 +135,17 @@ async function resolvePath(segments: string[]): Promise<Resolved> {
 // Metadata
 // ────────────────────────────────────────────────────────────────────────
 interface PageProps {
-  params: Promise<{ path: string[] }>;
+  params: Promise<{ locale: Locale; path: string[] }>;
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }
 
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
-  const { path: segments } = await params;
+  const { locale, path: segments } = await params;
   const resolved = await resolvePath(segments);
   if (resolved.kind === "product") {
-    const product = await getProduct(resolved.productSlug);
+    const product = await getProduct(resolved.productSlug, locale);
     if (!product) return { title: "Δεν βρέθηκε" };
     const canonical = `${BASE_URL}/${resolved.canonicalPath.join("/")}`;
     return {
@@ -190,7 +190,7 @@ export default function CatchAllPage(props: PageProps) {
 }
 
 async function CatchAllContent({ params, searchParams }: PageProps) {
-  const { path: segments } = await params;
+  const { locale, path: segments } = await params;
   const sp = await searchParams;
   const resolved = await resolvePath(segments);
 
@@ -201,14 +201,25 @@ async function CatchAllContent({ params, searchParams }: PageProps) {
     const currentPath = segments.join("/");
     const canonical = resolved.canonicalPath.join("/");
     if (currentPath !== canonical && resolved.canonicalPath.length > 1) {
-      const locale = await getLocale();
       redirect({ href: `/${canonical}`, locale });
     }
-    return <ProductView slug={resolved.productSlug} pathSegments={segments} />;
+    return (
+      <ProductView
+        slug={resolved.productSlug}
+        pathSegments={segments}
+        locale={locale}
+      />
+    );
   }
 
   // category
-  return <CategoryView fullPath={resolved.fullPath} searchParams={sp} />;
+  return (
+    <CategoryView
+      fullPath={resolved.fullPath}
+      searchParams={sp}
+      locale={locale}
+    />
+  );
 }
 
 function CatchAllFallback() {
@@ -233,11 +244,13 @@ function CatchAllFallback() {
 async function ProductView({
   slug,
   pathSegments,
+  locale,
 }: {
   slug: string;
   pathSegments: string[];
+  locale: Locale;
 }) {
-  const product = await getProduct(slug);
+  const product = await getProduct(slug, locale);
   if (!product) notFound();
 
   // Build breadcrumbs from the URL path (skip the trailing product slug)
@@ -357,6 +370,7 @@ async function ProductView({
         <RelatedProductsSection
           productId={product.id}
           categoryPathSegments={pathSegments.slice(0, -1)}
+          locale={locale}
         />
       </Suspense>
 
@@ -374,14 +388,16 @@ async function ProductView({
 async function RelatedProductsSection({
   productId,
   categoryPathSegments,
+  locale,
 }: {
   productId: string;
   categoryPathSegments: string[];
+  locale: Locale;
 }) {
   // Use the leaf category slug as the category for related lookup
   const leaf = categoryPathSegments[categoryPathSegments.length - 1] ?? "";
   if (!leaf) return null;
-  const related = await getRelatedProducts(productId, leaf);
+  const related = await getRelatedProducts(productId, leaf, 8, locale);
   if (related.length === 0) return null;
   return (
     <section className="mt-12">
@@ -397,9 +413,11 @@ async function RelatedProductsSection({
 async function CategoryView({
   fullPath,
   searchParams,
+  locale,
 }: {
   fullPath: string;
   searchParams: Record<string, string | string[] | undefined>;
+  locale: Locale;
 }) {
   const category = await getCategoryByPath(fullPath);
   if (!category) notFound();
@@ -412,19 +430,22 @@ async function CategoryView({
 
   const brandFilter = searchParams.brand as string | undefined;
   const [listing, filters] = await Promise.all([
-    getProductsByCategory({
-      categorySlug: category.slug,
-      sort,
-      page,
-      perPage: 24,
-      brands: brandFilter ? [brandFilter] : undefined,
-      priceMin: searchParams.priceMin
-        ? Number(searchParams.priceMin)
-        : undefined,
-      priceMax: searchParams.priceMax
-        ? Number(searchParams.priceMax)
-        : undefined,
-    }),
+    getProductsByCategory(
+      {
+        categorySlug: category.slug,
+        sort,
+        page,
+        perPage: 24,
+        brands: brandFilter ? [brandFilter] : undefined,
+        priceMin: searchParams.priceMin
+          ? Number(searchParams.priceMin)
+          : undefined,
+        priceMax: searchParams.priceMax
+          ? Number(searchParams.priceMax)
+          : undefined,
+      },
+      locale,
+    ),
     getProductFilters(category.slug),
   ]);
   const products = listing.data;

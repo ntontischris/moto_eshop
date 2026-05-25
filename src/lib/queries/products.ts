@@ -1,5 +1,27 @@
 import { cacheTag, cacheLife } from "next/cache";
+import type { SupabaseClient } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/server";
+import type { Locale } from "@/i18n/config";
+import type { Database } from "@/types/database";
+
+/**
+ * Overlay a translation onto a source row. Falls back to the source value
+ * whenever a translated field is null/missing, so a partial translation
+ * never blanks out a name or description.
+ */
+export function applyTranslation<
+  T extends { name: string; description?: string | null },
+>(
+  base: T,
+  tr: { name?: string | null; description?: string | null } | undefined | null,
+): T {
+  if (!tr) return base;
+  return {
+    ...base,
+    name: tr.name ?? base.name,
+    description: tr.description ?? base.description ?? null,
+  };
+}
 
 export interface ProductImage {
   url: string;
@@ -94,6 +116,32 @@ const SORT_MAP: Record<SortOption, { column: string; ascending: boolean }> = {
   rating: { column: "average_rating", ascending: false },
 };
 
+/**
+ * Best-effort: fetch translated names for a batch of products and overlay them
+ * onto list items by id. A missing table or error leaves the source names in
+ * place. List items only carry `name` (no description), so only `name` is
+ * overlaid.
+ */
+async function overlayListNames(
+  supabase: SupabaseClient<Database>,
+  items: ProductListItem[],
+  locale: Locale,
+): Promise<ProductListItem[]> {
+  if (locale === "el" || items.length === 0) return items;
+  const ids = items.map((p) => p.id);
+  const { data: trs, error } = await supabase
+    .from("product_translations")
+    .select("product_id,name")
+    .in("product_id", ids)
+    .eq("locale", locale);
+  if (error || !trs) return items;
+  const byId = new Map(trs.map((t) => [t.product_id, t.name]));
+  return items.map((p) => {
+    const name = byId.get(p.id);
+    return name ? { ...p, name } : p;
+  });
+}
+
 function primaryImage(images: ProductImage[]): ProductImage | null {
   if (images.length === 0) return null;
   return [...images].sort((a, b) => a.position - b.position)[0] ?? null;
@@ -137,8 +185,12 @@ async function resolveCategoryPath(
   return cat?.full_path ?? null;
 }
 
-export async function getProduct(slug: string): Promise<Product | null> {
+export async function getProduct(
+  slug: string,
+  locale: Locale = "el",
+): Promise<Product | null> {
   "use cache";
+  cacheTag(`product:${slug}:${locale}`);
   cacheTag("products");
   cacheLife("hours");
   const { createAdminClient } = await import("@/lib/supabase/admin");
@@ -192,7 +244,7 @@ export async function getProduct(slug: string): Promise<Product | null> {
     };
   });
 
-  return {
+  const product: Product = {
     id: data.id,
     slug: data.slug,
     name: data.name,
@@ -214,12 +266,27 @@ export async function getProduct(slug: string): Promise<Product | null> {
     review_count: data.review_count,
     created_at: data.created_at,
   };
+
+  if (locale === "el") return product;
+
+  // Translation fetch is best-effort: a missing table or empty result falls
+  // back to the Greek source so the page never blocks on i18n.
+  const { data: tr } = await supabase
+    .from("product_translations")
+    .select("name,description")
+    .eq("product_id", data.id)
+    .eq("locale", locale)
+    .maybeSingle();
+
+  return applyTranslation(product, tr);
 }
 
 export async function getProductsByCategory(
   options: GetProductsByCategoryOptions,
+  locale: Locale = "el",
 ): Promise<PaginatedResult<ProductListItem>> {
   "use cache";
+  cacheTag(`category-products:${options.categorySlug}:${locale}`);
   cacheTag("products");
   cacheLife("hours");
   const {
@@ -329,7 +396,7 @@ export async function getProductsByCategory(
   });
 
   return {
-    data: products,
+    data: await overlayListNames(supabase, products, locale),
     total,
     page,
     perPage,
@@ -341,6 +408,7 @@ export async function searchProducts(
   q: string,
   page = 1,
   perPage = 24,
+  locale: Locale = "el",
 ): Promise<PaginatedResult<ProductListItem>> {
   const term = q.trim();
   if (term.length < 2) {
@@ -417,7 +485,7 @@ export async function searchProducts(
   });
 
   return {
-    data: products,
+    data: await overlayListNames(supabase, products, locale),
     total,
     page,
     perPage,
@@ -531,8 +599,10 @@ export async function getRelatedProducts(
   productId: string,
   categorySlug: string,
   limit = 8,
+  locale: Locale = "el",
 ): Promise<ProductListItem[]> {
   "use cache";
+  cacheTag(`related:${productId}:${locale}`);
   cacheTag("products");
   cacheLife("hours");
   const { createAdminClient } = await import("@/lib/supabase/admin");
@@ -563,7 +633,7 @@ export async function getRelatedProducts(
 
   if (error || !data) return [];
 
-  return data.map((row) => {
+  const items: ProductListItem[] = data.map((row) => {
     const brand = row.brands as unknown as {
       name: string;
       slug: string;
@@ -592,6 +662,8 @@ export async function getRelatedProducts(
       review_count: row.review_count,
     };
   });
+
+  return overlayListNames(supabase, items, locale);
 }
 
 export async function getPopularProductSlugs(

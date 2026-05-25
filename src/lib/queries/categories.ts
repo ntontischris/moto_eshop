@@ -1,4 +1,6 @@
 import { cacheTag, cacheLife } from "next/cache";
+import type { Locale } from "@/i18n/config";
+import { applyTranslation } from "@/lib/queries/products";
 
 export interface Category {
   id: string;
@@ -60,8 +62,12 @@ function rowToCategory(data: {
   };
 }
 
-export async function getCategory(slug: string): Promise<Category | null> {
+export async function getCategory(
+  slug: string,
+  locale: Locale = "el",
+): Promise<Category | null> {
   "use cache";
+  cacheTag(`category:${slug}:${locale}`);
   cacheTag("categories");
   cacheLife("hours");
   const { createAdminClient } = await import("@/lib/supabase/admin");
@@ -75,7 +81,20 @@ export async function getCategory(slug: string): Promise<Category | null> {
     .eq("slug", slug)
     .single();
   if (error || !data) return null;
-  return rowToCategory(data as Parameters<typeof rowToCategory>[0]);
+  const category = rowToCategory(data as Parameters<typeof rowToCategory>[0]);
+
+  if (locale === "el") return category;
+
+  // Best-effort: a missing category_translations table or empty row falls
+  // back to the Greek source so the page never blocks on i18n.
+  const { data: tr } = await supabase
+    .from("category_translations")
+    .select("name,description")
+    .eq("category_id", category.id)
+    .eq("locale", locale)
+    .maybeSingle();
+
+  return applyTranslation(category, tr);
 }
 
 /** Brands (L2 under "my-bike") with their models (L3), for the bike finder. */
@@ -222,8 +241,10 @@ export async function getCategoryBreadcrumbs(
 
 export async function getSubcategories(
   parentSlug: string,
+  locale: Locale = "el",
 ): Promise<Category[]> {
   "use cache";
+  cacheTag(`subcategories:${parentSlug}:${locale}`);
   cacheTag("categories");
   cacheLife("hours");
   const { createAdminClient } = await import("@/lib/supabase/admin");
@@ -247,9 +268,22 @@ export async function getSubcategories(
 
   if (error || !data) return [];
 
-  return data.map((row) => ({
+  const subcategories: Category[] = data.map((row) => ({
     ...row,
     parent_slug: parentSlug,
     parent_name: null,
   }));
+
+  if (locale === "el") return subcategories;
+
+  // Best-effort: missing category_translations or empty result → Greek source.
+  const ids = subcategories.map((c) => c.id);
+  const { data: trs, error: trErr } = await supabase
+    .from("category_translations")
+    .select("category_id,name,description")
+    .in("category_id", ids)
+    .eq("locale", locale);
+  if (trErr || !trs) return subcategories;
+  const byId = new Map(trs.map((t) => [t.category_id, t]));
+  return subcategories.map((c) => applyTranslation(c, byId.get(c.id)));
 }

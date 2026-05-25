@@ -321,6 +321,50 @@ export type Database = {
           },
         ];
       };
+      category_translations: {
+        Row: {
+          category_id: string;
+          description: string | null;
+          engine: string | null;
+          locale: string;
+          meta_description: string | null;
+          meta_title: string | null;
+          name: string | null;
+          source_hash: string | null;
+          translated_at: string;
+        };
+        Insert: {
+          category_id: string;
+          description?: string | null;
+          engine?: string | null;
+          locale: string;
+          meta_description?: string | null;
+          meta_title?: string | null;
+          name?: string | null;
+          source_hash?: string | null;
+          translated_at?: string;
+        };
+        Update: {
+          category_id?: string;
+          description?: string | null;
+          engine?: string | null;
+          locale?: string;
+          meta_description?: string | null;
+          meta_title?: string | null;
+          name?: string | null;
+          source_hash?: string | null;
+          translated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "category_translations_category_id_fkey";
+            columns: ["category_id"];
+            isOneToOne: false;
+            referencedRelation: "categories";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       chat_sessions: {
         Row: {
           created_at: string;
