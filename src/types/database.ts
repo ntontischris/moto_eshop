@@ -993,6 +993,9 @@ export type Database = {
           name: string;
           product_id: string;
           status: Database["public"]["Enums"]["product_status"];
+          source_hash: string | null;
+          engine: string | null;
+          translated_at: string | null;
         };
         Insert: {
           description?: string | null;
@@ -1003,6 +1006,9 @@ export type Database = {
           name: string;
           product_id: string;
           status?: Database["public"]["Enums"]["product_status"];
+          source_hash?: string | null;
+          engine?: string | null;
+          translated_at?: string | null;
         };
         Update: {
           description?: string | null;
@@ -1013,6 +1019,9 @@ export type Database = {
           name?: string;
           product_id?: string;
           status?: Database["public"]["Enums"]["product_status"];
+          source_hash?: string | null;
+          engine?: string | null;
+          translated_at?: string | null;
         };
         Relationships: [
           {
