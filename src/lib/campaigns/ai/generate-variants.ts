@@ -1,9 +1,14 @@
 "use server";
 
-import Anthropic from "@anthropic-ai/sdk";
 import { createClient } from "@/lib/supabase/server";
 import { buildCatalogContext, type CatalogContext } from "./catalog-context";
 import { repairVariants, type DraftVariant } from "./repair";
+import {
+  generateText,
+  providerAvailable,
+  providerLabel,
+  type AiProvider,
+} from "./providers";
 
 type GenerateResult =
   | { success: true; variants: DraftVariant[] }
@@ -62,41 +67,31 @@ BLOCKS:
 export async function generateCampaignVariants(input: {
   brief: string;
   variantCount?: number;
+  provider?: AiProvider;
 }): Promise<GenerateResult> {
   await assertAdmin();
 
-  if (!process.env.ANTHROPIC_API_KEY) {
-    return { success: false, error: "Λείπει το ANTHROPIC_API_KEY στο .env" };
+  const provider: AiProvider = input.provider ?? "claude";
+  if (!providerAvailable(provider)) {
+    const key = provider === "claude" ? "ANTHROPIC_API_KEY" : "OPENAI_API_KEY";
+    return {
+      success: false,
+      error: `Λείπει το ${key} στο .env (για ${providerLabel(provider)})`,
+    };
   }
   const brief = input.brief?.trim();
   if (!brief) return { success: false, error: "Δώσε ένα brief" };
   const count = Math.min(Math.max(input.variantCount ?? 1, 1), 4);
 
   const catalog = await buildCatalogContext();
-  const client = new Anthropic();
 
   try {
-    const msg = await client.messages.create({
-      model: "claude-sonnet-4-6",
-      max_tokens: 8000,
-      system: [
-        {
-          type: "text",
-          text: buildSystemPrompt(catalog),
-          cache_control: { type: "ephemeral" },
-        },
-      ],
-      messages: [
-        {
-          role: "user",
-          content: `Φτιάξε ${count} variant(s) για αυτή την καμπάνια.\n\nBrief: ${brief}`,
-        },
-      ],
+    const text = await generateText({
+      provider,
+      system: buildSystemPrompt(catalog),
+      user: `Φτιάξε ${count} variant(s) για αυτή την καμπάνια.\n\nBrief: ${brief}`,
+      maxTokens: 8000,
     });
-
-    const text = msg.content
-      .map((b) => (b.type === "text" ? b.text : ""))
-      .join("");
     const variants = repairVariants(text, count);
     if (variants.length === 0) {
       return { success: false, error: "Το AI δεν επέστρεψε έγκυρα variants" };

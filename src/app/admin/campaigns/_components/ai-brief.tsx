@@ -15,6 +15,7 @@ export function AiBrief({
 }) {
   const [brief, setBrief] = useState("");
   const [count, setCount] = useState(1);
+  const [provider, setProvider] = useState<"claude" | "openai">("claude");
   const [error, setError] = useState("");
   const [pending, start] = useTransition();
 
@@ -24,6 +25,7 @@ export function AiBrief({
       const res = await generateCampaignVariants({
         brief,
         variantCount: count,
+        provider,
       });
       if (!res.success) {
         setError(res.error);
@@ -48,9 +50,18 @@ export function AiBrief({
         placeholder="π.χ. Black Friday στα κράνη AGV, -20%, κοινό σπορ αναβάτες, επείγον tone"
       />
       <div className="flex items-center gap-2">
+        <select
+          className={`${inputCls} w-28`}
+          value={provider}
+          onChange={(e) => setProvider(e.target.value as "claude" | "openai")}
+          aria-label="AI provider"
+        >
+          <option value="claude">Claude</option>
+          <option value="openai">ChatGPT</option>
+        </select>
         <label className="text-xs text-text-secondary">Variants</label>
         <select
-          className={`${inputCls} w-20`}
+          className={`${inputCls} w-16`}
           value={count}
           onChange={(e) => setCount(Number(e.target.value))}
         >
