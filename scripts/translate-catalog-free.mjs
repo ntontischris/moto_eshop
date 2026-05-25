@@ -112,6 +112,7 @@ async function upsert(row) {
 const done = await getDoneIds();
 console.log(`[${LOCALE}] already translated: ${done.size}`);
 let did = 0,
+  failed = 0,
   skippedEmpty = 0;
 for await (const p of products()) {
   if (done.has(p.id)) continue;
@@ -121,17 +122,23 @@ for await (const p of products()) {
     skippedEmpty++;
     continue; // nothing to translate; read path falls back to source
   }
-  const translated = await translate(desc, LOCALE);
-  await upsert({
-    product_id: p.id,
-    locale: LOCALE,
-    name: p.name,
-    description: translated || p.description,
-    status: "active",
-  });
-  did++;
-  await sleep(250 + Math.random() * 250);
-  if (did % 25 === 0)
-    console.log(`[${LOCALE}] ${did} done (last: ${(p.name || "").slice(0, 40)})`);
+  try {
+    const translated = await translate(desc, LOCALE);
+    await upsert({
+      product_id: p.id,
+      locale: LOCALE,
+      name: p.name,
+      description: translated || p.description,
+      status: "active",
+    });
+    did++;
+  } catch (e) {
+    failed++;
+    console.warn(`[${LOCALE}] skip ${p.id}: ${String(e).slice(0, 80)}`);
+    await sleep(2000); // back off a bit on failure; a re-run fills the gap
+  }
+  await sleep(350 + Math.random() * 350);
+  if (did % 25 === 0 && did > 0)
+    console.log(`[${LOCALE}] ${did} done, ${failed} failed (last: ${(p.name || "").slice(0, 40)})`);
 }
-console.log(`[${LOCALE}] run complete: +${did} translated, ${skippedEmpty} empty skipped`);
+console.log(`[${LOCALE}] run complete: +${did} translated, ${failed} failed, ${skippedEmpty} empty skipped`);
