@@ -667,6 +667,72 @@ export async function getRelatedProducts(
   return overlayListNames(supabase, items, locale);
 }
 
+/**
+ * Fetch active products by an explicit list of ids, preserving the order in
+ * which the ids were given (used by campaign productRail manual selections).
+ */
+export async function getProductsByIds(
+  ids: string[],
+  locale: Locale = "el",
+): Promise<ProductListItem[]> {
+  "use cache";
+  cacheTag("products");
+  cacheLife("hours");
+  if (ids.length === 0) return [];
+
+  const { createAdminClient } = await import("@/lib/supabase/admin");
+  const supabase = createAdminClient();
+
+  const { data, error } = await supabase
+    .from("products")
+    .select(
+      `
+      id, slug, name, price, compare_at_price, stock, certification,
+      rider_type, images, average_rating, review_count,
+      brands ( name, slug ), categories ( slug )
+    `,
+    )
+    .in("id", ids)
+    .eq("status", "active");
+
+  if (error || !data) return [];
+
+  const items: ProductListItem[] = data.map((row) => {
+    const brand = row.brands as unknown as {
+      name: string;
+      slug: string;
+    } | null;
+    const c = row.categories as unknown as { slug: string } | null;
+    const imgs = (row.images as unknown as ProductImage[]) ?? [];
+    const img = primaryImage(imgs);
+
+    return {
+      id: row.id,
+      slug: row.slug,
+      name: row.name,
+      brand: brand?.name ?? "",
+      brand_slug: brand?.slug ?? "",
+      price: row.price,
+      compare_at_price: row.compare_at_price,
+      category_slug: c?.slug ?? "",
+      stock: row.stock,
+      certification: row.certification,
+      rider_type: row.rider_type,
+      primary_image_url: img?.url ?? "/images/placeholder-product.webp",
+      primary_image_alt: img?.alt ?? row.name,
+      secondary_image_url: secondaryImage(imgs)?.url ?? null,
+      gallery_image_urls: galleryUrls(imgs),
+      average_rating: row.average_rating,
+      review_count: row.review_count,
+    };
+  });
+
+  const order = new Map(ids.map((id, i) => [id, i]));
+  items.sort((a, b) => (order.get(a.id) ?? 0) - (order.get(b.id) ?? 0));
+
+  return overlayListNames(supabase, items, locale);
+}
+
 export async function getPopularProductSlugs(
   limit = 200,
 ): Promise<{ category_slug: string; slug: string }[]> {
