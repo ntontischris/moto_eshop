@@ -733,6 +733,75 @@ export async function getProductsByIds(
   return overlayListNames(supabase, items, locale);
 }
 
+/**
+ * Fetch active products for a brand slug, most-viewed first (campaign
+ * productRail auto source `by: "brand"`).
+ */
+export async function getProductsByBrand(
+  brandSlug: string,
+  limit = 8,
+  locale: Locale = "el",
+): Promise<ProductListItem[]> {
+  "use cache";
+  cacheTag("products");
+  cacheLife("hours");
+
+  const { createAdminClient } = await import("@/lib/supabase/admin");
+  const supabase = createAdminClient();
+
+  const { data: brand } = await supabase
+    .from("brands")
+    .select("id")
+    .eq("slug", brandSlug)
+    .maybeSingle();
+  if (!brand) return [];
+
+  const { data, error } = await supabase
+    .from("products")
+    .select(
+      `
+      id, slug, name, price, compare_at_price, stock, certification,
+      rider_type, images, average_rating, review_count,
+      brands ( name, slug ), categories ( slug )
+    `,
+    )
+    .eq("brand_id", brand.id)
+    .eq("status", "active")
+    .order("view_count", { ascending: false })
+    .limit(limit);
+
+  if (error || !data) return [];
+
+  const items: ProductListItem[] = data.map((row) => {
+    const b = row.brands as unknown as { name: string; slug: string } | null;
+    const c = row.categories as unknown as { slug: string } | null;
+    const imgs = (row.images as unknown as ProductImage[]) ?? [];
+    const img = primaryImage(imgs);
+
+    return {
+      id: row.id,
+      slug: row.slug,
+      name: row.name,
+      brand: b?.name ?? "",
+      brand_slug: b?.slug ?? "",
+      price: row.price,
+      compare_at_price: row.compare_at_price,
+      category_slug: c?.slug ?? "",
+      stock: row.stock,
+      certification: row.certification,
+      rider_type: row.rider_type,
+      primary_image_url: img?.url ?? "/images/placeholder-product.webp",
+      primary_image_alt: img?.alt ?? row.name,
+      secondary_image_url: secondaryImage(imgs)?.url ?? null,
+      gallery_image_urls: galleryUrls(imgs),
+      average_rating: row.average_rating,
+      review_count: row.review_count,
+    };
+  });
+
+  return overlayListNames(supabase, items, locale);
+}
+
 export async function getPopularProductSlugs(
   limit = 200,
 ): Promise<{ category_slug: string; slug: string }[]> {

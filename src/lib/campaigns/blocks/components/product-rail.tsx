@@ -2,6 +2,7 @@ import { ProductGrid } from "@/components/product/product-grid";
 import {
   getProductsByIds,
   getProductsByCategory,
+  getProductsByBrand,
   type ProductListItem,
 } from "@/lib/queries/products";
 import type { Block } from "../schema";
@@ -24,8 +25,9 @@ export async function ProductRailBlock({ block }: { block: Rail }) {
       "el",
     );
     products = res.data;
+  } else if (block.source.by === "brand") {
+    products = await getProductsByBrand(block.source.value, block.source.limit);
   }
-  // `auto` + `brand` is added with the full block set in sub-project B.
 
   if (products.length === 0) return null;
 

@@ -10,6 +10,7 @@ import { FaqBlock } from "./components/faq";
 import { SocialProofBlock } from "./components/social-proof";
 import { BrandStripBlock } from "./components/brand-strip";
 import { StickyCtaBlock } from "./components/sticky-cta";
+import { EmailCaptureBlock } from "./components/email-capture";
 
 export function BlockRenderer({ blocks }: { blocks: Blocks }) {
   if (blocks.length === 0) return null;
@@ -39,6 +40,8 @@ export function BlockRenderer({ blocks }: { blocks: Blocks }) {
             return <BrandStripBlock key={i} block={block} />;
           case "stickyCta":
             return <StickyCtaBlock key={i} block={block} />;
+          case "emailCapture":
+            return <EmailCaptureBlock key={i} block={block} />;
           default:
             return null;
         }

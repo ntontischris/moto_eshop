@@ -94,6 +94,14 @@ const stickyCtaBlock = z.object({
   href: z.string().min(1),
 });
 
+const emailCaptureBlock = z.object({
+  type: z.literal("emailCapture"),
+  title: z.string().min(1),
+  subtitle: z.string().optional(),
+  buttonLabel: z.string().default("Εγγραφή"),
+  source: z.string().default("campaign"),
+});
+
 export const blockSchema = z.discriminatedUnion("type", [
   heroBlock,
   productRailBlock,
@@ -106,6 +114,7 @@ export const blockSchema = z.discriminatedUnion("type", [
   socialProofBlock,
   brandStripBlock,
   stickyCtaBlock,
+  emailCaptureBlock,
 ]);
 
 export const blocksSchema = z.array(blockSchema);

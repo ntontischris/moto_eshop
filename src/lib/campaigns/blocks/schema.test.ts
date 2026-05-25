@@ -86,4 +86,20 @@ describe("blockSchema", () => {
     ];
     expect(blocksSchema.parse(blocks)).toHaveLength(4);
   });
+
+  it("applies emailCapture defaults", () => {
+    const parsed = blockSchema.parse({ type: "emailCapture", title: "Join" });
+    if (parsed.type === "emailCapture") {
+      expect(parsed.buttonLabel).toBe("Εγγραφή");
+      expect(parsed.source).toBe("campaign");
+    }
+  });
+
+  it("parses a productRail with auto brand source", () => {
+    const parsed = blockSchema.parse({
+      type: "productRail",
+      source: { mode: "auto", by: "brand", value: "alpinestars" },
+    });
+    expect(parsed).toMatchObject({ type: "productRail" });
+  });
 });
