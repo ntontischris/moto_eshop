@@ -4,13 +4,15 @@ import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { navLabel } from "@/lib/nav-i18n";
 import { MEGA_MENU_CLOSE_DELAY_MS, MEGA_MENU_PANELS } from "./mega-menu-data";
 
 type PanelKey = (typeof MEGA_MENU_PANELS)[number]["key"];
 
 export function MegaMenu() {
   const t = useTranslations("shell");
+  const locale = useLocale();
   const [open, setOpen] = useState<PanelKey>(MEGA_MENU_PANELS[0].key);
   const [isExpanded, setIsExpanded] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -69,7 +71,7 @@ export function MegaMenu() {
               onFocus={() => openMenu(panel.key)}
               onClick={() => openMenu(panel.key)}
             >
-              {panel.label}
+              {navLabel(panel.label, locale)}
               <ChevronDown size={14} aria-hidden="true" />
             </button>
           ))}
@@ -97,8 +99,8 @@ export function MegaMenu() {
             />
             <span className="v3-mega-feature-shade" aria-hidden="true" />
             <span className="v3-mega-feature-content">
-              <span>{active.eyebrow}</span>
-              <strong>{active.title}</strong>
+              <span>{navLabel(active.eyebrow, locale)}</span>
+              <strong>{navLabel(active.title, locale)}</strong>
               <em>
                 {t("megaMenuOpenCategory")}{" "}
                 <ArrowRight size={15} aria-hidden="true" />
@@ -117,7 +119,7 @@ export function MegaMenu() {
                   href={link.href}
                   className="v3-mega-shortcut"
                 >
-                  <strong>{link.label}</strong>
+                  <strong>{navLabel(link.label, locale)}</strong>
                   {link.meta && <span>{link.meta}</span>}
                 </Link>
               ))}
@@ -126,10 +128,10 @@ export function MegaMenu() {
             <div className="v3-mega-columns">
               {active.columns.map((column) => (
                 <div key={column.title} className="v3-mega-col">
-                  <h3>{column.title}</h3>
+                  <h3>{navLabel(column.title, locale)}</h3>
                   {column.links.map((link) => (
                     <Link key={link.label} href={link.href}>
-                      {link.label}
+                      {navLabel(link.label, locale)}
                     </Link>
                   ))}
                 </div>
