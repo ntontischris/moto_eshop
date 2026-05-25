@@ -1,9 +1,10 @@
 import { Star, ArrowUpRight } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 import { PROOF_STATS, PROOF_QUOTES } from "../../_lib/social-proof";
 
-function Stars() {
+function Stars({ label }: { label: string }) {
   return (
-    <div className="v3-proof-stars" aria-label="5 στα 5 αστέρια">
+    <div className="v3-proof-stars" aria-label={label}>
       {Array.from({ length: 5 }).map((_, i) => (
         <Star key={i} size={13} fill="currentColor" strokeWidth={0} />
       ))}
@@ -11,19 +12,20 @@ function Stars() {
   );
 }
 
-export function SocialProof() {
+export async function SocialProof() {
+  const t = await getTranslations("home");
   // Duplicate the quotes so the marquee can loop seamlessly.
   const ticker = [...PROOF_QUOTES, ...PROOF_QUOTES];
 
   return (
-    <section className="v3-proof" aria-label="Αξιολογήσεις πελατών">
+    <section className="v3-proof" aria-label={t("socialReviews")}>
       <div className="v3-proof-inner">
         <div className="v3-proof-head">
-          <p className="v3-label">Η εμπιστοσύνη των αναβατών</p>
+          <p className="v3-label">{t("socialKicker")}</p>
           <h2 className="v3-display">
-            Χιλιάδες αναβάτες.
+            {t("socialHeading1")}
             <br />
-            <em>Μία βαθμολογία: άριστα.</em>
+            <em>{t("socialHeading2")}</em>
           </h2>
         </div>
 
@@ -54,7 +56,7 @@ export function SocialProof() {
                 </span>
                 {s.href && (
                   <span className="v3-proof-score-cta">
-                    Δες τις κριτικές
+                    {t("socialSeeReviews")}
                     <ArrowUpRight size={14} aria-hidden="true" />
                   </span>
                 )}
@@ -91,7 +93,7 @@ export function SocialProof() {
               aria-hidden={i >= PROOF_QUOTES.length ? true : undefined}
               tabIndex={i >= PROOF_QUOTES.length ? -1 : undefined}
             >
-              <Stars />
+              <Stars label={t("socialStars")} />
               <blockquote>{q.body}</blockquote>
               <figcaption>
                 <span className="v3-proof-quote-author">{q.author}</span>

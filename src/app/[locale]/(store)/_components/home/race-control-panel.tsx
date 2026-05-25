@@ -3,17 +3,14 @@
 import { useEffect, useState } from "react";
 import { Link } from "@/i18n/navigation";
 import Image from "next/image";
-import {
-  ArrowRight,
-  Map,
-  ShieldCheck,
-} from "lucide-react";
+import { useTranslations } from "next-intl";
+import { ArrowRight, Map, ShieldCheck } from "lucide-react";
 
 const RIDES = [
   {
     label: "Racing",
     href: "/category/racing-gear",
-    value: "Φόρμες, γάντια, μπότες",
+    valueKey: "raceRacingValue",
     image: "/ride-selector/ride-racing.webp",
     thumb: "/ride-selector/ride-racing-thumb.webp",
     kicker: "Track setup",
@@ -23,7 +20,7 @@ const RIDES = [
   {
     label: "Adventure",
     href: "/category/off-road",
-    value: "Κράνη, βαλίτσες, προστασίες",
+    valueKey: "raceAdventureValue",
     image: "/ride-selector/ride-adventure.webp",
     thumb: "/ride-selector/ride-adventure-thumb.webp",
     kicker: "Long range",
@@ -33,7 +30,7 @@ const RIDES = [
   {
     label: "Touring",
     href: "/category/eksoplismos-motosikletas",
-    value: "Ζελατίνες, βαλίτσες, άνεση",
+    valueKey: "raceTouringValue",
     image: "/ride-selector/ride-touring.webp",
     thumb: "/ride-selector/ride-touring-thumb.webp",
     kicker: "Grand touring",
@@ -43,7 +40,7 @@ const RIDES = [
   {
     label: "Urban",
     href: "/category/eksoplismos-anabath",
-    value: "Κράνος, μπουφάν, καθημερινά",
+    valueKey: "raceUrbanValue",
     image: "/ride-selector/ride-urban.webp",
     thumb: "/ride-selector/ride-urban-thumb.webp",
     kicker: "City ready",
@@ -53,7 +50,7 @@ const RIDES = [
   {
     label: "Rain / Winter",
     href: "/search?q=waterproof",
-    value: "Αδιάβροχα, θερμικά, γκριπ",
+    valueKey: "raceRainValue",
     image: "/ride-selector/ride-rain-winter.webp",
     thumb: "/ride-selector/ride-rain-winter-thumb.webp",
     kicker: "All weather",
@@ -63,7 +60,7 @@ const RIDES = [
   {
     label: "Parts",
     href: "/category/antallaktika",
-    value: "Service, αλυσίδα, φρένα",
+    valueKey: "racePartsValue",
     image: "/ride-selector/ride-parts.webp",
     thumb: "/ride-selector/ride-parts-thumb.webp",
     kicker: "Workshop",
@@ -72,13 +69,8 @@ const RIDES = [
   },
 ] as const;
 
-const TRUST = [
-  ["Official", "γνήσια προϊόντα"],
-  ["Fit", "σωστό μέγεθος"],
-  ["Support", "210 95 35 195"],
-] as const;
-
 export function RaceControlPanel() {
+  const t = useTranslations("home");
   const [activeIndex, setActiveIndex] = useState(0);
   const [isAutoPaused, setIsAutoPaused] = useState(false);
   const activeRide = RIDES[activeIndex];
@@ -99,13 +91,12 @@ export function RaceControlPanel() {
     <section
       className="v3-ride-selector v3-ride-selector--cinema"
       data-auto-paused={isAutoPaused ? "true" : undefined}
-      aria-label="Αγορές ανά χρήση"
+      aria-label={t("raceShopByRide")}
       onMouseEnter={() => setIsAutoPaused(true)}
       onMouseLeave={() => setIsAutoPaused(false)}
       onFocusCapture={() => setIsAutoPaused(true)}
       onBlurCapture={(event) => {
         const nextFocused = event.relatedTarget as Node | null;
-
         if (!event.currentTarget.contains(nextFocused)) {
           setIsAutoPaused(false);
         }
@@ -115,10 +106,10 @@ export function RaceControlPanel() {
         <div className="v3-ride-head">
           <div>
             <p className="v3-label">Shop by ride</p>
-            <h2 className="v3-display">Τι οδηγείς σήμερα;</h2>
+            <h2 className="v3-display">{t("raceHeading")}</h2>
           </div>
           <Link href="/category/eksoplismos-anabath" className="v3-ride-all">
-            Όλος ο εξοπλισμός <span aria-hidden="true">→</span>
+            {t("raceAllGear")} <span aria-hidden="true">→</span>
           </Link>
         </div>
 
@@ -126,7 +117,7 @@ export function RaceControlPanel() {
           <Link
             className="v3-ride-focus"
             href={activeRide.href}
-            aria-label={`Δες ${activeRide.label}`}
+            aria-label={t("raceSeeLabel", { label: activeRide.label })}
           >
             <span className="v3-ride-focus-media" aria-hidden="true">
               <Image
@@ -145,9 +136,10 @@ export function RaceControlPanel() {
             <span className="v3-ride-focus-copy">
               <span className="v3-ride-focus-kicker">{activeRide.kicker}</span>
               <strong>{activeRide.headline}</strong>
-              <span>{activeRide.value}</span>
+              <span>{t(activeRide.valueKey)}</span>
               <span className="v3-ride-focus-cta">
-                Δες επιλογές <ArrowRight size={16} aria-hidden="true" />
+                {t("raceSeeOptions")}{" "}
+                <ArrowRight size={16} aria-hidden="true" />
               </span>
             </span>
 
@@ -157,8 +149,12 @@ export function RaceControlPanel() {
             </span>
           </Link>
 
-          <div className="v3-ride-tabs" role="tablist" aria-label="Τύπος οδήγησης">
-            {RIDES.map(({ label, value, thumb }, index) => {
+          <div
+            className="v3-ride-tabs"
+            role="tablist"
+            aria-label={t("raceTabs")}
+          >
+            {RIDES.map(({ label, valueKey, thumb }, index) => {
               const isActive = index === activeIndex;
 
               return (
@@ -187,7 +183,7 @@ export function RaceControlPanel() {
                   </span>
                   <span className="v3-ride-tab-copy">
                     <strong>{label}</strong>
-                    <span>{value}</span>
+                    <span>{t(valueKey)}</span>
                   </span>
                 </button>
               );
@@ -197,12 +193,18 @@ export function RaceControlPanel() {
 
         <div className="v3-ride-trust" aria-label="MotoMarket service">
           <ShieldCheck size={18} aria-hidden="true" />
-          {TRUST.map(([label, value]) => (
-            <span key={label}>
-              <strong>{label}</strong>
-              {value}
-            </span>
-          ))}
+          <span>
+            <strong>Official</strong>
+            {t("raceTrustOfficial")}
+          </span>
+          <span>
+            <strong>Fit</strong>
+            {t("raceTrustFit")}
+          </span>
+          <span>
+            <strong>Support</strong>
+            210 95 35 195
+          </span>
           <Map size={18} aria-hidden="true" />
         </div>
       </div>

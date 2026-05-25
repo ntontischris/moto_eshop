@@ -1,5 +1,6 @@
 import { Link } from "@/i18n/navigation";
 import Image from "next/image";
+import { getTranslations } from "next-intl/server";
 
 type ShortcutImageKey =
   | "helmet"
@@ -42,7 +43,12 @@ const TILE_CLASSES = [
   "",
 ] as const;
 
-export function CategoryShortcutGrid({ items }: { items: ShortcutItem[] }) {
+export async function CategoryShortcutGrid({
+  items,
+}: {
+  items: ShortcutItem[];
+}) {
+  const t = await getTranslations("home");
   const [spotlight, ...wallItems] = items;
 
   if (!spotlight) {
@@ -50,15 +56,15 @@ export function CategoryShortcutGrid({ items }: { items: ShortcutItem[] }) {
   }
 
   return (
-    <section className="v3-cat-runway" aria-label="Κατηγορίες προϊόντων">
+    <section className="v3-cat-runway" aria-label={t("catAllCategories")}>
       <div className="v3-cat-runway-inner v3-cat-atelier">
         <div className="v3-cat-runway-head">
           <div>
             <p className="v3-label">Product families</p>
-            <h2>Βρες το κομμάτι που λείπει από το setup σου</h2>
+            <h2>{t("catHeading")}</h2>
           </div>
           <Link href="/category/eksoplismos-anabath">
-            Όλες οι κατηγορίες <span aria-hidden="true">→</span>
+            {t("catAllCategories")} <span aria-hidden="true">→</span>
           </Link>
         </div>
 
@@ -66,7 +72,7 @@ export function CategoryShortcutGrid({ items }: { items: ShortcutItem[] }) {
           <Link
             className="v3-cat-spotlight"
             href={spotlight.href}
-            aria-label={`Δες ${spotlight.label}`}
+            aria-label={t("catSeeLabel", { label: spotlight.label })}
           >
             <span className="v3-cat-spotlight-media" aria-hidden="true">
               <Image
@@ -82,7 +88,7 @@ export function CategoryShortcutGrid({ items }: { items: ShortcutItem[] }) {
               <strong>{spotlight.label}</strong>
               {spotlight.brief && <span>{spotlight.brief}</span>}
               <em>
-                Δες κατηγορία <span aria-hidden="true">→</span>
+                {t("catSeeCategory")} <span aria-hidden="true">→</span>
               </em>
             </span>
           </Link>
@@ -115,13 +121,13 @@ export function CategoryShortcutGrid({ items }: { items: ShortcutItem[] }) {
 
         <div className="v3-cat-status" aria-label="MotoMarket category status">
           <span>
-            <strong>Rider gear</strong> κράνη, μπουφάν, γάντια
+            <strong>Rider gear</strong> {t("catRiderGearLine")}
           </span>
           <span>
-            <strong>Bike gear</strong> βαλίτσες, βάσεις, cockpit
+            <strong>Bike gear</strong> {t("catBikeGearLine")}
           </span>
           <span>
-            <strong>Service</strong> λάδια, chain care, αναλώσιμα
+            <strong>Service</strong> {t("catServiceLine")}
           </span>
         </div>
       </div>

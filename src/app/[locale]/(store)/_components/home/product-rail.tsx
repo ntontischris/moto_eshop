@@ -1,4 +1,5 @@
 import { Link } from "@/i18n/navigation";
+import { getTranslations } from "next-intl/server";
 import type { ProductListItem } from "@/lib/queries/products";
 import { ProductRailScroller } from "./product-rail-scroller";
 
@@ -8,8 +9,9 @@ export interface ProductRailProps {
   href?: string;
 }
 
-export function ProductRail({ title, products, href }: ProductRailProps) {
+export async function ProductRail({ title, products, href }: ProductRailProps) {
   if (products.length === 0) return null;
+  const t = await getTranslations("home");
 
   const galleryProducts = products.slice(0, 16);
 
@@ -28,7 +30,7 @@ export function ProductRail({ title, products, href }: ProductRailProps) {
           </div>
           {href && (
             <Link href={href} className="v3-rail-all">
-              Δες συλλογή <span aria-hidden="true">→</span>
+              {t("railSeeCollection")} <span aria-hidden="true">→</span>
             </Link>
           )}
         </div>

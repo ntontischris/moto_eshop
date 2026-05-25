@@ -2,11 +2,13 @@
 
 import { useState } from "react";
 import { ArrowRight, Check } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { subscribeToNewsletter } from "@/lib/actions/newsletter";
 
 type State = "idle" | "loading" | "done" | "error";
 
 export function NewsletterBand() {
+  const t = useTranslations("home");
   const [email, setEmail] = useState("");
   const [state, setState] = useState<State>("idle");
   const [message, setMessage] = useState("");
@@ -23,13 +25,9 @@ export function NewsletterBand() {
   return (
     <section className="v3-nl" aria-label="Newsletter">
       <div className="v3-nl-inner">
-        <p className="v3-label">Μπες στο pit-lane</p>
-        <h2 className="v3-display v3-nl-title">
-          −10% στην πρώτη σου παραγγελία.
-        </h2>
-        <p className="v3-nl-sub">
-          Νέες παραλαβές & προσφορές — πρώτος στη γραμμή εκκίνησης.
-        </p>
+        <p className="v3-label">{t("newsletterKicker")}</p>
+        <h2 className="v3-display v3-nl-title">{t("newsletterTitle")}</h2>
+        <p className="v3-nl-sub">{t("newsletterSub")}</p>
 
         {state === "done" ? (
           <p className="v3-nl-done" role="status">
@@ -46,13 +44,13 @@ export function NewsletterBand() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="Το email σου"
-                aria-label="Το email σου"
+                placeholder={t("newsletterEmailPlaceholder")}
+                aria-label={t("newsletterEmailLabel")}
                 disabled={state === "loading"}
               />
               <button
                 type="submit"
-                aria-label="Εγγραφή"
+                aria-label={t("newsletterSubmit")}
                 disabled={state === "loading"}
               >
                 <ArrowRight size={18} aria-hidden="true" />
@@ -62,7 +60,7 @@ export function NewsletterBand() {
               className="v3-nl-fine"
               role={state === "error" ? "alert" : undefined}
             >
-              {state === "error" ? message : "Χωρίς σπαμ. Διαγραφή όποτε θες."}
+              {state === "error" ? message : t("newsletterFine")}
             </span>
           </form>
         )}

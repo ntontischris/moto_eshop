@@ -4,6 +4,7 @@
 
 import { useRef, useState } from "react";
 import { useRouter } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import {
   Bike,
   ChevronLeft,
@@ -74,6 +75,7 @@ function orderBrands(brands: BikeBrand[]): BikeBrand[] {
 }
 
 export function BikeSelector({ brands }: { brands: BikeBrand[] }) {
+  const t = useTranslations("home");
   const router = useRouter();
   const [brandSlug, setBrandSlug] = useState("");
   const [modelSlug, setModelSlug] = useState("");
@@ -97,7 +99,7 @@ export function BikeSelector({ brands }: { brands: BikeBrand[] }) {
 
       <div className="v3-mb-form">
         <label className="v3-mb-field">
-          <span>Μάρκα</span>
+          <span>{t("bikeSelectorBrand")}</span>
           <select
             value={brandSlug}
             onChange={(e) => {
@@ -105,7 +107,7 @@ export function BikeSelector({ brands }: { brands: BikeBrand[] }) {
               setModelSlug("");
             }}
           >
-            <option value="">Επίλεξε μάρκα</option>
+            <option value="">{t("bikeSelectorSelectBrand")}</option>
             {brands.map((b) => (
               <option key={b.slug} value={b.slug}>
                 {b.name}
@@ -115,7 +117,7 @@ export function BikeSelector({ brands }: { brands: BikeBrand[] }) {
         </label>
 
         <label className="v3-mb-field">
-          <span>Μοντέλο</span>
+          <span>{t("bikeSelectorModel")}</span>
           <select
             value={modelSlug}
             onChange={(e) => setModelSlug(e.target.value)}
@@ -123,10 +125,10 @@ export function BikeSelector({ brands }: { brands: BikeBrand[] }) {
           >
             <option value="">
               {!brandSlug
-                ? "Πρώτα διάλεξε μάρκα"
+                ? t("bikeSelectorSelectFirst")
                 : models.length === 0
                   ? "—"
-                  : "Όλα τα μοντέλα"}
+                  : t("bikeSelectorAllModels")}
             </option>
             {models.map((m) => (
               <option key={m.slug} value={m.slug}>
@@ -142,18 +144,18 @@ export function BikeSelector({ brands }: { brands: BikeBrand[] }) {
           onClick={() => target && router.push(`/category/${target}`)}
           disabled={!target}
         >
-          Βρες setup <ChevronRight size={18} aria-hidden="true" />
+          {t("bikeSelectorFind")} <ChevronRight size={18} aria-hidden="true" />
         </button>
       </div>
 
       <div className="v3-mb-chips">
-        <span className="v3-mb-chips-label">Όλες οι μάρκες</span>
+        <span className="v3-mb-chips-label">{t("bikeSelectorAllBrands")}</span>
         <div className="v3-mb-chips-rail">
           <button
             type="button"
             className="v3-mb-chips-arrow"
             onClick={() => scrollChips(-1)}
-            aria-label="Προηγούμενες μάρκες"
+            aria-label={t("bikeSelectorPrevBrands")}
           >
             <ChevronLeft size={16} aria-hidden="true" />
           </button>
@@ -191,7 +193,7 @@ export function BikeSelector({ brands }: { brands: BikeBrand[] }) {
             type="button"
             className="v3-mb-chips-arrow"
             onClick={() => scrollChips(1)}
-            aria-label="Επόμενες μάρκες"
+            aria-label={t("bikeSelectorNextBrands")}
           >
             <ChevronRight size={16} aria-hidden="true" />
           </button>

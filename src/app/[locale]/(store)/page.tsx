@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { Locale } from "@/i18n/config";
+import { getTranslations } from "next-intl/server";
 import { getProductsByCategory } from "@/lib/queries/products";
 import { Hero } from "./_components/home/hero";
 import { RaceControlPanel } from "./_components/home/race-control-panel";
@@ -17,70 +18,18 @@ import { EditorialBand } from "./_components/home/editorial-band";
 import { TrustBlock } from "./_components/shell/trust-block";
 import { Reveal } from "./_components/fx/reveal";
 
-export const metadata: Metadata = {
-  title: "MotoMarket | Premium εξοπλισμός μοτοσυκλέτας",
-  description:
-    "Κράνη, μπουφάν, γάντια, μπότες, αξεσουάρ και ανταλλακτικά μοτοσυκλέτας από επίσημα brands.",
-};
-
-const SHORTCUTS: ShortcutItem[] = [
-  {
-    label: "Κράνη",
-    href: "/category/eksoplismos-anabath",
-    valid: true,
-    brief: "ECE 22.06 / full face / modular",
-    imageKey: "helmet",
-  },
-  {
-    label: "Μπουφάν",
-    href: "/category/endysh--mpoyfan",
-    valid: true,
-    brief: "Leather / textile / air",
-    imageKey: "apparel",
-  },
-  {
-    label: "Γάντια",
-    href: "/category/endysh--gantia",
-    valid: true,
-    brief: "Track grip / daily control",
-    imageKey: "gloves",
-  },
-  {
-    label: "Μπότες",
-    href: "/category/endysh--mpotes",
-    valid: true,
-    brief: "Sport / touring / waterproof",
-    imageKey: "boots",
-  },
-  {
-    label: "Βαλίτσες",
-    href: "/category/eksoplismos-motosikletas",
-    valid: true,
-    brief: "Top case / side cases",
-    imageKey: "topCase",
-  },
-  {
-    label: "Αναλώσιμα",
-    href: "/category/lipantika",
-    valid: true,
-    brief: "Λάδια / chain care / χημικά",
-    imageKey: "exhaust",
-  },
-  {
-    label: "Quad Lock",
-    href: "/search?q=Quad%20Lock",
-    valid: true,
-    brief: "Phone cockpit",
-    imageKey: "helmetFront",
-  },
-  {
-    label: "Off-road",
-    href: "/category/off-road",
-    valid: true,
-    brief: "Enduro / adventure",
-    imageKey: "tyre",
-  },
-];
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "home" });
+  return {
+    title: t("homeMetaTitle"),
+    description: t("homeMetaDesc"),
+  };
+}
 
 export default async function V3Home({
   params,
@@ -88,6 +37,67 @@ export default async function V3Home({
   params: Promise<{ locale: Locale }>;
 }) {
   const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "home" });
+
+  const SHORTCUTS: ShortcutItem[] = [
+    {
+      label: t("shortcutHelmet"),
+      href: "/category/eksoplismos-anabath",
+      valid: true,
+      brief: "ECE 22.06 / full face / modular",
+      imageKey: "helmet",
+    },
+    {
+      label: t("shortcutJacket"),
+      href: "/category/endysh--mpoyfan",
+      valid: true,
+      brief: "Leather / textile / air",
+      imageKey: "apparel",
+    },
+    {
+      label: t("shortcutGloves"),
+      href: "/category/endysh--gantia",
+      valid: true,
+      brief: "Track grip / daily control",
+      imageKey: "gloves",
+    },
+    {
+      label: t("shortcutBoots"),
+      href: "/category/endysh--mpotes",
+      valid: true,
+      brief: "Sport / touring / waterproof",
+      imageKey: "boots",
+    },
+    {
+      label: t("shortcutLuggage"),
+      href: "/category/eksoplismos-motosikletas",
+      valid: true,
+      brief: "Top case / side cases",
+      imageKey: "topCase",
+    },
+    {
+      label: t("shortcutConsumables"),
+      href: "/category/lipantika",
+      valid: true,
+      brief: t("shortcutConsumablesBrief"),
+      imageKey: "exhaust",
+    },
+    {
+      label: "Quad Lock",
+      href: "/search?q=Quad%20Lock",
+      valid: true,
+      brief: "Phone cockpit",
+      imageKey: "helmetFront",
+    },
+    {
+      label: "Off-road",
+      href: "/category/off-road",
+      valid: true,
+      brief: "Enduro / adventure",
+      imageKey: "tyre",
+    },
+  ];
+
   const [bestRes, offersRes] = await Promise.all([
     getProductsByCategory(
       {
@@ -118,7 +128,7 @@ export default async function V3Home({
       </Reveal>
       <Reveal>
         <ProductRail
-          title="Πρώτες επιλογές αναβάτη"
+          title={t("homeTitleFirst")}
           products={bestRes.data}
           href="/category/eksoplismos-anabath"
         />

@@ -1,8 +1,10 @@
 import Image from "next/image";
+import { getTranslations } from "next-intl/server";
 import { getMyBikeBrands } from "@/lib/queries/categories";
 import { BikeSelector } from "./bike-selector";
 
 export async function MyBikeEntry() {
+  const t = await getTranslations("home");
   const brands = await getMyBikeBrands();
   if (brands.length === 0) return null;
 
@@ -25,11 +27,8 @@ export async function MyBikeEntry() {
       <div className="v3-mb-inner">
         <div className="v3-mb-copy">
           <p className="v3-label">Bike finder</p>
-          <h2 className="v3-display">Αγόρασε γύρω από τη μηχανή σου.</h2>
-          <p>
-            Διάλεξε μάρκα & μοντέλο — σου δείχνουμε βαλίτσες, βάσεις, ζελατίνες,
-            λιπαντικά και αξεσουάρ που ταιριάζουν ακριβώς στη δική σου.
-          </p>
+          <h2 className="v3-display">{t("myBikeHeading")}</h2>
+          <p>{t("myBikeText")}</p>
         </div>
 
         <BikeSelector brands={brands} />

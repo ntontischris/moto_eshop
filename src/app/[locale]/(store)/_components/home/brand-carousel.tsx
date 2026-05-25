@@ -1,5 +1,7 @@
 /* eslint-disable @next/next/no-img-element -- decorative static brand logos in a marquee; plain <img> avoids per-logo intrinsic-size plumbing and is lighter than 32 optimizer entries */
 
+import { getTranslations } from "next-intl/server";
+
 type Brand = { name: string; slug: string };
 
 const BRANDS: Brand[] = [
@@ -21,16 +23,15 @@ const BRANDS: Brand[] = [
   { name: "Castrol", slug: "castrol" },
 ];
 
-export function BrandCarousel() {
+export async function BrandCarousel() {
+  const t = await getTranslations("home");
   const row = [...BRANDS, ...BRANDS];
 
   return (
     <section className="v3-bc v3-bc--reconstructed" aria-label="Brands">
       <div className="v3-bc-head">
         <p className="v3-label">Official brands</p>
-        <span>
-          Επιλεγμένοι κατασκευαστές για rider gear, bike setup και service.
-        </span>
+        <span>{t("brandCarouselDesc")}</span>
       </div>
       <div className="v3-bc-mask">
         <ul className="v3-bc-track">

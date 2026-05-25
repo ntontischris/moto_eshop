@@ -1,4 +1,5 @@
 import { Link } from "@/i18n/navigation";
+import { getTranslations } from "next-intl/server";
 import { HERO_POSTER, HERO_POSTER_MOBILE } from "../../_lib/assets";
 
 const HERO_ACTIONS = [
@@ -16,30 +17,36 @@ const HERO_ACTIONS = [
   { label: "Adventure", href: "/category/off-road", meta: "Off-road ready" },
 ] as const;
 
-const GEAR_ROOM_TILES = [
-  {
-    label: "Κράνη",
-    href: "/category/eksoplismos-anabath--kranh-endoep-nies-kameres",
-    meta: "Full face / flip up",
-  },
-  {
-    label: "Μπουφάν",
-    href: "/category/endysh--mpoyfan",
-    meta: "Textile / leather",
-  },
-  {
-    label: "Βαλίτσες",
-    href: "/category/eksoplismos-motosikletas--balitses",
-    meta: "Touring setup",
-  },
-  {
-    label: "Λιπαντικά",
-    href: "/category/lipantika",
-    meta: "Service ready",
-  },
-] as const;
+export async function Hero() {
+  const t = await getTranslations("home");
 
-export function Hero() {
+  const GEAR_ROOM_TILES = [
+    {
+      key: "helmet",
+      label: t("tileCranea"),
+      href: "/category/eksoplismos-anabath--kranh-endoep-nies-kameres",
+      meta: "Full face / flip up",
+    },
+    {
+      key: "jacket",
+      label: t("tileMpoyfan"),
+      href: "/category/endysh--mpoyfan",
+      meta: "Textile / leather",
+    },
+    {
+      key: "luggage",
+      label: t("tileBalitses"),
+      href: "/category/eksoplismos-motosikletas--balitses",
+      meta: "Touring setup",
+    },
+    {
+      key: "oil",
+      label: t("tileLipantika"),
+      href: "/category/lipantika",
+      meta: "Service ready",
+    },
+  ] as const;
+
   return (
     <section
       className="v3-hero v3-hero--race-control v3-hero--ride-commerce"
@@ -61,21 +68,18 @@ export function Hero() {
             </p>
 
             <h1 className="v3-hero-title v3-display">
-              <span>Σωστό gear</span>
+              <span>{t("heroTitle1")}</span>
               <span>
-                για τη μηχανή<span className="v3-hero-slash">/</span>
+                {t("heroTitle2")}
+                <span className="v3-hero-slash">/</span>
               </span>
               <span className="v3-hero-l3">
-                και τη{" "}
-                <span className="v3-hero-mobile-break">διαδρομή σου</span>
+                {t("heroTitle3")}{" "}
+                <span className="v3-hero-mobile-break">{t("heroTitle4")}</span>
               </span>
             </h1>
 
-            <p className="v3-hero-sub">
-              Premium εξοπλισμός, αξεσουάρ και ανταλλακτικά σε ένα πιο καθαρό
-              πρώτο βήμα: διάλεξε χρήση, μπες σε κατηγορία ή ξεκίνα από τη
-              μηχανή σου.
-            </p>
+            <p className="v3-hero-sub">{t("heroSub")}</p>
 
             <div className="v3-hero-cta">
               <Link
@@ -88,17 +92,14 @@ export function Hero() {
                 className="v3-hero-btn2"
                 href="/category/eksoplismos-anabath"
               >
-                Εξοπλισμός αναβάτη
+                {t("heroRiderGear")}
               </Link>
               <a className="v3-hero-btn3" href="#my-bike">
                 My Bike
               </a>
             </div>
 
-            <div
-              className="v3-hero-activity"
-              aria-label="Γρήγορη επιλογή χρήσης"
-            >
+            <div className="v3-hero-activity" aria-label={t("heroQuickUse")}>
               {HERO_ACTIONS.map((action) => (
                 <Link key={action.label} href={action.href}>
                   <span>{action.label}</span>
@@ -118,8 +119,8 @@ export function Hero() {
                 <span>fit first</span>
               </div>
               <div className="v3-hero-finder-fields">
-                <a href="#my-bike">Μάρκα</a>
-                <a href="#my-bike">Μοντέλο</a>
+                <a href="#my-bike">{t("heroBrand")}</a>
+                <a href="#my-bike">{t("heroModel")}</a>
               </div>
             </div>
 
@@ -128,7 +129,7 @@ export function Hero() {
                 <Link
                   className="v3-hero-gear-tile"
                   href={tile.href}
-                  key={tile.label}
+                  key={tile.key}
                 >
                   <span>{tile.label}</span>
                   <em>{tile.meta}</em>
@@ -147,11 +148,11 @@ export function Hero() {
               <i>/</i>
               <span>Official brands</span>
               <i>/</i>
-              <span>Αποστολή 1-3 ημέρες</span>
+              <span>{t("heroShipping")}</span>
               <i>/</i>
-              <span>11.000+ κωδικοί</span>
+              <span>{t("heroCodes")}</span>
               <i>/</i>
-              <span>Αλλαγή μεγέθους</span>
+              <span>{t("heroSizeChange")}</span>
               <i>/</i>
             </div>
           ))}

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import type { ProductListItem } from "@/lib/queries/products";
 import { AvailabilityBadge } from "../commerce/availability-badge";
 import { PriceDisplay } from "../commerce/price-display";
@@ -26,6 +27,7 @@ export function ProductRailCard({
   product: ProductListItem;
   rank: number;
 }) {
+  const t = useTranslations("home");
   const images =
     product.gallery_image_urls && product.gallery_image_urls.length > 0
       ? product.gallery_image_urls
@@ -162,7 +164,7 @@ export function ProductRailCard({
             compareAt={product.compare_at_price}
           />
           <Link href={productHref} className="v3-gallery-cta">
-            Δες προϊόν
+            {t("railViewProduct")}
           </Link>
         </div>
       </div>

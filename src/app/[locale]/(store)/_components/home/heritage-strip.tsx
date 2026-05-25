@@ -1,29 +1,11 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 
 /* HeritageStrip — count-up stats on scroll-in. CWV-safe: one Intersection
    observer, rAF count, transform/opacity only. Reduced-motion → final value
    immediately. */
-
-const STATS: {
-  to: number | null;
-  render: (n: number) => string;
-  label: string;
-}[] = [
-  {
-    to: 11000,
-    render: (n) => `${Math.round(n).toLocaleString("el-GR")}+`,
-    label: "προϊόντα στο κατάστημα",
-  },
-  { to: null, render: () => "Επίσημοι", label: "προμηθευτές & brands" },
-  { to: 3, render: (n) => `1–${Math.round(n)}`, label: "εργάσιμες παράδοση" },
-  {
-    to: 14,
-    render: (n) => `${Math.round(n)}`,
-    label: "ημέρες αλλαγή μεγέθους",
-  },
-];
 
 function useCountUp(target: number | null, run: boolean) {
   const [v, setV] = useState(0);
@@ -48,19 +30,57 @@ function useCountUp(target: number | null, run: boolean) {
   return v;
 }
 
-function Stat({ stat, run }: { stat: (typeof STATS)[number]; run: boolean }) {
+interface StatDef {
+  to: number | null;
+  render: (n: number) => string;
+  labelKey: string;
+}
+
+function Stat({
+  stat,
+  run,
+  label,
+}: {
+  stat: StatDef;
+  run: boolean;
+  label: string;
+}) {
   const v = useCountUp(stat.to, run);
   return (
     <div className="v3-hs-cell">
       <span className="v3-hs-value v3-display">
         {stat.to == null ? stat.render(0) : stat.render(v)}
       </span>
-      <span className="v3-hs-label">{stat.label}</span>
+      <span className="v3-hs-label">{label}</span>
     </div>
   );
 }
 
+const STAT_DEFS: StatDef[] = [
+  {
+    to: 11000,
+    render: (n) => `${Math.round(n).toLocaleString("el-GR")}+`,
+    labelKey: "heritageProducts",
+  },
+  {
+    to: null,
+    render: () => "Επίσημοι",
+    labelKey: "heritageSuppliersLabel",
+  },
+  {
+    to: 3,
+    render: (n) => `1–${Math.round(n)}`,
+    labelKey: "heritageDelivery",
+  },
+  {
+    to: 14,
+    render: (n) => `${Math.round(n)}`,
+    labelKey: "heritageReturn",
+  },
+];
+
 export function HeritageStrip() {
+  const t = useTranslations("home");
   const ref = useRef<HTMLElement>(null);
   const [run, setRun] = useState(false);
 
@@ -84,10 +104,10 @@ export function HeritageStrip() {
   }, []);
 
   return (
-    <section ref={ref} className="v3-hs" aria-label="MotoMarket με αριθμούς">
+    <section ref={ref} className="v3-hs" aria-label={t("heritageNumbers")}>
       <div className="v3-hs-inner">
-        {STATS.map((s) => (
-          <Stat key={s.label} stat={s} run={run} />
+        {STAT_DEFS.map((s) => (
+          <Stat key={s.labelKey} stat={s} run={run} label={t(s.labelKey)} />
         ))}
       </div>
     </section>
