@@ -2,6 +2,7 @@
 
 import { Link } from "@/i18n/navigation";
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import type { Product } from "@/lib/queries/products";
 import { ProductGallery } from "../../_components/pdp/product-gallery";
 import { BuyBox } from "../../_components/pdp/buy-box";
@@ -15,13 +16,15 @@ export function PDPClient({
   product: Product;
   related: React.ReactNode;
 }) {
+  const t = useTranslations("pdp");
+  const tc = useTranslations("common");
   const [tab, setTab] = useState<Tab>("desc");
   const specEntries = Object.entries(product.specs ?? {});
 
   return (
     <div className="v3-pdp">
       <nav className="v3-pdp-bc" aria-label="Breadcrumb">
-        <Link href="/">Αρχική</Link>
+        <Link href="/">{tc("home")}</Link>
         <span aria-hidden="true">/</span>
         <Link href={`/category/${product.category_slug}`}>
           {product.category_name}
@@ -44,7 +47,7 @@ export function PDPClient({
             className={tab === "desc" ? "is-on" : ""}
             onClick={() => setTab("desc")}
           >
-            Περιγραφή
+            {t("tabDescription")}
           </button>
           <button
             type="button"
@@ -53,7 +56,7 @@ export function PDPClient({
             className={tab === "specs" ? "is-on" : ""}
             onClick={() => setTab("specs")}
           >
-            Χαρακτηριστικά
+            {t("tabSpecs")}
           </button>
           <button
             type="button"
@@ -62,14 +65,14 @@ export function PDPClient({
             className={tab === "ship" ? "is-on" : ""}
             onClick={() => setTab("ship")}
           >
-            Αποστολή & Επιστροφές
+            {t("tabShipping")}
           </button>
         </div>
 
         <div className="v3-pdp-panel" role="tabpanel">
           {tab === "desc" && (
             <p className="v3-pdp-desc">
-              {product.description || "Δεν υπάρχει διαθέσιμη περιγραφή."}
+              {product.description || t("noDescription")}
             </p>
           )}
           {tab === "specs" &&
@@ -85,23 +88,21 @@ export function PDPClient({
                 </tbody>
               </table>
             ) : (
-              <p className="v3-pdp-desc">
-                Δεν υπάρχουν καταχωρημένα χαρακτηριστικά.
-              </p>
+              <p className="v3-pdp-desc">{t("noSpecs")}</p>
             ))}
           {tab === "ship" && (
             <ul className="v3-pdp-ship">
-              <li>Παράδοση 1–3 εργάσιμες ημέρες σε όλη την Ελλάδα.</li>
-              <li>Δωρεάν αλλαγή μεγέθους εντός 14 ημερών.</li>
-              <li>Δυνατότητα παραλαβής από το φυσικό κατάστημα.</li>
-              <li>Ασφαλείς, κρυπτογραφημένες πληρωμές.</li>
+              <li>{t("shipLine1")}</li>
+              <li>{t("shipLine2")}</li>
+              <li>{t("shipLine3")}</li>
+              <li>{t("shipLine4")}</li>
             </ul>
           )}
         </div>
       </div>
 
-      <section className="v3-pdp-rel" aria-label="Παρόμοια προϊόντα">
-        <h2>Παρόμοια κράνη</h2>
+      <section className="v3-pdp-rel" aria-label={t("relatedSection")}>
+        <h2>{t("relatedHeading")}</h2>
         <div className="v3-pdp-rel-grid">{related}</div>
       </section>
     </div>

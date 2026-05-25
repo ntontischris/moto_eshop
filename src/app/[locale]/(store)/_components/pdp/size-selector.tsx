@@ -1,5 +1,7 @@
 "use client";
 
+import { useTranslations } from "next-intl";
+
 export function SizeSelector({
   sizes,
   value,
@@ -9,9 +11,15 @@ export function SizeSelector({
   value: string | null;
   onChange: (s: string) => void;
 }) {
+  const t = useTranslations("pdp");
+
   return (
     <div className="v3-size">
-      <div className="v3-size-row" role="group" aria-label="Επιλογή μεγέθους">
+      <div
+        className="v3-size-row"
+        role="group"
+        aria-label={t("sizeGroupLabel")}
+      >
         {sizes.map((size) => (
           <button
             key={size}

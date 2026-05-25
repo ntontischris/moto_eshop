@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import type { ProductImage } from "@/lib/queries/products";
 import { SmartImage } from "../commerce/smart-image";
 
@@ -14,6 +15,7 @@ export function ProductGallery({
   images: ProductImage[];
   name: string;
 }) {
+  const t = useTranslations("pdp");
   const sorted = [...images].sort((a, b) => a.position - b.position);
   const [active, setActive] = useState(0);
   const main = sorted[active] ?? sorted[0];
@@ -36,7 +38,7 @@ export function ProductGallery({
         <div
           className="v3-gal-thumbs"
           role="tablist"
-          aria-label="Εικόνες προϊόντος"
+          aria-label={t("galleryImages")}
         >
           {sorted.map((img, i) => (
             <button
@@ -44,7 +46,7 @@ export function ProductGallery({
               type="button"
               role="tab"
               aria-selected={i === active}
-              aria-label={`Εικόνα ${i + 1}`}
+              aria-label={t("galleryThumb", { n: i + 1 })}
               className={`v3-gal-thumb${i === active ? " is-active" : ""}`}
               onClick={() => setActive(i)}
             >

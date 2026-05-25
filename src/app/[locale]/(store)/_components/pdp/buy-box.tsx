@@ -2,6 +2,7 @@
 
 import { Link } from "@/i18n/navigation";
 import { useMemo, useState } from "react";
+import { useTranslations } from "next-intl";
 import type { Product } from "@/lib/queries/products";
 import { getAvailabilityState } from "../../_lib/availability";
 import { getCartRecommendations } from "../../_lib/cart-recommendations";
@@ -29,6 +30,7 @@ function deriveSizes(specs: Record<string, string>): {
 }
 
 export function BuyBox({ product }: { product: Product }) {
+  const t = useTranslations("pdp");
   const { addToCart, setCartOpen } = useV3();
   const { sizes, fromSpecs } = useMemo(
     () => deriveSizes(product.specs ?? {}),
@@ -73,7 +75,7 @@ export function BuyBox({ product }: { product: Product }) {
       <h1>{product.name}</h1>
 
       <div className="v3-bb-meta">
-        {product.sku && <span>Κωδικός: {product.sku}</span>}
+        {product.sku && <span>{t("skuLabel", { sku: product.sku })}</span>}
         {product.average_rating != null && (
           <span>
             ★ {product.average_rating.toFixed(1)} ({product.review_count})
@@ -100,23 +102,19 @@ export function BuyBox({ product }: { product: Product }) {
         <div className="v3-bb-step-head">
           <span>1</span>
           <div>
-            <strong>Διάλεξε μέγεθος</strong>
-            <Link href="#size-guide">Οδηγός μεγεθών</Link>
+            <strong>{t("chooseSize")}</strong>
+            <Link href="#size-guide">{t("sizeGuide")}</Link>
           </div>
         </div>
         <SizeSelector sizes={sizes} value={size} onChange={setSize} />
-        {!fromSpecs && (
-          <p className="v3-bb-note">
-            Τα διαθέσιμα μεγέθη επιβεβαιώνονται κατά την παραγγελία.
-          </p>
-        )}
+        {!fromSpecs && <p className="v3-bb-note">{t("sizesNote")}</p>}
       </div>
 
       <div className="v3-bb-step">
         <div className="v3-bb-step-head">
           <span>2</span>
           <div>
-            <strong>Διαθεσιμότητα</strong>
+            <strong>{t("availability")}</strong>
             <em>{availability.detailLabel}</em>
           </div>
         </div>
@@ -132,7 +130,7 @@ export function BuyBox({ product }: { product: Product }) {
         {availability.ctaLabel}
       </button>
 
-      <section className="v3-bb-complete" aria-label="Σχετικές προτάσεις">
+      <section className="v3-bb-complete" aria-label={t("relatedProducts")}>
         <p className="v3-label">Complete your ride</p>
         <div className="v3-bb-complete-list">
           {recommendations.map((rec) => (
@@ -145,9 +143,9 @@ export function BuyBox({ product }: { product: Product }) {
       </section>
 
       <ul className="v3-bb-trust">
-        <li>Παράδοση 1-3 εργάσιμες</li>
-        <li>Αλλαγή μεγέθους εντός 14 ημερών</li>
-        <li>Ασφαλείς πληρωμές και επίσημοι προμηθευτές</li>
+        <li>{t("trustDelivery")}</li>
+        <li>{t("trustSizeReturn")}</li>
+        <li>{t("trustSecure")}</li>
       </ul>
     </div>
   );
