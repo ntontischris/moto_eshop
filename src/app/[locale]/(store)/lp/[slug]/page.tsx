@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import { redirect } from "@/i18n/navigation";
 import type { Metadata } from "next";
 import type { Locale } from "@/i18n/config";
@@ -30,7 +31,15 @@ export async function generateMetadata({
   };
 }
 
-export default async function CampaignPage({ params }: PageProps) {
+export default function CampaignPage(props: PageProps) {
+  return (
+    <Suspense fallback={<CampaignFallback />}>
+      <CampaignContent {...props} />
+    </Suspense>
+  );
+}
+
+async function CampaignContent({ params }: PageProps) {
   const { locale, slug } = await params;
   const campaign = await getCampaignBySlug(slug);
   if (!campaign) notFound();
@@ -49,4 +58,8 @@ export default async function CampaignPage({ params }: PageProps) {
       <BlockRenderer blocks={variant.blocks} />
     </main>
   );
+}
+
+function CampaignFallback() {
+  return <main className="min-h-screen" aria-hidden="true" />;
 }
