@@ -7,6 +7,8 @@ import type { CampaignWithVariants, ServingMode } from "@/lib/campaigns/types";
 import type { Blocks } from "@/lib/campaigns/blocks/schema";
 import type { EditorBlock } from "./block-descriptors";
 import { BlockListEditor } from "./block-list-editor";
+import { AiBrief } from "./ai-brief";
+import type { DraftVariant } from "@/lib/campaigns/ai/repair";
 import {
   updateCampaign,
   saveVariant,
@@ -164,6 +166,34 @@ export function CampaignEditor({
     });
   }
 
+  async function handleGenerated(drafts: DraftVariant[]) {
+    const added: EditorVariant[] = [];
+    for (const d of drafts) {
+      const seo = d.seoTitle ? { title: d.seoTitle } : {};
+      const res = await saveVariant(campaign.id, null, {
+        name: d.name,
+        blocks: d.blocks as unknown as Blocks,
+        weight: 1,
+        targeting_rules: [],
+        seo,
+      });
+      if (res.success) {
+        added.push({
+          id: res.id,
+          name: d.name,
+          weight: 1,
+          seo,
+          blocks: d.blocks as unknown as EditorBlock[],
+        });
+      }
+    }
+    if (added.length > 0) {
+      setVariants((vs) => [...vs, ...added]);
+      setActiveId(added[0].id);
+      flash(`Προστέθηκαν ${added.length} variant(s)`);
+    }
+  }
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -202,6 +232,8 @@ export function CampaignEditor({
       <div className="grid gap-6 lg:grid-cols-[320px_1fr]">
         {/* Settings + variant list */}
         <div className="space-y-4">
+          <AiBrief onGenerated={handleGenerated} />
+
           <div className={card}>
             <h2 className="text-sm font-semibold text-text-primary">
               Ρυθμίσεις
