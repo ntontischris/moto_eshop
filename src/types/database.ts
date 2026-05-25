@@ -199,6 +199,148 @@ export type Database = {
         };
         Relationships: [];
       };
+      campaign_events: {
+        Row: {
+          campaign_id: string;
+          created_at: string;
+          id: string;
+          session_id: string | null;
+          type: string;
+          value: number | null;
+          variant_id: string | null;
+        };
+        Insert: {
+          campaign_id: string;
+          created_at?: string;
+          id?: string;
+          session_id?: string | null;
+          type: string;
+          value?: number | null;
+          variant_id?: string | null;
+        };
+        Update: {
+          campaign_id?: string;
+          created_at?: string;
+          id?: string;
+          session_id?: string | null;
+          type?: string;
+          value?: number | null;
+          variant_id?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "campaign_events_campaign_id_fkey";
+            columns: ["campaign_id"];
+            isOneToOne: false;
+            referencedRelation: "campaigns";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "campaign_events_variant_id_fkey";
+            columns: ["variant_id"];
+            isOneToOne: false;
+            referencedRelation: "campaign_variants";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      campaign_variants: {
+        Row: {
+          blocks: Json;
+          campaign_id: string;
+          created_at: string;
+          id: string;
+          name: string;
+          seo: Json;
+          targeting_rules: Json;
+          weight: number;
+        };
+        Insert: {
+          blocks?: Json;
+          campaign_id: string;
+          created_at?: string;
+          id?: string;
+          name: string;
+          seo?: Json;
+          targeting_rules?: Json;
+          weight?: number;
+        };
+        Update: {
+          blocks?: Json;
+          campaign_id?: string;
+          created_at?: string;
+          id?: string;
+          name?: string;
+          seo?: Json;
+          targeting_rules?: Json;
+          weight?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "campaign_variants_campaign_id_fkey";
+            columns: ["campaign_id"];
+            isOneToOne: false;
+            referencedRelation: "campaigns";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      campaigns: {
+        Row: {
+          created_at: string;
+          created_by: string | null;
+          default_variant_id: string | null;
+          expires_at: string | null;
+          id: string;
+          name: string;
+          noindex: boolean;
+          redirect_url: string;
+          serving_mode: string;
+          slug: string;
+          starts_at: string | null;
+          status: string;
+          updated_at: string;
+        };
+        Insert: {
+          created_at?: string;
+          created_by?: string | null;
+          default_variant_id?: string | null;
+          expires_at?: string | null;
+          id?: string;
+          name: string;
+          noindex?: boolean;
+          redirect_url?: string;
+          serving_mode?: string;
+          slug: string;
+          starts_at?: string | null;
+          status?: string;
+          updated_at?: string;
+        };
+        Update: {
+          created_at?: string;
+          created_by?: string | null;
+          default_variant_id?: string | null;
+          expires_at?: string | null;
+          id?: string;
+          name?: string;
+          noindex?: boolean;
+          redirect_url?: string;
+          serving_mode?: string;
+          slug?: string;
+          starts_at?: string | null;
+          status?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "campaigns_default_variant_fk";
+            columns: ["default_variant_id"];
+            isOneToOne: false;
+            referencedRelation: "campaign_variants";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       cart_items: {
         Row: {
           cart_id: string;
