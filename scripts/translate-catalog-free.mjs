@@ -122,23 +122,37 @@ for await (const p of products()) {
     skippedEmpty++;
     continue; // nothing to translate; read path falls back to source
   }
-  try {
-    const translated = await translate(desc, LOCALE);
-    await upsert({
-      product_id: p.id,
-      locale: LOCALE,
-      name: p.name,
-      description: translated || p.description,
-      status: "active",
-    });
-    did++;
-  } catch (e) {
-    failed++;
-    console.warn(`[${LOCALE}] skip ${p.id}: ${String(e).slice(0, 80)}`);
-    await sleep(2000); // back off a bit on failure; a re-run fills the gap
+  // Ride out IP rate-limits: retry the SAME product with escalating cooldown
+  // (30s, 60s … capped 5min) instead of skipping, so a long unattended run
+  // waits out blocks and actually completes.
+  let translated = null;
+  for (let round = 0; round < 14; round++) {
+    try {
+      translated = await translate(desc, LOCALE);
+      break;
+    } catch (e) {
+      const wait = Math.min(30000 * (round + 1), 300000);
+      console.warn(
+        `[${LOCALE}] blocked on ${p.id} — cooldown ${wait / 1000}s (round ${round + 1})`,
+      );
+      await sleep(wait);
+    }
   }
-  await sleep(350 + Math.random() * 350);
-  if (did % 25 === 0 && did > 0)
+  if (translated === null) {
+    failed++;
+    console.warn(`[${LOCALE}] gave up on ${p.id} after cooldowns`);
+    continue;
+  }
+  await upsert({
+    product_id: p.id,
+    locale: LOCALE,
+    name: p.name,
+    description: translated || p.description,
+    status: "active",
+  });
+  did++;
+  await sleep(600 + Math.random() * 500);
+  if (did % 25 === 0)
     console.log(`[${LOCALE}] ${did} done, ${failed} failed (last: ${(p.name || "").slice(0, 40)})`);
 }
 console.log(`[${LOCALE}] run complete: +${did} translated, ${failed} failed, ${skippedEmpty} empty skipped`);
