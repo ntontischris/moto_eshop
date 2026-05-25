@@ -2,18 +2,19 @@
 
 import { Link } from "@/i18n/navigation";
 import { useRouter } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import type { ProductFilters, SortOption } from "@/lib/queries/products";
 import type { PlpState } from "../../_lib/plp-params";
 import { buildPlpQuery } from "../../_lib/plp-params";
 import { FilterSidebar } from "../../_components/filters/filter-sidebar";
 import { MobileFilterDrawer } from "../../_components/filters/mobile-filter-drawer";
 
-const SORTS: { value: SortOption; label: string }[] = [
-  { value: "popular", label: "Προτεινόμενα" },
-  { value: "newest", label: "Νεότερα" },
-  { value: "price_asc", label: "Τιμή: αύξουσα" },
-  { value: "price_desc", label: "Τιμή: φθίνουσα" },
-  { value: "rating", label: "Βαθμολογία" },
+const SORT_VALUES: { value: SortOption; tKey: string }[] = [
+  { value: "popular", tKey: "sortPopular" },
+  { value: "newest", tKey: "sortNewest" },
+  { value: "price_asc", tKey: "sortPriceAsc" },
+  { value: "price_desc", tKey: "sortPriceDesc" },
+  { value: "rating", tKey: "sortRating" },
 ];
 
 export interface PLPClientProps {
@@ -41,6 +42,7 @@ export function PLPClient({
   totalPages,
   children,
 }: PLPClientProps) {
+  const t = useTranslations("plp");
   const router = useRouter();
   const basePath = `/category/${slug}`;
   const push = (next: PlpState) => router.push(basePath + buildPlpQuery(next));
@@ -79,7 +81,7 @@ export function PLPClient({
   return (
     <div className="v3-plp">
       <nav className="v3-plp-bc" aria-label="Breadcrumb">
-        <Link href="/">Αρχική</Link>
+        <Link href="/">{t("homeLabel")}</Link>
         <span aria-hidden="true">/</span>
         <span>{title}</span>
       </nav>
@@ -90,7 +92,7 @@ export function PLPClient({
       </header>
 
       {subcategories.length > 0 && (
-        <div className="v3-plp-chips" aria-label="Υποκατηγορίες">
+        <div className="v3-plp-chips" aria-label={t("subcategoriesLabel")}>
           {subcategories.map((s) => (
             <Link
               key={s.slug}
@@ -104,7 +106,7 @@ export function PLPClient({
       )}
 
       <div className="v3-plp-bar">
-        <span className="v3-plp-count">{total} προϊόντα</span>
+        <span className="v3-plp-count">{t("productCount", { total })}</span>
         <div className="v3-plp-bar-r">
           <MobileFilterDrawer
             filters={filters}
@@ -113,16 +115,16 @@ export function PLPClient({
             total={total}
           />
           <label className="v3-plp-sort">
-            <span>Ταξινόμηση</span>
+            <span>{t("sortLabel")}</span>
             <select
               value={state.sort}
               onChange={(e) =>
                 push({ ...state, sort: e.target.value as SortOption, page: 1 })
               }
             >
-              {SORTS.map((s) => (
+              {SORT_VALUES.map((s) => (
                 <option key={s.value} value={s.value}>
-                  {s.label}
+                  {t(s.tKey as Parameters<typeof t>[0])}
                 </option>
               ))}
             </select>
@@ -152,22 +154,20 @@ export function PLPClient({
         <div className="v3-plp-main">
           <div className="v3-plp-grid">{children}</div>
           {totalPages > 1 && (
-            <nav className="v3-plp-pager" aria-label="Σελιδοποίηση">
+            <nav className="v3-plp-pager" aria-label={t("paginationLabel")}>
               {page > 1 && (
                 <Link
                   href={basePath + buildPlpQuery({ ...state, page: page - 1 })}
                 >
-                  ← Προηγούμενη
+                  {t("prevPage")}
                 </Link>
               )}
-              <span>
-                Σελίδα {page} / {totalPages}
-              </span>
+              <span>{t("pageInfo", { page, total: totalPages })}</span>
               {page < totalPages && (
                 <Link
                   href={basePath + buildPlpQuery({ ...state, page: page + 1 })}
                 >
-                  Επόμενη →
+                  {t("nextPage")}
                 </Link>
               )}
             </nav>

@@ -1,14 +1,18 @@
 import { Link } from "@/i18n/navigation";
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import { getTranslations } from "next-intl/server";
 import type { Locale } from "@/i18n/config";
 import { searchProducts } from "@/lib/queries/products";
 import { ProductCard } from "../_components/commerce/product-card";
 
-export const metadata: Metadata = {
-  title: "Αναζήτηση | MotoMarket",
-  robots: { index: false },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("search");
+  return {
+    title: t("metaTitle"),
+    robots: { index: false },
+  };
+}
 
 const PER_PAGE = 24;
 
@@ -30,6 +34,7 @@ async function SearchContent({
   params: Promise<{ locale: Locale }>;
   searchParams: Promise<{ q?: string; page?: string }>;
 }) {
+  const t = await getTranslations("search");
   const { locale } = await params;
   const sp = await searchParams;
   const q = (sp.q ?? "").trim();
@@ -44,32 +49,29 @@ async function SearchContent({
   return (
     <div className="v3-srch">
       <nav className="v3-srch-bc" aria-label="Breadcrumb">
-        <Link href="/">Αρχική</Link>
+        <Link href="/">{t("homeLabel")}</Link>
         <span aria-hidden="true">/</span>
-        <span>Αναζήτηση</span>
+        <span>{t("searchLabel")}</span>
       </nav>
 
       <h1 className="v3-display">
-        Αναζήτηση<span className="v3-srch-dot">.</span>
+        {t("heading")}
+        <span className="v3-srch-dot">.</span>
       </h1>
 
       {!q ? (
-        <p className="v3-srch-hint">
-          Πληκτρολόγησε στην μπάρα αναζήτησης πάνω για να βρεις προϊόντα.
-        </p>
+        <p className="v3-srch-hint">{t("hint")}</p>
       ) : res.data.length === 0 ? (
         <div className="v3-srch-empty">
-          <p>
-            Κανένα αποτέλεσμα για «<strong>{q}</strong>».
-          </p>
+          <p>{t("noResults", { q })}</p>
           <Link className="v3-btn-primary" href="/category/eksoplismos-anabath">
-            Δες όλο τον εξοπλισμό <span aria-hidden="true">→</span>
+            {t("seeAll")} <span aria-hidden="true">→</span>
           </Link>
         </div>
       ) : (
         <>
           <p className="v3-srch-count">
-            {res.total} αποτελέσματα για «<strong>{q}</strong>»
+            {t("resultCount", { total: res.total, q })}
           </p>
           <div className="v3-srch-grid">
             {res.data.map((p) => (
@@ -77,15 +79,13 @@ async function SearchContent({
             ))}
           </div>
           {res.totalPages > 1 && (
-            <nav className="v3-srch-pager" aria-label="Σελιδοποίηση">
+            <nav className="v3-srch-pager" aria-label={t("paginationLabel")}>
               {page > 1 && (
-                <Link href={`${base}&page=${page - 1}`}>← Προηγούμενη</Link>
+                <Link href={`${base}&page=${page - 1}`}>{t("prevPage")}</Link>
               )}
-              <span>
-                Σελίδα {page} / {res.totalPages}
-              </span>
+              <span>{t("pageInfo", { page, total: res.totalPages })}</span>
               {page < res.totalPages && (
-                <Link href={`${base}&page=${page + 1}`}>Επόμενη →</Link>
+                <Link href={`${base}&page=${page + 1}`}>{t("nextPage")}</Link>
               )}
             </nav>
           )}

@@ -1,8 +1,10 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useV3 } from "../shell/v3-provider";
 
 export function WishlistButton({ slug }: { slug: string }) {
+  const t = useTranslations("auth");
   const { wishlist, toggleWishlist } = useV3();
   const active = wishlist.includes(slug);
 
@@ -15,9 +17,7 @@ export function WishlistButton({ slug }: { slug: string }) {
         toggleWishlist(slug);
       }}
       aria-pressed={active}
-      aria-label={
-        active ? "Αφαίρεση από λίστα επιθυμιών" : "Προσθήκη στη λίστα επιθυμιών"
-      }
+      aria-label={active ? t("wishlistRemove") : t("wishlistAdd")}
       style={{
         position: "absolute",
         top: "8px",

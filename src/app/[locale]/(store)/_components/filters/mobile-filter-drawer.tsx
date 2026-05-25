@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 import type { ProductFilters } from "@/lib/queries/products";
 import type { PlpState } from "../../_lib/plp-params";
 import { FilterSidebar } from "./filter-sidebar";
@@ -21,6 +22,7 @@ export function MobileFilterDrawer({
   basePath,
   total,
 }: MobileFilterDrawerProps) {
+  const t = useTranslations("filters");
   const [open, setOpen] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
@@ -65,7 +67,7 @@ export function MobileFilterDrawer({
         className="v3-mfd-trigger"
         onClick={() => setOpen(true)}
       >
-        Φίλτρα
+        {t("filtersLabel")}
       </button>
 
       {open && (
@@ -73,7 +75,7 @@ export function MobileFilterDrawer({
           <button
             type="button"
             className="v3-mfd-backdrop"
-            aria-label="Κλείσιμο φίλτρων"
+            aria-label={t("filtersClose")}
             onClick={() => setOpen(false)}
           />
           <div
@@ -81,15 +83,15 @@ export function MobileFilterDrawer({
             className="v3-mfd-panel"
             role="dialog"
             aria-modal="true"
-            aria-label="Φίλτρα προϊόντων"
+            aria-label={t("filtersDialog")}
           >
             <div className="v3-mfd-head">
-              <strong>Φίλτρα</strong>
+              <strong>{t("filtersLabel")}</strong>
               <button
                 ref={closeRef}
                 type="button"
                 onClick={() => setOpen(false)}
-                aria-label="Κλείσιμο"
+                aria-label={t("filtersClose")}
               >
                 ✕
               </button>
@@ -106,7 +108,7 @@ export function MobileFilterDrawer({
               className="v3-btn-primary v3-mfd-apply"
               onClick={() => setOpen(false)}
             >
-              Δες {total} προϊόντα
+              {t("seeProducts", { total })}
             </button>
           </div>
         </div>

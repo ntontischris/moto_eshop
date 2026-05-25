@@ -2,9 +2,11 @@
 
 import { useState } from "react";
 import { useRouter } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import { signOut } from "@/lib/auth/actions";
 
 export function SignOutButton() {
+  const t = useTranslations("auth");
   const router = useRouter();
   const [busy, setBusy] = useState(false);
 
@@ -23,7 +25,7 @@ export function SignOutButton() {
         }
       }}
     >
-      {busy ? "Αποσύνδεση…" : "Αποσύνδεση"}
+      {busy ? t("signOutBusy") : t("signOut")}
     </button>
   );
 }

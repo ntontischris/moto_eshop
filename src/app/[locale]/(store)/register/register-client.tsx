@@ -3,10 +3,12 @@
 import { useState } from "react";
 import { Link } from "@/i18n/navigation";
 import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { signUpWithEmail } from "@/lib/auth/actions";
 import { AuthShell } from "../_components/auth/auth-shell";
 
 export default function RegisterClient() {
+  const t = useTranslations("auth");
   const sp = useSearchParams();
   const redirectTo = sp.get("redirectTo") || sp.get("next") || "/account";
   const [error, setError] = useState<string | null>(null);
@@ -23,7 +25,7 @@ export default function RegisterClient() {
       if (res?.success) {
         setDone(true);
       } else {
-        setError(res?.error ?? "Αποτυχία εγγραφής.");
+        setError(res?.error ?? t("registerError"));
         setBusy(false);
       }
     } catch {
@@ -33,14 +35,11 @@ export default function RegisterClient() {
 
   if (done) {
     return (
-      <AuthShell title="Σχεδόν έτοιμο" subtitle="Επιβεβαίωσε το email σου.">
-        <p className="v3-auth-ok">
-          Σου στείλαμε email επιβεβαίωσης. Άνοιξέ το για να ενεργοποιήσεις τον
-          λογαριασμό σου και μετά συνδέσου.
-        </p>
+      <AuthShell title={t("confirmTitle")} subtitle={t("confirmSubtitle")}>
+        <p className="v3-auth-ok">{t("confirmText")}</p>
         <p className="v3-auth-alt">
           <Link href={`/login?redirectTo=${encodeURIComponent(redirectTo)}`}>
-            Προς τη σύνδεση
+            {t("toLogin")}
           </Link>
         </p>
       </AuthShell>
@@ -48,14 +47,14 @@ export default function RegisterClient() {
   }
 
   return (
-    <AuthShell title="Εγγραφή" subtitle="Φτιάξε λογαριασμό MotoMarket.">
+    <AuthShell title={t("registerTitle")} subtitle={t("registerSubtitle")}>
       <form className="v3-auth-form" onSubmit={onSubmit}>
         <label className="v3-auth-field">
           <span>Email</span>
           <input name="email" type="email" required autoComplete="email" />
         </label>
         <label className="v3-auth-field">
-          <span>Κωδικός (8+, ένα κεφαλαίο, ένας αριθμός)</span>
+          <span>{t("passwordHint")}</span>
           <input
             name="password"
             type="password"
@@ -65,9 +64,7 @@ export default function RegisterClient() {
         </label>
         <label className="v3-auth-terms">
           <input name="acceptedTerms" type="checkbox" value="true" required />
-          <span>
-            Αποδέχομαι τους όρους χρήσης &amp; την πολιτική απορρήτου.
-          </span>
+          <span>{t("acceptTerms")}</span>
         </label>
         {error && <p className="v3-auth-err">{error}</p>}
         <button
@@ -75,13 +72,13 @@ export default function RegisterClient() {
           className="v3-btn-primary v3-auth-submit"
           disabled={busy}
         >
-          {busy ? "Εγγραφή…" : "Εγγραφή"}
+          {busy ? t("registerBusy") : t("registerButton")}
         </button>
       </form>
       <p className="v3-auth-alt">
-        Έχεις ήδη λογαριασμό;{" "}
+        {t("hasAccount")}{" "}
         <Link href={`/login?redirectTo=${encodeURIComponent(redirectTo)}`}>
-          Σύνδεση
+          {t("loginLink")}
         </Link>
       </p>
     </AuthShell>

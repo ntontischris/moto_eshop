@@ -4,10 +4,12 @@ import { useState } from "react";
 import { Link } from "@/i18n/navigation";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import { signInWithEmail } from "@/lib/auth/actions";
 import { AuthShell } from "../_components/auth/auth-shell";
 
 export default function LoginClient() {
+  const t = useTranslations("auth");
   const router = useRouter();
   const sp = useSearchParams();
   const redirectTo = sp.get("redirectTo") || sp.get("next") || "/account";
@@ -26,7 +28,7 @@ export default function LoginClient() {
         router.push(redirectTo);
         router.refresh();
       } else {
-        setError(res?.error ?? "Αποτυχία σύνδεσης.");
+        setError(res?.error ?? t("loginError"));
         setBusy(false);
       }
     } catch {
@@ -35,14 +37,14 @@ export default function LoginClient() {
   }
 
   return (
-    <AuthShell title="Σύνδεση" subtitle="Καλώς ήρθες πίσω.">
+    <AuthShell title={t("loginTitle")} subtitle={t("loginSubtitle")}>
       <form className="v3-auth-form" onSubmit={onSubmit}>
         <label className="v3-auth-field">
           <span>Email</span>
           <input name="email" type="email" required autoComplete="email" />
         </label>
         <label className="v3-auth-field">
-          <span>Κωδικός</span>
+          <span>{t("passwordLabel")}</span>
           <input
             name="password"
             type="password"
@@ -56,13 +58,13 @@ export default function LoginClient() {
           className="v3-btn-primary v3-auth-submit"
           disabled={busy}
         >
-          {busy ? "Σύνδεση…" : "Σύνδεση"}
+          {busy ? t("loginBusy") : t("loginButton")}
         </button>
       </form>
       <p className="v3-auth-alt">
-        Δεν έχεις λογαριασμό;{" "}
+        {t("noAccount")}{" "}
         <Link href={`/register?redirectTo=${encodeURIComponent(redirectTo)}`}>
-          Εγγραφή
+          {t("registerLink")}
         </Link>
       </p>
     </AuthShell>

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "@/i18n/navigation";
 import { ChevronRight, Star } from "lucide-react";
+import { useTranslations } from "next-intl";
 import type { ProductListItem } from "@/lib/queries/products";
 import { SmartImage } from "./smart-image";
 import { Badge, type Tone } from "./badge";
@@ -32,6 +33,8 @@ export function ProductCard({
   rank,
   compact = false,
 }: ProductCardProps) {
+  const tPlp = useTranslations("plp");
+  const tCommon = useTranslations("common");
   const href = `/product/${product.slug}`;
   const images =
     product.gallery_image_urls && product.gallery_image_urls.length > 0
@@ -188,7 +191,7 @@ export function ProductCard({
               {rating} ({product.review_count})
             </span>
           ) : (
-            <span>Νέα επιλογή</span>
+            <span>{tPlp("newChoice")}</span>
           )}
           <span>{availability.detailLabel}</span>
         </div>
@@ -207,7 +210,8 @@ export function ProductCard({
             compareAt={product.compare_at_price}
           />
           <Link href={href} className="v3-card__cta">
-            Δες προϊόν <ChevronRight size={16} aria-hidden="true" />
+            {tCommon("viewProduct")}
+            <ChevronRight size={16} aria-hidden="true" />
           </Link>
         </div>
       </div>

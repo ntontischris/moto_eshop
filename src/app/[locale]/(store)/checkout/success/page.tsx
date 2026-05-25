@@ -1,11 +1,15 @@
 import { Link } from "@/i18n/navigation";
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import { getTranslations } from "next-intl/server";
 
-export const metadata: Metadata = {
-  title: "Η παραγγελία καταχωρήθηκε | MotoMarket",
-  robots: { index: false },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("checkout");
+  return {
+    title: t("successMetaTitle"),
+    robots: { index: false },
+  };
+}
 
 export default function CheckoutSuccess(props: {
   searchParams: Promise<{ order?: string }>;
@@ -22,6 +26,7 @@ async function CheckoutSuccessContent({
 }: {
   searchParams: Promise<{ order?: string }>;
 }) {
+  const t = await getTranslations("checkout");
   const { order } = await searchParams;
 
   return (
@@ -29,23 +34,16 @@ async function CheckoutSuccessContent({
       <div className="v3-ok-mark" aria-hidden="true">
         ✓
       </div>
-      <h1 className="v3-display">Ευχαριστούμε!</h1>
-      <p className="v3-ok-lead">Η παραγγελία σου καταχωρήθηκε.</p>
-      {order && (
-        <p className="v3-ok-num">
-          Αριθμός παραγγελίας: <strong>{order}</strong>
-        </p>
-      )}
-      <p className="v3-ok-info">
-        Πληρωμή με <strong>αντικαταβολή</strong> κατά την παράδοση. Θα
-        επικοινωνήσουμε για επιβεβαίωση. Παράδοση σε 1–3 εργάσιμες.
-      </p>
+      <h1 className="v3-display">{t("successThank")}</h1>
+      <p className="v3-ok-lead">{t("successLead")}</p>
+      {order && <p className="v3-ok-num">{t("successOrderNum", { order })}</p>}
+      <p className="v3-ok-info">{t("successInfo")}</p>
       <div className="v3-ok-cta">
         <Link className="v3-btn-primary" href="/">
-          Στην αρχική <span aria-hidden="true">→</span>
+          {t("successHome")} <span aria-hidden="true">→</span>
         </Link>
         <Link className="v3-ok-cont" href="/category/eksoplismos-anabath">
-          Συνέχισε τα ψώνια
+          {t("successContinue")}
         </Link>
       </div>
       <style precedence="default">{`

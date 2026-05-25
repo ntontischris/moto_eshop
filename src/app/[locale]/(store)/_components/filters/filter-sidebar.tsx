@@ -2,6 +2,7 @@
 
 import { useRouter } from "@/i18n/navigation";
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import type { ProductFilters } from "@/lib/queries/products";
 import type { PlpState } from "../../_lib/plp-params";
 import { buildPlpQuery } from "../../_lib/plp-params";
@@ -20,6 +21,7 @@ export function FilterSidebar({
   state,
   basePath,
 }: FilterSidebarProps) {
+  const t = useTranslations("filters");
   const router = useRouter();
   const [min, setMin] = useState(state.priceMin?.toString() ?? "");
   const [max, setMax] = useState(state.priceMax?.toString() ?? "");
@@ -42,9 +44,9 @@ export function FilterSidebar({
     });
 
   return (
-    <aside className="v3-fs" aria-label="Φίλτρα">
+    <aside className="v3-fs" aria-label={t("filtersLabel")}>
       <section className="v3-fs-grp">
-        <h3>Κατασκευαστής</h3>
+        <h3>{t("manufacturer")}</h3>
         <ul>
           {filters.brands.map((b) => (
             <li key={b.slug}>
@@ -63,14 +65,14 @@ export function FilterSidebar({
       </section>
 
       <section className="v3-fs-grp">
-        <h3>Τιμή (€)</h3>
+        <h3>{t("price")}</h3>
         <div className="v3-fs-price">
           <input
             type="number"
             inputMode="numeric"
             placeholder={String(filters.price_range.min)}
             value={min}
-            aria-label="Ελάχιστη τιμή"
+            aria-label={t("minPrice")}
             onChange={(e) => setMin(e.target.value)}
           />
           <span>—</span>
@@ -79,19 +81,19 @@ export function FilterSidebar({
             inputMode="numeric"
             placeholder={String(filters.price_range.max)}
             value={max}
-            aria-label="Μέγιστη τιμή"
+            aria-label={t("maxPrice")}
             onChange={(e) => setMax(e.target.value)}
           />
         </div>
         <button type="button" className="v3-fs-apply" onClick={applyPrice}>
-          Εφαρμογή τιμής
+          {t("applyPrice")}
         </button>
       </section>
 
       {filters.certifications.length > 0 && (
         <section className="v3-fs-grp v3-fs-soft">
           <h3>
-            Πιστοποίηση <span>σύντομα</span>
+            {t("certification")} <span>{t("comingSoon")}</span>
           </h3>
           <ul>
             {filters.certifications.map((c) => (
@@ -107,7 +109,7 @@ export function FilterSidebar({
       {filters.rider_types.length > 0 && (
         <section className="v3-fs-grp v3-fs-soft">
           <h3>
-            Χρήση <span>σύντομα</span>
+            {t("usage")} <span>{t("comingSoon")}</span>
           </h3>
           <ul>
             {filters.rider_types.map((r) => (

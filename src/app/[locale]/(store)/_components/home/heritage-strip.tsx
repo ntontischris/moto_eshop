@@ -34,22 +34,25 @@ interface StatDef {
   to: number | null;
   render: (n: number) => string;
   labelKey: string;
+  valueKey?: string;
 }
 
 function Stat({
   stat,
   run,
   label,
+  value,
 }: {
   stat: StatDef;
   run: boolean;
   label: string;
+  value?: string;
 }) {
   const v = useCountUp(stat.to, run);
   return (
     <div className="v3-hs-cell">
       <span className="v3-hs-value v3-display">
-        {stat.to == null ? stat.render(0) : stat.render(v)}
+        {stat.to == null ? (value ?? stat.render(0)) : stat.render(v)}
       </span>
       <span className="v3-hs-label">{label}</span>
     </div>
@@ -64,8 +67,9 @@ const STAT_DEFS: StatDef[] = [
   },
   {
     to: null,
-    render: () => "Επίσημοι",
+    render: () => "",
     labelKey: "heritageSuppliersLabel",
+    valueKey: "heritageSuppliers",
   },
   {
     to: 3,
@@ -107,7 +111,13 @@ export function HeritageStrip() {
     <section ref={ref} className="v3-hs" aria-label={t("heritageNumbers")}>
       <div className="v3-hs-inner">
         {STAT_DEFS.map((s) => (
-          <Stat key={s.labelKey} stat={s} run={run} label={t(s.labelKey)} />
+          <Stat
+            key={s.labelKey}
+            stat={s}
+            run={run}
+            label={t(s.labelKey)}
+            value={s.valueKey ? t(s.valueKey) : undefined}
+          />
         ))}
       </div>
     </section>

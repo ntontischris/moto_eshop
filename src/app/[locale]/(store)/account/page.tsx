@@ -1,15 +1,19 @@
 import { Link } from "@/i18n/navigation";
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import { getTranslations } from "next-intl/server";
 import { getAuthUser } from "@/lib/auth/guards";
 import { createClient } from "@/lib/supabase/server";
 import { formatPrice } from "../_lib/format";
 import { SignOutButton } from "../_components/auth/sign-out-button";
 
-export const metadata: Metadata = {
-  title: "Ο λογαριασμός μου | MotoMarket",
-  robots: { index: false },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("account");
+  return {
+    title: t("metaTitle"),
+    robots: { index: false },
+  };
+}
 
 export default function AccountPage() {
   return (
@@ -20,19 +24,20 @@ export default function AccountPage() {
 }
 
 async function AccountContent() {
+  const t = await getTranslations("account");
   const user = await getAuthUser();
 
   if (!user) {
     return (
       <div className="v3-acc v3-acc-guest">
-        <h1 className="v3-display">Λογαριασμός</h1>
-        <p>Συνδέσου για να δεις τις παραγγελίες και τα στοιχεία σου.</p>
+        <h1 className="v3-display">{t("guestHeading")}</h1>
+        <p>{t("guestText")}</p>
         <div className="v3-acc-cta">
           <Link className="v3-btn-primary" href="/login?redirectTo=/account">
-            Σύνδεση <span aria-hidden="true">→</span>
+            {t("login")} <span aria-hidden="true">→</span>
           </Link>
           <Link className="v3-acc-alt" href="/register?redirectTo=/account">
-            Εγγραφή
+            {t("register")}
           </Link>
         </div>
         <AccStyles />
@@ -52,14 +57,14 @@ async function AccountContent() {
     <div className="v3-acc">
       <header className="v3-acc-head">
         <div>
-          <h1 className="v3-display">Ο λογαριασμός μου</h1>
+          <h1 className="v3-display">{t("myAccount")}</h1>
           <p className="v3-acc-email">{user.email}</p>
         </div>
         <SignOutButton />
       </header>
 
       <section className="v3-acc-sec">
-        <h2 className="v3-display">Παραγγελίες</h2>
+        <h2 className="v3-display">{t("ordersHeading")}</h2>
         {orders && orders.length > 0 ? (
           <div className="v3-acc-orders">
             {orders.map((o) => (
@@ -75,8 +80,8 @@ async function AccountContent() {
           </div>
         ) : (
           <p className="v3-acc-empty">
-            Δεν έχεις παραγγελίες ακόμα.{" "}
-            <Link href="/category/eksoplismos-anabath">Ξεκίνα τώρα →</Link>
+            {t("noOrders")}{" "}
+            <Link href="/category/eksoplismos-anabath">{t("startNow")} →</Link>
           </p>
         )}
       </section>

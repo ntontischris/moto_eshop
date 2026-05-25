@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Link } from "@/i18n/navigation";
 import { useRouter } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import { useV3 } from "../_components/shell/v3-provider";
 import { formatPrice } from "../_lib/format";
 import { placeOrder, type CheckoutInput } from "./actions";
@@ -10,17 +11,22 @@ import { placeOrder, type CheckoutInput } from "./actions";
 const FREE_OVER = 50;
 const SHIP = 3.5;
 
-const FIELDS: { name: keyof CheckoutInput; label: string; type?: string }[] = [
-  { name: "fullName", label: "Ονοματεπώνυμο" },
-  { name: "email", label: "Email", type: "email" },
-  { name: "phone", label: "Τηλέφωνο", type: "tel" },
-  { name: "address", label: "Διεύθυνση" },
-  { name: "city", label: "Πόλη" },
-  { name: "postal", label: "Τ.Κ." },
-  { name: "region", label: "Περιοχή / Νομός" },
+const FIELD_NAMES: {
+  name: keyof CheckoutInput;
+  tKey: string;
+  type?: string;
+}[] = [
+  { name: "fullName", tKey: "fieldFullName" },
+  { name: "email", tKey: "email", type: "email" },
+  { name: "phone", tKey: "fieldPhone", type: "tel" },
+  { name: "address", tKey: "fieldAddress" },
+  { name: "city", tKey: "fieldCity" },
+  { name: "postal", tKey: "fieldPostal" },
+  { name: "region", tKey: "fieldRegion" },
 ];
 
 export default function CheckoutPage() {
+  const t = useTranslations("checkout");
   const router = useRouter();
   const { cart, cartTotal, clearCart } = useV3();
   const [form, setForm] = useState<Record<string, string>>({});
@@ -57,7 +63,7 @@ export default function CheckoutPage() {
       clearCart();
       router.push(`/checkout/success?order=${res.orderNumber}`);
     } else {
-      setError(res.error ?? "Κάτι πήγε στραβά. Δοκίμασε ξανά.");
+      setError(res.error ?? t("genericError"));
       setBusy(false);
     }
   }
@@ -66,10 +72,10 @@ export default function CheckoutPage() {
     return (
       <div className="v3-co v3-co-empty">
         <p className="v3-label">Checkout</p>
-        <h1 className="v3-display">Ταμείο</h1>
-        <p>Το καλάθι σου είναι άδειο.</p>
+        <h1 className="v3-display">{t("emptyHeading")}</h1>
+        <p>{t("emptyText")}</p>
         <Link className="v3-btn-primary" href="/category/eksoplismos-anabath">
-          Συνέχισε αγορές <span aria-hidden="true">→</span>
+          {t("backToCart")} <span aria-hidden="true">→</span>
         </Link>
       </div>
     );
@@ -78,16 +84,16 @@ export default function CheckoutPage() {
   return (
     <div className="v3-co v3-co--apple">
       <nav className="v3-co-bc" aria-label="Breadcrumb">
-        <Link href="/">Αρχική</Link>
+        <Link href="/">{t("homeLabel")}</Link>
         <span aria-hidden="true">/</span>
-        <Link href="/cart">Καλάθι</Link>
+        <Link href="/cart">{t("cartLabel")}</Link>
         <span aria-hidden="true">/</span>
-        <span>Ταμείο</span>
+        <span>{t("checkoutLabel")}</span>
       </nav>
 
       <header className="v3-co-title">
         <p className="v3-label">Secure checkout</p>
-        <h1 className="v3-display">Ολοκλήρωση αγοράς</h1>
+        <h1 className="v3-display">{t("heading")}</h1>
       </header>
 
       <form className="v3-co-grid" onSubmit={submit}>
@@ -96,14 +102,18 @@ export default function CheckoutPage() {
             <div className="v3-co-block-head">
               <span>1</span>
               <div>
-                <h2>Στοιχεία αποστολής</h2>
-                <p>Συμπλήρωσε τα βασικά. Η παραγγελία καταχωρείται καθαρά.</p>
+                <h2>{t("shippingSection")}</h2>
+                <p>{t("shippingNote")}</p>
               </div>
             </div>
             <div className="v3-co-fields">
-              {FIELDS.map((field) => (
+              {FIELD_NAMES.map((field) => (
                 <label key={field.name} className="v3-co-field">
-                  <span>{field.label}</span>
+                  <span>
+                    {field.tKey === "email"
+                      ? "Email"
+                      : t(field.tKey as Parameters<typeof t>[0])}
+                  </span>
                   <input
                     type={field.type ?? "text"}
                     required
@@ -113,12 +123,12 @@ export default function CheckoutPage() {
                 </label>
               ))}
               <label className="v3-co-field v3-co-full">
-                <span>Σημειώσεις</span>
+                <span>{t("fieldNotes")}</span>
                 <textarea
                   rows={3}
                   value={form.notes ?? ""}
                   onChange={(e) => set("notes", e.target.value)}
-                  placeholder="Προαιρετικό"
+                  placeholder={t("notesPlaceholder")}
                 />
               </label>
             </div>
@@ -128,18 +138,18 @@ export default function CheckoutPage() {
             <div className="v3-co-block-head">
               <span>2</span>
               <div>
-                <h2>Πληρωμή</h2>
-                <p>Για τώρα κρατάμε την πιο απλή ροή: πληρωμή στην παράδοση.</p>
+                <h2>{t("paymentSection")}</h2>
+                <p>{t("paymentNote")}</p>
               </div>
             </div>
             <div className="v3-co-pay">
               <label className="v3-co-pay-opt is-on">
                 <input type="radio" name="pay" defaultChecked readOnly />
-                <span>Αντικαταβολή, πληρωμή στην παράδοση</span>
+                <span>{t("codLabel")}</span>
               </label>
               <label className="v3-co-pay-opt is-off">
                 <input type="radio" name="pay" disabled />
-                <span>Κάρτα, σύντομα διαθέσιμη</span>
+                <span>{t("cardLabel")}</span>
               </label>
             </div>
           </section>
@@ -147,8 +157,8 @@ export default function CheckoutPage() {
           {error && <p className="v3-co-err">{error}</p>}
         </div>
 
-        <aside className="v3-co-sum" aria-label="Σύνοψη παραγγελίας">
-          <h2>Η παραγγελία σου</h2>
+        <aside className="v3-co-sum" aria-label={t("orderSummaryLabel")}>
+          <h2>{t("yourOrder")}</h2>
           <div className="v3-co-lines">
             {cart.map((line) => (
               <div key={line.slug + line.size} className="v3-co-line">
@@ -162,15 +172,15 @@ export default function CheckoutPage() {
           </div>
           <div className="v3-co-total-box">
             <div className="v3-co-line">
-              <span>Υποσύνολο</span>
+              <span>{t("subtotal")}</span>
               <span>{formatPrice(cartTotal)}</span>
             </div>
             <div className="v3-co-line">
-              <span>Αποστολή</span>
-              <span>{shipping === 0 ? "Δωρεάν" : formatPrice(shipping)}</span>
+              <span>{t("shipping")}</span>
+              <span>{shipping === 0 ? t("free") : formatPrice(shipping)}</span>
             </div>
             <div className="v3-co-line v3-co-total">
-              <span>Σύνολο</span>
+              <span>{t("total")}</span>
               <span>{formatPrice(total)}</span>
             </div>
           </div>
@@ -179,15 +189,15 @@ export default function CheckoutPage() {
             className="v3-btn-primary v3-co-place"
             disabled={busy}
           >
-            {busy ? "Καταχώρηση..." : "Καταχώρηση παραγγελίας"}
+            {busy ? t("placing") : t("placeOrder")}
           </button>
           <Link href="/cart" className="v3-co-back">
-            Πίσω στο καλάθι
+            {t("backToCart")}
           </Link>
           <div className="v3-co-confidence">
-            <span>Ασφαλής ροή</span>
-            <span>Αλλαγές μεγέθους</span>
-            <span>Τηλεφωνική υποστήριξη</span>
+            <span>{t("trustSecure")}</span>
+            <span>{t("trustSize")}</span>
+            <span>{t("trustPhone")}</span>
           </div>
         </aside>
       </form>
