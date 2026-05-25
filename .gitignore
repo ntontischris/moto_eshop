@@ -61,3 +61,6 @@ next-env.d.ts
 # generated hero placeholders
 /public/hero-frames/*.svg
 .gitnexus
+
+# scratch screenshots / design dumps (not part of the app)
+/tsek/
