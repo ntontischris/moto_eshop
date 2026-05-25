@@ -5,6 +5,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { NAV } from "@/lib/nav-data";
 import type { NavRoot } from "@/lib/nav-data";
+import { LanguageSwitcher } from "./language-switcher";
 
 interface CategoryDrawerProps {
   open: boolean;
@@ -13,6 +14,7 @@ interface CategoryDrawerProps {
 
 export function CategoryDrawer({ open, onClose }: CategoryDrawerProps) {
   const t = useTranslations("shell");
+  const tlang = useTranslations("lang");
   const [expanded, setExpanded] = useState<string | null>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const drawerRef = useRef<HTMLDivElement>(null);
@@ -125,6 +127,32 @@ export function CategoryDrawer({ open, onClose }: CategoryDrawerProps) {
           >
             ✕
           </button>
+        </div>
+
+        <div
+          style={{
+            padding: "14px 20px",
+            borderBottom: "1px solid var(--v3-line)",
+            display: "flex",
+            flexDirection: "column",
+            gap: 8,
+          }}
+        >
+          <span
+            style={{
+              fontSize: 11,
+              fontWeight: 700,
+              color: "var(--v3-bone-dim)",
+              letterSpacing: ".08em",
+              textTransform: "uppercase",
+            }}
+          >
+            {tlang("switcherLabel")}
+          </span>
+          <LanguageSwitcher
+            className="v3-lang-switch v3-lang-switch--drawer"
+            onSwitch={handleClose}
+          />
         </div>
 
         <ul style={{ listStyle: "none", margin: 0, padding: "8px 0" }}>

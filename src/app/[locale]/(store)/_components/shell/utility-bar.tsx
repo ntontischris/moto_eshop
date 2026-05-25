@@ -9,7 +9,7 @@ export async function UtilityBar() {
   return (
     <div className="v3-utility-bar">
       <div className="v3-utility-status" aria-label="Store status">
-        <span>Official brands</span>
+        <span>{t("utilityOfficial")}</span>
         <i aria-hidden="true" />
         <span>{t("utilityShipping")}</span>
         <i aria-hidden="true" />
