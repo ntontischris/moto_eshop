@@ -91,3 +91,81 @@ export async function getCampaignForEdit(
     variants,
   };
 }
+
+export interface VariantAnalytics {
+  variantId: string;
+  name: string;
+  views: number;
+  ctaClicks: number;
+  addToCart: number;
+  purchases: number;
+  revenue: number;
+  conversionRate: number;
+}
+
+export interface CampaignAnalytics {
+  variants: VariantAnalytics[];
+  totals: { views: number; purchases: number; revenue: number };
+  leadingVariantId: string | null;
+}
+
+export async function getCampaignAnalytics(
+  campaignId: string,
+): Promise<CampaignAnalytics> {
+  const supabase = createAdminClient();
+  const [{ data: variants }, { data: events }] = await Promise.all([
+    supabase
+      .from("campaign_variants")
+      .select("id, name")
+      .eq("campaign_id", campaignId),
+    supabase
+      .from("campaign_events")
+      .select("variant_id, type, value")
+      .eq("campaign_id", campaignId),
+  ]);
+
+  const rows: VariantAnalytics[] = (variants ?? []).map((v) => ({
+    variantId: v.id,
+    name: v.name,
+    views: 0,
+    ctaClicks: 0,
+    addToCart: 0,
+    purchases: 0,
+    revenue: 0,
+    conversionRate: 0,
+  }));
+  const byId = new Map(rows.map((r) => [r.variantId, r]));
+
+  for (const e of events ?? []) {
+    const r = e.variant_id ? byId.get(e.variant_id) : undefined;
+    if (!r) continue;
+    if (e.type === "view") r.views++;
+    else if (e.type === "cta_click") r.ctaClicks++;
+    else if (e.type === "add_to_cart") r.addToCart++;
+    else if (e.type === "purchase") {
+      r.purchases++;
+      r.revenue += Number(e.value ?? 0);
+    }
+  }
+
+  let leadingVariantId: string | null = null;
+  let best = -1;
+  for (const r of rows) {
+    r.conversionRate = r.views > 0 ? r.purchases / r.views : 0;
+    if (r.views >= 1 && r.conversionRate > best) {
+      best = r.conversionRate;
+      leadingVariantId = r.variantId;
+    }
+  }
+
+  const totals = rows.reduce(
+    (t, r) => ({
+      views: t.views + r.views,
+      purchases: t.purchases + r.purchases,
+      revenue: t.revenue + r.revenue,
+    }),
+    { views: 0, purchases: 0, revenue: 0 },
+  );
+
+  return { variants: rows, totals, leadingVariantId };
+}

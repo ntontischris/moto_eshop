@@ -2,6 +2,8 @@ import { Link } from "@/i18n/navigation";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { getTranslations } from "next-intl/server";
+import { createClient } from "@/lib/supabase/server";
+import { CampaignPurchaseTracker } from "@/lib/campaigns/campaign-purchase-tracker";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("checkout");
@@ -29,8 +31,20 @@ async function CheckoutSuccessContent({
   const t = await getTranslations("checkout");
   const { order } = await searchParams;
 
+  let orderTotal: number | null = null;
+  if (order) {
+    const supabase = await createClient();
+    const { data } = await supabase
+      .from("orders")
+      .select("total")
+      .eq("id", order)
+      .maybeSingle();
+    orderTotal = data?.total ?? null;
+  }
+
   return (
     <div className="v3-ok">
+      <CampaignPurchaseTracker value={orderTotal} />
       <div className="v3-ok-mark" aria-hidden="true">
         ✓
       </div>

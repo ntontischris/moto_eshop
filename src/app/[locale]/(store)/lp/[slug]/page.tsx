@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
+import { cookies, headers } from "next/headers";
 import { redirect } from "@/i18n/navigation";
 import type { Metadata } from "next";
 import type { Locale } from "@/i18n/config";
@@ -10,10 +11,14 @@ import {
   isCampaignExpired,
 } from "@/lib/campaigns/visibility";
 import { resolveVariant } from "@/lib/campaigns/resolve-variant";
+import { extractSignals } from "@/lib/campaigns/signals";
+import { variantBucket } from "@/lib/campaigns/sticky";
 import { BlockRenderer } from "@/lib/campaigns/blocks/block-renderer";
+import { CampaignTracker } from "@/lib/campaigns/campaign-tracker";
 
 interface PageProps {
   params: Promise<{ locale: Locale; slug: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }
 
 export async function generateMetadata({
@@ -39,8 +44,9 @@ export default function CampaignPage(props: PageProps) {
   );
 }
 
-async function CampaignContent({ params }: PageProps) {
+async function CampaignContent({ params, searchParams }: PageProps) {
   const { locale, slug } = await params;
+  const sp = await searchParams;
   const campaign = await getCampaignBySlug(slug);
   if (!campaign) notFound();
 
@@ -50,12 +56,29 @@ async function CampaignContent({ params }: PageProps) {
   }
   if (!isCampaignVisible(campaign, now)) notFound();
 
-  const variant = resolveVariant(campaign);
+  const cookieStore = await cookies();
+  const existingSid = cookieStore.get("mm_sid")?.value;
+  const sid = existingSid ?? crypto.randomUUID();
+  const h = await headers();
+  const signals = extractSignals({
+    searchParams: sp,
+    userAgent: h.get("user-agent"),
+    country: h.get("x-vercel-ip-country"),
+    isReturning: Boolean(existingSid),
+    bucket: variantBucket(sid, campaign.id),
+  });
+
+  const variant = resolveVariant(campaign, signals);
   if (!variant) notFound();
 
   return (
     <main className="min-h-screen">
       <BlockRenderer blocks={variant.blocks} />
+      <CampaignTracker
+        campaignId={campaign.id}
+        variantId={variant.id}
+        sid={sid}
+      />
     </main>
   );
 }

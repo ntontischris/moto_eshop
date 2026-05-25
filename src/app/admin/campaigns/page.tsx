@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Plus, Pencil, ExternalLink } from "lucide-react";
+import { Plus, Pencil, ExternalLink, BarChart3 } from "lucide-react";
 import { getAdminCampaigns } from "@/lib/queries/campaigns-admin";
 import { CampaignRowActions } from "./_components/campaign-row-actions";
 
@@ -85,6 +85,13 @@ export default async function AdminCampaignsPage() {
                 </td>
                 <td className="px-4 py-3">
                   <div className="flex items-center justify-end gap-2">
+                    <Link
+                      href={`/admin/campaigns/${c.id}/analytics`}
+                      className="rounded p-1 text-text-muted transition-colors hover:bg-bg-elevated hover:text-brand-teal"
+                      aria-label="Στατιστικά"
+                    >
+                      <BarChart3 className="h-4 w-4" />
+                    </Link>
                     <Link
                       href={`/admin/campaigns/${c.id}/edit`}
                       className="rounded p-1 text-text-muted transition-colors hover:bg-bg-elevated hover:text-brand-teal"
