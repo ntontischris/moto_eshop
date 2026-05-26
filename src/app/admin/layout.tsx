@@ -16,6 +16,7 @@ import {
   FolderTree,
   Star,
   Users,
+  Megaphone,
   ArrowLeft,
 } from "lucide-react";
 
@@ -24,6 +25,7 @@ const NAV_ITEMS = [
   { href: "/admin/products", label: "Προϊόντα", icon: Package },
   { href: "/admin/orders", label: "Παραγγελίες", icon: ShoppingCart },
   { href: "/admin/categories", label: "Κατηγορίες & Brands", icon: FolderTree },
+  { href: "/admin/campaigns", label: "Καμπάνιες", icon: Megaphone },
   { href: "/admin/reviews", label: "Αξιολογήσεις", icon: Star },
   { href: "/admin/users", label: "Χρήστες", icon: Users },
 ];
