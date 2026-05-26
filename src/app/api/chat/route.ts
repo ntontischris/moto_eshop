@@ -22,9 +22,6 @@ import { loadStorefrontState } from "@/lib/chat/storefront-state";
 import { buildSystemPrompt } from "@/lib/chat/prompts/build-system-prompt";
 import { chatTools } from "@/lib/chat/tools";
 
-export const runtime = "nodejs";
-export const maxDuration = 30;
-
 const bodySchema = z.object({
   messages: z.array(z.unknown()),
   threadId: z.string().uuid().nullable().optional(),
