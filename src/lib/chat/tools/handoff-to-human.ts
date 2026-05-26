@@ -46,10 +46,7 @@ export const handoffToHumanTool = tool({
     }
 
     try {
-      // vitest 4.x cannot use arrow-function mocks as constructors via
-      // Reflect.construct; call Resend as a plain factory so tests work.
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const resend = (Resend as any)(apiKey) as Resend;
+      const resend = new Resend(apiKey);
       const { data, error } = await resend.emails.send({
         from: "Πιτ (AI) <pit@motomarket-shop.gr>",
         to: [to],

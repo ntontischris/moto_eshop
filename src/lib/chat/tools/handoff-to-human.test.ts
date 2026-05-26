@@ -6,9 +6,12 @@ import {
 } from "./handoff-to-human";
 
 const sendMock = vi.fn();
-vi.mock("resend", () => ({
-  Resend: vi.fn().mockImplementation(() => ({ emails: { send: sendMock } })),
-}));
+vi.mock("resend", () => {
+  function Resend(this: { emails: { send: typeof sendMock } }) {
+    this.emails = { send: sendMock };
+  }
+  return { Resend };
+});
 
 vi.stubEnv("RESEND_API_KEY", "test_key");
 vi.stubEnv("CHAT_HANDOFF_TO", "sales@motomarket-shop.gr");
