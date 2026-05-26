@@ -136,7 +136,7 @@ The assistant has zero implicit knowledge of the catalog. Every factual claim ab
 | `searchProducts({query, filters, limit})` | server | Semantic + filtered search against Meilisearch. Returns up to 12 hits with `{id, slug, name, brand, price, image, in_stock}`. Filters: `category`, `brand`, `price_min/max`, `size`, `color`, `bike_compatibility`. |
 | `getProductDetails({productId})` | server | Full product page data: long description, specs, all images, all variants, per-store stock, related products. Used when the model needs to answer detailed questions or render a rich card. |
 | `checkStock({productId, variantId?})` | server | Real-time stock per store (Καλλιθέα, Θεσσαλονίκη) + online warehouse. Used because product details may be cached; stock must be fresh. |
-| `handoffToHuman({reason, summary})` | server | Emails the owner (`ntontischris+admin@gmail.com`) with the full transcript + a one-line reason. Returns a confirmation the model surfaces to the user with an expected response window. |
+| `handoffToHuman({reason, summary})` | server | Emails sales (`sales@motomarket-shop.gr`) with the full transcript + a one-line reason. Returns a confirmation the model surfaces to the user with an expected response window. |
 
 **Generative UI + co-pilot tools (sub-project B)** — turns chat transactional:
 
@@ -300,9 +300,11 @@ Wishlist: {wishlistCount}
 
 ### Entry point
 
-Floating action button bottom-right, 56×56, brand red (#E10600 — matches Race Control design system). Icon: a custom chat bubble with a small motorcycle silhouette inside. Pulses gently the first time the user lands on the site; quiet thereafter.
+Floating action button bottom-right, 56×56, brand red (#E10600 — matches Race Control design system). Icon: a custom chat bubble with a small motorcycle silhouette inside.
 
-On click → smooth spring-physics expand (Framer Motion) into the side panel (desktop) or full-screen (mobile).
+**Auto-open on 3rd page view**: a session-scoped page-view counter (sessionStorage key `mm_pageviews`) increments on every storefront navigation. On the **third** view of the same session, the chat auto-opens once with a friendly Πιτ greeting ("Γεια! Σε βλέπω να ψάχνεις — να βοηθήσω;" — translated to detected browser language). The auto-open happens only **once per session** (sessionStorage key `mm_chat_auto_opened`); subsequent page views never re-trigger. User-dismissed (close ✕) suppresses auto-open for 24h (localStorage key `mm_chat_suppress_until`). Logged-in users who already have prior threads do not get the auto-open — they already know what Πιτ is.
+
+On manual click → same smooth spring-physics expand (Framer Motion) into the side panel (desktop) or full-screen (mobile).
 
 ### Panel anatomy (desktop, 420px)
 
@@ -470,13 +472,13 @@ A new admin page at `/admin/chat` (admin-only RLS, mirrors `/admin/campaigns`):
 - **Quality**: handoff rate, thumbs-down rate (a small 👍/👎 below each assistant reply, optional — sub-project E).
 - **Top failures**: turns where the user typed "δεν κατάλαβες" / "λάθος" / "όχι αυτό" — surfaces system prompt improvements.
 
-## Open Questions
+## Decisions (locked by owner before sub-project A)
 
-1. **Brand name for the assistant**: The spec uses "Πιτ" (Pit — racing/pit-lane theme matching the Race Control landing). Alternatives: "Μηχανικός", "Pitlane", "Co-rider". → Owner pick before sub-project A starts.
-2. **First-load greeting trigger**: auto-open on third page view, or only on click? → Owner pick. Default in spec is click-only (less invasive).
-3. **TTS coverage breadth**: spec ships Azure neural voices for 12 languages day-one (the 6 site locales + Albanian, Russian, Polish, Arabic, Romanian, Turkish — the most likely tail-language customers in the Greek market) and OpenAI `gpt-4o-mini-tts` as a universal fallback for everything else. → **Confirm the 12-voice set or ask for additions/removals.**
-4. **Handoff destination**: spec uses `ntontischris+admin@gmail.com`. Confirm or replace with a dedicated `sales@motomarket-shop.gr`.
-5. **Identity-aware suggestions**: should the assistant use the user's order history (table `orders`)? Adds great personalization but requires careful RLS check. → Spec includes it as a tool `getRecentOrders` for logged-in users only.
+1. **Brand name for the assistant**: **Πιτ** (Pit) — racing/pit-lane theme matching the Race Control landing system.
+2. **First-load greeting trigger**: **Auto-open on the third page view of a session**, once per session, with 24h suppression after explicit dismissal. See UI/UX Spec → Entry point for the full rules.
+3. **TTS coverage breadth**: **12 Azure neural voices day-one** — EL, EN, DE, IT, FR, BG, SQ, RU, PL, AR, RO, TR — with OpenAI `gpt-4o-mini-tts` as a universal fallback for any other language.
+4. **Handoff destination**: **`sales@motomarket-shop.gr`** (dedicated mailbox, must exist in the mail provider before sub-project E ships).
+5. **Identity-aware suggestions**: **Enabled** — `getRecentOrders` tool is in the catalog for logged-in users, RLS-checked server-side.
 
 ## Risks + Mitigations
 
