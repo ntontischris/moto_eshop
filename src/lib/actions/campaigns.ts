@@ -401,3 +401,77 @@ export async function getPickerProducts(
     .in("id", ids);
   return (data ?? []).map(mapPicker);
 }
+
+// ─── Create-from-template (8 preset templates) ───────────────────────
+
+export async function createCampaignFromTemplate(input: {
+  templateId: string;
+  name: string;
+  slug: string;
+  fields: Record<string, unknown>;
+}): Promise<CreateResult> {
+  await assertAdmin();
+  const { getTemplate } = await import("@/lib/campaigns/templates");
+  const tpl = getTemplate(input.templateId);
+  if (!tpl) return { success: false, error: "Άγνωστο template" };
+
+  // Validate campaign settings (name/slug rules) via the existing schema.
+  const settings = CampaignInputSchema.safeParse({
+    name: input.name,
+    slug: input.slug,
+  });
+  if (!settings.success) {
+    return { success: false, error: firstIssue(settings.error) };
+  }
+
+  // Build + strictly validate the blocks produced by the template.
+  const builtBlocks = tpl.build(input.fields);
+  const blocks = blocksSchema.safeParse(builtBlocks);
+  if (!blocks.success) {
+    return {
+      success: false,
+      error: "Λείπει κάτι ή δεν είναι σωστό στα πεδία",
+    };
+  }
+  if (blocks.data.length === 0) {
+    return { success: false, error: "Συμπλήρωσε τα υποχρεωτικά πεδία" };
+  }
+
+  const supabase = createAdminClient();
+
+  const { data: campaign, error } = await supabase
+    .from("campaigns")
+    .insert({
+      name: settings.data.name,
+      slug: settings.data.slug,
+      redirect_url: "/",
+      serving_mode: "split",
+      noindex: true,
+      status: "draft",
+    })
+    .select("id")
+    .single();
+  if (error || !campaign) {
+    return { success: false, error: error?.message ?? "Αποτυχία δημιουργίας" };
+  }
+
+  const { data: variant } = await supabase
+    .from("campaign_variants")
+    .insert({
+      campaign_id: campaign.id,
+      name: "A",
+      blocks: blocks.data as unknown as Json,
+    })
+    .select("id")
+    .single();
+
+  if (variant) {
+    await supabase
+      .from("campaigns")
+      .update({ default_variant_id: variant.id })
+      .eq("id", campaign.id);
+  }
+
+  revalidatePath("/admin/campaigns");
+  return { success: true, id: campaign.id };
+}
