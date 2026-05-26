@@ -14,6 +14,14 @@ const envSchema = z.object({
 
   // Cron secret — required to hit /api/cron/* endpoints
   CRON_SECRET: z.string().min(16).optional(),
+
+  // AI sales chat
+  OPENAI_API_KEY: z.string().min(20),
+  UPSTASH_REDIS_REST_URL: z.url().optional(),
+  UPSTASH_REDIS_REST_TOKEN: z.string().min(1).optional(),
+  RESEND_API_KEY: z.string().min(1).optional(),
+  CHAT_HANDOFF_TO: z.email().default("sales@motomarket-shop.gr"),
+  CHAT_DAILY_USD_CAP: z.coerce.number().positive().default(20),
 });
 
 const parsed = envSchema.safeParse(process.env);
