@@ -3,8 +3,8 @@
 import { useTransition } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Rocket, ExternalLink, Pencil, ArrowLeft } from "lucide-react";
-import { publishCampaign } from "@/lib/actions/campaigns";
+import { Rocket, ExternalLink, Pencil, ArrowLeft, Trash2 } from "lucide-react";
+import { publishCampaign, deleteCampaign } from "@/lib/actions/campaigns";
 
 export function PreviewToolbar({
   campaignId,
@@ -32,6 +32,20 @@ export function PreviewToolbar({
         return;
       }
       router.refresh();
+    });
+  }
+
+  function remove() {
+    if (!confirm("Οριστική διαγραφή της καμπάνιας; Δεν μπορεί να αναιρεθεί.")) {
+      return;
+    }
+    start(async () => {
+      const res = await deleteCampaign(campaignId);
+      if (!res.success) {
+        alert(res.error);
+        return;
+      }
+      router.push("/admin/campaigns");
     });
   }
 
@@ -66,6 +80,16 @@ export function PreviewToolbar({
       </div>
 
       <div className="flex items-center gap-2">
+        <button
+          type="button"
+          onClick={remove}
+          disabled={pending}
+          className="flex items-center gap-1 rounded-lg bg-bg-surface px-3 py-1.5 text-xs text-text-secondary hover:bg-red-500/10 hover:text-red-400 disabled:opacity-50"
+          title="Διαγραφή καμπάνιας"
+        >
+          <Trash2 className="h-3.5 w-3.5" />
+          Διαγραφή
+        </button>
         <Link
           href={`/admin/campaigns/${campaignId}/edit`}
           className="flex items-center gap-1 rounded-lg bg-bg-surface px-3 py-1.5 text-xs text-text-secondary hover:text-text-primary"

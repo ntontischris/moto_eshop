@@ -643,3 +643,128 @@ export const TEMPLATES: TemplateDef[] = [
 export function getTemplate(id: string): TemplateDef | null {
   return TEMPLATES.find((t) => t.id === id) ?? null;
 }
+
+// ──────────────────────────────────────────────────────────────────────────────
+// Per-template walkthroughs — shown in the form page above the fields, so a
+// non-technical user knows what the published page will contain and how to
+// fill the form well.
+// ──────────────────────────────────────────────────────────────────────────────
+
+export interface TemplateWalkthrough {
+  whatYouGet: string[];
+  tips: string[];
+}
+
+export const TEMPLATE_WALKTHROUGHS: Record<string, TemplateWalkthrough> = {
+  sale: {
+    whatYouGet: [
+      "Hero με την εικόνα και το headline σου",
+      "Banner με το κείμενο και τον κωδικό έκπτωσης",
+      "Αντίστροφη μέτρηση (αν δώσεις ημερομηνία λήξης)",
+      "Carousel προϊόντων από την κατηγορία (αν δώσεις slug)",
+      "Social proof με στατιστικά εμπιστοσύνης",
+      "Φόρμα newsletter στο τέλος",
+    ],
+    tips: [
+      "Ιδανικό για Black Friday, εποχιακές προσφορές, flash sales.",
+      "Η hero εικόνα είναι το πιο σημαντικό στοιχείο — διάλεξε κάτι δυνατό, ορατό από κινητό.",
+      "Κράτα τον κωδικό σύντομο και μνημονικό (π.χ. BF20, SUMMER10).",
+      "Η κατηγορία είναι το slug από το URL του site σου (π.χ. /category/krani-anabath → krani-anabath).",
+    ],
+  },
+  "new-product": {
+    whatYouGet: [
+      "Hero με την εικόνα του νέου προϊόντος",
+      "Editorial section με την ιστορία/τα features (αν τη συμπληρώσεις)",
+      "Product rail με τα προϊόντα που διάλεξες",
+      "Comparison table (όταν επιλέξεις 2-4 προϊόντα)",
+      "FAQ με τα τυπικά ερωτήματα (αποστολή, επιστροφές)",
+    ],
+    tips: [
+      "Χρησιμοποίησέ το για product launch, νέα συλλογή, νέο brand.",
+      "Η ιστορία είναι προαιρετική — βάλε την μόνο αν έχεις πραγματικά κάτι να πεις.",
+      "Με 2-4 προϊόντα ενεργοποιείται αυτόματα το comparison block.",
+    ],
+  },
+  brand: {
+    whatYouGet: [
+      "Hero με την εικόνα/ταυτότητα του brand",
+      "Editorial με την ιστορία του brand (προαιρετικό)",
+      "Όλα τα προϊόντα του brand (αυτόματα από το catalog σου)",
+      "Social proof",
+    ],
+    tips: [
+      "Χρησιμοποίησέ το για brand spotlight, partnership campaigns.",
+      "Το brand slug πρέπει να υπάρχει στο catalog σου (π.χ. agv, alpinestars).",
+      "Τα προϊόντα του brand μπαίνουν αυτόματα — δεν χρειάζεται να διαλέξεις ένα-ένα.",
+    ],
+  },
+  "riding-style": {
+    whatYouGet: [
+      "Hero με κάτι σχετικό με το riding style",
+      "Carousel προϊόντων από τη συγκεκριμένη κατηγορία",
+      "Social proof + FAQ",
+      "Email capture στο τέλος",
+    ],
+    tips: [
+      "Παραδείγματα: 'Εξοπλισμός για σπορ', 'για touring', 'urban riding'.",
+      "Συνδυάζει στοχευμένη εικόνα + φιλτραρισμένα προϊόντα από μια κατηγορία.",
+      "Καλό για SEO σε ad campaigns (Instagram, Google).",
+    ],
+  },
+  seasonal: {
+    whatYouGet: [
+      "Hero με κάτι σχετικό με τη σεζόν",
+      "Editorial με την ιστορία της σεζόν (προαιρετικό)",
+      "Προϊόντα της κατηγορίας",
+      "Banner έκπτωσης (αν δώσεις κωδικό)",
+      "Email capture",
+    ],
+    tips: [
+      "Χρήσιμο για: χειμωνιάτικος εξοπλισμός, βροχή/κρύο, καλοκαιρινά αξεσουάρ.",
+      "Καλό μοτίβο: editorial story + στοχευμένα προϊόντα + κωδικός εποχής.",
+    ],
+  },
+  bundle: {
+    whatYouGet: [
+      "Hero με το σετ",
+      "Product rail με τα προϊόντα που διάλεξες",
+      "Comparison side-by-side (τι περιλαμβάνει το σετ)",
+      "Banner για τη συνδυαστική έκπτωση",
+    ],
+    tips: [
+      "Χρειάζεσαι 2-4 πραγματικά προϊόντα από το catalog σου.",
+      "Παραδείγματα: 'Σετ νέου αναβάτη' (κράνος+γάντια+μπουφάν), 'Starter pack'.",
+      "Ο κωδικός & το κείμενο εμφανίζονται στο τέλος ως call to action.",
+    ],
+  },
+  lead: {
+    whatYouGet: [
+      "Hero με ξεκάθαρο CTA εγγραφής",
+      "Social proof (στατιστικά εμπιστοσύνης)",
+      "Μεγάλη, εμφανής φόρμα email capture",
+    ],
+    tips: [
+      "Όταν ο στόχος είναι emails — όχι πώληση.",
+      "Καλό για: newsletter signup, pre-launch waitlist, διαγωνισμό απλό.",
+      "Τα emails μπαίνουν στον υπάρχοντα newsletter_subscribers πίνακα.",
+    ],
+  },
+  contest: {
+    whatYouGet: [
+      "Hero με το δώρο",
+      "Countdown μέχρι τη λήξη",
+      "Τίτλος δώρου + όροι (αν συμπληρώσεις)",
+      "Φόρμα συμμετοχής με email",
+    ],
+    tips: [
+      "Πρέπει να βάλεις ημερομηνία λήξης — αλλιώς δεν δείχνει urgency.",
+      "Όροι σύντομοι — αν θέλεις αναλυτικούς, βάλε link σε ξεχωριστή σελίδα.",
+      "Οι συμμετοχές καταγράφονται στο newsletter_subscribers (μπορείς να τους εξάγεις και να βγάλεις τυχαίο νικητή).",
+    ],
+  },
+};
+
+export function getTemplateWalkthrough(id: string): TemplateWalkthrough | null {
+  return TEMPLATE_WALKTHROUGHS[id] ?? null;
+}
