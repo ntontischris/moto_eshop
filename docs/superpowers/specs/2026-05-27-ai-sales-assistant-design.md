@@ -1,12 +1,12 @@
 # MotoMarket AI Sales Assistant Design
 
-A native, agentic sales concierge that lives inside the storefront and behaves like the most experienced salesperson in the shop: it answers in Greek, knows every product live from the catalog, drives the site on the customer's behalf (filters, navigation, cart), accepts voice messages Telegram-style, and never hallucinates a price, a spec, or a stock figure because every claim is tool-grounded against the real backend.
+A native, agentic sales concierge that lives inside the storefront and behaves like the most experienced salesperson in the shop: it speaks the customer's own language — Greek, English, the other four site locales (DE/IT/FR/BG), and **any other language the customer chooses** (Albanian, Russian, Polish, Arabic, Romanian — 95+ via GPT-4o native multilingual fluency) — knows every product live from the catalog, drives the site on the customer's behalf (filters, navigation, cart), accepts voice messages Telegram-style, and never hallucinates a price, a spec, or a stock figure because every claim is tool-grounded against the real backend.
 
 The value is the integration. Off-the-shelf widgets (Tidio, Intercom Fin, Crisp + ChatGPT plugins) bolt a chat on top of a site. This assistant *is part* of the site — it shares the cart, the routes, the i18n locale, the saved bike profile, the Meilisearch index, the Odoo stock, and the Supabase user profile. Combined with a Telegram-style multimodal UI (text + voice messages + inline product cards + co-pilot site navigation), this is the 2026 state-of-the-art for moto e-commerce.
 
 ## Goals
 
-- A visitor opens a chat panel and gets accurate, conversational sales help in Greek (or any of the 6 supported locales) without leaving the site.
+- A visitor opens a chat panel and gets accurate, conversational sales help **in their own language** — whether that's one of the 6 site locales (EL/EN/DE/IT/FR/BG) or any other language the customer naturally writes/speaks in (Albanian, Russian, Polish, Arabic, etc.). The assistant detects language from the customer's input and replies in kind, with native register, not stiff machine translation. This is the headline differentiator.
 - The assistant answers using only the real catalog: prices, stock, specs, descriptions, availability per store — never invented.
 - The assistant can *drive* the site on the user's behalf: navigate to a category, apply filters, open a product, add to cart, start a Build-Your-Kit flow.
 - Inline product cards, comparison tables, and size guides render *inside* the chat stream as real React components, not as text links.
@@ -176,9 +176,9 @@ Voice is **Telegram-style push-to-talk**, not realtime. Both input and output ar
 
 The reply is **always streamed as text first** for instant feedback. After the text reply finishes, a small "▶ Άκουσέ το" button appears under the bubble. On click:
 
-1. The client posts the final text to `/api/chat/tts` (server).
-2. Server calls Azure Cognitive Services TTS with voice `el-GR-AthinaNeural` (Greek female, neural). For other locales: `en-US-JennyNeural` (en), `de-DE-KatjaNeural` (de), etc. — neural voices selected per locale.
-3. Before the call, server hashes `sha256(text + voice_id + locale)` and checks the cache in Supabase Storage. If hit, returns the cached MP3 signed URL. If miss, synthesizes, uploads to `chat-audio/tts-cache/{hash}.mp3`, then returns.
+1. The client posts the final text + detected language (BCP-47 tag) to `/api/chat/tts` (server).
+2. Server looks up the voice id in the `lib/chat/tts/voice-map.ts` table (see Multi-language Policy section for full mapping). Default for Greek = `el-GR-AthinaNeural`. Falls back to OpenAI `gpt-4o-mini-tts` for any language not in the map.
+3. Before the call, server hashes `sha256(text + voice_id + language)` and checks the cache in Supabase Storage. If hit, returns the cached MP3 signed URL. If miss, synthesizes via the selected provider, uploads to `chat-audio/tts-cache/{hash}.mp3`, then returns.
 4. The client plays it inline with a waveform-style player.
 
 **Why text-first then optional TTS instead of auto-playing**: shoppers in a store/office/transit don't always want audio bursting out. The play button is opt-in per reply. Caching means repeat replies (greetings, common answers) are essentially free.
@@ -282,7 +282,9 @@ Wishlist: {wishlistCount}
 Σημειώσεις από προηγούμενες συνομιλίες: {notes}
 ```
 
-For non-Greek locales, the base prompt is translated and stored once per locale. Same content, locale-native phrasing.
+**Base prompt is single-source in Greek.** No per-locale duplication. The model handles locale-appropriate phrasing automatically (GPT-4o follows instructions written in any language and responds in whatever language the user uses). The Multilingual addendum (see Multi-language Policy section) is **always appended** to the base prompt regardless of site locale — it governs the cross-language behavior. The injected context block is also Greek-source; the model has no trouble using Greek-labeled variables to drive non-Greek output.
+
+**Final assembled prompt** sent on every turn = `BASE_PROMPT` + `MULTILINGUAL_ADDENDUM` + `INJECTED_CONTEXT`. Composed in code at `lib/chat/prompts/build-system-prompt.ts`.
 
 ## Model Selection
 
@@ -360,13 +362,83 @@ On click → smooth spring-physics expand (Framer Motion) into the side panel (d
 - Reduced motion: skip the typing animation and spring expansion, replace with instant.
 - Voice bubble has the transcript visible always (not just on tap) — accessibility + lets users skim without audio.
 
-## Multi-language (i18n)
+## Multi-language Policy (the "wow")
 
-The assistant respects the page's current locale (`useLocale()` from next-intl). When `locale = 'el'`, the model receives the Greek system prompt and tools' string descriptions in Greek. When `locale = 'en'`, same content in English. Six locales total (`el`, `en`, `de`, `it`, `fr`, `bg`) matching the existing i18n setup.
+Two language axes, intentionally decoupled:
 
-The assistant **does not auto-translate** mid-conversation. If the user switches site language, the existing thread stays in its original language, and a system chip appears: "Άλλαξες σε English. Νέες συνομιλίες θα είναι Αγγλικά." A fresh "Νέα συνομιλία" starts in the new locale.
+### Axis 1 — Site locale (the 6 supported translations)
 
-Tool **outputs** (product names, descriptions) are returned in the thread's locale because the existing i18n catalog has localized product data (per `project-i18n.md` memory).
+The storefront UI, product names, descriptions, categories, and SEO metadata exist in 6 locales (`el`, `en`, `de`, `it`, `fr`, `bg`) — the existing next-intl setup. These are the languages the **catalog and site chrome** are translated into.
+
+### Axis 2 — Chat conversation language (open-ended, model-driven)
+
+The chat is **not bound to the site locale**. The assistant detects the language the customer writes (or speaks via voice) and replies in that language. GPT-4o handles 95+ languages with native fluency. Customer types Albanian → Πιτ replies Albanian. Customer types Russian → Πιτ replies Russian. Code-switching (Greeklish, mixed Greek+English) is detected and handled naturally — Πιτ replies in idiomatic Greek to Greeklish.
+
+### How the two interact
+
+The site locale governs what the **catalog data** looks like (product names, descriptions returned by tools). The chat language governs what the **assistant's prose** looks like. When these mismatch (e.g. site is Greek but user writes Polish), the assistant:
+
+1. Replies to the user in Polish.
+2. Refers to products by their Greek catalog name (because that's what's in `searchProducts` output and what the user will see if they navigate to the PDP), but immediately glosses the meaning in Polish on first mention: e.g. *"Mam świetny kask touring — 'Caberg Tourmax' (po polsku: kask turystyczny). Cena 249 €. Chcesz zobaczyć?"*
+3. The system prompt explicitly trains this pattern (see system-prompt addendum below).
+
+### Inline UI elements (product cards, comparison tables, navigation chips)
+
+These render in **site locale**, not chat language. Reason: the cards are real components that the user might click → they need to match what they'll see on the destination page. The bot's *prose around the cards* is in the chat language, so the user is never lost.
+
+### First-message language seeding
+
+On thread start, the system prompt seeds: *"Begin in {site_locale}. If the user replies in a different language, switch fluently to theirs and stay there for the rest of the thread (unless they switch again)."* This gives a sensible default while keeping full flexibility.
+
+### Language switch mid-thread
+
+If the user switches language mid-thread (writes Greek then suddenly Albanian), the assistant follows them silently — no "I notice you switched" interruption. Smooth.
+
+### Voice STT — auto-detect
+
+Whisper (`gpt-4o-mini-transcribe`) supports 99 languages with auto-detection. We pass `language` only when we have high confidence from chat history; otherwise we let Whisper detect. Transcript is added to the thread in whatever language Whisper returned.
+
+### Voice TTS — language-aware voice selection
+
+Azure Neural TTS has neural voices for 140+ languages/locales. Map per detected reply language:
+
+| Language | Azure voice id | Notes |
+|---|---|---|
+| Greek | `el-GR-AthinaNeural` | Default, native quality |
+| English | `en-US-JennyNeural` (or `en-GB-LibbyNeural` for UK) | |
+| German | `de-DE-KatjaNeural` | |
+| Italian | `it-IT-ElsaNeural` | |
+| French | `fr-FR-DeniseNeural` | |
+| Bulgarian | `bg-BG-KalinaNeural` | |
+| Albanian | `sq-AL-AnilaNeural` | Native Albanian voice |
+| Russian | `ru-RU-SvetlanaNeural` | |
+| Polish | `pl-PL-ZofiaNeural` | |
+| Arabic | `ar-EG-SalmaNeural` | Egyptian Arabic (most widely understood) |
+| Romanian | `ro-RO-AlinaNeural` | |
+| Turkish | `tr-TR-EmelNeural` | |
+| (any other) | OpenAI `gpt-4o-mini-tts` fallback | Decent quality non-native fallback for tail languages |
+
+Voice mapping lives in `lib/chat/tts/voice-map.ts` and is looked up by BCP-47 language tag returned from a tiny detection step before TTS call. If lookup misses, we fall back to OpenAI TTS which handles 50+ languages (lower quality but always works).
+
+### System-prompt addendum for multilingual
+
+Appended to the base system prompt:
+
+```
+Multilingual behavior:
+- Detect the customer's language from their messages. Reply in that exact language with native register (not stiff translation).
+- Greeklish (Greek written with Latin letters) → reply in standard Ελληνικά.
+- Code-switching → match the dominant language of the most recent user message.
+- Product names from tools are in the site locale ({site_locale}). When the chat language differs, gloss the product type/category in the chat language on first mention so the customer understands what it is.
+- Never apologize for not speaking a language — you speak it.
+- If the customer writes in a language with mixed scripts (e.g. Cyrillic + Latin), prefer the script that matches the dominant word count.
+```
+
+### What this is NOT
+
+- ❌ Not real-time translation between two human speakers.
+- ❌ Not translating product descriptions on the fly into non-supported languages (the catalog stays in its 6 locales; the bot only translates its own prose).
+- ❌ Not exposing language preferences to the model — it always auto-detects from the latest message.
 
 ## Rate Limiting + Cost Guards
 
@@ -402,7 +474,7 @@ A new admin page at `/admin/chat` (admin-only RLS, mirrors `/admin/campaigns`):
 
 1. **Brand name for the assistant**: The spec uses "Πιτ" (Pit — racing/pit-lane theme matching the Race Control landing). Alternatives: "Μηχανικός", "Pitlane", "Co-rider". → Owner pick before sub-project A starts.
 2. **First-load greeting trigger**: auto-open on third page view, or only on click? → Owner pick. Default in spec is click-only (less invasive).
-3. **Voice in non-Greek locales**: do we ship TTS for all 6 locales day-one, or Greek-only and English with default OpenAI TTS as a fallback? → Spec assumes all 6 day-one with Azure neural voices; can be deferred to a v1.1 if budget pressure.
+3. **TTS coverage breadth**: spec ships Azure neural voices for 12 languages day-one (the 6 site locales + Albanian, Russian, Polish, Arabic, Romanian, Turkish — the most likely tail-language customers in the Greek market) and OpenAI `gpt-4o-mini-tts` as a universal fallback for everything else. → **Confirm the 12-voice set or ask for additions/removals.**
 4. **Handoff destination**: spec uses `ntontischris+admin@gmail.com`. Confirm or replace with a dedicated `sales@motomarket-shop.gr`.
 5. **Identity-aware suggestions**: should the assistant use the user's order history (table `orders`)? Adds great personalization but requires careful RLS check. → Spec includes it as a tool `getRecentOrders` for logged-in users only.
 
