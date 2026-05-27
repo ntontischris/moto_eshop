@@ -10,7 +10,7 @@ interface Props {
 }
 
 export function ChatPanel({ onClose }: Props) {
-  const { chat } = useChatContext();
+  const { chat, addToCart } = useChatContext();
   const isBusy = chat.status === "submitted" || chat.status === "streaming";
 
   return (
@@ -30,7 +30,7 @@ export function ChatPanel({ onClose }: Props) {
           ✕
         </button>
       </header>
-      <ChatMessages messages={chat.messages} />
+      <ChatMessages messages={chat.messages} onAddToCart={addToCart} />
       <ChatComposer
         disabled={isBusy}
         onSend={(text) => {
