@@ -2,6 +2,7 @@ import { searchProductsTool } from "./search-products";
 import { getProductDetailsTool } from "./get-product-details";
 import { checkStockTool } from "./check-stock";
 import { handoffToHumanTool } from "./handoff-to-human";
+import { addToCartTool } from "./add-to-cart";
 
 /**
  * Tool catalog handed to streamText({ tools: chatTools }).
@@ -13,6 +14,7 @@ export const chatTools = {
   getProductDetails: getProductDetailsTool,
   checkStock: checkStockTool,
   handoffToHuman: handoffToHumanTool,
+  addToCart: addToCartTool,
 } as const;
 
 export type ChatToolName = keyof typeof chatTools;
