@@ -109,3 +109,165 @@
   cursor: pointer;
 }
 .sendBtn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* --- Product card (T7) --- */
+.card {
+  width: 200px;
+  flex: 0 0 200px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  scroll-snap-align: start;
+}
+.cardImageLink {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: #1a1a1c;
+  overflow: hidden;
+}
+.cardImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.cardImagePlaceholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #1a1a1c, #2a2a2c);
+}
+.cardBody {
+  padding: 0.625rem 0.75rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+}
+.cardBrand {
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+.cardName {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--mm-fg, #f5f5f4);
+  text-decoration: none;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.25;
+  min-height: 2.5em;
+}
+.cardName:hover { text-decoration: underline; }
+.cardFooter {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding-top: 0.375rem;
+}
+.cardPrice {
+  font-weight: 600;
+  font-size: 0.9375rem;
+}
+.cardOos {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+.cardCta {
+  background: #e10600;
+  color: white;
+  border: none;
+  border-radius: 999px;
+  width: 28px;
+  height: 28px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+
+/* --- Carousel (T8) --- */
+.carouselWrap { width: 100%; }
+.carousel {
+  display: flex;
+  gap: 0.625rem;
+  overflow-x: auto;
+  padding: 0.25rem 0 0.5rem;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+}
+.carouselNotFound {
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0.25rem 0 0;
+  font-style: italic;
+}
+
+/* --- Compare (T9) --- */
+.compareWrap {
+  width: 100%;
+  overflow-x: auto;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.compare {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+}
+.compare th,
+.compare td {
+  padding: 0.5rem 0.625rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  vertical-align: top;
+}
+.compare thead th {
+  background: rgba(255, 255, 255, 0.04);
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.compareName {
+  color: inherit;
+  text-decoration: none;
+}
+.compareName:hover { text-decoration: underline; }
+
+/* --- Message group (T12 needs this) --- */
+.messageGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+/* --- Tool chip (T10) --- */
+.toolChip {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.625rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  font-size: 0.8125rem;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.7);
+}
+.toolChipSuccess { color: #4ade80; border-color: rgba(74, 222, 128, 0.3); }
+.toolChipWarning { color: #facc15; border-color: rgba(250, 204, 21, 0.3); }
+.toolChipLabel { font-style: normal; font-weight: 500; }
+.toolChipDetail { opacity: 0.75; }
