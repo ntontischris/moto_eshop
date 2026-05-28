@@ -3,11 +3,26 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import type { Locale } from "@/i18n/config";
 import { buildAlternates } from "@/i18n/metadata";
-import { getProduct, getRelatedProducts } from "@/lib/queries/products";
+import {
+  getProduct,
+  getRelatedProducts,
+  getPopularProductSlugs,
+} from "@/lib/queries/products";
 import { ProductCard } from "../../_components/commerce/product-card";
 import { PDPClient } from "./pdp-client";
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://motomarket.gr";
+
+// Static params seeding (required by Next.js 16 Cache Components).
+// This route reads no request-time input and all its data is "use cache", so
+// without seeded params Next prerenders a single shell — rendered with no slug
+// it hits notFound(), and that baked 404 gets served for every product. Seeding
+// popular slugs gives real prerenders; the rest render on-demand (dynamicParams)
+// with the actual slug. Mirrors the catch-all [...path] route.
+export async function generateStaticParams() {
+  const slugs = await getPopularProductSlugs(50);
+  return slugs.slice(0, 10).map((s) => ({ slug: s.slug }));
+}
 
 export async function generateMetadata({
   params,
