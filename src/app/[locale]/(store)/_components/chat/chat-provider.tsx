@@ -63,6 +63,15 @@ export function ChatProvider({ children }: { children: ReactNode }) {
         currency: cart.currency,
       }),
     }),
+    // Swallow chat errors locally so an OpenAI/Resend/Upstash misconfig (or
+    // an aborted stream during route changes) never bubbles to the global
+    // <error.tsx> and breaks navigation for the whole store.
+    onError: (err) => {
+      if (process.env.NODE_ENV !== "production") {
+        // eslint-disable-next-line no-console
+        console.warn("[chat] stream error swallowed:", err.message);
+      }
+    },
     // v6 onToolCall: returns void — results must be submitted via addToolResult.
     // We read the latest chat instance from chatRef to avoid stale closures.
     onToolCall: async ({ toolCall }) => {
