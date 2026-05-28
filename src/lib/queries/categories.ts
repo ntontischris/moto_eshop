@@ -68,7 +68,7 @@ export async function getCategory(
   locale: Locale = "el",
 ): Promise<Category | null> {
   "use cache";
-  cacheTag(`category:v2:${slug}:${locale}`);
+  cacheTag(`category:v3:${slug}:${locale}`);
   cacheTag("categories");
   cacheLife("hours");
   const { createAdminClient } = await import("@/lib/supabase/admin");
@@ -78,7 +78,9 @@ export async function getCategory(
     .select(CATEGORY_COLS)
     .eq("slug", slug)
     .maybeSingle();
-  if (error || !data) return null;
+  // Never cache a transient error as a 404 (see getProduct for rationale).
+  if (error) throw new Error(`getCategory(${slug}): ${error.message}`);
+  if (!data) return null;
   const category = rowToCategory(data as Parameters<typeof rowToCategory>[0]);
 
   if (locale === "el") return category;
@@ -155,7 +157,10 @@ export async function getCategoryByPath(
     .select(CATEGORY_COLS)
     .eq("full_path", fullPath)
     .maybeSingle();
-  if (error || !data) return null;
+  // Never cache a transient error as a 404 (see getProduct for rationale).
+  if (error)
+    throw new Error(`getCategoryByPath(${fullPath}): ${error.message}`);
+  if (!data) return null;
   return rowToCategory(data as Parameters<typeof rowToCategory>[0]);
 }
 
