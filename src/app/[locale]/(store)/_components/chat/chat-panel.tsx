@@ -20,7 +20,15 @@ export function ChatPanel({ onClose }: Props) {
       aria-label="Συνομιλία με τον Πιτ"
     >
       <header className={styles.header}>
-        <span>Πιτ · online</span>
+        <div className={styles.headerIdentity}>
+          <div className={styles.avatar} aria-hidden="true">
+            Π
+          </div>
+          <div>
+            <div className={styles.headerName}>Πιτ</div>
+            <div className={styles.headerStatus}>Online</div>
+          </div>
+        </div>
         <button
           type="button"
           className={styles.closeBtn}
