@@ -10,6 +10,7 @@ import { MegaMenu } from "./_components/shell/mega-menu";
 import { MobileNav } from "./_components/shell/mobile-nav";
 import { Footer } from "./_components/shell/footer";
 import { ScrollProgress } from "./_components/fx/scroll-progress";
+import { ChatMount } from "./_components/chat/chat-mount";
 
 // display: "optional" — the giant skewed headlines must NOT reflow when the
 // webfont swaps in (that was the dominant CLS source). With "optional" the
@@ -41,20 +42,25 @@ export default async function V3Layout({
   const { locale } = await params;
   setRequestLocale(locale);
   return (
-    <div className={`v3-root ${display.variable} ${body.variable}`} data-v3>
-      <V3Provider>
-        <ScrollProgress />
-        <Suspense fallback={null}>
-          <UtilityBar />
-          <Header />
-          <MegaMenu />
-        </Suspense>
-        <main>{children}</main>
-        <Suspense fallback={null}>
-          <Footer />
-          <MobileNav />
-        </Suspense>
-      </V3Provider>
-    </div>
+    <>
+      <div className={`v3-root ${display.variable} ${body.variable}`} data-v3>
+        <V3Provider>
+          <ScrollProgress />
+          <Suspense fallback={null}>
+            <UtilityBar />
+            <Header />
+            <MegaMenu />
+          </Suspense>
+          <main>{children}</main>
+          <Suspense fallback={null}>
+            <Footer />
+            <MobileNav />
+          </Suspense>
+        </V3Provider>
+      </div>
+      <Suspense fallback={null}>
+        <ChatMount />
+      </Suspense>
+    </>
   );
 }
