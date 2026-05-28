@@ -44,9 +44,7 @@ function rowToCategory(data: {
   parent_id: string | null;
   image_url: string | null;
   position: number;
-  parent?: { slug: string; name: string } | null;
 }): Category {
-  const parent = data.parent as { slug: string; name: string } | null;
   return {
     id: data.id,
     slug: data.slug,
@@ -55,12 +53,15 @@ function rowToCategory(data: {
     description: data.description,
     seo_intro: data.seo_intro,
     parent_id: data.parent_id,
-    parent_slug: parent?.slug ?? null,
-    parent_name: parent?.name ?? null,
+    parent_slug: null,
+    parent_name: null,
     image_url: data.image_url,
     position: data.position,
   };
 }
+
+const CATEGORY_COLS =
+  "id, slug, full_path, name, description, seo_intro, parent_id, image_url, position";
 
 export async function getCategory(
   slug: string,
@@ -74,12 +75,9 @@ export async function getCategory(
   const supabase = createAdminClient();
   const { data, error } = await supabase
     .from("categories")
-    .select(
-      `id, slug, full_path, name, description, seo_intro, parent_id, image_url, position,
-       parent:categories!parent_id ( slug, name )`,
-    )
+    .select(CATEGORY_COLS)
     .eq("slug", slug)
-    .single();
+    .maybeSingle();
   if (error || !data) return null;
   const category = rowToCategory(data as Parameters<typeof rowToCategory>[0]);
 
@@ -154,12 +152,9 @@ export async function getCategoryByPath(
   const supabase = createAdminClient();
   const { data, error } = await supabase
     .from("categories")
-    .select(
-      `id, slug, full_path, name, description, seo_intro, parent_id, image_url, position,
-       parent:categories!parent_id ( slug, name )`,
-    )
+    .select(CATEGORY_COLS)
     .eq("full_path", fullPath)
-    .single();
+    .maybeSingle();
   if (error || !data) return null;
   return rowToCategory(data as Parameters<typeof rowToCategory>[0]);
 }
@@ -207,33 +202,47 @@ export async function getCategoryBreadcrumbs(
   slug: string,
 ): Promise<BreadcrumbItem[]> {
   "use cache";
+  cacheTag(`breadcrumbs:${slug}`);
   cacheTag("categories");
   cacheLife("hours");
   const { createAdminClient } = await import("@/lib/supabase/admin");
   const supabase = createAdminClient();
   const crumbs: BreadcrumbItem[] = [{ label: "Αρχική", href: "/" }];
 
-  const ancestors: { name: string; slug: string }[] = [];
-  let currentSlug: string | null = slug;
-  let depth = 0;
+  // Get the target category to know its full_path (which encodes the chain).
+  const { data: target } = await supabase
+    .from("categories")
+    .select("slug, name, full_path")
+    .eq("slug", slug)
+    .maybeSingle();
 
-  while (currentSlug && depth < 5) {
-    const { data, error } = await supabase
-      .from("categories")
-      .select("name, slug, parent:categories!parent_id ( slug )")
-      .eq("slug", currentSlug)
-      .single();
-
-    if (error || !data) break;
-
-    ancestors.unshift({ name: data.name, slug: data.slug });
-    const parent = data.parent as unknown as { slug: string } | null;
-    currentSlug = parent?.slug ?? null;
-    depth += 1;
+  if (!target?.full_path) {
+    if (target?.name && target?.slug) {
+      crumbs.push({ label: target.name, href: `/${target.slug}` });
+    }
+    return crumbs;
   }
 
-  for (const ancestor of ancestors) {
-    crumbs.push({ label: ancestor.name, href: `/${ancestor.slug}` });
+  // Build all prefix full_paths from the chain, then fetch them in ONE query.
+  const parts = target.full_path.split("/");
+  const prefixes: string[] = [];
+  for (let i = 1; i <= parts.length; i++) {
+    prefixes.push(parts.slice(0, i).join("/"));
+  }
+
+  const { data: chain } = await supabase
+    .from("categories")
+    .select("slug, name, full_path")
+    .in("full_path", prefixes);
+
+  if (!chain) return crumbs;
+
+  // Sort ancestors by depth (shorter full_path first).
+  const sorted = [...chain].sort(
+    (a, b) => (a.full_path?.length ?? 0) - (b.full_path?.length ?? 0),
+  );
+  for (const c of sorted) {
+    crumbs.push({ label: c.name, href: `/${c.slug}` });
   }
 
   return crumbs;
