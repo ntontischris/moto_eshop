@@ -107,7 +107,7 @@ export async function getMyBikeBrands(): Promise<BikeBrand[]> {
     .from("categories")
     .select("id")
     .eq("slug", "my-bike")
-    .single();
+    .maybeSingle();
   if (!root) return [];
 
   const { data: brands } = await supabase
@@ -263,7 +263,7 @@ export async function getSubcategories(
     .from("categories")
     .select("id")
     .eq("slug", parentSlug)
-    .single();
+    .maybeSingle();
 
   if (!parent) return [];
 

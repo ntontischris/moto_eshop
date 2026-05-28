@@ -38,7 +38,7 @@ export async function getCart(cartId: string): Promise<Cart | null> {
     .from("carts")
     .select("id, user_id, session_id, created_at, updated_at")
     .eq("id", cartId)
-    .single();
+    .maybeSingle();
 
   if (cartError || !cart) return null;
 
@@ -97,7 +97,7 @@ export async function getCartByUserId(userId: string): Promise<Cart | null> {
     .eq("user_id", userId)
     .order("created_at", { ascending: false })
     .limit(1)
-    .single();
+    .maybeSingle();
 
   if (!cart) return null;
   return getCart(cart.id);
