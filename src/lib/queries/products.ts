@@ -190,7 +190,7 @@ export async function getProduct(
   locale: Locale = "el",
 ): Promise<Product | null> {
   "use cache";
-  cacheTag(`product:${slug}:${locale}`);
+  cacheTag(`product:v2:${slug}:${locale}`);
   cacheTag("products");
   cacheLife("hours");
   const { createAdminClient } = await import("@/lib/supabase/admin");

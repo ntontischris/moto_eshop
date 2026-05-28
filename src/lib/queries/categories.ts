@@ -68,7 +68,7 @@ export async function getCategory(
   locale: Locale = "el",
 ): Promise<Category | null> {
   "use cache";
-  cacheTag(`category:${slug}:${locale}`);
+  cacheTag(`category:v2:${slug}:${locale}`);
   cacheTag("categories");
   cacheLife("hours");
   const { createAdminClient } = await import("@/lib/supabase/admin");
