@@ -181,7 +181,7 @@ async function resolveCategoryPath(
     .from("categories")
     .select("full_path")
     .eq("slug", categorySlug)
-    .single();
+    .maybeSingle();
   return cat?.full_path ?? null;
 }
 
@@ -209,7 +209,7 @@ export async function getProduct(
     )
     .eq("slug", slug)
     .eq("status", "active")
-    .single();
+    .maybeSingle();
 
   if (error || !data) return null;
 
@@ -613,7 +613,7 @@ export async function getRelatedProducts(
     .from("categories")
     .select("id")
     .eq("slug", categorySlug)
-    .single();
+    .maybeSingle();
 
   if (!cat) return [];
 
