@@ -1,5 +1,5 @@
 import { openai } from "@ai-sdk/openai";
-import { streamText, convertToModelMessages } from "ai";
+import { streamText, convertToModelMessages, stepCountIs } from "ai";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
@@ -173,6 +173,11 @@ export async function POST(req: NextRequest): Promise<Response> {
     system: systemPrompt,
     messages: modelMessages,
     tools: chatTools,
+    // Multi-step: allow the model to call tools, see results, and respond
+    // with text in subsequent steps. Without this, AI SDK v6 stops after the
+    // first step (tool-call) and never produces an assistant text message.
+    // Cap at 5 steps to bound cost + latency.
+    stopWhen: stepCountIs(5),
     temperature: 0.3,
     maxOutputTokens: 800,
     onFinish: async ({ text }) => {
