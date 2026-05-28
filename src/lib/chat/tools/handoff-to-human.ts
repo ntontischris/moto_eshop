@@ -37,6 +37,11 @@ export const handoffToHumanTool = tool({
   execute: async ({ reason, summary }): Promise<HandoffResult> => {
     const apiKey = process.env.RESEND_API_KEY;
     const to = process.env.CHAT_HANDOFF_TO ?? "sales@motomarket-shop.gr";
+    // Sender is configurable so installs without a verified Resend domain
+    // can fall back to Resend's shared onboarding sender. Override via
+    // CHAT_FROM_EMAIL once a custom domain is verified.
+    const from =
+      process.env.CHAT_FROM_EMAIL ?? "Πιτ (AI) <onboarding@resend.dev>";
 
     if (!apiKey) {
       return {
@@ -48,7 +53,7 @@ export const handoffToHumanTool = tool({
     try {
       const resend = new Resend(apiKey);
       const { data, error } = await resend.emails.send({
-        from: "Πιτ (AI) <pit@motomarket-shop.gr>",
+        from,
         to: [to],
         subject: `[Πιτ] Handoff — ${reason}`,
         html: `<h3>Νέο handoff από τον Πιτ</h3>
