@@ -190,7 +190,7 @@ export async function getProduct(
   locale: Locale = "el",
 ): Promise<Product | null> {
   "use cache";
-  cacheTag(`product:v2:${slug}:${locale}`);
+  cacheTag(`product:v3:${slug}:${locale}`);
   cacheTag("products");
   cacheLife("hours");
   const { createAdminClient } = await import("@/lib/supabase/admin");
@@ -211,7 +211,11 @@ export async function getProduct(
     .eq("status", "active")
     .maybeSingle();
 
-  if (error || !data) return null;
+  // A transient Supabase error must NOT be cached as a permanent 404. Throwing
+  // keeps "use cache" from storing the failure, so the next request retries
+  // cleanly; only a genuine "no row" (no error) caches as not-found.
+  if (error) throw new Error(`getProduct(${slug}): ${error.message}`);
+  if (!data) return null;
 
   const brand = data.brands as unknown as { name: string; slug: string } | null;
   const cat = data.categories as unknown as {
