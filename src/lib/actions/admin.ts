@@ -3,30 +3,10 @@
 import { z } from "zod/v4";
 import { revalidatePath, revalidateTag } from "next/cache";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { createClient } from "@/lib/supabase/server";
+import { assertAdminUser as assertAdmin } from "@/lib/auth/guards";
 import type { Json } from "@/types/database";
 
 type ActionResult = { success: true } | { success: false; error: string };
-
-async function assertAdmin() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) throw new Error("Unauthorized");
-
-  const { data: profile } = await supabase
-    .from("user_profiles")
-    .select("role")
-    .eq("id", user.id)
-    .single();
-
-  const role = (profile?.role as string) ?? "user";
-  if (role !== "admin" && role !== "super_admin") {
-    throw new Error("Forbidden");
-  }
-  return user;
-}
 
 // ─── Products ─────────────────────────────────────────────────────
 

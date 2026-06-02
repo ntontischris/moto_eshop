@@ -1,6 +1,10 @@
 "use server";
 
 import { createAdminClient } from "@/lib/supabase/admin";
+import {
+  FREE_SHIPPING_THRESHOLD,
+  DEFAULT_SHIPPING_ESTIMATE,
+} from "@/lib/cart/utils";
 import type { Json } from "@/types/database";
 
 export interface CheckoutItem {
@@ -29,9 +33,6 @@ export interface PlaceOrderResult {
   error?: string;
 }
 
-const SHIPPING_FREE_OVER = 50;
-const SHIPPING_COST = 3.5;
-
 function valid(i: CheckoutInput): string | null {
   if (!i.items?.length) return "Το καλάθι είναι άδειο.";
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(i.email)) return "Μη έγκυρο email.";
@@ -53,7 +54,8 @@ export async function placeOrder(
   const supabase = createAdminClient();
 
   const subtotal = input.items.reduce((s, it) => s + it.price * it.qty, 0);
-  const shipping = subtotal >= SHIPPING_FREE_OVER ? 0 : SHIPPING_COST;
+  const shipping =
+    subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : DEFAULT_SHIPPING_ESTIMATE;
   const total = subtotal + shipping;
   const orderNumber = `MM-${Date.now().toString(36).toUpperCase()}`;
 
