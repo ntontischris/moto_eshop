@@ -3,6 +3,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/server";
 import type { Locale } from "@/i18n/config";
 import type { Database } from "@/types/database";
+import { primaryImage, secondaryImage, galleryUrls } from "./product-images";
 
 /**
  * Overlay a translation onto a source row. Falls back to the source value
@@ -140,28 +141,6 @@ async function overlayListNames(
     const name = byId.get(p.id);
     return name ? { ...p, name } : p;
   });
-}
-
-function primaryImage(images: ProductImage[]): ProductImage | null {
-  if (images.length === 0) return null;
-  return [...images].sort((a, b) => a.position - b.position)[0] ?? null;
-}
-
-// Second image (by position) powers the on-hover swap in product cards.
-// Null when a product has only one shot — the card falls back to a zoom.
-function secondaryImage(images: ProductImage[]): ProductImage | null {
-  if (images.length < 2) return null;
-  return [...images].sort((a, b) => a.position - b.position)[1] ?? null;
-}
-
-// All image URLs (by position), capped — powers the on-hover image cycle
-// on landing product cards. Capped to keep the RSC payload bounded.
-function galleryUrls(images: ProductImage[], cap = 6): string[] {
-  return [...images]
-    .sort((a, b) => a.position - b.position)
-    .map((img) => img.url)
-    .filter(Boolean)
-    .slice(0, cap);
 }
 
 /**

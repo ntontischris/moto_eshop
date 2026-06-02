@@ -1,4 +1,8 @@
 import { createAdminClient } from "@/lib/supabase/admin";
+import {
+  primaryImage,
+  PLACEHOLDER_PRODUCT_IMAGE,
+} from "@/lib/queries/product-images";
 import { getAdminClient, PRODUCTS_INDEX } from "./client";
 import type { SearchDocument } from "./types";
 
@@ -25,10 +29,7 @@ interface ProductRow {
 }
 
 function mapToDocument(row: ProductRow): SearchDocument {
-  const sortedImages = [...(row.images ?? [])].sort(
-    (a, b) => a.position - b.position,
-  );
-  const primaryImage = sortedImages[0];
+  const primary = primaryImage(row.images ?? []);
 
   return {
     id: row.id,
@@ -48,8 +49,8 @@ function mapToDocument(row: ProductRow): SearchDocument {
     stock: row.stock,
     certification: row.certification,
     rider_type: row.rider_type,
-    primary_image_url: primaryImage?.url ?? "/images/placeholder-product.webp",
-    primary_image_alt: primaryImage?.alt ?? row.name,
+    primary_image_url: primary?.url ?? PLACEHOLDER_PRODUCT_IMAGE,
+    primary_image_alt: primary?.alt ?? row.name,
     created_at: row.created_at,
     updated_at: row.updated_at,
   };

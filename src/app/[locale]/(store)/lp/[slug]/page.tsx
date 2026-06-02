@@ -6,12 +6,8 @@ import type { Metadata } from "next";
 import type { Locale } from "@/i18n/config";
 import { buildAlternates } from "@/i18n/metadata";
 import { getCampaignBySlug } from "@/lib/campaigns/queries";
-import {
-  isCampaignVisible,
-  isCampaignExpired,
-} from "@/lib/campaigns/visibility";
 import { resolveVariant } from "@/lib/campaigns/resolve-variant";
-import { extractSignals } from "@/lib/campaigns/signals";
+import { decideCampaign } from "@/lib/campaigns/decide";
 import { variantBucket } from "@/lib/campaigns/sticky";
 import { BlockRenderer } from "@/lib/campaigns/blocks/block-renderer";
 import { CampaignTracker } from "@/lib/campaigns/campaign-tracker";
@@ -50,33 +46,33 @@ async function CampaignContent({ params, searchParams }: PageProps) {
   const campaign = await getCampaignBySlug(slug);
   if (!campaign) notFound();
 
-  const now = new Date();
-  if (isCampaignExpired(campaign, now)) {
-    redirect({ href: campaign.redirect_url, locale });
-  }
-  if (!isCampaignVisible(campaign, now)) notFound();
-
   const cookieStore = await cookies();
   const existingSid = cookieStore.get("mm_sid")?.value;
   const sid = existingSid ?? crypto.randomUUID();
   const h = await headers();
-  const signals = extractSignals({
-    searchParams: sp,
-    userAgent: h.get("user-agent"),
-    country: h.get("x-vercel-ip-country"),
-    isReturning: Boolean(existingSid),
-    bucket: variantBucket(sid, campaign.id),
+
+  const decision = decideCampaign(campaign, {
+    now: new Date(),
+    signalInput: {
+      searchParams: sp,
+      userAgent: h.get("user-agent"),
+      country: h.get("x-vercel-ip-country"),
+      isReturning: Boolean(existingSid),
+      bucket: variantBucket(sid, campaign.id),
+    },
   });
 
-  const variant = resolveVariant(campaign, signals);
-  if (!variant) notFound();
+  if (decision.kind === "expired") {
+    redirect({ href: decision.redirectUrl, locale });
+  }
+  if (decision.kind !== "serve") notFound();
 
   return (
     <main className="min-h-screen">
-      <BlockRenderer blocks={variant.blocks} />
+      <BlockRenderer blocks={decision.variant.blocks} />
       <CampaignTracker
         campaignId={campaign.id}
-        variantId={variant.id}
+        variantId={decision.variant.id}
         sid={sid}
       />
     </main>
