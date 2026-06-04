@@ -65,8 +65,10 @@ _Last updated: 2026-06-04_
 
 ---
 
-## Verified dead (Track B candidates)
+## Dead code (Track B — gate-verified)
 
-- `src/lib/actions/checkout.ts` — candidate, pending Track B impact-gated verification
-- `src/lib/actions/cart.ts` — candidate, pending Track B impact-gated verification
-- Legacy DB-cart query module — candidate, pending Track B impact-gated verification
+Gate = GitNexus upstream impact + import grep. The audit's "confirmed dead" list was 2/3 wrong.
+
+- `src/lib/actions/checkout.ts` — **REMOVED** (Track B). Verified dead: 0 upstream callers, 0 import-grep hits, no test. The legacy DB-cart COD checkout, superseded by Track A's server-authoritative `(store)/checkout/actions.ts`.
+- `src/lib/actions/cart.ts` — **LIVE, retained.** Reachable from the live storefront via Πιτ's chat `add-to-cart` tool (`lib/chat/tools/add-to-cart.ts` → `tools/index.ts` → `/api/chat/route.ts`, mounted in `(store)/layout.tsx`) and legacy `components/cart/*`. Also holds the guest→user merge scaffolding (`mergeGuestCartOnLogin`, `getCartByUserId`) that Track D's server-backed cart will build on.
+- `src/lib/queries/cart.ts` — **LIVE, retained.** Reachable via `/api/cart/summary/route.ts` → `use-cart-summary.ts` in the live chat provider (impact: HIGH, 4 direct callers, 3 flows). Decided in Track D alongside the cart unification.
