@@ -11,6 +11,7 @@ import { PriceDisplay } from "./price-display";
 import { AvailabilityBadge } from "./availability-badge";
 import { WishlistButton } from "./wishlist-button";
 import { getAvailabilityState } from "../../_lib/availability";
+import { productPath } from "../../_lib/urls";
 
 const CYCLE_MS = 1300;
 const TILT_MAX = 7;
@@ -35,7 +36,7 @@ export function ProductCard({
 }: ProductCardProps) {
   const tPlp = useTranslations("plp");
   const tCommon = useTranslations("common");
-  const href = `/product/${product.slug}`;
+  const href = productPath(product.category_path, product.slug);
   const images =
     product.gallery_image_urls && product.gallery_image_urls.length > 0
       ? product.gallery_image_urls
