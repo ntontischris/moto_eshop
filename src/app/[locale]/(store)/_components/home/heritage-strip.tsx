@@ -12,6 +12,9 @@ function useCountUp(target: number | null, run: boolean) {
   useEffect(() => {
     if (target == null || !run) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      // Intentional one-time set: reduced-motion users get the final value
+      // immediately. Fires once per effect run, not a cascading render.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setV(target);
       return;
     }
@@ -91,6 +94,10 @@ export function HeritageStrip() {
   useEffect(() => {
     const el = ref.current;
     if (!el || typeof IntersectionObserver === "undefined") {
+      // Client-only fallback when IntersectionObserver is unavailable: start the
+      // count-up immediately. Fires once on mount and only client-side, so it
+      // cannot cascade or cause a hydration mismatch (server renders run=false).
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setRun(true);
       return;
     }

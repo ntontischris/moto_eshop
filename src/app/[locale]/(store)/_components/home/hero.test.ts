@@ -2,11 +2,16 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { HERO_POSTER, HERO_POSTER_MOBILE } from "../../_lib/assets";
 
-const heroSource = readFileSync(new URL("./hero.tsx", import.meta.url), "utf8");
+// Normalise CRLF→LF so the string assertions are deterministic across OS
+// (Windows checkouts use CRLF via git autocrlf; CI/Linux uses LF).
+const heroSource = readFileSync(
+  new URL("./hero.tsx", import.meta.url),
+  "utf8",
+).replace(/\r\n/g, "\n");
 const componentsCss = readFileSync(
   new URL("../../_styles/components.css", import.meta.url),
   "utf8",
-);
+).replace(/\r\n/g, "\n");
 
 describe("home hero", () => {
   it("uses the race-control image pair for desktop and mobile", () => {

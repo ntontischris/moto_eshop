@@ -8,12 +8,16 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY!,
 );
 
-async function ct(filter: (q: any) => any, label: string): Promise<void> {
-  const q = supabase.from("products").select("*", {
-    count: "exact",
-    head: true,
-  });
-  const { count, error } = await filter(q);
+function productCountQuery() {
+  return supabase.from("products").select("*", { count: "exact", head: true });
+}
+type CountQuery = ReturnType<typeof productCountQuery>;
+
+async function ct(
+  filter: (q: CountQuery) => CountQuery,
+  label: string,
+): Promise<void> {
+  const { count, error } = await filter(productCountQuery());
   console.log(
     `  ${label.padEnd(50)} ${error ? "ERR" : (count ?? 0).toString().padStart(7)}`,
   );
