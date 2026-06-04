@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { getQuestionsForProduct } from "@/lib/queries/reviews";
 import { QuestionForm } from "./question-form";
 import { Badge } from "@/components/ui/badge";
@@ -58,9 +59,9 @@ export async function QaSection({ productId, isLoggedIn }: QaSectionProps) {
         </div>
       ) : (
         <p className="text-sm text-muted-foreground">
-          <a href="/login" className="underline">
+          <Link href="/login" className="underline">
             Συνδέσου
-          </a>{" "}
+          </Link>{" "}
           για να κάνεις ερώτηση.
         </p>
       )}

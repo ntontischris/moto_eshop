@@ -24,20 +24,14 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      # Non-blocking: ~20 pre-existing ESLint errors are tracked in #28.
-      # Flip to blocking (remove continue-on-error) when #28 lands.
       - name: Lint
         run: pnpm lint
-        continue-on-error: true
 
       - name: Type-check
         run: pnpm typecheck
 
-      # Non-blocking: 2 pre-existing CSS-snapshot test failures tracked in #28.
-      # Flip to blocking (remove continue-on-error) when #28 lands.
       - name: Test
         run: pnpm test
-        continue-on-error: true
 
       - name: Build
         run: pnpm build

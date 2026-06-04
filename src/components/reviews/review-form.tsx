@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import Link from "next/link";
 import { createReview } from "@/lib/actions/reviews";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -49,9 +50,9 @@ export function ReviewForm({ productId, isLoggedIn }: ReviewFormProps) {
   if (!isLoggedIn) {
     return (
       <p className="text-sm text-muted-foreground">
-        <a href="/login" className="underline">
+        <Link href="/login" className="underline">
           Συνδέσου
-        </a>{" "}
+        </Link>{" "}
         για να αφήσεις κριτική.
       </p>
     );

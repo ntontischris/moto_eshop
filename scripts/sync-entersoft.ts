@@ -176,7 +176,10 @@ async function syncProducts(): Promise<void> {
       .from("brands")
       .select("id, slug");
     const brandIdBySlug = new Map<string, string>(
-      (brandsRows ?? []).map((b: any) => [b.slug, b.id]),
+      (brandsRows ?? []).map((b: { id: string; slug: string }) => [
+        b.slug,
+        b.id,
+      ]),
     );
 
     // Dedupe by SKU. ERP has phantom records (leading space, MissingFields=1,

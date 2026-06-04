@@ -69,7 +69,7 @@ async function main(): Promise<void> {
   // Insert level by level. Track: pathKey → DB id so children can look up parent.
   const idByPath = new Map<string, string>();
   let inserted = 0;
-  let updated = 0;
+  const updated = 0;
   let skipped = 0;
   const slugCollisions: { slug: string; pathKeyA: string; pathKeyB: string }[] =
     [];
