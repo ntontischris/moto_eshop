@@ -4,6 +4,21 @@
 This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
 <!-- END:nextjs-agent-rules -->
 
+## Knowledge map (ADR 0003 — one fact, one home)
+
+Every fact lives in exactly one artifact; everything else links, never copies. `CLAUDE.md` imports this file (`@AGENTS.md`), so this map is the single home for both.
+
+| Question | Read | Single home for |
+|----------|------|-----------------|
+| What does this word mean? | `CONTEXT.md` (glossary) | term definitions |
+| Why was this decided? | `docs/adr/` (append-only) | rationale |
+| What are the rules? | `docs/STANDARDS.md` | engineering standards |
+| Where are we going? | `ROADMAP.md` (releases / `S-X.Y` slices) | delivery sequence |
+| Where are we now? | `STATUS.md` (slice ids) | status |
+| What is the code? | GitNexus (derived) | code structure |
+
+The AI `memory/` store holds **pointers, preferences, and gotchas only** — not project facts. If memory contradicts these docs, the docs win; fix the memory.
+
 <!-- gitnexus:start -->
 # GitNexus — Code Intelligence
 
