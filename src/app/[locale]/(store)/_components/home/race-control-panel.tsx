@@ -19,7 +19,7 @@ const RIDES = [
   },
   {
     label: "Adventure",
-    href: "/category/off-road",
+    href: "/off-road",
     valueKey: "raceAdventureValue",
     image: "/ride-selector/ride-adventure.webp",
     thumb: "/ride-selector/ride-adventure-thumb.webp",
@@ -29,7 +29,7 @@ const RIDES = [
   },
   {
     label: "Touring",
-    href: "/category/eksoplismos-motosikletas",
+    href: "/eksoplismos-motosikletas",
     valueKey: "raceTouringValue",
     image: "/ride-selector/ride-touring.webp",
     thumb: "/ride-selector/ride-touring-thumb.webp",
@@ -39,7 +39,7 @@ const RIDES = [
   },
   {
     label: "Urban",
-    href: "/category/eksoplismos-anabath",
+    href: "/eksoplismos-anabath",
     valueKey: "raceUrbanValue",
     image: "/ride-selector/ride-urban.webp",
     thumb: "/ride-selector/ride-urban-thumb.webp",
@@ -108,7 +108,7 @@ export function RaceControlPanel() {
             <p className="v3-label">Shop by ride</p>
             <h2 className="v3-display">{t("raceHeading")}</h2>
           </div>
-          <Link href="/category/eksoplismos-anabath" className="v3-ride-all">
+          <Link href="/eksoplismos-anabath" className="v3-ride-all">
             {t("raceAllGear")} <span aria-hidden="true">→</span>
           </Link>
         </div>

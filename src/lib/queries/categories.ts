@@ -31,7 +31,8 @@ export interface BreadcrumbItem {
 export interface BikeBrand {
   name: string;
   slug: string;
-  models: { name: string; slug: string }[];
+  path: string;
+  models: { name: string; slug: string; path: string }[];
 }
 
 function rowToCategory(data: {
@@ -114,31 +115,35 @@ export async function getMyBikeBrands(): Promise<BikeBrand[]> {
 
   const { data: brands } = await supabase
     .from("categories")
-    .select("id, name, slug")
+    .select("id, name, slug, full_path")
     .eq("parent_id", root.id)
     .order("name", { ascending: true });
   if (!brands?.length) return [];
 
   const { data: models } = await supabase
     .from("categories")
-    .select("name, slug, parent_id")
+    .select("name, slug, full_path, parent_id")
     .in(
       "parent_id",
       brands.map((b) => b.id),
     )
     .order("name", { ascending: true });
 
-  const byBrand = new Map<string, { name: string; slug: string }[]>();
+  const byBrand = new Map<
+    string,
+    { name: string; slug: string; path: string }[]
+  >();
   for (const m of models ?? []) {
     const pid = m.parent_id as string;
     const list = byBrand.get(pid) ?? [];
-    list.push({ name: m.name, slug: m.slug });
+    list.push({ name: m.name, slug: m.slug, path: m.full_path ?? "" });
     byBrand.set(pid, list);
   }
 
   return brands.map((b) => ({
     name: b.name,
     slug: b.slug,
+    path: b.full_path ?? "",
     models: byBrand.get(b.id) ?? [],
   }));
 }

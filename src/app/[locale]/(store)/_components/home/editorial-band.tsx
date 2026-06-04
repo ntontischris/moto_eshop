@@ -28,7 +28,7 @@ export async function EditorialBand() {
           {t("editorialTitle2")}
         </h2>
         <p className="v3-ed-text">{t("editorialText")}</p>
-        <Link className="v3-btn-primary" href="/category/eksoplismos-anabath">
+        <Link className="v3-btn-primary" href="/eksoplismos-anabath">
           {t("editorialCta")} <span aria-hidden="true">→</span>
         </Link>
       </div>

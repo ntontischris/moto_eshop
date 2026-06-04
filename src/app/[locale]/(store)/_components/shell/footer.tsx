@@ -51,9 +51,7 @@ export async function Footer() {
           <ul className="v3-footer-links">
             {TOP_NAV_ROOTS.map((root) => (
               <li key={root.slug}>
-                <Link href={`/category/${root.slug}`}>
-                  {navLabel(root.el, locale)}
-                </Link>
+                <Link href={`/${root.path}`}>{navLabel(root.el, locale)}</Link>
               </li>
             ))}
           </ul>

@@ -5,16 +5,16 @@ import { HERO_POSTER, HERO_POSTER_MOBILE } from "../../_lib/assets";
 const HERO_ACTIONS = [
   {
     label: "Racing / Sport",
-    href: "/category/eksoplismos-anabath--kranh-endoep-nies-kameres",
+    href: "/eksoplismos-anabath/kranh-endoep-nies-kameres",
     meta: "Track fit",
   },
   {
     label: "Touring",
-    href: "/category/eksoplismos-motosikletas",
+    href: "/eksoplismos-motosikletas",
     meta: "Long ride",
   },
-  { label: "Urban", href: "/category/eksoplismos-anabath", meta: "Daily fit" },
-  { label: "Adventure", href: "/category/off-road", meta: "Off-road ready" },
+  { label: "Urban", href: "/eksoplismos-anabath", meta: "Daily fit" },
+  { label: "Adventure", href: "/off-road", meta: "Off-road ready" },
 ] as const;
 
 export async function Hero() {
@@ -24,25 +24,25 @@ export async function Hero() {
     {
       key: "helmet",
       label: t("tileCranea"),
-      href: "/category/eksoplismos-anabath--kranh-endoep-nies-kameres",
+      href: "/eksoplismos-anabath/kranh-endoep-nies-kameres",
       meta: "Full face / flip up",
     },
     {
       key: "jacket",
       label: t("tileMpoyfan"),
-      href: "/category/endysh--mpoyfan",
+      href: "/eksoplismos-anabath/endysh/mpoyfan",
       meta: "Textile / leather",
     },
     {
       key: "luggage",
       label: t("tileBalitses"),
-      href: "/category/eksoplismos-motosikletas--balitses",
+      href: "/eksoplismos-motosikletas/balitses",
       meta: "Touring setup",
     },
     {
       key: "oil",
       label: t("tileLipantika"),
-      href: "/category/lipantika",
+      href: "/lipantika",
       meta: "Service ready",
     },
   ] as const;
@@ -84,13 +84,13 @@ export async function Hero() {
             <div className="v3-hero-cta">
               <Link
                 className="v3-btn-primary"
-                href="/category/eksoplismos-anabath--kranh-endoep-nies-kameres"
+                href="/eksoplismos-anabath/kranh-endoep-nies-kameres"
               >
                 Shop by ride <span aria-hidden="true">→</span>
               </Link>
               <Link
                 className="v3-hero-btn2"
-                href="/category/eksoplismos-anabath"
+                href="/eksoplismos-anabath"
               >
                 {t("heroRiderGear")}
               </Link>
