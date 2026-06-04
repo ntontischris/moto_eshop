@@ -25,9 +25,9 @@ _Last updated: 2026-06-04_
 
 ### Organize program (Track A–D, GitHub issues)
 
-- Track A #14 — checkout price-tampering fix (client-trusted prices corrected server-side)
-- Track A #15 — guest-cart persistence on login fixed
-- Track A #16 — AI checkStock returning 0 fixed
+- Track A #14 — pure server-authoritative pricing module (`priceOrder`, exhaustively unit-tested)
+- Track A #15 — checkout action re-prices server-side from `products`, rejects client price tampering
+- Track A #16 — AI checkStock resolves catalog id → SKU before ERP (was a false 0)
 - Track C #20 — env validation (startup guard, missing vars fail fast)
 - Track C #21 — reportError utility (typed server-side error logging)
 - Track C #22 — CI pipeline (lint + typecheck + test on every PR)
