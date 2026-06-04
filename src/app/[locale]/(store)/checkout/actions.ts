@@ -1,17 +1,15 @@
 "use server";
 
+import { z } from "zod/v4";
 import { createAdminClient } from "@/lib/supabase/admin";
-import {
-  FREE_SHIPPING_THRESHOLD,
-  DEFAULT_SHIPPING_ESTIMATE,
-} from "@/lib/cart/utils";
+import { priceOrder } from "@/lib/checkout/pricing";
 import type { Json } from "@/types/database";
 
 export interface CheckoutItem {
   slug: string;
   name: string;
   qty: number;
-  price: number;
+  price: number; // display-only; the server re-prices from the products table
 }
 
 export interface CheckoutInput {
@@ -33,41 +31,69 @@ export interface PlaceOrderResult {
   error?: string;
 }
 
-function valid(i: CheckoutInput): string | null {
-  if (!i.items?.length) return "Το καλάθι είναι άδειο.";
-  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(i.email)) return "Μη έγκυρο email.";
-  if (!i.fullName.trim()) return "Συμπλήρωσε ονοματεπώνυμο.";
-  if (!i.phone.trim()) return "Συμπλήρωσε τηλέφωνο.";
-  if (!i.address.trim()) return "Συμπλήρωσε διεύθυνση.";
-  if (!i.city.trim()) return "Συμπλήρωσε πόλη.";
-  if (!/^\d{5}$/.test(i.postal.trim())) return "Μη έγκυρος Τ.Κ. (5 ψηφία).";
-  if (i.payment !== "cod") return "Μη διαθέσιμος τρόπος πληρωμής.";
-  return null;
-}
+const CheckoutSchema = z.object({
+  email: z.email("Μη έγκυρο email."),
+  phone: z.string().trim().min(1, "Συμπλήρωσε τηλέφωνο."),
+  fullName: z.string().trim().min(1, "Συμπλήρωσε ονοματεπώνυμο."),
+  address: z.string().trim().min(1, "Συμπλήρωσε διεύθυνση."),
+  city: z.string().trim().min(1, "Συμπλήρωσε πόλη."),
+  postal: z
+    .string()
+    .trim()
+    .regex(/^\d{5}$/, "Μη έγκυρος Τ.Κ. (5 ψηφία)."),
+  region: z.string().trim().default(""),
+  notes: z.string().trim().default(""),
+  payment: z.literal("cod", { error: "Μη διαθέσιμος τρόπος πληρωμής." }),
+  items: z
+    .array(z.object({ slug: z.string().min(1), qty: z.number().int().min(1) }))
+    .min(1, "Το καλάθι είναι άδειο."),
+});
 
 export async function placeOrder(
   input: CheckoutInput,
 ): Promise<PlaceOrderResult> {
-  const err = valid(input);
-  if (err) return { ok: false, error: err };
+  const parsed = CheckoutSchema.safeParse(input);
+  if (!parsed.success) {
+    return {
+      ok: false,
+      error: parsed.error.issues[0]?.message ?? "Σφάλμα επικύρωσης.",
+    };
+  }
+  const data = parsed.data;
 
+  // Admin client: guest (COD) orders are inserted without an auth session, so
+  // RLS is intentionally bypassed here. Amounts are derived server-side via
+  // priceOrder (below), so the client cannot tamper with them. See ADR 0001.
   const supabase = createAdminClient();
 
-  const subtotal = input.items.reduce((s, it) => s + it.price * it.qty, 0);
-  const shipping =
-    subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : DEFAULT_SHIPPING_ESTIMATE;
-  const total = subtotal + shipping;
-  const orderNumber = `MM-${Date.now().toString(36).toUpperCase()}`;
+  const slugs = data.items.map((i) => i.slug);
+  const { data: products, error: prodErr } = await supabase
+    .from("products")
+    .select("id, slug, price, stock, status")
+    .in("slug", slugs);
 
+  if (prodErr) {
+    return { ok: false, error: "Αποτυχία επαλήθευσης προϊόντων." };
+  }
+
+  const priced = priceOrder(
+    data.items.map((i) => ({ slug: i.slug, qty: i.qty })),
+    products ?? [],
+  );
+  if (!priced.ok) {
+    return { ok: false, error: priced.error };
+  }
+
+  const orderNumber = `MM-${Date.now().toString(36).toUpperCase()}`;
   const addressJson = {
-    fullName: input.fullName,
-    email: input.email,
-    phone: input.phone,
-    address: input.address,
-    city: input.city,
-    postal: input.postal,
-    region: input.region,
-    notes: input.notes,
+    fullName: data.fullName,
+    email: data.email,
+    phone: data.phone,
+    address: data.address,
+    city: data.city,
+    postal: data.postal,
+    region: data.region,
+    notes: data.notes,
     payment: "cod",
   } as unknown as Json;
 
@@ -77,9 +103,9 @@ export async function placeOrder(
       order_number: orderNumber,
       billing_address: addressJson,
       shipping_address: addressJson,
-      subtotal,
-      shipping_cost: shipping,
-      total,
+      subtotal: priced.subtotal,
+      shipping_cost: priced.shipping,
+      total: priced.total,
       discount: 0,
       user_id: null,
     })
@@ -90,26 +116,16 @@ export async function placeOrder(
     return { ok: false, error: "Αποτυχία καταχώρησης παραγγελίας." };
   }
 
-  // Resolve product ids by slug (best-effort; nullable in schema)
-  const slugs = input.items.map((i) => i.slug);
-  const { data: prods } = await supabase
-    .from("products")
-    .select("id, slug")
-    .in("slug", slugs);
-  const idBySlug = new Map((prods ?? []).map((p) => [p.slug, p.id as string]));
-
-  const rows = input.items.map((it) => ({
+  const rows = priced.lines.map((l) => ({
     order_id: order.id,
-    product_id: idBySlug.get(it.slug) ?? null,
-    quantity: it.qty,
-    unit_price: it.price,
-    total: it.price * it.qty,
+    product_id: l.productId,
+    quantity: l.quantity,
+    unit_price: l.unitPrice,
+    total: l.lineTotal,
   }));
 
   const { error: itemsErr } = await supabase.from("order_items").insert(rows);
-
   if (itemsErr) {
-    // Order exists but items failed — surface so it can be reconciled.
     return {
       ok: false,
       error: "Η παραγγελία καταχωρήθηκε μερικώς. Επικοινώνησε μαζί μας.",
