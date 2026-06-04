@@ -5,55 +5,82 @@ import {
   type CheckStockResult,
 } from "./check-stock";
 
-vi.mock("@/lib/erp", () => ({
-  getStockForProduct: vi.fn(),
-}));
+vi.mock("@/lib/erp", () => ({ getStockForProduct: vi.fn() }));
+vi.mock("@/lib/supabase/server", () => ({ createClient: vi.fn() }));
 
 import { getStockForProduct } from "@/lib/erp";
-const mocked = vi.mocked(getStockForProduct);
+import { createClient } from "@/lib/supabase/server";
+
+const mockedStock = vi.mocked(getStockForProduct);
+const mockedClient = vi.mocked(createClient);
+
+/** Stub Supabase so products.sku resolution returns `sku` (or null). */
+function stubSku(sku: string | null) {
+  mockedClient.mockResolvedValue({
+    from: () => ({
+      select: () => ({
+        eq: () => ({
+          maybeSingle: async () => ({
+            data: sku === null ? null : { sku },
+            error: null,
+          }),
+        }),
+      }),
+    }),
+  } as never);
+}
+
+const ctx = { toolCallId: "x", messages: [] } as never;
 
 describe("checkStockTool", () => {
-  beforeEach(() => mocked.mockReset());
-
-  it("requires productId in schema", () => {
-    const r = checkStockInputSchema.safeParse({});
-    expect(r.success).toBe(false);
+  beforeEach(() => {
+    mockedStock.mockReset();
+    mockedClient.mockReset();
   });
 
-  it("returns per-store stock plus a total", async () => {
-    mocked.mockResolvedValueOnce({
-      productId: "p1",
+  it("requires productId in schema", () => {
+    expect(checkStockInputSchema.safeParse({}).success).toBe(false);
+  });
+
+  it("resolves the catalog id to a SKU before calling the ERP", async () => {
+    stubSku("ABC-123");
+    mockedStock.mockResolvedValueOnce({
+      productId: "ABC-123",
       stores: [
-        { id: "kallithea", name: "Καλλιθέα", stock: 3 },
-        { id: "thessaloniki", name: "Θεσσαλονίκη", stock: 1 },
-        { id: "warehouse", name: "Αποθήκη", stock: 8 },
+        { id: "sindos", name: "Σίνδος", stock: 3 },
+        { id: "benizelou", name: "Βενιζέλου", stock: 1 },
       ],
     });
-    const out = (await checkStockTool.execute!({ productId: "p1" }, {
-      toolCallId: "x",
-      messages: [],
-    } as never)) as CheckStockResult;
-    expect(out.totalStock).toBe(12);
-    expect(out.stores).toHaveLength(3);
+    const out = (await checkStockTool.execute!(
+      { productId: "shoei-nxr2" },
+      ctx,
+    )) as CheckStockResult;
+    expect(mockedStock).toHaveBeenCalledWith({
+      productId: "ABC-123",
+      variantId: undefined,
+    });
+    expect(out.totalStock).toBe(4);
     expect(out.inStock).toBe(true);
   });
 
-  it("returns inStock=false and empty stores when nothing returned", async () => {
-    mocked.mockResolvedValueOnce({ productId: "p1", stores: [] });
-    const out = (await checkStockTool.execute!({ productId: "p1" }, {
-      toolCallId: "x",
-      messages: [],
-    } as never)) as CheckStockResult;
-    expect(out.totalStock).toBe(0);
+  it("reports unavailable (not fake 0) when the product has no SKU", async () => {
+    stubSku(null);
+    const out = (await checkStockTool.execute!(
+      { productId: "shoei-nxr2" },
+      ctx,
+    )) as CheckStockResult;
+    expect(mockedStock).not.toHaveBeenCalled();
     expect(out.inStock).toBe(false);
+    expect(out.error).toContain("unavailable");
   });
 
-  it("falls through gracefully on ERP error (returns unknown stock, not throws)", async () => {
-    mocked.mockRejectedValueOnce(new Error("ERP down"));
-    const out = (await checkStockTool.execute!({ productId: "p1" }, {
-      toolCallId: "x",
-      messages: [],
-    } as never)) as CheckStockResult;
+  it("falls through gracefully on ERP error", async () => {
+    stubSku("ABC-123");
+    mockedStock.mockRejectedValueOnce(new Error("ERP down"));
+    const out = (await checkStockTool.execute!(
+      { productId: "shoei-nxr2" },
+      ctx,
+    )) as CheckStockResult;
     expect(out.inStock).toBe(false);
     expect(out.error).toContain("unavailable");
   });
