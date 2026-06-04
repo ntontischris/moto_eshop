@@ -19,7 +19,7 @@ export async function getUserWishlist(userId: string): Promise<WishlistItem[]> {
       products (
         id, slug, name, price, compare_at_price, stock, certification,
         rider_type, images, average_rating, review_count,
-        brands ( name, slug ), categories ( slug )
+        brands ( name, slug ), categories ( slug, full_path )
       )
     `,
     )
@@ -42,7 +42,7 @@ export async function getUserWishlist(userId: string): Promise<WishlistItem[]> {
       average_rating: number | null;
       review_count: number;
       brands: { name: string; slug: string } | null;
-      categories: { slug: string } | null;
+      categories: { slug: string; full_path: string | null } | null;
     };
     const sorted = [...(p.images ?? [])].sort(
       (a, b) => a.position - b.position,
@@ -62,6 +62,7 @@ export async function getUserWishlist(userId: string): Promise<WishlistItem[]> {
         price: p.price,
         compare_at_price: p.compare_at_price,
         category_slug: p.categories?.slug ?? "",
+        category_path: p.categories?.full_path ?? null,
         stock: p.stock,
         certification: p.certification,
         rider_type: p.rider_type,

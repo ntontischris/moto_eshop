@@ -76,7 +76,7 @@ async function BikeProductsContent({ params, searchParams }: BikePageProps) {
         `
         id, slug, name, price, compare_at_price, stock, certification,
         rider_type, images, average_rating, review_count,
-        brands ( name, slug ), categories ( slug )
+        brands ( name, slug ), categories ( slug, full_path )
       `,
       )
       .in("id", compatibleIds)
@@ -89,7 +89,10 @@ async function BikeProductsContent({ params, searchParams }: BikePageProps) {
         name: string;
         slug: string;
       } | null;
-      const cat = row.categories as unknown as { slug: string } | null;
+      const cat = row.categories as unknown as {
+        slug: string;
+        full_path: string | null;
+      } | null;
       const imgs =
         (row.images as unknown as {
           url: string;
@@ -108,6 +111,7 @@ async function BikeProductsContent({ params, searchParams }: BikePageProps) {
         price: row.price,
         compare_at_price: row.compare_at_price,
         category_slug: cat?.slug ?? "",
+        category_path: cat?.full_path ?? null,
         stock: row.stock,
         certification: row.certification,
         rider_type: row.rider_type,

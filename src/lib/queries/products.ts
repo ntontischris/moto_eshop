@@ -41,6 +41,7 @@ export interface Product {
   compare_at_price: number | null;
   category_slug: string;
   category_name: string;
+  category_path: string | null;
   sku: string | null;
   stock: number;
   certification: string | null;
@@ -62,6 +63,7 @@ export interface ProductListItem {
   price: number;
   compare_at_price: number | null;
   category_slug: string;
+  category_path: string | null;
   stock: number;
   certification: string | null;
   rider_type: string | null;
@@ -183,7 +185,7 @@ export async function getProduct(
       sku, stock, certification, rider_type, specs, images,
       view_count, average_rating, review_count, created_at,
       brands ( name, slug ),
-      categories ( slug, name )
+      categories ( slug, name, full_path )
     `,
     )
     .eq("slug", slug)
@@ -200,6 +202,7 @@ export async function getProduct(
   const cat = data.categories as unknown as {
     slug: string;
     name: string;
+    full_path: string | null;
   } | null;
   // Images can be either string[] (from ERP scraper) or ProductImage[] (legacy/admin).
   // Normalize to ProductImage[] so the UI never has to branch.
@@ -238,6 +241,7 @@ export async function getProduct(
     compare_at_price: data.compare_at_price,
     category_slug: cat?.slug ?? "",
     category_name: cat?.name ?? "",
+    category_path: cat?.full_path ?? null,
     sku: data.sku,
     stock: data.stock,
     certification: data.certification,
@@ -354,7 +358,10 @@ export async function getProductsByCategory(
       name: string;
       slug: string;
     } | null;
-    const c = row.categories as unknown as { slug: string } | null;
+    const c = row.categories as unknown as {
+      slug: string;
+      full_path: string | null;
+    } | null;
     const imgs = (row.images as unknown as ProductImage[]) ?? [];
     const img = primaryImage(imgs);
 
@@ -367,6 +374,7 @@ export async function getProductsByCategory(
       price: row.price,
       compare_at_price: row.compare_at_price,
       category_slug: c?.slug ?? categorySlug,
+      category_path: c?.full_path ?? null,
       stock: row.stock,
       certification: row.certification,
       rider_type: row.rider_type,
@@ -423,7 +431,7 @@ export async function searchProducts(
     .select(
       `id, slug, name, price, compare_at_price, stock, certification,
        rider_type, images, average_rating, review_count,
-       brands ( name, slug ), categories ( slug )`,
+       brands ( name, slug ), categories ( slug, full_path )`,
       { count: "exact" },
     )
     .eq("status", "active")
@@ -444,7 +452,10 @@ export async function searchProducts(
       name: string;
       slug: string;
     } | null;
-    const c = row.categories as unknown as { slug: string } | null;
+    const c = row.categories as unknown as {
+      slug: string;
+      full_path: string | null;
+    } | null;
     const imgs = (row.images as unknown as ProductImage[]) ?? [];
     const img = primaryImage(imgs);
     return {
@@ -456,6 +467,7 @@ export async function searchProducts(
       price: row.price,
       compare_at_price: row.compare_at_price,
       category_slug: c?.slug ?? "",
+      category_path: c?.full_path ?? null,
       stock: row.stock,
       certification: row.certification,
       rider_type: row.rider_type,
@@ -606,7 +618,7 @@ export async function getRelatedProducts(
       `
       id, slug, name, price, compare_at_price, stock, certification,
       rider_type, images, average_rating, review_count,
-      brands ( name, slug ), categories ( slug )
+      brands ( name, slug ), categories ( slug, full_path )
     `,
     )
     .eq("category_id", cat.id)
@@ -622,7 +634,10 @@ export async function getRelatedProducts(
       name: string;
       slug: string;
     } | null;
-    const c = row.categories as unknown as { slug: string } | null;
+    const c = row.categories as unknown as {
+      slug: string;
+      full_path: string | null;
+    } | null;
     const imgs = (row.images as unknown as ProductImage[]) ?? [];
     const img = primaryImage(imgs);
 
@@ -635,6 +650,7 @@ export async function getRelatedProducts(
       price: row.price,
       compare_at_price: row.compare_at_price,
       category_slug: c?.slug ?? categorySlug,
+      category_path: c?.full_path ?? null,
       stock: row.stock,
       certification: row.certification,
       rider_type: row.rider_type,
@@ -672,7 +688,7 @@ export async function getProductsByIds(
       `
       id, slug, name, price, compare_at_price, stock, certification,
       rider_type, images, average_rating, review_count,
-      brands ( name, slug ), categories ( slug )
+      brands ( name, slug ), categories ( slug, full_path )
     `,
     )
     .in("id", ids)
@@ -685,7 +701,10 @@ export async function getProductsByIds(
       name: string;
       slug: string;
     } | null;
-    const c = row.categories as unknown as { slug: string } | null;
+    const c = row.categories as unknown as {
+      slug: string;
+      full_path: string | null;
+    } | null;
     const imgs = (row.images as unknown as ProductImage[]) ?? [];
     const img = primaryImage(imgs);
 
@@ -698,6 +717,7 @@ export async function getProductsByIds(
       price: row.price,
       compare_at_price: row.compare_at_price,
       category_slug: c?.slug ?? "",
+      category_path: c?.full_path ?? null,
       stock: row.stock,
       certification: row.certification,
       rider_type: row.rider_type,
@@ -745,7 +765,7 @@ export async function getProductsByBrand(
       `
       id, slug, name, price, compare_at_price, stock, certification,
       rider_type, images, average_rating, review_count,
-      brands ( name, slug ), categories ( slug )
+      brands ( name, slug ), categories ( slug, full_path )
     `,
     )
     .eq("brand_id", brand.id)
@@ -757,7 +777,10 @@ export async function getProductsByBrand(
 
   const items: ProductListItem[] = data.map((row) => {
     const b = row.brands as unknown as { name: string; slug: string } | null;
-    const c = row.categories as unknown as { slug: string } | null;
+    const c = row.categories as unknown as {
+      slug: string;
+      full_path: string | null;
+    } | null;
     const imgs = (row.images as unknown as ProductImage[]) ?? [];
     const img = primaryImage(imgs);
 
@@ -770,6 +793,7 @@ export async function getProductsByBrand(
       price: row.price,
       compare_at_price: row.compare_at_price,
       category_slug: c?.slug ?? "",
+      category_path: c?.full_path ?? null,
       stock: row.stock,
       certification: row.certification,
       rider_type: row.rider_type,
