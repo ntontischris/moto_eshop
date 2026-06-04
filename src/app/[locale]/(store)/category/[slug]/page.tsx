@@ -1,17 +1,9 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import type { Locale } from "@/i18n/config";
 import { buildAlternates } from "@/i18n/metadata";
-import { getCategory, getSubcategories } from "@/lib/queries/categories";
-import {
-  getProductFilters,
-  getProductsByCategory,
-} from "@/lib/queries/products";
-import { parsePlpParams } from "../../_lib/plp-params";
-import { categoryPath } from "../../_lib/urls";
-import { ProductCard } from "../../_components/commerce/product-card";
-import { PLPClient } from "./plp-client";
+import { getCategory } from "@/lib/queries/categories";
+import { CategoryView } from "../../_components/plp/category-view";
 
 export async function generateMetadata({
   params,
@@ -53,49 +45,7 @@ async function V3CategoryPageContent({
 }) {
   const { locale, slug } = await params;
   const sp = await searchParams;
-
-  const cat = await getCategory(slug, locale);
-  if (!cat) notFound();
-
-  const state = parsePlpParams(sp);
-
-  const [result, filters, subcats] = await Promise.all([
-    getProductsByCategory(
-      {
-        categorySlug: slug,
-        page: state.page,
-        perPage: 24,
-        sort: state.sort,
-        brands: state.brands.length ? state.brands : undefined,
-        priceMin: state.priceMin,
-        priceMax: state.priceMax,
-      },
-      locale,
-    ),
-    getProductFilters(slug),
-    getSubcategories(slug, locale),
-  ]);
-
-  return (
-    <PLPClient
-      basePath={cat.full_path ? categoryPath(cat.full_path) : `/${slug}`}
-      title={cat.name}
-      seoIntro={cat.seo_intro ?? cat.description}
-      subcategories={subcats.map((s) => ({
-        path: s.full_path ? categoryPath(s.full_path) : `/${s.slug}`,
-        name: s.name,
-      }))}
-      filters={filters}
-      state={state}
-      total={result.total}
-      page={result.page}
-      totalPages={result.totalPages}
-    >
-      {result.data.map((p) => (
-        <ProductCard key={p.id} product={p} />
-      ))}
-    </PLPClient>
-  );
+  return <CategoryView slug={slug} locale={locale} searchParams={sp} />;
 }
 
 function CategoryPageFallback() {

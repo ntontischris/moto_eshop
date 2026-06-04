@@ -1,13 +1,9 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import type { Locale } from "@/i18n/config";
 import { buildAlternates } from "@/i18n/metadata";
-import { getProduct, getRelatedProducts } from "@/lib/queries/products";
-import { ProductCard } from "../../_components/commerce/product-card";
-import { PDPClient } from "./pdp-client";
-
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://motomarket.gr";
+import { getProduct } from "@/lib/queries/products";
+import { ProductView } from "../../_components/pdp/product-view";
 
 type SearchParams = Record<string, string | string[] | undefined>;
 
@@ -52,59 +48,7 @@ async function V3ProductPageContent({
   // notFound() on prod — and 404s every product. Mirrors the working
   // category/[slug], which renders fine for all categories because it does this.
   await searchParams;
-  const product = await getProduct(slug, locale);
-  if (!product) notFound();
-
-  const relatedAll = await getRelatedProducts(
-    product.id,
-    product.category_slug,
-    8,
-    locale,
-  );
-  const related = relatedAll.filter((p) => p.slug !== product.slug).slice(0, 4);
-
-  const ld = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    name: `${product.brand} ${product.name}`,
-    image: product.images.map((i) => i.url),
-    description: product.description ?? product.name,
-    sku: product.sku,
-    brand: { "@type": "Brand", name: product.brand },
-    aggregateRating: product.average_rating
-      ? {
-          "@type": "AggregateRating",
-          ratingValue: product.average_rating,
-          reviewCount: product.review_count,
-        }
-      : undefined,
-    offers: {
-      "@type": "Offer",
-      url: `${BASE_URL}/product/${slug}`,
-      priceCurrency: "EUR",
-      price: product.price.toFixed(2),
-      availability:
-        product.stock > 0
-          ? "https://schema.org/InStock"
-          : "https://schema.org/OutOfStock",
-      itemCondition: "https://schema.org/NewCondition",
-    },
-  };
-
-  return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }}
-      />
-      <PDPClient
-        product={product}
-        related={related.map((p) => (
-          <ProductCard key={p.id} product={p} />
-        ))}
-      />
-    </>
-  );
+  return <ProductView slug={slug} locale={locale} />;
 }
 
 function ProductPageFallback() {
