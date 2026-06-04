@@ -51,3 +51,31 @@ export async function requireAdmin(): Promise<User & { adminRole: AdminRole }> {
 
   return Object.assign(user, { adminRole: role as AdminRole });
 }
+
+/**
+ * Admin assertion for server-action contexts: throws instead of redirecting,
+ * so callers can return a typed { success: false } result. Single source for
+ * the identity + role-fetch + role-check sequence.
+ */
+export async function assertAdminUser(): Promise<
+  User & { adminRole: AdminRole }
+> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) throw new Error("Unauthorized");
+
+  const { data: profile } = await supabase
+    .from("user_profiles")
+    .select("role")
+    .eq("id", user.id)
+    .single();
+
+  const role = (profile?.role as string) ?? "user";
+  if (role !== "admin" && role !== "super_admin") {
+    throw new Error("Forbidden");
+  }
+
+  return Object.assign(user, { adminRole: role as AdminRole });
+}

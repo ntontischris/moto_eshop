@@ -1,4 +1,8 @@
 import { createClient } from "@/lib/supabase/server";
+import {
+  primaryImage,
+  PLACEHOLDER_PRODUCT_IMAGE,
+} from "@/lib/queries/product-images";
 
 interface ProductImage {
   url: string;
@@ -62,10 +66,7 @@ export async function getCart(cartId: string): Promise<Cart | null> {
       images: ProductImage[];
       categories: { slug: string } | null;
     };
-    const sortedImages = [...(product.images ?? [])].sort(
-      (a, b) => a.position - b.position,
-    );
-    const primaryImage = sortedImages[0];
+    const primary = primaryImage(product.images ?? []);
 
     return {
       id: item.id,
@@ -77,9 +78,8 @@ export async function getCart(cartId: string): Promise<Cart | null> {
       color: item.color,
       product_name: product.name,
       product_slug: product.slug,
-      product_image_url:
-        primaryImage?.url ?? "/images/placeholder-product.webp",
-      product_image_alt: primaryImage?.alt ?? product.name,
+      product_image_url: primary?.url ?? PLACEHOLDER_PRODUCT_IMAGE,
+      product_image_alt: primary?.alt ?? product.name,
       product_stock: product.stock,
       category_slug: product.categories?.slug ?? "",
     };

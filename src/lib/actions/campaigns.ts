@@ -3,7 +3,7 @@
 import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { createClient } from "@/lib/supabase/server";
+import { assertAdminUser as assertAdmin } from "@/lib/auth/guards";
 import { blocksSchema } from "@/lib/campaigns/blocks/schema";
 import type { Json } from "@/types/database";
 
@@ -11,26 +11,6 @@ type ActionResult = { success: true } | { success: false; error: string };
 type CreateResult =
   | { success: true; id: string }
   | { success: false; error: string };
-
-async function assertAdmin() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) throw new Error("Unauthorized");
-
-  const { data: profile } = await supabase
-    .from("user_profiles")
-    .select("role")
-    .eq("id", user.id)
-    .single();
-
-  const role = (profile?.role as string) ?? "user";
-  if (role !== "admin" && role !== "super_admin") {
-    throw new Error("Forbidden");
-  }
-  return user;
-}
 
 const CampaignInputSchema = z.object({
   name: z.string().min(1, "Το όνομα είναι υποχρεωτικό"),

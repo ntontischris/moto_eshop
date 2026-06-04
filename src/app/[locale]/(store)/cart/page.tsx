@@ -6,16 +6,19 @@ import { getCartRecommendations } from "../_lib/cart-recommendations";
 import { formatPrice } from "../_lib/format";
 import { SmartImage } from "../_components/commerce/smart-image";
 import { useV3, cartLineKey } from "../_components/shell/v3-provider";
-
-const SHIPPING_FREE_OVER = 50;
-const SHIPPING_COST = 3.5;
+import {
+  FREE_SHIPPING_THRESHOLD,
+  DEFAULT_SHIPPING_ESTIMATE,
+} from "@/lib/cart/utils";
 
 export default function CartPage() {
   const t = useTranslations("cart");
   const { cart, updateQty, removeFromCart, clearCart, cartTotal } = useV3();
   const recommendations = getCartRecommendations(cart);
   const shipping =
-    cart.length === 0 || cartTotal >= SHIPPING_FREE_OVER ? 0 : SHIPPING_COST;
+    cart.length === 0 || cartTotal >= FREE_SHIPPING_THRESHOLD
+      ? 0
+      : DEFAULT_SHIPPING_ESTIMATE;
   const grand = cartTotal + shipping;
 
   return (
@@ -113,7 +116,7 @@ export default function CartPage() {
               {shipping > 0 && (
                 <p className="v3-cart-ship-note">
                   {t("freeShippingNote", {
-                    amount: formatPrice(SHIPPING_FREE_OVER),
+                    amount: formatPrice(FREE_SHIPPING_THRESHOLD),
                   })}
                 </p>
               )}

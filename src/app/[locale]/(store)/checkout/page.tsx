@@ -7,9 +7,10 @@ import { useTranslations } from "next-intl";
 import { useV3 } from "../_components/shell/v3-provider";
 import { formatPrice } from "../_lib/format";
 import { placeOrder, type CheckoutInput } from "./actions";
-
-const FREE_OVER = 50;
-const SHIP = 3.5;
+import {
+  FREE_SHIPPING_THRESHOLD,
+  DEFAULT_SHIPPING_ESTIMATE,
+} from "@/lib/cart/utils";
 
 const FIELD_NAMES: {
   name: keyof CheckoutInput;
@@ -33,7 +34,10 @@ export default function CheckoutPage() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const shipping = cart.length === 0 || cartTotal >= FREE_OVER ? 0 : SHIP;
+  const shipping =
+    cart.length === 0 || cartTotal >= FREE_SHIPPING_THRESHOLD
+      ? 0
+      : DEFAULT_SHIPPING_ESTIMATE;
   const total = cartTotal + shipping;
 
   const set = (k: string, v: string) => setForm((f) => ({ ...f, [k]: v }));

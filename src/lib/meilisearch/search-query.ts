@@ -1,4 +1,8 @@
 import { Meilisearch } from "meilisearch";
+import {
+  searchProducts as searchProductsInSupabase,
+  type ProductListItem,
+} from "@/lib/queries/products";
 import type { SearchHit, SearchFacets } from "./types";
 
 // Lazy-init: Meilisearch ctor throws on empty/invalid host. Defer until used.
@@ -54,6 +58,52 @@ function buildSort(sort?: string): string[] {
   return sort && map[sort] ? [map[sort]] : [];
 }
 
+// Shape a Supabase catalog row into the Meili hit contract consumers expect.
+// Meili-only fields (facets, highlights, full-text metadata) have no Supabase
+// equivalent, so they default to empty rather than fabricate values.
+function toSearchHit(p: ProductListItem): SearchHit {
+  return {
+    id: p.id,
+    slug: p.slug,
+    name: p.name,
+    brand: p.brand,
+    brand_slug: p.brand_slug,
+    category_name: "",
+    category_slug: p.category_slug,
+    description: "",
+    sku: "",
+    price: p.price,
+    compare_at_price: p.compare_at_price,
+    rating: p.average_rating,
+    review_count: p.review_count,
+    in_stock: p.stock > 0,
+    stock: p.stock,
+    certification: p.certification,
+    rider_type: p.rider_type,
+    primary_image_url: p.primary_image_url,
+    primary_image_alt: p.primary_image_alt,
+    created_at: "",
+    updated_at: "",
+  };
+}
+
+// Fallback so search never silently returns empty when Meili is absent (no host
+// configured — the production reality) or down. Reuses the Supabase catalog
+// search; facets/highlights are unavailable on this path.
+async function fallbackToSupabase(
+  opts: SearchProductsOptions,
+  page: number,
+): Promise<SearchProductsResult> {
+  const result = await searchProductsInSupabase(opts.q, page, HITS_PER_PAGE);
+  return {
+    hits: result.data.map(toSearchHit),
+    totalHits: result.total,
+    hitsPerPage: HITS_PER_PAGE,
+    page,
+    facets: null,
+  };
+}
+
 export async function searchProducts(
   opts: SearchProductsOptions,
 ): Promise<SearchProductsResult> {
@@ -62,37 +112,39 @@ export async function searchProducts(
   const sort = buildSort(opts.sort);
 
   const client = getClient();
-  if (!client) {
-    return {
-      hits: [],
-      totalHits: 0,
-      hitsPerPage: HITS_PER_PAGE,
-      page,
-      facets: null,
-    };
-  }
-  const result = await client.index("products").search<SearchHit>(opts.q, {
-    hitsPerPage: HITS_PER_PAGE,
-    page,
-    filter: filter.length > 0 ? filter : undefined,
-    sort: sort.length > 0 ? sort : undefined,
-    facets: ["brand_slug", "category_slug", "certification", "rider_type"],
-    attributesToHighlight: ["name", "brand", "description"],
-    highlightPreTag:
-      '<mark class="bg-yellow-100 text-yellow-900 rounded-sm px-0.5">',
-    highlightPostTag: "</mark>",
-    attributesToCrop: ["description"],
-    cropLength: 60,
-  });
+  if (client) {
+    try {
+      const result = await client.index("products").search<SearchHit>(opts.q, {
+        hitsPerPage: HITS_PER_PAGE,
+        page,
+        filter: filter.length > 0 ? filter : undefined,
+        sort: sort.length > 0 ? sort : undefined,
+        facets: ["brand_slug", "category_slug", "certification", "rider_type"],
+        attributesToHighlight: ["name", "brand", "description"],
+        highlightPreTag:
+          '<mark class="bg-yellow-100 text-yellow-900 rounded-sm px-0.5">',
+        highlightPostTag: "</mark>",
+        attributesToCrop: ["description"],
+        cropLength: 60,
+      });
 
-  return {
-    hits: result.hits,
-    totalHits:
-      (result as unknown as { totalHits?: number }).totalHits ??
-      result.estimatedTotalHits ??
-      0,
-    hitsPerPage: HITS_PER_PAGE,
-    page,
-    facets: (result.facetDistribution as SearchFacets | undefined) ?? null,
-  };
+      if (result.hits.length > 0) {
+        return {
+          hits: result.hits,
+          totalHits:
+            (result as unknown as { totalHits?: number }).totalHits ??
+            result.estimatedTotalHits ??
+            0,
+          hitsPerPage: HITS_PER_PAGE,
+          page,
+          facets:
+            (result.facetDistribution as SearchFacets | undefined) ?? null,
+        };
+      }
+    } catch {
+      // Meili down/misconfigured — fall through to the Supabase fallback.
+    }
+  }
+
+  return fallbackToSupabase(opts, page);
 }

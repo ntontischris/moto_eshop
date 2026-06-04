@@ -1,6 +1,6 @@
 "use server";
 
-import { createClient } from "@/lib/supabase/server";
+import { assertAdminUser as assertAdmin } from "@/lib/auth/guards";
 import { buildCatalogContext, type CatalogContext } from "./catalog-context";
 import { repairVariants, type DraftVariant } from "./repair";
 import {
@@ -13,21 +13,6 @@ import {
 type GenerateResult =
   | { success: true; variants: DraftVariant[] }
   | { success: false; error: string };
-
-async function assertAdmin() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) throw new Error("Unauthorized");
-  const { data: profile } = await supabase
-    .from("user_profiles")
-    .select("role")
-    .eq("id", user.id)
-    .single();
-  const role = (profile?.role as string) ?? "user";
-  if (role !== "admin" && role !== "super_admin") throw new Error("Forbidden");
-}
 
 function buildSystemPrompt(catalog: CatalogContext): string {
   const cats = catalog.categories

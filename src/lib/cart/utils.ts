@@ -1,6 +1,10 @@
 import type { CartItem } from "@/lib/queries/cart";
 
 export const FREE_SHIPPING_THRESHOLD = 50;
+
+/** Flat shipping estimate shown in cart/checkout summaries before a method is chosen. */
+export const DEFAULT_SHIPPING_ESTIMATE = 3.5;
+
 export const SHIPPING_RATES = {
   acs_standard: { label: "ACS Courier", price: 4.9 },
   acs_express: { label: "ACS Express", price: 7.9 },
