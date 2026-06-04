@@ -9,6 +9,7 @@ import {
   getProductsByCategory,
 } from "@/lib/queries/products";
 import { parsePlpParams } from "../../_lib/plp-params";
+import { categoryPath } from "../../_lib/urls";
 import { ProductCard } from "../../_components/commerce/product-card";
 import { PLPClient } from "./plp-client";
 
@@ -77,10 +78,13 @@ async function V3CategoryPageContent({
 
   return (
     <PLPClient
-      slug={slug}
+      basePath={cat.full_path ? categoryPath(cat.full_path) : `/${slug}`}
       title={cat.name}
       seoIntro={cat.seo_intro ?? cat.description}
-      subcategories={subcats.map((s) => ({ slug: s.slug, name: s.name }))}
+      subcategories={subcats.map((s) => ({
+        path: s.full_path ? categoryPath(s.full_path) : `/${s.slug}`,
+        name: s.name,
+      }))}
       filters={filters}
       state={state}
       total={result.total}
