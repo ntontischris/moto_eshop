@@ -104,7 +104,7 @@ export function CartPanel() {
             <p>{t("cartEmpty")}</p>
             <Link
               className="v3-btn-primary"
-              href="/category/eksoplismos-anabath"
+              href="/eksoplismos-anabath"
               onClick={() => setCartOpen(false)}
             >
               {tc("continueShopping")} <span aria-hidden="true">→</span>

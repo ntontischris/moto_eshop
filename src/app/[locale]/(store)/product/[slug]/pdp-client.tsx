@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import type { Product } from "@/lib/queries/products";
 import { ProductGallery } from "../../_components/pdp/product-gallery";
 import { BuyBox } from "../../_components/pdp/buy-box";
+import { categoryPath } from "../../_lib/urls";
 
 type Tab = "desc" | "specs" | "ship";
 
@@ -26,7 +27,13 @@ export function PDPClient({
       <nav className="v3-pdp-bc" aria-label="Breadcrumb">
         <Link href="/">{tc("home")}</Link>
         <span aria-hidden="true">/</span>
-        <Link href={`/category/${product.category_slug}`}>
+        <Link
+          href={
+            product.category_path
+              ? categoryPath(product.category_path)
+              : `/${product.category_slug}`
+          }
+        >
           {product.category_name}
         </Link>
         <span aria-hidden="true">/</span>

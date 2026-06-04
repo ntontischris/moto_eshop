@@ -63,7 +63,7 @@ export async function CategoryShortcutGrid({
             <p className="v3-label">Product families</p>
             <h2>{t("catHeading")}</h2>
           </div>
-          <Link href="/category/eksoplismos-anabath">
+          <Link href="/eksoplismos-anabath">
             {t("catAllCategories")} <span aria-hidden="true">→</span>
           </Link>
         </div>

@@ -95,3 +95,44 @@ describe("getProduct negative-cache safety", () => {
     await expect(getProduct("missing-slug", "en")).resolves.toBeNull();
   });
 });
+
+describe("getProduct category_path mapping", () => {
+  beforeEach(() => {
+    for (const k of Object.keys(adminResults)) delete adminResults[k];
+  });
+
+  it("maps the joined category full_path to product.category_path", async () => {
+    adminResults.products = {
+      data: {
+        id: "p1",
+        slug: "abudisloc30",
+        name: "Test Jacket",
+        description: null,
+        price: 100,
+        compare_at_price: null,
+        sku: "SKU1",
+        stock: 5,
+        certification: null,
+        rider_type: null,
+        specs: {},
+        images: [],
+        view_count: 0,
+        average_rating: null,
+        review_count: 0,
+        created_at: "2026-01-01",
+        brands: { name: "Acme", slug: "acme" },
+        categories: {
+          slug: "endysh",
+          name: "Ένδυση",
+          full_path: "eksoplismos-anabath/endysh",
+        },
+      },
+      error: null,
+    };
+
+    const product = await getProduct("abudisloc30", "en");
+
+    expect(product?.category_path).toBe("eksoplismos-anabath/endysh");
+    expect(product?.category_slug).toBe("endysh");
+  });
+});

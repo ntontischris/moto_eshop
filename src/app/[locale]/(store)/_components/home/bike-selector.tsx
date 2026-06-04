@@ -80,8 +80,10 @@ export function BikeSelector({ brands }: { brands: BikeBrand[] }) {
   const [brandSlug, setBrandSlug] = useState("");
   const [modelSlug, setModelSlug] = useState("");
 
-  const models = brands.find((b) => b.slug === brandSlug)?.models ?? [];
-  const target = modelSlug || brandSlug;
+  const selectedBrand = brands.find((b) => b.slug === brandSlug);
+  const models = selectedBrand?.models ?? [];
+  const targetPath =
+    models.find((m) => m.slug === modelSlug)?.path ?? selectedBrand?.path ?? "";
   const popular = orderBrands(brands);
   const chipsRef = useRef<HTMLDivElement>(null);
 
@@ -141,8 +143,8 @@ export function BikeSelector({ brands }: { brands: BikeBrand[] }) {
         <button
           type="button"
           className="v3-btn-primary"
-          onClick={() => target && router.push(`/category/${target}`)}
-          disabled={!target}
+          onClick={() => targetPath && router.push(`/${targetPath}`)}
+          disabled={!targetPath}
         >
           {t("bikeSelectorFind")} <ChevronRight size={18} aria-hidden="true" />
         </button>

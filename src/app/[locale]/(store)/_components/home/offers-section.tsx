@@ -20,7 +20,7 @@ export async function OffersSection({
         <div className="v3-off-panel">
           <p className="v3-label">Live deals</p>
           <h2 className="v3-display">{t("offersHeading")}</h2>
-          <Link href="/category/prosfores" className="v3-off-all">
+          <Link href="/prosfores" className="v3-off-all">
             {t("offersAll")} <span aria-hidden="true">→</span>
           </Link>
         </div>

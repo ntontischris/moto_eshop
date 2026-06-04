@@ -8,6 +8,7 @@ import { AvailabilityBadge } from "../commerce/availability-badge";
 import { PriceDisplay } from "../commerce/price-display";
 import { SmartImage } from "../commerce/smart-image";
 import { WishlistButton } from "../commerce/wishlist-button";
+import { productPath } from "../../_lib/urls";
 
 const CYCLE_MS = 1300;
 const TILT_MAX = 7;
@@ -101,7 +102,7 @@ export function ProductRailCard({
     el.style.willChange = "auto";
   }
 
-  const productHref = `/product/${product.slug}`;
+  const productHref = productPath(product.category_path, product.slug);
 
   return (
     <article

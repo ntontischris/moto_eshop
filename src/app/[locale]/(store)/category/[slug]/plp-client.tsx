@@ -18,10 +18,10 @@ const SORT_VALUES: { value: SortOption; tKey: string }[] = [
 ];
 
 export interface PLPClientProps {
-  slug: string;
+  basePath: string;
   title: string;
   seoIntro: string | null;
-  subcategories: { slug: string; name: string }[];
+  subcategories: { path: string; name: string }[];
   filters: ProductFilters;
   state: PlpState;
   total: number;
@@ -31,7 +31,7 @@ export interface PLPClientProps {
 }
 
 export function PLPClient({
-  slug,
+  basePath,
   title,
   seoIntro,
   subcategories,
@@ -44,7 +44,6 @@ export function PLPClient({
 }: PLPClientProps) {
   const t = useTranslations("plp");
   const router = useRouter();
-  const basePath = `/category/${slug}`;
   const push = (next: PlpState) => router.push(basePath + buildPlpQuery(next));
 
   const brandName = (s: string) =>
@@ -94,11 +93,7 @@ export function PLPClient({
       {subcategories.length > 0 && (
         <div className="v3-plp-chips" aria-label={t("subcategoriesLabel")}>
           {subcategories.map((s) => (
-            <Link
-              key={s.slug}
-              href={`/category/${s.slug}`}
-              className="v3-plp-chip"
-            >
+            <Link key={s.path} href={s.path} className="v3-plp-chip">
               {s.name}
             </Link>
           ))}

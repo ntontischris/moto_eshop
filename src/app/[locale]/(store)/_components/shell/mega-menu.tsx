@@ -78,7 +78,7 @@ export function MegaMenu() {
         </div>
 
         <div className="v3-mega-quick">
-          <Link href="/category/prosfores">{t("headerOffers")}</Link>
+          <Link href="/prosfores">{t("headerOffers")}</Link>
           <Link href="#my-bike">Bike Finder</Link>
         </div>
       </div>

@@ -55,7 +55,7 @@ export function Header() {
           </form>
 
           <div className="v3-header-actions">
-            <Link href="/category/prosfores" className="v3-header-drop">
+            <Link href="/prosfores" className="v3-header-drop">
               <Tag size={15} aria-hidden="true" />
               {t("headerOffers")}
             </Link>
