@@ -2,6 +2,7 @@ import { createServerClient } from "@supabase/ssr";
 import createIntlMiddleware from "next-intl/middleware";
 import { NextResponse, type NextRequest } from "next/server";
 import { routing } from "@/i18n/routing";
+import { resolveAliasTarget } from "@/lib/alias-redirects";
 
 const intlMiddleware = createIntlMiddleware(routing);
 
@@ -27,6 +28,26 @@ function splitLocale(pathname: string): {
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  // Legacy prefixed aliases (/product/{slug}, /category/{slug}) → real HTTP 308
+  // to the canonical clean URL (ADR 0002). Done here, not in the route, so we
+  // emit a true redirect status; the route-level redirectors stay as a
+  // client-side fallback if this lookup fails (returns null → falls through).
+  const { locale: aliasLocale, rest: aliasRest } = splitLocale(pathname);
+  const alias = aliasRest.match(/^\/(product|category)\/([^/]+)\/?$/);
+  if (alias) {
+    const target = await resolveAliasTarget(
+      alias[1] as "product" | "category",
+      alias[2],
+    );
+    if (target) {
+      const url = request.nextUrl.clone();
+      url.pathname = (aliasLocale ? `/${aliasLocale}` : "") + target;
+      url.search = "";
+      return NextResponse.redirect(url, 308);
+    }
+  }
+
   const isNonLocalized = NON_LOCALIZED.some(
     (p) => pathname === p || pathname.startsWith(`${p}/`),
   );
