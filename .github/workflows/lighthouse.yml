@@ -61,14 +61,12 @@ jobs:
               return;
             }
             const urls = [rep.url, rep.finalUrl, rep.requestedUrl].filter(Boolean);
-            // Strip query strings before logging — the audited URL carries the
-            // bypass secret as a query param.
             const safe = u => String(u).split('?')[0];
             if (urls.some(u => /vercel\.com\/login/i.test(u))) {
               core.setFailed(
                 `Lighthouse was redirected to the Vercel auth wall (${urls.map(safe).join(', ')}). ` +
-                'The puppeteer bypass primer did not set the _vercel_jwt cookie — ' +
-                'check the VERCEL_AUTOMATION_BYPASS_SECRET GitHub Actions secret.'
+                'Preview Deployment Protection appears to be enabled for non-production ' +
+                'deployments — restrict it to Production so the preview is publicly reachable.'
               );
               return;
             }
