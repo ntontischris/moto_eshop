@@ -12,6 +12,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 import { applyCharSplit } from "./char-split";
 import { shouldPinTunnel, tunnelScrollDistance } from "./gear-tunnel";
+import { shouldAnimateReveal } from "./motion-engine-gate";
 import { velocityToSkew, velocityToTimeScale } from "./motion";
 import { applyWordSplit, editorialZoomScale } from "./word-split";
 
@@ -312,7 +313,10 @@ export function start(): Disposer {
   // direct children in sequence as it scrolls into view. The Intersection
   // observer baseline already made content visible, so this only enriches —
   // clearProps drops the inline styles afterwards (no layout props touched).
+  // Groups already in the viewport at engine start (above the fold) keep their
+  // painted CSS baseline: animating them post-hydration shifted layout (CLS).
   gsap.utils.toArray<HTMLElement>(REVEAL_SELECTOR).forEach((group) => {
+    if (!shouldAnimateReveal(ScrollTrigger.isInViewport(group))) return;
     const targets = group.children.length ? group.children : group;
     const tween = gsap.from(targets, {
       opacity: 0,
