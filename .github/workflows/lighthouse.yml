@@ -43,8 +43,10 @@ jobs:
           urls: ${{ steps.url.outputs.target }}
           configPath: ./lighthouserc.cjs
           # numberOfRuns + median assertions in config = flake guard.
+          # Reports stay PRIVATE: the LHR carries the bypass header, so we keep
+          # it as a repo-private artifact and never push to public storage.
           uploadArtifacts: true
-          temporaryPublicStorage: true
+          temporaryPublicStorage: false
 
       - name: Guard against scoring an auth wall
         # Hard guard: never let the gate silently pass by measuring the Vercel
@@ -104,7 +106,9 @@ jobs:
             const cls = num(s['cumulative-layout-shift']);
             const lcp = num(s['largest-contentful-paint']);
             const check = ok => (ok === undefined ? '⚠️' : ok ? '✅' : '❌');
-            const reportUrl = Object.values(links)[0] || '';
+            // Reports are private artifacts (the LHR carries the bypass header),
+            // so link to the workflow run rather than a public report URL.
+            const reportUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
             const passed = '${{ steps.lhci.outcome }}' === 'success';
 
             // Find the PR for this deployment's commit SHA.
@@ -129,7 +133,7 @@ jobs:
               `| CLS | ${cls === undefined ? 'n/a' : cls.toFixed(3)} | < 0.1 | ${check(cls === undefined ? undefined : cls < 0.1)} |`,
               `| LCP | ${ms(lcp)} | < 2500 ms | ${check(lcp === undefined ? undefined : lcp < 2500)} |`,
               '',
-              `Median of 3 runs against the preview homepage.${reportUrl ? ` [Full report](${reportUrl})` : ''}`,
+              `Median of 3 runs against the preview homepage. [Workflow run & report artifact](${reportUrl})`,
             ].join('\n');
 
             const marker = '<!-- velocita-lighthouse -->';
