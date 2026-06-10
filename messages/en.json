@@ -168,7 +168,8 @@
     "shortcutConsumablesBrief": "Oils / chain care / chemicals",
     "homeTitleFirst": "Top picks for riders",
     "homeMetaTitle": "MotoMarket | Premium motorcycle gear",
-    "homeMetaDesc": "Helmets, jackets, gloves, boots, accessories and motorcycle parts from official brands."
+    "homeMetaDesc": "Helmets, jackets, gloves, boots, accessories and motorcycle parts from official brands.",
+    "preloaderUnit": "km/h — motomarket race control"
   },
   "pdp": {
     "skuLabel": "Code: {sku}",

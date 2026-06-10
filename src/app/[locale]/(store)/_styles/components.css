@@ -10087,3 +10087,83 @@ html[data-v3-mode="light"] .v3-cmdk-panel {
 html[data-v3-mode="light"] .v3-cmdk-scrim {
   background: rgba(20, 22, 26, 0.4);
 }
+
+/* ============================== S6 SPEEDOMETER PRELOADER ============================== */
+/* Session-gated overlay: paints on top of the already-rendered hero, so it never
+   sits on the LCP path. Removed from the DOM by the component once the timeline
+   completes. Reduced-motion users never mount it (see speedometer-preloader.tsx). */
+.v3-preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  pointer-events: none;
+}
+
+.v3-preloader__gate {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 51%;
+  z-index: 2;
+  background: var(--v3-graphite);
+  will-change: transform;
+}
+
+.v3-preloader__gate--left {
+  left: 0;
+  border-right: 1px solid var(--v3-line);
+}
+
+.v3-preloader__gate--right {
+  right: 0;
+}
+
+.v3-preloader__face {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  background: var(--v3-carbon);
+  will-change: opacity;
+}
+
+.v3-preloader__speed {
+  font-family: var(--v3-display);
+  font-weight: 800;
+  font-size: clamp(90px, 22vw, 240px);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.v3-preloader__speed i {
+  font-style: normal;
+  color: var(--v3-red);
+}
+
+.v3-preloader__unit {
+  letter-spacing: 0.4em;
+  font-size: 0.7rem;
+  color: var(--v3-bone-dim);
+  text-transform: uppercase;
+}
+
+.v3-preloader__bar {
+  width: min(420px, 70vw);
+  height: 2px;
+  background: var(--v3-line);
+  position: relative;
+  overflow: hidden;
+}
+
+.v3-preloader__fill {
+  position: absolute;
+  inset: 0;
+  background: var(--v3-red);
+  transform-origin: left;
+  transform: scaleX(0);
+  will-change: transform;
+}

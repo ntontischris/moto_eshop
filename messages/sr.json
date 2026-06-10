@@ -168,7 +168,8 @@
     "shortcutConsumablesBrief": "Ulja / lanac / hemija",
     "homeTitleFirst": "Popularni izbori vozača",
     "homeMetaTitle": "MotoMarket | Premium moto oprema",
-    "homeMetaDesc": "Kacige, jakne, rukavice, čizme, dodaci i moto delovi od zvaničnih brendova."
+    "homeMetaDesc": "Kacige, jakne, rukavice, čizme, dodaci i moto delovi od zvaničnih brendova.",
+    "preloaderUnit": "km/h — motomarket race control"
   },
   "pdp": {
     "skuLabel": "Šifra: {sku}",

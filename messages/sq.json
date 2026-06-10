@@ -168,7 +168,8 @@
     "shortcutConsumablesBrief": "Vaj / zinxhir / kimikate",
     "homeTitleFirst": "Zgjedhjet kryesore të pilotëve",
     "homeMetaTitle": "MotoMarket | Pajisje premium për motoçikleta",
-    "homeMetaDesc": "Kaska, xhaketa, doreza, çizme, aksesorë dhe pjesë moto nga marka zyrtare."
+    "homeMetaDesc": "Kaska, xhaketa, doreza, çizme, aksesorë dhe pjesë moto nga marka zyrtare.",
+    "preloaderUnit": "km/h — motomarket race control"
   },
   "pdp": {
     "skuLabel": "Kodi: {sku}",

@@ -17,6 +17,7 @@ import { NewsletterBand } from "./_components/home/newsletter-band";
 import { EditorialBand } from "./_components/home/editorial-band";
 import { TrustBlock } from "./_components/shell/trust-block";
 import { Reveal } from "./_components/fx/reveal";
+import { SpeedometerPreloader } from "./_components/fx/speedometer-preloader";
 
 export async function generateMetadata({
   params,
@@ -119,6 +120,7 @@ export default async function V3Home({
 
   return (
     <div className="v3-home-reconstruction v3-home-ride-commerce">
+      <SpeedometerPreloader />
       <Hero />
       <Reveal>
         <RaceControlPanel />
