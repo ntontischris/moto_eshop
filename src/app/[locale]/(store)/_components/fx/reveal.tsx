@@ -43,6 +43,7 @@ export function Reveal({
   return (
     <div
       ref={ref}
+      data-reveal
       className={`v3-reveal${shown ? " is-in" : ""}`}
       style={{ transitionDelay: delay ? `${delay}ms` : undefined }}
     >

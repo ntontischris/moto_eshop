@@ -10,6 +10,7 @@ import { MegaMenu } from "./_components/shell/mega-menu";
 import { MobileNav } from "./_components/shell/mobile-nav";
 import { Footer } from "./_components/shell/footer";
 import { ScrollProgress } from "./_components/fx/scroll-progress";
+import { MotionProvider } from "./_components/fx/motion-provider";
 import { ChatMount } from "./_components/chat/chat-mount";
 
 // display: "optional" — the giant skewed headlines must NOT reflow when the
@@ -46,6 +47,7 @@ export default async function V3Layout({
       <div className={`v3-root ${display.variable} ${body.variable}`} data-v3>
         <V3Provider>
           <ScrollProgress />
+          <MotionProvider />
           <Suspense fallback={null}>
             <UtilityBar />
             <Header />

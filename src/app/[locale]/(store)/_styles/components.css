@@ -9593,3 +9593,24 @@ html[data-v3-mode="light"] .v3-mb-chips-arrow:hover {
   border-color: var(--v3-red);
   color: #fff;
 }
+
+/* === Velocità motion foundation (S40) ===
+   The motion engine drives the marquee tracks with GSAP once hydrated; centre
+   the skew origin and hint the compositor. Reduced motion / no-JS keep the CSS
+   keyframe loop and never skew. Only transform/opacity ever animate. */
+.v3-proof-track,
+.v3-bc-track {
+  transform-origin: center center;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .v3-proof-track,
+  .v3-bc-track {
+    will-change: transform;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .v3-proof-track,
+  .v3-bc-track {
+    transform: none;
+  }
+}
