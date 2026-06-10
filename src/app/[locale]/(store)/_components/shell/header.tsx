@@ -2,24 +2,19 @@
 
 import { Link } from "@/i18n/navigation";
 import Image from "next/image";
-import { Menu, Moon, Search, ShoppingBag, Sun, Tag, Zap } from "lucide-react";
-import { useRouter } from "@/i18n/navigation";
+import { Menu, Moon, Search, ShoppingBag, Sun, Tag } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useV3 } from "./v3-provider";
+import { useCommandPalette } from "./command-palette-provider";
 import { CartPanel } from "./cart-panel";
 import { LanguageSwitcher } from "./language-switcher";
 
 export function Header() {
   const t = useTranslations("shell");
   const tc = useTranslations("common");
+  const tp = useTranslations("palette");
   const { cartCount, cartOpen, setCartOpen, mode, toggleMode } = useV3();
-  const router = useRouter();
-
-  function onSearch(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const q = String(new FormData(e.currentTarget).get("q") ?? "").trim();
-    if (q.length >= 2) router.push(`/search?q=${encodeURIComponent(q)}`);
-  }
+  const { openPalette } = useCommandPalette();
 
   function openMenu() {
     window.dispatchEvent(new CustomEvent("v3:open-menu"));
@@ -35,24 +30,21 @@ export function Header() {
             </span>
           </Link>
 
-          <form role="search" className="v3-search-form" onSubmit={onSearch}>
+          <button
+            type="button"
+            className="v3-search-form v3-search-trigger"
+            onClick={openPalette}
+            aria-label={t("headerSearchInput")}
+            aria-keyshortcuts="Meta+K Control+K"
+          >
             <Search className="v3-search-icon" size={18} aria-hidden="true" />
-            <input
-              type="search"
-              name="q"
-              className="v3-search-input"
-              aria-label={t("headerSearchInput")}
-              placeholder={t("headerSearchPlaceholder")}
-              autoComplete="off"
-            />
-            <button
-              className="v3-search-submit"
-              type="submit"
-              aria-label={t("headerSearchSubmit")}
-            >
-              <Zap size={15} aria-hidden="true" />
-            </button>
-          </form>
+            <span className="v3-search-placeholder">
+              {t("headerSearchPlaceholder")}
+            </span>
+            <kbd className="v3-search-kbd" aria-hidden="true">
+              {tp("shortcut")}
+            </kbd>
+          </button>
 
           <div className="v3-header-actions">
             <Link href="/prosfores" className="v3-header-drop">

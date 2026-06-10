@@ -228,6 +228,19 @@
     "comingSoon": "soon",
     "seeProducts": "See {total} products"
   },
+  "palette": {
+    "title": "Search",
+    "inputLabel": "Search products and categories",
+    "placeholder": "Search products, categories...",
+    "shortcut": "⌘K",
+    "clear": "Clear",
+    "close": "Close",
+    "categories": "Categories",
+    "products": "Products",
+    "noResults": "No results for «{q}».",
+    "hint": "Start typing to search products and categories.",
+    "resultsCount": "{count, plural, =0 {No results} one {# result} other {# results}}"
+  },
   "search": {
     "metaTitle": "Search | MotoMarket",
     "homeLabel": "Home",

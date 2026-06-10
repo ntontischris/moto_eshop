@@ -306,3 +306,57 @@ export async function getSubcategories(
   const byId = new Map(trs.map((t) => [t.category_id, t]));
   return subcategories.map((c) => applyTranslation(c, byId.get(c.id)));
 }
+
+/** A category match shaped for the command palette (id, name, path to link). */
+export interface CategoryMatch {
+  id: string;
+  name: string;
+  full_path: string | null;
+  slug: string;
+}
+
+/**
+ * Find categories whose name matches `term`, for the ⌘K command palette.
+ * Matches the Greek source name; when a non-Greek locale is requested the
+ * localized name is overlaid best-effort (Greek stays as the fallback).
+ */
+export async function searchCategories(
+  term: string,
+  limit = 5,
+  locale: Locale = "el",
+): Promise<CategoryMatch[]> {
+  const q = term.trim();
+  if (q.length < 2) return [];
+  const { createAdminClient } = await import("@/lib/supabase/admin");
+  const supabase = createAdminClient();
+  const safe = q.replace(/[%_,]/g, " ");
+
+  const { data, error } = await supabase
+    .from("categories")
+    .select("id, slug, full_path, name")
+    .ilike("name", `%${safe}%`)
+    .order("position", { ascending: true })
+    .limit(limit);
+  if (error || !data) return [];
+
+  const matches: CategoryMatch[] = data.map((row) => ({
+    id: row.id,
+    slug: row.slug,
+    full_path: row.full_path ?? null,
+    name: row.name,
+  }));
+
+  if (locale === "el") return matches;
+
+  const { data: trs } = await supabase
+    .from("category_translations")
+    .select("category_id,name")
+    .in(
+      "category_id",
+      matches.map((c) => c.id),
+    )
+    .eq("locale", locale);
+  if (!trs) return matches;
+  const byId = new Map(trs.map((t) => [t.category_id, t.name]));
+  return matches.map((c) => ({ ...c, name: byId.get(c.id) ?? c.name }));
+}

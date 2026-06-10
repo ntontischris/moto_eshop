@@ -228,6 +228,19 @@
     "comingSoon": "σύντομα",
     "seeProducts": "Δες {total} προϊόντα"
   },
+  "palette": {
+    "title": "Αναζήτηση",
+    "inputLabel": "Αναζήτηση προϊόντων και κατηγοριών",
+    "placeholder": "Αναζήτηση προϊόντων, κατηγοριών...",
+    "shortcut": "⌘K",
+    "clear": "Καθαρισμός",
+    "close": "Κλείσιμο",
+    "categories": "Κατηγορίες",
+    "products": "Προϊόντα",
+    "noResults": "Κανένα αποτέλεσμα για «{q}».",
+    "hint": "Πληκτρολόγησε για να αναζητήσεις προϊόντα και κατηγορίες.",
+    "resultsCount": "{count, plural, =0 {Κανένα αποτέλεσμα} one {# αποτέλεσμα} other {# αποτελέσματα}}"
+  },
   "search": {
     "metaTitle": "Αναζήτηση | MotoMarket",
     "homeLabel": "Αρχική",
