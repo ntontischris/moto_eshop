@@ -35,14 +35,19 @@ export function markPreloaderSeen(
   }
 }
 
-/* The animated speedometer runs only on the first visit of a session AND when
-   the user has not asked for reduced motion. Otherwise the overlay is skipped
-   entirely and the hero is shown immediately. */
-export function shouldRunPreloader(
-  alreadySeen: boolean,
-  prefersReducedMotion: boolean,
-): boolean {
-  return !alreadySeen && !prefersReducedMotion;
+/* The animated speedometer runs only on the first visit of a session, on a
+   fine-pointer (mouse, not touch) device, AND when the user has not asked for
+   reduced motion. On coarse-pointer / touch phones the full-screen overlay is
+   skipped entirely so the hero poster (the mobile LCP element) paints
+   immediately instead of waiting behind the preloader timeline — the same
+   fine-pointer gate the motion engine uses. Under reduced motion or on a
+   revisit it is skipped on every device. */
+export function shouldRunPreloader(env: {
+  alreadySeen: boolean;
+  isFinePointer: boolean;
+  prefersReducedMotion: boolean;
+}): boolean {
+  return env.isFinePointer && !env.alreadySeen && !env.prefersReducedMotion;
 }
 
 /* Maps a 0..1 animation progress to the displayed km/h reading (0..299),
