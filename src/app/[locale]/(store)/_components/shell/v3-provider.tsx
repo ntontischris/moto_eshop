@@ -1,6 +1,11 @@
 "use client";
 
 import { createContext, useContext, useEffect, useRef, useState } from "react";
+import {
+  shouldAnimateThemeSwitch,
+  wipeEndRadius,
+  wipeOriginFromRect,
+} from "../../_lib/theme-transition";
 
 export interface CartLine {
   slug: string;
@@ -17,9 +22,18 @@ export function cartLineKey(line: Pick<CartLine, "slug" | "size">): string {
   return `${line.slug}::${line.size ?? ""}`;
 }
 
+/* DOMRect-ish input for the wipe origin — only the fields we read, so callers
+   can pass a real getBoundingClientRect() result without extra plumbing. */
+type ToggleOrigin = {
+  left: number;
+  top: number;
+  width: number;
+  height: number;
+} | null;
+
 interface V3Context {
   mode: "dark" | "light";
-  toggleMode(): void;
+  toggleMode(origin?: ToggleOrigin): void;
   cart: CartLine[];
   addToCart(line: CartLine): void;
   removeFromCart(key: string): void;
@@ -132,8 +146,47 @@ export function V3Provider({ children }: { children: React.ReactNode }) {
     );
   }
 
-  function toggleMode() {
+  function flipMode() {
     setMode((current) => (current === "dark" ? "light" : "dark"));
+  }
+
+  /* Switch theme with a circular View-Transition wipe originating at the toggle
+     button. Falls back to an instant flip when View Transitions are unsupported
+     or the user prefers reduced motion (the toggle still works either way). */
+  function toggleMode(origin?: ToggleOrigin) {
+    const root = document.documentElement;
+    const supports =
+      typeof (
+        document as Document & {
+          startViewTransition?: unknown;
+        }
+      ).startViewTransition === "function";
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    if (!shouldAnimateThemeSwitch(supports, prefersReducedMotion)) {
+      flipMode();
+      return;
+    }
+
+    const viewport = {
+      width: window.innerWidth,
+      height: window.innerHeight,
+    };
+    const point = wipeOriginFromRect(origin ?? null, viewport);
+    const radius = wipeEndRadius(point, viewport);
+    root.style.setProperty("--v3-vt-x", `${point.x}px`);
+    root.style.setProperty("--v3-vt-y", `${point.y}px`);
+    root.style.setProperty("--v3-vt-r", `${radius}px`);
+
+    (
+      document as Document & {
+        startViewTransition: (cb: () => void) => void;
+      }
+    ).startViewTransition(() => {
+      flipMode();
+    });
   }
 
   const cartCount = cart.reduce((sum, l) => sum + l.qty, 0);

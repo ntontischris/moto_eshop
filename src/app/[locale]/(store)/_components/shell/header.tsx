@@ -63,7 +63,9 @@ export function Header() {
             <button
               className="v3-mode-toggle"
               type="button"
-              onClick={toggleMode}
+              onClick={(e) =>
+                toggleMode(e.currentTarget.getBoundingClientRect())
+              }
               aria-label={
                 mode === "dark" ? t("headerLightMode") : t("headerDarkMode")
               }
