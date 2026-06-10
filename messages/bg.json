@@ -200,7 +200,8 @@
     "relatedHeading": "Подобни каски",
     "priceLabel": "Цена: {price}",
     "originalPriceLabel": "Оригинална цена: {price}",
-    "discountLabel": "Отстъпка {pct}%"
+    "discountLabel": "Отстъпка {pct}%",
+    "addError": "Нещо се обърка. Опитайте отново."
   },
   "plp": {
     "homeLabel": "Начало",

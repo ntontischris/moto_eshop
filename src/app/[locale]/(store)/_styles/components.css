@@ -10482,3 +10482,152 @@ html[data-v3-mode="light"] .v3-cmdk-scrim {
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
   }
 }
+
+/* ── S49 add-to-cart morph + fly-to-cart ─────────────────────────────────
+   The CTA morphs label → spinner → check on the add; a fixed ghost of the
+   product image flies an arc to the header cart (JS-driven, see
+   use-add-to-cart-flight.ts); the badge bumps on landing. Presentation only —
+   the cart contract (ADR 0001) is untouched. */
+.v3-atc {
+  position: relative;
+  /* 44px min touch target regardless of the inherited line-height. */
+  min-height: 48px;
+  overflow: hidden;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+.v3-atc__label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5ch;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.v3-atc__spinner,
+.v3-atc__check {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.v3-atc__spinner {
+  width: 20px;
+  height: 20px;
+  margin: auto;
+  inset: 0;
+  border-radius: 999px;
+  border: 2px solid color-mix(in srgb, currentColor 30%, transparent);
+  border-top-color: currentColor;
+}
+
+/* pending: hide the label, show the spinner. */
+.v3-atc--pending .v3-atc__label {
+  opacity: 0;
+  transform: translateY(-30%);
+}
+.v3-atc--pending .v3-atc__spinner {
+  opacity: 1;
+  animation: v3-atc-spin 0.7s linear infinite;
+}
+
+/* success: morph to a green check that bounces in. */
+.v3-atc--success {
+  background-color: #1f9d55;
+  color: #fff;
+}
+.v3-atc--success .v3-atc__label {
+  opacity: 0;
+  transform: translateY(30%);
+}
+.v3-atc--success .v3-atc__check {
+  opacity: 1;
+  animation: v3-atc-pop 0.4s cubic-bezier(0.22, 1.4, 0.4, 1);
+}
+
+/* error: the button reverts to its base look and surfaces a localized note. */
+.v3-atc__error {
+  position: absolute;
+  inset: auto 0 -1.5rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--v3-red);
+  text-align: center;
+}
+.v3-atc--error {
+  overflow: visible;
+}
+
+/* The flying ghost: a fixed image dot, positioned by JS, removed after flight.
+   No layout impact (fixed + pointer-events:none). */
+.v3-cart-ghost {
+  position: fixed;
+  z-index: 90;
+  width: 56px;
+  height: 56px;
+  margin: -28px 0 0 -28px;
+  border-radius: 14px;
+  background-size: cover;
+  background-position: center;
+  background-color: var(--v3-surface, #1a1a1a);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+/* Badge bump on landing. */
+.v3-cart-badge.is-bumped {
+  animation: v3-cart-bump 0.45s cubic-bezier(0.22, 1.4, 0.4, 1);
+}
+
+@keyframes v3-atc-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes v3-atc-pop {
+  0% {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.12);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes v3-cart-bump {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Reduced motion: no spinner spin, no flight (the hook already skips the
+     ghost); the state change is instant and the badge just updates. */
+  .v3-atc--pending .v3-atc__spinner,
+  .v3-atc--success .v3-atc__check,
+  .v3-cart-badge.is-bumped {
+    animation: none;
+  }
+  .v3-atc__label {
+    transition: none;
+  }
+}

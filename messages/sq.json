@@ -200,7 +200,8 @@
     "relatedHeading": "Kaska të ngjashme",
     "priceLabel": "Çmimi: {price}",
     "originalPriceLabel": "Çmimi origjinal: {price}",
-    "discountLabel": "Zbritje {pct}%"
+    "discountLabel": "Zbritje {pct}%",
+    "addError": "Diçka shkoi keq. Provo përsëri."
   },
   "plp": {
     "homeLabel": "Ballina",

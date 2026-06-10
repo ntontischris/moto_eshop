@@ -200,7 +200,8 @@
     "relatedHeading": "Παρόμοια κράνη",
     "priceLabel": "Τιμή: {price}",
     "originalPriceLabel": "Αρχική τιμή: {price}",
-    "discountLabel": "Έκπτωση {pct}%"
+    "discountLabel": "Έκπτωση {pct}%",
+    "addError": "Κάτι πήγε στραβά. Δοκίμασε ξανά."
   },
   "plp": {
     "homeLabel": "Αρχική",

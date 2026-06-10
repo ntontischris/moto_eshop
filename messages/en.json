@@ -200,7 +200,8 @@
     "relatedHeading": "Similar helmets",
     "priceLabel": "Price: {price}",
     "originalPriceLabel": "Original price: {price}",
-    "discountLabel": "Discount {pct}%"
+    "discountLabel": "Discount {pct}%",
+    "addError": "Something went wrong. Please try again."
   },
   "plp": {
     "homeLabel": "Home",
