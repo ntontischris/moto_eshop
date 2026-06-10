@@ -21,9 +21,13 @@ import { ChatMount } from "./_components/chat/chat-mount";
 // webfont swaps in (that was the dominant CLS source). With "optional" the
 // browser uses the metric-adjusted fallback if the font isn't ready in ~100ms,
 // for the whole session → zero layout shift on the big type.
+// Both families are variable Google fonts: "variable" ships ONE file per
+// subset (2 per family instead of 4 static weights each), cutting the
+// High-priority font bytes queued ahead of the hero LCP image, and renders
+// the 750/850/950 weights the CSS uses for real instead of synthesizing.
 const display = Sofia_Sans_Extra_Condensed({
   subsets: ["greek", "latin"],
-  weight: ["600", "700", "800", "900"],
+  weight: "variable",
   variable: "--font-v3-display",
   display: "optional",
   preload: true,
@@ -31,7 +35,7 @@ const display = Sofia_Sans_Extra_Condensed({
 
 const body = Commissioner({
   subsets: ["greek", "latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: "variable",
   variable: "--font-v3-body",
   display: "optional",
   preload: true,

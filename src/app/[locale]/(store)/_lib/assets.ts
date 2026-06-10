@@ -3,8 +3,11 @@
    Hero poster is local (same-origin) — it is the LCP element. */
 
 export const HERO_POSTER = "/hero-variants/motomarket-race-control-hero.webp";
+/* 736w q68 re-encode of the 960w original (75KB → 26KB): sized for the
+   412px / DPR 1.75 mobile viewport so the LCP image costs ~⅓ the bandwidth
+   on the throttled mobile profile (issue #71). */
 export const HERO_POSTER_MOBILE =
-  "/hero-variants/motomarket-race-control-mobile.webp";
+  "/hero-variants/motomarket-race-control-mobile-720.webp";
 
 const HF =
   "https://d8j0ntlcm91z4.cloudfront.net/user_34y7dNWX6no0cgRVdzxt5wPZ7a9";
