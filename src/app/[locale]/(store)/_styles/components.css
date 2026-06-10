@@ -10822,3 +10822,169 @@ html[data-v3-mode="light"] .v3-off-bg {
     transition: none;
   }
 }
+
+/* === S14 HUD chrome: desktop track rail + gear indicator === */
+/* Decorative fixed rail on wide viewports only — sectors, a red scroll-progress
+   fill, and a gear indicator that shifts as sections are crossed. */
+.v3-rail {
+  display: none;
+}
+@media (min-width: 1100px) {
+  .v3-rail {
+    position: fixed;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 55;
+    height: 46vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    pointer-events: none;
+  }
+}
+.v3-rail-sector {
+  font-size: 0.56rem;
+  letter-spacing: 0.26em;
+  color: var(--v3-bone-dim);
+  writing-mode: vertical-rl;
+  text-transform: uppercase;
+}
+.v3-rail-track {
+  position: relative;
+  flex: 1;
+  width: 2px;
+  background: var(--v3-line);
+}
+.v3-rail-fill {
+  position: absolute;
+  inset: 0;
+  background: var(--v3-red);
+  transform: scaleY(0);
+  transform-origin: top;
+}
+.v3-rail-tick {
+  position: absolute;
+  left: -4px;
+  width: 10px;
+  height: 1.5px;
+  background: var(--v3-bone-dim);
+}
+.v3-rail-tick:nth-of-type(2) {
+  top: 33%;
+}
+.v3-rail-tick:nth-of-type(3) {
+  top: 66%;
+}
+.v3-rail-gear {
+  font-family: var(--v3-display);
+  font-weight: 800;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--v3-bone);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+.v3-rail-gear em {
+  font-style: normal;
+  color: var(--v3-red);
+  font-size: 0.52rem;
+  letter-spacing: 0.3em;
+  font-family: var(--v3-font);
+  font-weight: 700;
+}
+.v3-rail-gear-n {
+  display: inline-block;
+  will-change: transform;
+}
+.v3-rail-gear-n.is-shift {
+  animation: v3-gear-blip 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes v3-gear-blip {
+  0% {
+    transform: scale(1.5);
+    color: var(--v3-red-bright);
+  }
+  100% {
+    transform: scale(1);
+    color: var(--v3-bone);
+  }
+}
+
+/* === S14 HUD chrome: mobile sticky mini-CTA bar === */
+/* Floats just above the bottom mobile nav. Hidden on desktop and until the
+   visitor scrolls past the hero; slides away again near the footer. Reserved
+   height + translate-only entrance keep it CLS-free; safe-area inset clears the
+   home indicator. */
+.v3-cta-bar {
+  display: none;
+}
+@media (max-width: 860px) {
+  .v3-cta-bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: calc(60px + env(safe-area-inset-bottom, 0px));
+    z-index: 390;
+    display: flex;
+    gap: 10px;
+    padding: 10px 14px;
+    background: color-mix(in srgb, var(--v3-graphite) 92%, transparent);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid var(--v3-line);
+    transform: translateY(120%);
+    opacity: 0;
+    transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.32s;
+    pointer-events: none;
+  }
+  .v3-cta-bar.is-visible {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+.v3-cta-bar-btn {
+  flex: 1;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 4px;
+  font-family: var(--v3-font);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+}
+.v3-cta-bar-btn--primary {
+  background: var(--v3-red);
+  color: #fff;
+}
+.v3-cta-bar-btn--ghost {
+  background: transparent;
+  color: var(--v3-bone);
+  border: 1px solid var(--v3-line);
+}
+.v3-cta-bar-btn:focus-visible {
+  outline: 2px solid var(--v3-cyan);
+  outline-offset: 2px;
+}
+/* Reserve room so the floating bar never hides the last content on mobile. */
+@media (max-width: 860px) {
+  .v3-home-reconstruction {
+    scroll-padding-bottom: 120px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  /* No entrance slide / no gear roll — visibility toggles instantly. */
+  .v3-cta-bar {
+    transition: none;
+  }
+  .v3-rail-gear-n.is-shift {
+    animation: none;
+  }
+}
