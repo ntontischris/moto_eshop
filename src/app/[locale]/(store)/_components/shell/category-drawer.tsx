@@ -137,7 +137,7 @@ export function CategoryDrawer({ open, onClose }: CategoryDrawerProps) {
           <button
             type="button"
             className="v3-drawer-theme"
-            onClick={toggleMode}
+            onClick={(e) => toggleMode(e.currentTarget.getBoundingClientRect())}
             aria-label={
               mode === "dark" ? t("headerLightMode") : t("headerDarkMode")
             }

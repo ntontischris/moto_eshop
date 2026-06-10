@@ -9678,3 +9678,135 @@ html[data-v3-mode="light"] .v3-mb-chips-arrow:hover {
   background-size: cover;
   background-position: center;
 }
+
+/* ============================================================================
+   VELOCITÀ S4 — LIGHT THEME "RACE-DAY PROGRAMME" + VIEW-TRANSITION WIPE (#42)
+   A deliberate print art-direction layered on top of the base light tokens:
+   warm paper with grain + a 115deg pinstripe, dark "ink tape" bands for the
+   tickers/footer, a dark magazine spread for the offers chapter, and warm card
+   shadows. Dark islands re-declare the --v3-* tokens on the subtree so every
+   descendant resolves dark with no per-component forking (ADR 0004).
+   ========================================================================== */
+
+/* --- Paper page: warm grain + race-suit pinstripe over the base bg --- */
+html[data-v3-mode="light"] .v3-root {
+  background:
+    radial-gradient(120% 90% at 88% -10%, rgba(228, 17, 31, 0.12), transparent 55%),
+    radial-gradient(70% 55% at 8% 108%, rgba(14, 138, 152, 0.07), transparent 60%),
+    linear-gradient(180deg, #f8f5ef 0%, #ece7db 100%);
+}
+/* pinstripe texture sits above the paper, below content; the existing
+   .v3-root::before keeps the fine grain (kept faint in light mode above). */
+html[data-v3-mode="light"] .v3-root::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    115deg,
+    rgba(21, 22, 26, 0.03) 0 1px,
+    transparent 1px 9px
+  );
+}
+html[data-v3-mode="light"] .v3-root::before {
+  opacity: 0.5;
+}
+
+/* --- Hero photo: slightly brightened so it reads as a glossy cover plate --- */
+html[data-v3-mode="light"] .v3-hero-bg img,
+html[data-v3-mode="light"] .v3-hero-picture {
+  filter: brightness(1.05) saturate(1.04);
+}
+
+/* --- Warm paper-stack depth: tinted shadows so cards float on the page --- */
+html[data-v3-mode="light"] :is(
+    .v3-product-card,
+    .v3-off-item,
+    .v3-cat-chip,
+    .v3-proof-quote,
+    .v3-rcp-inner,
+    .v3-mb-console,
+    .v3-trust-cell,
+    .v3-bc-plate
+  ) {
+  box-shadow:
+    0 12px 30px -14px rgba(64, 44, 22, 0.16),
+    0 2px 8px -3px rgba(64, 44, 22, 0.08);
+}
+
+/* --- INK TAPE BANDS + DARK CHAPTER: re-declare the dark token set on the
+   subtree. Marquee tickers, footer, and the offers spread stay dark inside the
+   light page. Everything inside resolves dark through the cascade. --- */
+html[data-v3-mode="light"] :is(
+    .v3-hero-strip,
+    .v3-proof-ticker,
+    .v3-bc--reconstructed,
+    .v3-footer,
+    .v3-off--reconstructed
+  ) {
+  --v3-carbon: #0a0b0d;
+  --v3-graphite: #121317;
+  --v3-surface: #17191e;
+  --v3-surface-2: #1d2026;
+  --v3-line: #2a2d35;
+  --v3-line-soft: #20232a;
+  --v3-bone: #f5f3ee;
+  --v3-bone-dim: #9a9ca4;
+  --v3-shadow: 0 18px 50px -12px rgba(228, 17, 31, 0.18),
+    0 10px 30px -8px rgba(0, 0, 0, 0.7);
+  background: #121317;
+  color: #f5f3ee;
+  border-color: #121317;
+}
+/* descendant text/surfaces inside the ink bands resolve to the dark tokens —
+   override the flat light-mode rules that target these subtrees explicitly. */
+html[data-v3-mode="light"] :is(
+    .v3-hero-strip,
+    .v3-proof-ticker,
+    .v3-bc--reconstructed,
+    .v3-footer,
+    .v3-off--reconstructed
+  ) :is(a, span, strong, em, p, h2, h3, h4, blockquote, li, dt, dd) {
+  color: inherit;
+}
+html[data-v3-mode="light"] .v3-off--reconstructed .v3-off-panel,
+html[data-v3-mode="light"] .v3-bc--reconstructed .v3-bc-plate {
+  background: var(--v3-surface);
+  border-color: var(--v3-line);
+  color: var(--v3-bone);
+}
+html[data-v3-mode="light"] .v3-off--reconstructed h2,
+html[data-v3-mode="light"] .v3-off--reconstructed .v3-off-panel h2 {
+  color: var(--v3-bone);
+}
+
+/* ============================================================================
+   THEME SWITCH — circular View-Transition wipe from the toggle button.
+   The new theme paints in through an expanding circle centred on the toggle
+   (--v3-vt-x/y set by the provider). Instant fallback below for browsers
+   without View Transitions and under reduced motion.
+   ========================================================================== */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-new(root) {
+  clip-path: circle(0 at var(--v3-vt-x, 100vw) var(--v3-vt-y, 0));
+  animation: v3-theme-wipe 0.55s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+@keyframes v3-theme-wipe {
+  to {
+    clip-path: circle(
+      var(--v3-vt-r, 150vmax) at var(--v3-vt-x, 100vw) var(--v3-vt-y, 0)
+    );
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
+    clip-path: none !important;
+  }
+}
