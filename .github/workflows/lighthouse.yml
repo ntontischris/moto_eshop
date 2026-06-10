@@ -33,14 +33,16 @@ jobs:
       - name: Run Lighthouse CI
         id: lhci
         uses: treosh/lighthouse-ci-action@v12
+        env:
+          # Read by the puppeteer pre-audit script (never echoed/logged).
+          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
         with:
-          # The preview is SSO-protected. lighthouse-ci-action does not apply
-          # settings.extraHeaders to the navigation, so the Vercel "Protection
-          # Bypass for Automation" secret is carried as a query param instead
-          # (verified: ?x-vercel-protection-bypass=<secret> returns 200). The
-          # secret is injected only here; GitHub masks it in logs, and reports
-          # stay private (temporaryPublicStorage: false).
-          urls: ${{ steps.url.outputs.base }}?x-vercel-protection-bypass=${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
+          # The preview is SSO-protected. The action ignores settings.extraHeaders
+          # and double-encodes query strings, so the bypass is applied via a
+          # puppeteer pre-audit script that primes the _vercel_jwt cookie before
+          # Lighthouse navigates the (clean) URL.
+          urls: ${{ steps.url.outputs.base }}
+          puppeteerScript: ./.github/lighthouse-puppeteer.cjs
           configPath: ./lighthouserc.cjs
           # numberOfRuns + median assertions in config = flake guard.
           # Reports stay PRIVATE: the LHR carries the bypass header, so we keep
@@ -71,8 +73,8 @@ jobs:
             if (urls.some(u => /vercel\.com\/login/i.test(u))) {
               core.setFailed(
                 `Lighthouse was redirected to the Vercel auth wall (${urls.map(safe).join(', ')}). ` +
-                'The protection bypass query param is missing or invalid — check the ' +
-                'VERCEL_AUTOMATION_BYPASS_SECRET GitHub Actions secret.'
+                'The puppeteer bypass primer did not set the _vercel_jwt cookie — ' +
+                'check the VERCEL_AUTOMATION_BYPASS_SECRET GitHub Actions secret.'
               );
               return;
             }
