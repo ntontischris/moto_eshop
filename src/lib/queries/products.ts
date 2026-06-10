@@ -3,7 +3,12 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/server";
 import type { Locale } from "@/i18n/config";
 import type { Database } from "@/types/database";
-import { primaryImage, secondaryImage, galleryUrls } from "./product-images";
+import {
+  primaryImage,
+  secondaryImage,
+  galleryUrls,
+  resolveImages,
+} from "./product-images";
 
 /**
  * Overlay a translation onto a source row. Falls back to the source value
@@ -182,7 +187,7 @@ export async function getProduct(
     .select(
       `
       id, slug, name, description, price, compare_at_price,
-      sku, stock, certification, rider_type, specs, images,
+      sku, stock, certification, rider_type, specs, images, images_cdn,
       view_count, average_rating, review_count, created_at,
       brands ( name, slug ),
       categories ( slug, name, full_path )
@@ -204,31 +209,9 @@ export async function getProduct(
     name: string;
     full_path: string | null;
   } | null;
-  // Images can be either string[] (from ERP scraper) or ProductImage[] (legacy/admin).
-  // Normalize to ProductImage[] so the UI never has to branch.
-  // Also: route legacy eshop images through our proxy because the origin
-  // blocks Next.js Image Optimizer's User-Agent with 403.
-  function proxyIfLegacy(url: string): string {
-    if (
-      url.startsWith("https://www.motomarket-shop.gr/") ||
-      url.startsWith("https://motomarket-shop.gr/")
-    ) {
-      return `/api/image-proxy?url=${encodeURIComponent(url)}`;
-    }
-    return url;
-  }
-  const rawImages = (data.images as unknown[]) ?? [];
-  const images: ProductImage[] = rawImages.map((img, idx) => {
-    if (typeof img === "string") {
-      return { url: proxyIfLegacy(img), alt: data.name ?? "", position: idx };
-    }
-    const obj = img as Partial<ProductImage>;
-    return {
-      url: proxyIfLegacy(obj.url ?? ""),
-      alt: obj.alt ?? data.name ?? "",
-      position: obj.position ?? idx,
-    };
-  });
+  // Prefer the mirrored CDN image, fall back to the proxied legacy image.
+  // Single home for this in resolveImages so read paths cannot drift.
+  const images = resolveImages(data.images, data.images_cdn, data.name ?? "");
 
   const product: Product = {
     id: data.id,
@@ -305,7 +288,7 @@ export async function getProductsByCategory(
     .from("products")
     .select(
       `id, slug, name, price, compare_at_price, stock, certification,
-       rider_type, images, average_rating, review_count,
+       rider_type, images, images_cdn, average_rating, review_count,
        brands ( name, slug ), categories!inner ( slug, full_path )`,
       { count: "exact" },
     )
@@ -362,7 +345,7 @@ export async function getProductsByCategory(
       slug: string;
       full_path: string | null;
     } | null;
-    const imgs = (row.images as unknown as ProductImage[]) ?? [];
+    const imgs = resolveImages(row.images, row.images_cdn, row.name);
     const img = primaryImage(imgs);
 
     return {
@@ -430,7 +413,7 @@ export async function searchProducts(
     .from("products")
     .select(
       `id, slug, name, price, compare_at_price, stock, certification,
-       rider_type, images, average_rating, review_count,
+       rider_type, images, images_cdn, average_rating, review_count,
        brands ( name, slug ), categories ( slug, full_path )`,
       { count: "exact" },
     )
@@ -456,7 +439,7 @@ export async function searchProducts(
       slug: string;
       full_path: string | null;
     } | null;
-    const imgs = (row.images as unknown as ProductImage[]) ?? [];
+    const imgs = resolveImages(row.images, row.images_cdn, row.name);
     const img = primaryImage(imgs);
     return {
       id: row.id,
@@ -617,7 +600,7 @@ export async function getRelatedProducts(
     .select(
       `
       id, slug, name, price, compare_at_price, stock, certification,
-      rider_type, images, average_rating, review_count,
+      rider_type, images, images_cdn, average_rating, review_count,
       brands ( name, slug ), categories ( slug, full_path )
     `,
     )
@@ -638,7 +621,7 @@ export async function getRelatedProducts(
       slug: string;
       full_path: string | null;
     } | null;
-    const imgs = (row.images as unknown as ProductImage[]) ?? [];
+    const imgs = resolveImages(row.images, row.images_cdn, row.name);
     const img = primaryImage(imgs);
 
     return {
@@ -687,7 +670,7 @@ export async function getProductsByIds(
     .select(
       `
       id, slug, name, price, compare_at_price, stock, certification,
-      rider_type, images, average_rating, review_count,
+      rider_type, images, images_cdn, average_rating, review_count,
       brands ( name, slug ), categories ( slug, full_path )
     `,
     )
@@ -705,7 +688,7 @@ export async function getProductsByIds(
       slug: string;
       full_path: string | null;
     } | null;
-    const imgs = (row.images as unknown as ProductImage[]) ?? [];
+    const imgs = resolveImages(row.images, row.images_cdn, row.name);
     const img = primaryImage(imgs);
 
     return {
@@ -764,7 +747,7 @@ export async function getProductsByBrand(
     .select(
       `
       id, slug, name, price, compare_at_price, stock, certification,
-      rider_type, images, average_rating, review_count,
+      rider_type, images, images_cdn, average_rating, review_count,
       brands ( name, slug ), categories ( slug, full_path )
     `,
     )
@@ -781,7 +764,7 @@ export async function getProductsByBrand(
       slug: string;
       full_path: string | null;
     } | null;
-    const imgs = (row.images as unknown as ProductImage[]) ?? [];
+    const imgs = resolveImages(row.images, row.images_cdn, row.name);
     const img = primaryImage(imgs);
 
     return {

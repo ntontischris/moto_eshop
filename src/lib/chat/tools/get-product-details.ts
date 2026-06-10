@@ -1,6 +1,7 @@
 import { tool } from "ai";
 import { z } from "zod/v4";
 import { createClient } from "@/lib/supabase/server";
+import { primaryImageUrl } from "@/lib/queries/product-images";
 
 export const getProductDetailsInputSchema = z.object({
   productId: z.string().min(1).describe("Product UUID or slug"),
@@ -54,12 +55,6 @@ export const getProductDetailsTool = tool({
       stock: number | null;
     };
 
-    // Prefer CDN images, fall back to legacy images jsonb array
-    const imageSource = row.images_cdn ?? row.images ?? [];
-    const firstImage = Array.isArray(imageSource)
-      ? (imageSource[0] ?? null)
-      : null;
-
     return {
       found: true,
       product: {
@@ -69,7 +64,7 @@ export const getProductDetailsTool = tool({
         brand: row.brands?.name ?? "",
         price: row.price,
         description: row.description,
-        image: firstImage,
+        image: primaryImageUrl(row.images, row.images_cdn),
         in_stock: (row.stock ?? 0) > 0,
       },
     };

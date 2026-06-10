@@ -1,6 +1,7 @@
 import { tool } from "ai";
 import { z } from "zod/v4";
 import { createClient } from "@/lib/supabase/server";
+import { primaryImageUrl } from "@/lib/queries/product-images";
 
 export const compareProductsInputSchema = z.object({
   productIds: z
@@ -63,18 +64,6 @@ type ProductRow = {
   brands: { name: string } | null;
 };
 
-function pickImage(images: unknown, cdn: unknown): string | null {
-  if (Array.isArray(cdn) && cdn.length > 0 && typeof cdn[0] === "string")
-    return cdn[0];
-  if (
-    Array.isArray(images) &&
-    images.length > 0 &&
-    typeof images[0] === "string"
-  )
-    return images[0];
-  return null;
-}
-
 function resolveWeight(row: ProductRow): number | null {
   // Support both real DB column `weight` and mock fixture `weight_grams`
   if (row.weight_grams != null) return row.weight_grams;
@@ -132,7 +121,7 @@ export const compareProductsTool = tool({
         name: p.name,
         brand: p.brands?.name ?? "",
         price: p.price,
-        image: pickImage(p.images, p.images_cdn),
+        image: primaryImageUrl(p.images, p.images_cdn),
         in_stock: (p.stock ?? 0) > 0,
         weight: resolveWeight(p),
         certifications: resolveCertifications(p),

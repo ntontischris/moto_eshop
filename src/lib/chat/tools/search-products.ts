@@ -2,6 +2,7 @@ import { tool } from "ai";
 import { z } from "zod/v4";
 import { searchProducts as meiliSearch } from "@/lib/meilisearch/search-query";
 import { createClient } from "@/lib/supabase/server";
+import { primaryImageUrl } from "@/lib/queries/product-images";
 
 export const searchProductsInputSchema = z.object({
   query: z
@@ -34,18 +35,6 @@ export interface SearchProductsHit {
 export interface SearchProductsResult {
   hits: SearchProductsHit[];
   totalHits: number;
-}
-
-function pickImage(images: unknown, cdn: unknown): string | null {
-  if (Array.isArray(cdn) && cdn.length > 0 && typeof cdn[0] === "string")
-    return cdn[0];
-  if (
-    Array.isArray(images) &&
-    images.length > 0 &&
-    typeof images[0] === "string"
-  )
-    return images[0];
-  return null;
 }
 
 /**
@@ -116,7 +105,7 @@ async function supabaseFallback(
       name: r.name,
       brand: r.brands?.name ?? "",
       price: r.price,
-      image: pickImage(r.images, r.images_cdn),
+      image: primaryImageUrl(r.images, r.images_cdn),
       in_stock: (r.stock ?? 0) > 0,
     })),
     totalHits: rows.length,

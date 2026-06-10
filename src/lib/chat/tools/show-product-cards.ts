@@ -1,6 +1,7 @@
 import { tool } from "ai";
 import { z } from "zod/v4";
 import { createClient } from "@/lib/supabase/server";
+import { primaryImageUrl } from "@/lib/queries/product-images";
 
 export const showProductCardsInputSchema = z.object({
   productIds: z
@@ -38,18 +39,6 @@ type ProductRow = {
 
 const UUID_RE =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-
-function pickImage(images: unknown, cdn: unknown): string | null {
-  if (Array.isArray(cdn) && cdn.length > 0 && typeof cdn[0] === "string")
-    return cdn[0];
-  if (
-    Array.isArray(images) &&
-    images.length > 0 &&
-    typeof images[0] === "string"
-  )
-    return images[0];
-  return null;
-}
 
 const SELECT = "id, slug, name, price, images, images_cdn, stock, brands(name)";
 
@@ -98,7 +87,7 @@ export const showProductCardsTool = tool({
         name: p.name,
         brand: p.brands?.name ?? "",
         price: p.price,
-        image: pickImage(p.images, p.images_cdn),
+        image: primaryImageUrl(p.images, p.images_cdn),
         in_stock: (p.stock ?? 0) > 0,
       })),
       notFound,
