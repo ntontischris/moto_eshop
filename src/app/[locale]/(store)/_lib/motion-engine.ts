@@ -10,6 +10,7 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
+import { applyCharSplit } from "./char-split";
 import { velocityToSkew, velocityToTimeScale } from "./motion";
 
 type Disposer = () => void;
@@ -17,9 +18,124 @@ type Disposer = () => void;
 const REVEAL_SELECTOR = "[data-reveal]";
 const MARQUEE_SELECTORS = [".v3-proof-track", ".v3-bc-track"];
 
+/* S7 hero cinematic entrance + scroll scrub. The hero text is visible from the
+   first paint (CSS baseline), so this only enriches: it char-splits the title
+   lines, plays a staggered entrance, and scrubs media parallax + per-line
+   slide/fade on scroll. Only transform/opacity are touched. Returns a disposer
+   that kills the timeline, the ScrollTriggers and clears all inline props so the
+   static baseline is restored. */
+function startHero(): Disposer {
+  const hero = document.querySelector<HTMLElement>("[data-hero-entrance]");
+  if (!hero) return () => {};
+
+  const disposers: Disposer[] = [];
+
+  const lines = gsap.utils.toArray<HTMLElement>("[data-hero-line]", hero);
+  const splitTargets = gsap.utils.toArray<HTMLElement>("[data-split]", hero);
+  const chars = splitTargets.flatMap((el) => applyCharSplit(el));
+  const secondary = gsap.utils.toArray<HTMLElement>(
+    "[data-hero-stagger]",
+    hero,
+  );
+
+  const entrance = gsap.timeline({ paused: true });
+  entrance
+    .from(
+      "[data-hero-media]",
+      { scale: 1.16, duration: 1.5, ease: "power3.out" },
+      0,
+    )
+    .from(
+      chars,
+      {
+        yPercent: 120,
+        rotate: 6,
+        duration: 0.9,
+        stagger: 0.022,
+        ease: "power4.out",
+      },
+      0.05,
+    )
+    .from(
+      secondary,
+      { y: 24, opacity: 0, duration: 0.7, stagger: 0.07, ease: "power3.out" },
+      0.55,
+    );
+
+  // Coordinate with the S6 preloader: while it runs it sets body[data-preloading]
+  // and ends with a split-gate reveal, so we hold the entrance until that clears
+  // and the gates have parted — otherwise the title would pop before the reveal.
+  const playEntrance = () => {
+    chars.forEach((c) => (c.style.willChange = "transform"));
+    entrance.play();
+  };
+  disposers.push(whenPreloaderDone(playEntrance));
+
+  // Scrubbed scroll exit: media parallaxes down while each title line slides
+  // apart (odd lines one way, even the other) and fades. All transform/opacity.
+  const parallax = gsap.to("[data-hero-media]", {
+    yPercent: 14,
+    scale: 1.08,
+    ease: "none",
+    scrollTrigger: {
+      trigger: hero,
+      start: "top top",
+      end: "bottom top",
+      scrub: true,
+    },
+  });
+  disposers.push(() => parallax.scrollTrigger?.kill());
+
+  lines.forEach((line, index) => {
+    const tween = gsap.to(line, {
+      xPercent: index % 2 ? -9 : 9,
+      opacity: 0,
+      ease: "none",
+      scrollTrigger: {
+        trigger: hero,
+        start: "30% top",
+        end: "bottom top",
+        scrub: true,
+      },
+    });
+    disposers.push(() => tween.scrollTrigger?.kill());
+  });
+
+  return () => {
+    entrance.kill();
+    disposers.forEach((d) => d());
+    gsap.set([...chars, ...lines, ...secondary], { clearProps: "all" });
+    gsap.set("[data-hero-media]", { clearProps: "transform" });
+  };
+}
+
+/* Resolves when the preloader is no longer covering the hero: if body has no
+   data-preloading flag we run on the next frame; otherwise we watch for the
+   flag to be removed (the preloader deletes it as its gates part). Returns a
+   disposer that detaches the observer / cancels the pending frame. */
+function whenPreloaderDone(run: () => void): Disposer {
+  if (!document.body.dataset.preloading) {
+    const frame = requestAnimationFrame(run);
+    return () => cancelAnimationFrame(frame);
+  }
+  const observer = new MutationObserver(() => {
+    if (!document.body.dataset.preloading) {
+      observer.disconnect();
+      run();
+    }
+  });
+  observer.observe(document.body, {
+    attributes: true,
+    attributeFilter: ["data-preloading"],
+  });
+  return () => observer.disconnect();
+}
+
 export function start(): Disposer {
   gsap.registerPlugin(ScrollTrigger);
   const disposers: Disposer[] = [];
+
+  disposers.push(startHero());
 
   // Lenis smooth scroll on fine-pointer devices only; touch keeps native
   // scroll (PRD). gsap.ticker drives the rAF loop and feeds ScrollTrigger.

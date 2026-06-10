@@ -52,6 +52,7 @@ export async function Hero() {
     <section
       className="v3-hero v3-hero--race-control v3-hero--ride-commerce"
       aria-label="MotoMarket"
+      data-hero-entrance
     >
       <div className="v3-hero-bg" aria-hidden="true">
         {/* LQIP blur-up without JS on the LCP path: the tiny placeholder +
@@ -59,6 +60,7 @@ export async function Hero() {
             frame; the sharp poster covers them when it decodes. */}
         <picture
           className="v3-hero-picture"
+          data-hero-media
           style={{ backgroundImage: lqipBackground(HERO_POSTER) }}
         >
           <source media="(max-width: 720px)" srcSet={HERO_POSTER_MOBILE} />
@@ -70,25 +72,36 @@ export async function Hero() {
       <div className="v3-hero-inner">
         <div className="v3-hero-grid">
           <div className="v3-hero-copy">
-            <p className="v3-hero-kicker v3-label">
+            <p className="v3-hero-kicker v3-label" data-hero-stagger>
               <span className="v3-hero-bar" /> MotoMarket Performance Shop
             </p>
 
-            <h1 className="v3-hero-title v3-display">
-              <span>{t("heroTitle1")}</span>
-              <span>
-                {t("heroTitle2")}
-                <span className="v3-hero-slash">/</span>
+            <h1
+              className="v3-hero-title v3-display"
+              aria-label={`${t("heroTitle1")} ${t("heroTitle2")} ${t(
+                "heroTitle3",
+              )} ${t("heroTitle4")}`}
+            >
+              <span className="v3-hero-line" data-hero-line>
+                <span data-split>{t("heroTitle1")}</span>
               </span>
-              <span className="v3-hero-l3">
-                {t("heroTitle3")}{" "}
+              <span className="v3-hero-line" data-hero-line>
+                <span data-split>{t("heroTitle2")}</span>
+                <span className="v3-hero-slash" aria-hidden="true">
+                  /
+                </span>
+              </span>
+              <span className="v3-hero-line v3-hero-l3" data-hero-line>
+                <span data-split>{t("heroTitle3")}</span>{" "}
                 <span className="v3-hero-mobile-break">{t("heroTitle4")}</span>
               </span>
             </h1>
 
-            <p className="v3-hero-sub">{t("heroSub")}</p>
+            <p className="v3-hero-sub" data-hero-stagger>
+              {t("heroSub")}
+            </p>
 
-            <div className="v3-hero-cta">
+            <div className="v3-hero-cta" data-hero-stagger>
               <Link
                 className="v3-btn-primary"
                 href="/eksoplismos-anabath/kranh-endoep-nies-kameres"
@@ -103,7 +116,11 @@ export async function Hero() {
               </a>
             </div>
 
-            <div className="v3-hero-activity" aria-label={t("heroQuickUse")}>
+            <div
+              className="v3-hero-activity"
+              aria-label={t("heroQuickUse")}
+              data-hero-stagger
+            >
               {HERO_ACTIONS.map((action) => (
                 <Link key={action.label} href={action.href}>
                   <span>{action.label}</span>
@@ -116,6 +133,7 @@ export async function Hero() {
           <aside
             className="v3-hero-control v3-hero-gear-room"
             aria-label="Race control gear room"
+            data-hero-stagger
           >
             <div className="v3-hero-finder">
               <div className="v3-hero-finder-head">

@@ -10167,3 +10167,44 @@ html[data-v3-mode="light"] .v3-cmdk-scrim {
   transform: scaleX(0);
   will-change: transform;
 }
+
+/* === S7 hero cinematic entrance + scroll scrub === */
+
+/* Each title line clips its own rows so the char-rise (yPercent:120, set by the
+   motion engine post-hydration) is masked. The static baseline stays fully
+   visible — no opacity:0 here — so no-JS and reduced-motion users read the
+   headline immediately and the LCP text never depends on JS. */
+.v3-hero--ride-commerce .v3-hero-line {
+  display: block;
+  overflow: hidden;
+}
+
+/* The line is the block row; its inner split/slash spans flow inline within it.
+   This overrides the older `.v3-hero-title span { display:block }` rule for the
+   now-nested spans so the headline keeps its three-row layout. */
+.v3-hero--ride-commerce .v3-hero-line [data-split],
+.v3-hero--ride-commerce .v3-hero-line .v3-hero-slash {
+  display: inline;
+}
+
+/* Char spans are created by the engine (applyCharSplit). inline-block lets them
+   take transforms; transform-origin keeps the slight entrance rotation pivoting
+   from the baseline. will-change is added inline by the engine only while the
+   entrance plays, then cleared, so it is not pinned for the page lifetime. */
+.v3-hero-ch {
+  display: inline-block;
+  transform-origin: 0% 100%;
+}
+
+.v3-hero-ch--space {
+  width: 0.28em;
+}
+
+/* The motion engine never runs under prefers-reduced-motion (MotionProvider
+   gates it), so the title is never char-split there. This guard is belt-and-
+   braces: if a split somehow ran, keep the line un-clipped and fully shown. */
+@media (prefers-reduced-motion: reduce) {
+  .v3-hero--ride-commerce .v3-hero-line {
+    overflow: visible;
+  }
+}
