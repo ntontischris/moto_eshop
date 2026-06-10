@@ -1,0 +1,122 @@
+{
+  "/category-atelier/boots.webp": {
+    "dataUri": "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAAAQAgCdASoQABAAA4BaJZQAAvdBbQdP/seAAP75EZfRcnTQ9V4eK1/EqGMPzltqQkevFdUfIOD3hXmoBeT5zpKAAAA=",
+    "width": 900,
+    "height": 900
+  },
+  "/category-atelier/gloves.webp": {
+    "dataUri": "data:image/webp;base64,UklGRkQAAABXRUJQVlA4IDgAAACwAQCdASoQABAAA4BaJZwAAudlBZtAAP75FBlq2kX+4IZikpQa9z0vfG4iCBygrUjIv9JjFRAAAA==",
+    "width": 900,
+    "height": 900
+  },
+  "/category-atelier/helmets.webp": {
+    "dataUri": "data:image/webp;base64,UklGRkoAAABXRUJQVlA4ID4AAACwAQCdASoQABAAA4BaJYwAAujbZ4XgAP73m4YV4B4y5IOwXXbdYw0/B0QHcWlBtbKDZ+tz961DAMzaldpgAA==",
+    "width": 900,
+    "height": 900
+  },
+  "/category-atelier/jackets.webp": {
+    "dataUri": "data:image/webp;base64,UklGRkgAAABXRUJQVlA4IDwAAADwAQCdASoQABAAA4BaJZwAAtpCt0zF7oAA/vfGSXXe5N54P89QIGVU4Q9+pnueeTuYwBFNYs5LKfcAAAA=",
+    "width": 900,
+    "height": 900
+  },
+  "/category-atelier/luggage.webp": {
+    "dataUri": "data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAAAwAQCdASoQABAAA4BaJaQAA3AA/vM/Jv5Q2x9Kvv7df5TKE99DI5D8cvYkcAP+zouU6yn8j+7fGQwZKTUrHGRYOffapgAA",
+    "width": 900,
+    "height": 900
+  },
+  "/category-atelier/off-road.webp": {
+    "dataUri": "data:image/webp;base64,UklGRkQAAABXRUJQVlA4IDgAAADwAQCdASoQABAAA4BaJaQAAujdWf833AAA/veE5j9kxisr6+QFhCYkkwCHguzcAGcgK/eyESwAAA==",
+    "width": 900,
+    "height": 900
+  },
+  "/category-atelier/phone-mount.webp": {
+    "dataUri": "data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAAAQAgCdASoQABAAA4BaJZwAAxblkdT5hRJAAP74ko4ghqVNqnAl1qLx7jluHxpLHY7gR8chbKnvOLqygF0sh/BeLyrIBB/dXrCVkKae9h7upA3BwAA=",
+    "width": 900,
+    "height": 900
+  },
+  "/category-atelier/service.webp": {
+    "dataUri": "data:image/webp;base64,UklGRkAAAABXRUJQVlA4IDQAAADwAQCdASoQABAAA4BaJaQAAt0AoLA2sEAA/vkXAQFs737eq/aBSQgmxfsbg+S/G94wAAAA",
+    "width": 900,
+    "height": 900
+  },
+  "/hero-variants/motomarket-race-control-hero.webp": {
+    "dataUri": "data:image/webp;base64,UklGRkIAAABXRUJQVlA4IDYAAABwAQCdASoQAAcAA4BaJZV2AAGIAAD+9C1ghb231m2T0Zyn0cXKqY7+cx4+mJP7ommHw+zgAAA=",
+    "width": 1915,
+    "height": 821
+  },
+  "/hero-variants/motomarket-race-control-mobile.webp": {
+    "dataUri": "data:image/webp;base64,UklGRkIAAABXRUJQVlA4IDYAAADwAgCdASoQABQAPu1iqU2ppaOiMAgBMB2JZwDMHDKUAAD+8LY6ifIHGq9lZ7nTwTz/hbgAAAA=",
+    "width": 960,
+    "height": 1200
+  },
+  "/mega-menu/category-my-bike.webp": {
+    "dataUri": "data:image/webp;base64,UklGRkQAAABXRUJQVlA4IDgAAADQAQCdASoQAAkAA4BaJZwAAu0bLpA6QAD+9Jnc/0fzKAN4cXixX6t+vyB5ln9RjI/+yljatgAAAA==",
+    "width": 1200,
+    "height": 675
+  },
+  "/ride-selector/ride-adventure-thumb.webp": {
+    "dataUri": "data:image/webp;base64,UklGRmYAAABXRUJQVlA4IFoAAAAQAgCdASoQAAwAA4BaJQBWACPViYTUlBqAAPyPxfpJeZ5o57ww1K9JsN1EMAnFPuHrrM+1D1lY1KHgzct8jwUiyS8qkkxAMFTB2O3EE8bXnkXasqPbJvdQQAA=",
+    "width": 260,
+    "height": 190
+  },
+  "/ride-selector/ride-adventure.webp": {
+    "dataUri": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAAAQAgCdASoQAAwAA4BaJQBWACPo6bqZ7lKcAPyPxfvRWeiIzWfrx0RznHeP29S5w522xJ6lz7jNvTySvzF8nOPY3VGtDPmcT7nT08slsbjsfLm2tAvzmjAA",
+    "width": 760,
+    "height": 560
+  },
+  "/ride-selector/ride-parts-thumb.webp": {
+    "dataUri": "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAACwAQCdASoQAAwAA4BaJZQATgAG3jQAAP72pHAuTA6/Mm6hvDKVtTwvI11XmTCaPkwbMBuOjnGmTq6VWEzUo5VqydhUy/S3tPuBYAAA",
+    "width": 260,
+    "height": 190
+  },
+  "/ride-selector/ride-parts.webp": {
+    "dataUri": "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAACwAQCdASoQAAwAA4BaJZQAAg3JswgAAP72pHAwvST6d7HkVtKZDkEjknuI54cWv3rpnBGY/bCP6VFEq4bk56x3Pjs0afcCwAA=",
+    "width": 760,
+    "height": 560
+  },
+  "/ride-selector/ride-racing-thumb.webp": {
+    "dataUri": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAADQAQCdASoQAAwAA4BaJaQAAlqjExXgAAD+L9TbU44RB078f+0QFo7fbHLI+9pyQDvdXdxnoBullJV0xR5sR966gcVBnC902sAAAA==",
+    "width": 260,
+    "height": 190
+  },
+  "/ride-selector/ride-racing.webp": {
+    "dataUri": "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAADwAQCdASoQAAwAA4BaJaQAAl0a1L/chQAA/i/U21OOEQdO/H/tEBb41aUBqH3LOnp7bIH6vvsCPU9iPI466O5AoEpf3YFgyAA=",
+    "width": 760,
+    "height": 560
+  },
+  "/ride-selector/ride-rain-winter-thumb.webp": {
+    "dataUri": "data:image/webp;base64,UklGRmYAAABXRUJQVlA4IFoAAAAQAgCdASoQAAwAA4BaJZQCdADp/03uqOGAAOJj9n+w5+HndiHk3488oDG8rMNxmMlLVZvlkez27XdNCWfu0FlZYU0e3M42hLQDpVSlDXVcZErbCw8Dmz8GAAA=",
+    "width": 260,
+    "height": 190
+  },
+  "/ride-selector/ride-rain-winter.webp": {
+    "dataUri": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAABQAgCdASoQAAwAA4BaJZQCdAYwTgf7h//CxYAA4mY8eZ3uGfH9Of4/BNm208qTnOo5CnRsN76zZOkwLLlX7uCBZwnUfEk62Bp9XzrQpVzY1bbCGP5W4AAA",
+    "width": 760,
+    "height": 560
+  },
+  "/ride-selector/ride-touring-thumb.webp": {
+    "dataUri": "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAADQAQCdASoQAAwAA4BaJYwCdAEIdf+SYADeZYJxmEJ+8mQ42mnDCW/N8SNlfAfjuVJTLLRH+NaMYzZE+T+E9stUa6yWeRROXmLsfAAA",
+    "width": 260,
+    "height": 190
+  },
+  "/ride-selector/ride-touring.webp": {
+    "dataUri": "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAADQAQCdASoQAAwAA4BaJYwCdAEIcTbWgADeZYJxmEJ+8mQ42mnDDgRlbXVxAefCZfScrT9v1TIRMZ+k7xFBlsIB5uEX7rssoH3ogAAA",
+    "width": 760,
+    "height": 560
+  },
+  "/ride-selector/ride-urban-thumb.webp": {
+    "dataUri": "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAAAQAgCdASoQAAwAA4BaJYwC7AEf/kp9wvIwAP74ahnR8lfawsdlCAfpcf3PI9NEwH2+fJZEsw7MLEUcTyOJhWulbA76joNFwSPGTiAA",
+    "width": 260,
+    "height": 190
+  },
+  "/ride-selector/ride-urban.webp": {
+    "dataUri": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAACwAQCdASoQAAwAA4BaJYwAApvRNOfAAP74VwNYxmNnBVLkfsIa1Y1l3+CIzH0TUjtfSsq6h8LfZ1UUclFtIlOCwVPrg3/ZOIAAAA==",
+    "width": 760,
+    "height": 560
+  },
+  "https://d8j0ntlcm91z4.cloudfront.net/user_34y7dNWX6no0cgRVdzxt5wPZ7a9/hf_20260514_221754_ef8b651f-c39f-45b2-9e8a-c0e1bc35c080.png": {
+    "dataUri": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAADQAQCdASoQAAkAA4BaJQBOgMW5iLCjgAD+0rE7rNAEmneq66a3KD6UzBqm8WQUb8fHZ44RIkLaC8+f29kR3KmKfsLtYpZdhXkQY+nTQAA=",
+    "width": 1376,
+    "height": 768
+  }
+}

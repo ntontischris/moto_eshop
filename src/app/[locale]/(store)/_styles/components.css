@@ -9614,3 +9614,67 @@ html[data-v3-mode="light"] .v3-mb-chips-arrow:hover {
     transform: none;
   }
 }
+
+/* === Velocità LQIP blur-up (S41) ===
+   .v3-lqip wraps a fill image inside an already-sized media box (zero CLS).
+   .v3-lqip-ph sits ABOVE the image: a tiny blurred LQIP data URI stacked on
+   the designed gradient fallback. It fades out when the sharp image loads;
+   on failure the image is removed and the layer stays, so a blocked URL
+   never shows a broken hole. Only opacity animates (compositor-safe), and
+   the image keeps its own hover transforms/filters untouched. */
+.v3-lqip {
+  position: absolute;
+  inset: 0;
+  display: block;
+  overflow: hidden;
+}
+
+.v3-lqip-ph {
+  --v3-lqip-fallback: linear-gradient(
+    135deg,
+    #181b22 0%,
+    #07080c 52%,
+    #1a0a0c 100%
+  );
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-color: #07080c;
+  background-image: var(--v3-lqip-fallback);
+  background-size: cover;
+  background-position: center;
+  filter: blur(16px) saturate(1.05);
+  transform: scale(1.12);
+  opacity: 1;
+  transition: opacity 0.5s ease 0.05s;
+}
+
+.v3-lqip[data-state="loaded"] .v3-lqip-ph {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v3-lqip-ph {
+    transition: none;
+  }
+}
+
+/* The ride tab thumbs render LqipImage (fill) inside their fixed-ratio box. */
+.v3-ride-tab-thumb {
+  position: relative;
+}
+
+/* Hero poster blur-up is server-rendered (no JS on the LCP path): the LQIP +
+   gradient paint as the picture background and the sharp poster simply
+   covers them when it decodes. */
+.v3-hero-picture {
+  --v3-lqip-fallback: linear-gradient(
+    135deg,
+    #181b22 0%,
+    #07080c 52%,
+    #1a0a0c 100%
+  );
+  background-size: cover;
+  background-position: center;
+}

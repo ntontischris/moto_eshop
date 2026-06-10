@@ -1,6 +1,6 @@
 import { Link } from "@/i18n/navigation";
-import Image from "next/image";
 import { getTranslations } from "next-intl/server";
+import { LqipImage } from "../fx/lqip-image";
 
 type ShortcutImageKey =
   | "helmet"
@@ -75,10 +75,9 @@ export async function CategoryShortcutGrid({
             aria-label={t("catSeeLabel", { label: spotlight.label })}
           >
             <span className="v3-cat-spotlight-media" aria-hidden="true">
-              <Image
+              <LqipImage
                 src={IMG[spotlight.imageKey ?? "editorial"]}
                 alt=""
-                fill
                 sizes="(max-width: 920px) 100vw, 44vw"
               />
               <span className="v3-cat-spotlight-shade" />
@@ -102,10 +101,9 @@ export async function CategoryShortcutGrid({
                 className={`v3-cat-tile ${TILE_CLASSES[index] ?? ""}`.trim()}
               >
                 <span className="v3-cat-tile-media" aria-hidden="true">
-                  <Image
+                  <LqipImage
                     src={IMG[item.imageKey ?? "editorial"]}
                     alt=""
-                    fill
                     sizes="(max-width: 920px) 46vw, 18vw"
                   />
                 </span>

@@ -1,6 +1,7 @@
 import { Link } from "@/i18n/navigation";
 import { getTranslations } from "next-intl/server";
 import { HERO_POSTER, HERO_POSTER_MOBILE } from "../../_lib/assets";
+import { lqipBackground } from "../../_lib/lqip";
 
 const HERO_ACTIONS = [
   {
@@ -53,7 +54,13 @@ export async function Hero() {
       aria-label="MotoMarket"
     >
       <div className="v3-hero-bg" aria-hidden="true">
-        <picture className="v3-hero-picture">
+        {/* LQIP blur-up without JS on the LCP path: the tiny placeholder +
+            gradient fallback paint as the picture background from the first
+            frame; the sharp poster covers them when it decodes. */}
+        <picture
+          className="v3-hero-picture"
+          style={{ backgroundImage: lqipBackground(HERO_POSTER) }}
+        >
           <source media="(max-width: 720px)" srcSet={HERO_POSTER_MOBILE} />
           <img src={HERO_POSTER} alt="" fetchPriority="high" decoding="async" />
         </picture>
@@ -88,10 +95,7 @@ export async function Hero() {
               >
                 Shop by ride <span aria-hidden="true">→</span>
               </Link>
-              <Link
-                className="v3-hero-btn2"
-                href="/eksoplismos-anabath"
-              >
+              <Link className="v3-hero-btn2" href="/eksoplismos-anabath">
                 {t("heroRiderGear")}
               </Link>
               <a className="v3-hero-btn3" href="#my-bike">
