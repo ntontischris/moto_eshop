@@ -8,6 +8,7 @@ import {
   CategoryShortcutGrid,
   type ShortcutItem,
 } from "./_components/home/category-shortcut-grid";
+import { GearTunnel } from "./_components/home/gear-tunnel";
 import { ProductRail } from "./_components/home/product-rail";
 import { OffersSection } from "./_components/home/offers-section";
 import { SocialProof } from "./_components/home/social-proof";
@@ -99,6 +100,39 @@ export default async function V3Home({
     },
   ];
 
+  const TUNNEL_CARDS = [
+    {
+      label: t("shortcutHelmet"),
+      href: "/category/eksoplismos-anabath",
+      brief: "ECE 22.06 / full face / modular",
+      src: "/category-atelier/helmets.webp",
+    },
+    {
+      label: t("shortcutJacket"),
+      href: "/category/endysh--mpoyfan",
+      brief: "Leather / textile / air",
+      src: "/category-atelier/jackets.webp",
+    },
+    {
+      label: t("shortcutGloves"),
+      href: "/category/endysh--gantia",
+      brief: "Track grip / daily control",
+      src: "/category-atelier/gloves.webp",
+    },
+    {
+      label: t("shortcutBoots"),
+      href: "/category/endysh--mpotes",
+      brief: "Sport / touring / waterproof",
+      src: "/category-atelier/boots.webp",
+    },
+    {
+      label: t("shortcutLuggage"),
+      href: "/category/eksoplismos-motosikletas",
+      brief: "Top case / side cases",
+      src: "/category-atelier/luggage.webp",
+    },
+  ];
+
   const [bestRes, offersRes] = await Promise.all([
     getProductsByCategory(
       {
@@ -128,6 +162,7 @@ export default async function V3Home({
       <Reveal>
         <CategoryShortcutGrid items={SHORTCUTS} />
       </Reveal>
+      <GearTunnel cards={TUNNEL_CARDS} />
       <Reveal>
         <ProductRail
           title={t("homeTitleFirst")}

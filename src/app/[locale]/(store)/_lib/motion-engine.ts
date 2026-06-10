@@ -11,6 +11,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 import { applyCharSplit } from "./char-split";
+import { shouldPinTunnel, tunnelScrollDistance } from "./gear-tunnel";
 import { velocityToSkew, velocityToTimeScale } from "./motion";
 
 type Disposer = () => void;
@@ -131,11 +132,69 @@ function whenPreloaderDone(run: () => void): Disposer {
   return () => observer.disconnect();
 }
 
+/* S9 Gear Tunnel — pinned horizontal category showcase. On wide, fine-pointer,
+   motion-OK devices we pin the section and scrub the track sideways (the page's
+   vertical scroll drives horizontal travel), parallax each card's masked image,
+   and fill the progress bar. On narrow / touch / reduced-motion we do nothing —
+   the CSS scroll-snap rail is the baseline. Only transform/scaleX are animated;
+   the disposer kills the ScrollTriggers and clears all inline props so the
+   static rail is restored with no layout jump. */
+function startGearTunnel(): Disposer {
+  const section = document.querySelector<HTMLElement>("[data-gear-tunnel]");
+  const pin = section?.querySelector<HTMLElement>("[data-gear-tunnel-pin]");
+  const track = section?.querySelector<HTMLElement>("[data-gear-tunnel-track]");
+  if (!section || !pin || !track) return () => {};
+
+  const fill = section.querySelector<HTMLElement>("[data-gear-tunnel-fill]");
+  const masks = gsap.utils.toArray<HTMLElement>(
+    "[data-gear-tunnel-mask] img",
+    track,
+  );
+
+  const mode = {
+    isWideViewport: window.matchMedia("(min-width: 900px)").matches,
+    hasFinePointer: window.matchMedia("(pointer: fine)").matches,
+    prefersReducedMotion: window.matchMedia("(prefers-reduced-motion: reduce)")
+      .matches,
+  };
+  if (!shouldPinTunnel(mode)) return () => {};
+
+  const distance = tunnelScrollDistance(track.scrollWidth, pin.clientWidth);
+  if (distance <= 0) return () => {};
+
+  const tween = gsap.to(track, {
+    x: -distance,
+    ease: "none",
+    scrollTrigger: {
+      trigger: section,
+      pin,
+      start: "top top",
+      end: () => `+=${distance}`,
+      scrub: 1,
+      invalidateOnRefresh: true,
+      anticipatePin: 1,
+      onUpdate: (self) => {
+        if (fill) gsap.set(fill, { scaleX: self.progress });
+        masks.forEach((img) =>
+          gsap.set(img, { xPercent: (0.5 - self.progress) * 12 }),
+        );
+      },
+    },
+  });
+
+  return () => {
+    tween.scrollTrigger?.kill();
+    tween.kill();
+    gsap.set([track, fill, ...masks].filter(Boolean), { clearProps: "all" });
+  };
+}
+
 export function start(): Disposer {
   gsap.registerPlugin(ScrollTrigger);
   const disposers: Disposer[] = [];
 
   disposers.push(startHero());
+  disposers.push(startGearTunnel());
 
   // Lenis smooth scroll on fine-pointer devices only; touch keeps native
   // scroll (PRD). gsap.ticker drives the rAF loop and feeds ScrollTrigger.
