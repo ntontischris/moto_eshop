@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { Sofia_Sans_Extra_Condensed, Commissioner } from "next/font/google";
-import { setRequestLocale } from "next-intl/server";
+import { setRequestLocale, getTranslations } from "next-intl/server";
 import "./_styles/tokens.css";
 import "./_styles/components.css";
 import { V3Provider } from "./_components/shell/v3-provider";
@@ -11,6 +11,8 @@ import { MegaMenu } from "./_components/shell/mega-menu";
 import { MobileNav } from "./_components/shell/mobile-nav";
 import { Footer } from "./_components/shell/footer";
 import { ScrollProgress } from "./_components/fx/scroll-progress";
+import { TrackRail } from "./_components/fx/track-rail";
+import { MobileCtaBar } from "./_components/fx/mobile-cta-bar";
 import { MotionProvider } from "./_components/fx/motion-provider";
 import { HeroRippleProvider } from "./_components/fx/hero-ripple-provider";
 import { ChatMount } from "./_components/chat/chat-mount";
@@ -44,12 +46,14 @@ export default async function V3Layout({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const t = await getTranslations({ locale, namespace: "shell" });
   return (
     <>
       <div className={`v3-root ${display.variable} ${body.variable}`} data-v3>
         <V3Provider>
           <CommandPaletteProvider>
             <ScrollProgress />
+            <TrackRail gearLabel={t("hudGear")} />
             <MotionProvider />
             <HeroRippleProvider />
             <Suspense fallback={null}>
@@ -60,6 +64,10 @@ export default async function V3Layout({
             <main>{children}</main>
             <Suspense fallback={null}>
               <Footer />
+              <MobileCtaBar
+                shopLabel={t("ctaBarShop")}
+                bikeLabel={t("ctaBarBike")}
+              />
               <MobileNav />
             </Suspense>
           </CommandPaletteProvider>
