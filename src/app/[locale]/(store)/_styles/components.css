@@ -8655,23 +8655,39 @@ html[data-v3-mode="light"] .v3-rail--garage-wall .v3-product-card {
   border-radius: 14px;
 }
 
-/* === product card hover image swap (Nour-inspired) === */
+/* === product card hover image swap (S48 — crossfade / zoom fallback) === */
 .v3-gallery-shot,
 .v3-product-shot {
   position: absolute;
   inset: 0;
 }
 
-/* cycle through every product image while the card is hovered */
-.v3-gallery-shot,
-.v3-product-shot {
-  opacity: 0;
-  transition: opacity 0.5s ease;
+/* The primary photo is always present; the swap photo crossfades in over it on
+   hover/focus. Cards without a second image (is-zoom) gently scale the primary
+   instead, so single-image products still feel alive. */
+.v3-gallery-shot--primary,
+.v3-product-shot--primary {
+  opacity: 1;
+  transform: scale(1);
+  transition:
+    opacity 0.55s ease,
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.v3-gallery-shot.is-active,
-.v3-product-shot.is-active {
+.v3-gallery-shot--swap,
+.v3-product-shot--swap {
+  opacity: 0;
+  transition: opacity 0.55s ease;
+}
+
+.v3-gallery-card.is-hot .v3-gallery-shot--swap,
+.v3-product-card.is-hot .v3-product-shot--swap {
   opacity: 1;
+}
+
+.v3-gallery-card.is-zoom.is-hot .v3-gallery-shot--primary,
+.v3-product-card.is-zoom.is-hot .v3-product-shot--primary {
+  transform: scale(1.06);
 }
 
 /* cycle position indicator */
@@ -8705,10 +8721,36 @@ html[data-v3-mode="light"] .v3-rail--garage-wall .v3-product-card {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  /* No crossfade, no zoom: the swap appears instantly on focus and the single
+     image never scales. Tilt is already disabled in JS for these visitors. */
   .v3-gallery-shot,
   .v3-product-shot {
-    transition: none;
+    transition: none !important;
   }
+  .v3-gallery-card.is-zoom.is-hot .v3-gallery-shot--primary,
+  .v3-product-card.is-zoom.is-hot .v3-product-shot--primary {
+    transform: none;
+  }
+}
+
+/* === price odometer (S48) — presentation-only digit roll === */
+.v3-odometer {
+  display: inline-flex;
+  align-items: baseline;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Fixed-width digit columns reserve the resting width up front, so rolling the
+   digits on hover can never shift the surrounding layout (no CLS). */
+.v3-odometer-digit {
+  display: inline-block;
+  width: 1ch;
+  text-align: center;
+  overflow: hidden;
+}
+
+.v3-odometer-sep {
+  white-space: pre;
 }
 
 .v3-gallery-card button {
