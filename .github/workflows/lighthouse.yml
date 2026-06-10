@@ -27,20 +27,20 @@ jobs:
         run: |
           BASE="${{ github.event.deployment_status.target_url }}"
           BASE="${BASE%/}"
-          echo "target=$BASE/" >> "$GITHUB_OUTPUT"
+          echo "base=$BASE/" >> "$GITHUB_OUTPUT"
           echo "Auditing $BASE/"
 
       - name: Run Lighthouse CI
         id: lhci
         uses: treosh/lighthouse-ci-action@v12
-        env:
-          # Vercel "Protection Bypass for Automation" secret. The JS config
-          # (lighthouserc.cjs) reads this and sends it as an extraHeader so
-          # Lighthouse reaches the real preview instead of vercel.com/login.
-          # Passed via env only — never echoed or logged.
-          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
         with:
-          urls: ${{ steps.url.outputs.target }}
+          # The preview is SSO-protected. lighthouse-ci-action does not apply
+          # settings.extraHeaders to the navigation, so the Vercel "Protection
+          # Bypass for Automation" secret is carried as a query param instead
+          # (verified: ?x-vercel-protection-bypass=<secret> returns 200). The
+          # secret is injected only here; GitHub masks it in logs, and reports
+          # stay private (temporaryPublicStorage: false).
+          urls: ${{ steps.url.outputs.base }}?x-vercel-protection-bypass=${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
           configPath: ./lighthouserc.cjs
           # numberOfRuns + median assertions in config = flake guard.
           # Reports stay PRIVATE: the LHR carries the bypass header, so we keep
@@ -65,10 +65,13 @@ jobs:
               return;
             }
             const urls = [rep.url, rep.finalUrl, rep.requestedUrl].filter(Boolean);
+            // Strip query strings before logging — the audited URL carries the
+            // bypass secret as a query param.
+            const safe = u => String(u).split('?')[0];
             if (urls.some(u => /vercel\.com\/login/i.test(u))) {
               core.setFailed(
-                `Lighthouse was redirected to the Vercel auth wall (${urls.join(', ')}). ` +
-                'The protection bypass header is missing or invalid — check the ' +
+                `Lighthouse was redirected to the Vercel auth wall (${urls.map(safe).join(', ')}). ` +
+                'The protection bypass query param is missing or invalid — check the ' +
                 'VERCEL_AUTOMATION_BYPASS_SECRET GitHub Actions secret.'
               );
               return;
@@ -83,7 +86,7 @@ jobs:
               );
               return;
             }
-            core.info(`Guard OK — measured ${urls[0]} (LCP ${Math.round(lcp)}ms, CLS ${cls.toFixed(3)}).`);
+            core.info(`Guard OK — measured ${safe(urls[0])} (LCP ${Math.round(lcp)}ms, CLS ${cls.toFixed(3)}).`);
 
       - name: Comment results on the PR
         if: always() && steps.lhci.outputs.manifest != ''

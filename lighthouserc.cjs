@@ -1,21 +1,11 @@
 // Lighthouse CI config (Velocità performance gate, issue #39).
 //
-// JS (not JSON) so the Vercel "Protection Bypass for Automation" secret can be
-// injected at runtime via extraHeaders. The Vercel preview has Deployment
-// Protection (SSO) enabled; without the bypass header Lighthouse is redirected
-// to vercel.com/login and would score the login page instead of the homepage.
-//
-// The secret is read from the env var VERCEL_AUTOMATION_BYPASS_SECRET, which the
-// workflow passes in (never logged). We send ONLY x-vercel-protection-bypass:
-// adding x-vercel-set-bypass-cookie makes Vercel answer the first navigation
-// with a 307 cookie-priming redirect that Lighthouse mishandles (it lands on
-// vercel.com/login). The header alone returns the homepage directly (200).
-const bypassSecret = process.env.VERCEL_AUTOMATION_BYPASS_SECRET;
-
-const extraHeaders = bypassSecret
-  ? { 'x-vercel-protection-bypass': bypassSecret }
-  : undefined;
-
+// The Vercel preview has Deployment Protection (SSO) enabled. Lighthouse's
+// `settings.extraHeaders` is NOT applied to the navigation by
+// treosh/lighthouse-ci-action, so the bypass is instead carried as a query
+// param on the audited URL (built in the workflow from the
+// VERCEL_AUTOMATION_BYPASS_SECRET). Because that secret ends up in the report's
+// requestedUrl, reports stay PRIVATE (filesystem artifact, no public storage).
 module.exports = {
   ci: {
     collect: {
@@ -31,7 +21,6 @@ module.exports = {
         },
         throttlingMethod: 'simulate',
         onlyCategories: ['performance'],
-        ...(extraHeaders ? { extraHeaders } : {}),
       },
     },
     assert: {
