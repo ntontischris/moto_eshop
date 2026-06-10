@@ -13,6 +13,7 @@ import Lenis from "lenis";
 import { applyCharSplit } from "./char-split";
 import { shouldPinTunnel, tunnelScrollDistance } from "./gear-tunnel";
 import { velocityToSkew, velocityToTimeScale } from "./motion";
+import { applyWordSplit, editorialZoomScale } from "./word-split";
 
 type Disposer = () => void;
 
@@ -189,12 +190,76 @@ function startGearTunnel(): Disposer {
   };
 }
 
+/* S12 editorial chapter — sticky cinematic scene. The chapter is taller than the
+   viewport and its stage pins via CSS sticky; here we scrub the pit-lane media's
+   zoom-out across the chapter's scroll (entry zoomed-in → rest), reveal the quote
+   word-by-word on first entry, and lift the kicker / lead / CTA after it. The CSS
+   baseline already shows everything at rest, so this only enriches; the disposer
+   kills the ScrollTriggers and clears inline props so the static scene returns.
+   Only transform/opacity are animated. */
+function startEditorial(): Disposer {
+  const chapter = document.querySelector<HTMLElement>(
+    "[data-editorial-chapter]",
+  );
+  const media = chapter?.querySelector<HTMLElement>("[data-editorial-media]");
+  const quote = chapter?.querySelector<HTMLElement>("[data-editorial-quote]");
+  if (!chapter || !media || !quote) return () => {};
+
+  const disposers: Disposer[] = [];
+  const leads = gsap.utils.toArray<HTMLElement>(
+    "[data-editorial-lead]",
+    chapter,
+  );
+  const words = applyWordSplit(quote);
+
+  // Scrubbed media zoom-out tied to the whole chapter's scroll progress.
+  const zoom = gsap.to(media, {
+    ease: "none",
+    scrollTrigger: {
+      trigger: chapter,
+      start: "top bottom",
+      end: "bottom top",
+      scrub: true,
+      onUpdate: (self) =>
+        gsap.set(media, { scale: editorialZoomScale(self.progress) }),
+    },
+  });
+  disposers.push(() => zoom.scrollTrigger?.kill());
+
+  // Word-by-word quote reveal + kicker/lead/CTA follow, once on first entry.
+  const reveal = gsap.timeline({
+    paused: true,
+    scrollTrigger: { trigger: chapter, start: "top 55%", once: true },
+  });
+  reveal
+    .from(words, {
+      yPercent: 110,
+      duration: 0.9,
+      stagger: 0.05,
+      ease: "power4.out",
+    })
+    .from(
+      leads,
+      { y: 22, opacity: 0, duration: 0.7, stagger: 0.12, ease: "power3.out" },
+      0.2,
+    );
+  disposers.push(() => reveal.scrollTrigger?.kill());
+
+  return () => {
+    zoom.kill();
+    reveal.kill();
+    disposers.forEach((d) => d());
+    gsap.set([media, ...words, ...leads], { clearProps: "all" });
+  };
+}
+
 export function start(): Disposer {
   gsap.registerPlugin(ScrollTrigger);
   const disposers: Disposer[] = [];
 
   disposers.push(startHero());
   disposers.push(startGearTunnel());
+  disposers.push(startEditorial());
 
   // Lenis smooth scroll on fine-pointer devices only; touch keeps native
   // scroll (PRD). gsap.ticker drives the rAF loop and feeds ScrollTrigger.
