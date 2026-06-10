@@ -34,6 +34,20 @@ _Avoid_: Option B URL (internal nickname), pretty URL
 **Prefixed URL**:
 The legacy `/product/{slug}` or `/category/{slug}` form. A 301 alias of the [Clean URL] — never canonical.
 
+## Product images
+
+**Legacy image**:
+A product-image URL pointing at the old eshop `www.motomarket-shop.gr` (stored in `products.images`, sourced from the `onlyriders.xml` feed / scrape). The old eshop is the slow origin we want off the critical path; it also 403s the Next.js optimizer's user-agent, so it can only be served through the [Image proxy].
+_Avoid_: "the CDN image" — legacy URLs are not on our CDN.
+
+**Mirrored image**:
+A copy of a product image, re-encoded to WebP and hosted on our Supabase Storage bucket (stored in `products.images_cdn`). The storefront prefers it over the [Legacy image]; `NULL` means *not yet mirrored* → the product falls back to the [Legacy image] via the [Image proxy]. Mirroring is additive and per-product, so rollout is incremental.
+_Avoid_: calling it the "optimized image" — Next still optimizes it on demand; "mirrored" only means we host the source.
+
+**Image proxy**:
+The same-origin `/api/image-proxy` route that fetches a [Legacy image] server-side (with a browser user-agent) and re-emits it so the Next optimizer can process it. A stopgap with a latency ceiling; a product stops using it once it has a [Mirrored image].
+_Avoid_: treating the proxy as the long-term image source.
+
 ## Assistant
 
 **Πιτ (Pit)**:
