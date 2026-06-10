@@ -253,6 +253,37 @@ function startEditorial(): Disposer {
   };
 }
 
+/* S13 offers backdrop — the giant outlined "ΠΡΟΣΦΟΡΕΣ" wordmark behind the deal
+   cards drifts sideways as the offers section scrolls past. Pure transform,
+   scrubbed; the disposer kills the trigger and clears the inline transform so
+   the static (centered) baseline returns. No-op when the element is absent. */
+function startOffersDrift(): Disposer {
+  const backdrop = document.querySelector<HTMLElement>("[data-offers-drift]");
+  const section = backdrop?.closest<HTMLElement>(".v3-off");
+  if (!backdrop || !section) return () => {};
+
+  const tween = gsap.fromTo(
+    backdrop,
+    { xPercent: 4 },
+    {
+      xPercent: -14,
+      ease: "none",
+      scrollTrigger: {
+        trigger: section,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true,
+      },
+    },
+  );
+
+  return () => {
+    tween.scrollTrigger?.kill();
+    tween.kill();
+    gsap.set(backdrop, { clearProps: "transform" });
+  };
+}
+
 export function start(): Disposer {
   gsap.registerPlugin(ScrollTrigger);
   const disposers: Disposer[] = [];
@@ -260,6 +291,7 @@ export function start(): Disposer {
   disposers.push(startHero());
   disposers.push(startGearTunnel());
   disposers.push(startEditorial());
+  disposers.push(startOffersDrift());
 
   // Lenis smooth scroll on fine-pointer devices only; touch keeps native
   // scroll (PRD). gsap.ticker drives the rAF loop and feeds ScrollTrigger.

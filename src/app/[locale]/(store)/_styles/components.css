@@ -10715,3 +10715,110 @@ html[data-v3-mode="light"] .v3-cmdk-scrim {
     transition: none;
   }
 }
+
+/* === S13 (issue #51): offers countdown + outlined backdrop drift === */
+.v3-off--reconstructed {
+  position: relative;
+  overflow: clip;
+}
+
+/* Giant outlined wordmark behind the deal cards. transform-only drift driven by
+   the motion engine; centered + clipped baseline when JS/motion is off. */
+.v3-off-bg {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+  font-family: var(--v3-display);
+  font-weight: 900;
+  font-size: clamp(120px, 22vw, 320px);
+  line-height: 1;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(245, 243, 238, 0.12);
+  opacity: 0.8;
+  will-change: transform;
+}
+
+.v3-off--reconstructed .v3-off-inner,
+.v3-off--reconstructed .v3-off-panel {
+  position: relative;
+  z-index: 1;
+}
+
+.v3-off-countdown {
+  margin: 16px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.v3-off-countdown-value {
+  font-family: var(--v3-display);
+  font-weight: 900;
+  font-size: clamp(1.8rem, 3vw, 2.75rem);
+  line-height: 1;
+  color: var(--v3-red-bright, var(--v3-red));
+  /* Fixed-width digits so each tick is the same width — no layout shift. */
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+.v3-off-countdown-label {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--v3-bone-dim);
+}
+
+html[data-v3-mode="light"] .v3-off-bg {
+  -webkit-text-stroke-color: rgba(245, 243, 238, 0.16);
+}
+
+/* === S13 (issue #51): trust icon stroke-draw on reveal === */
+.v3-trust-cell svg {
+  width: 26px;
+  height: 26px;
+  stroke: var(--v3-red);
+  fill: none;
+  stroke-width: 1.7;
+}
+
+/* pathLength is normalised to 1, so dasharray/offset of 1 hides each stroke. */
+.v3-trust-grid .v3-trust-cell svg :is(path, rect, circle) {
+  pathLength: 1;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.v3-trust-grid.is-drawn .v3-trust-cell svg :is(path, rect, circle) {
+  stroke-dashoffset: 0;
+}
+
+/* Staggered draw across the five cells. */
+.v3-trust-grid .v3-trust-cell:nth-child(2) svg :is(path, rect, circle) {
+  transition-delay: 0.08s;
+}
+.v3-trust-grid .v3-trust-cell:nth-child(3) svg :is(path, rect, circle) {
+  transition-delay: 0.16s;
+}
+.v3-trust-grid .v3-trust-cell:nth-child(4) svg :is(path, rect, circle) {
+  transition-delay: 0.24s;
+}
+.v3-trust-grid .v3-trust-cell:nth-child(5) svg :is(path, rect, circle) {
+  transition-delay: 0.32s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Static under reduced motion: strokes shown fully drawn, no transition. */
+  .v3-trust-grid .v3-trust-cell svg :is(path, rect, circle) {
+    stroke-dashoffset: 0;
+    transition: none;
+  }
+}
