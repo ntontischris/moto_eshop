@@ -9810,3 +9810,280 @@ html[data-v3-mode="light"] .v3-off--reconstructed .v3-off-panel h2 {
     clip-path: none !important;
   }
 }
+
+/* ============================================================
+   ⌘K Command palette (S43) — navigation search overlay.
+   Distinct from the Pit assistant: this only routes, never chats.
+   ============================================================ */
+
+.v3-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Header search affordance is now a button that opens the palette. */
+.v3-search-trigger {
+  grid-template-columns: 42px 1fr auto;
+  cursor: pointer;
+  text-align: left;
+  padding-right: 10px;
+  font: inherit;
+}
+
+.v3-search-placeholder {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: rgba(245, 243, 238, 0.5);
+}
+
+.v3-search-kbd {
+  justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 7px;
+  border-radius: 6px;
+  border: 1px solid rgba(245, 243, 238, 0.18);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--v3-bone-dim);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.v3-cmdk {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: clamp(0px, 9vh, 96px) var(--v3-gutter) 0;
+}
+
+.v3-cmdk-scrim {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  cursor: pointer;
+  background: rgba(7, 8, 10, 0.7);
+  backdrop-filter: blur(6px);
+  animation: v3-cmdk-fade 0.18s ease both;
+}
+
+.v3-cmdk-panel {
+  position: relative;
+  width: min(640px, 100%);
+  max-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 14px;
+  border: 1px solid rgba(245, 243, 238, 0.14);
+  background: var(--v3-surface);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.55);
+  animation: v3-cmdk-rise 0.2s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.v3-cmdk-search {
+  display: grid;
+  grid-template-columns: 44px 1fr auto auto;
+  align-items: center;
+  gap: 8px;
+  padding-right: 14px;
+  border-bottom: 1px solid rgba(245, 243, 238, 0.1);
+}
+
+.v3-cmdk-search-icon {
+  justify-self: center;
+  color: var(--v3-bone-dim);
+}
+
+.v3-cmdk-input {
+  min-width: 0;
+  height: 56px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--v3-bone);
+  font: inherit;
+  font-size: 16px;
+}
+
+.v3-cmdk-input::placeholder {
+  color: rgba(245, 243, 238, 0.45);
+}
+
+.v3-cmdk-clear {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 7px;
+  cursor: pointer;
+  background: transparent;
+  color: var(--v3-bone-dim);
+}
+
+.v3-cmdk-clear:hover {
+  color: var(--v3-bone);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.v3-cmdk-esc {
+  padding: 3px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(245, 243, 238, 0.16);
+  color: var(--v3-bone-dim);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.v3-cmdk-results {
+  list-style: none;
+  margin: 0;
+  padding: 8px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.v3-cmdk-results ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.v3-cmdk-group {
+  margin: 10px 8px 4px;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--v3-bone-dim);
+}
+
+.v3-cmdk-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 44px;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 9px;
+  cursor: pointer;
+  text-align: left;
+  background: transparent;
+  color: var(--v3-bone);
+  font: inherit;
+}
+
+.v3-cmdk-row[data-active] {
+  background: rgba(228, 17, 31, 0.14);
+  outline: 1px solid rgba(228, 17, 31, 0.5);
+}
+
+.v3-cmdk-cat-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  flex: none;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--v3-cyan);
+}
+
+.v3-cmdk-thumb {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  flex: none;
+  overflow: hidden;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.v3-cmdk-row-body {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.v3-cmdk-row-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.v3-cmdk-row-brand {
+  font-size: 12px;
+  color: var(--v3-bone-dim);
+}
+
+.v3-cmdk-row-price {
+  flex: none;
+  font-weight: 700;
+}
+
+.v3-cmdk-empty,
+.v3-cmdk-hint {
+  padding: 28px 16px;
+  text-align: center;
+  color: var(--v3-bone-dim);
+}
+
+@keyframes v3-cmdk-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes v3-cmdk-rise {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.99);
+  }
+}
+
+@media (max-width: 640px) {
+  .v3-cmdk {
+    padding: 0;
+  }
+  .v3-cmdk-panel {
+    width: 100%;
+    max-height: 100dvh;
+    height: 100dvh;
+    border: 0;
+    border-radius: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v3-cmdk-scrim,
+  .v3-cmdk-panel {
+    animation: none;
+  }
+}
+
+html[data-v3-mode="light"] .v3-cmdk-panel {
+  background: #fff;
+  border-color: rgba(10, 11, 13, 0.12);
+}
+
+html[data-v3-mode="light"] .v3-cmdk-scrim {
+  background: rgba(20, 22, 26, 0.4);
+}

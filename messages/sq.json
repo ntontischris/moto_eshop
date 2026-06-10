@@ -228,6 +228,19 @@
     "comingSoon": "së shpejti",
     "seeProducts": "Shiko {total} produkte"
   },
+  "palette": {
+    "title": "Kërko",
+    "inputLabel": "Kërko produkte dhe kategori",
+    "placeholder": "Kërko produkte, kategori...",
+    "shortcut": "⌘K",
+    "clear": "Pastro",
+    "close": "Mbyll",
+    "categories": "Kategoritë",
+    "products": "Produktet",
+    "noResults": "Asnjë rezultat për «{q}».",
+    "hint": "Fillo të shkruash për të kërkuar produkte dhe kategori.",
+    "resultsCount": "{count, plural, =0 {Asnjë rezultat} one {# rezultat} other {# rezultate}}"
+  },
   "search": {
     "metaTitle": "Kërko | MotoMarket",
     "homeLabel": "Ballina",

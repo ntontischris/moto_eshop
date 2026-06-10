@@ -228,6 +228,19 @@
     "comingSoon": "uskoro",
     "seeProducts": "Vidi {total} proizvoda"
   },
+  "palette": {
+    "title": "Pretraga",
+    "inputLabel": "Pretraga proizvoda i kategorija",
+    "placeholder": "Pretraga proizvoda, kategorija...",
+    "shortcut": "⌘K",
+    "clear": "Obriši",
+    "close": "Zatvori",
+    "categories": "Kategorije",
+    "products": "Proizvodi",
+    "noResults": "Nema rezultata za «{q}».",
+    "hint": "Počnite da kucate da biste pretražili proizvode i kategorije.",
+    "resultsCount": "{count, plural, =0 {Nema rezultata} one {# rezultat} other {# rezultata}}"
+  },
   "search": {
     "metaTitle": "Pretraga | MotoMarket",
     "homeLabel": "Početna",

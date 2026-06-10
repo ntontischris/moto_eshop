@@ -2,22 +2,18 @@
 
 import { Link } from "@/i18n/navigation";
 import { Bike, Home, Menu, Search, ShoppingBag } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { useV3 } from "./v3-provider";
+import { useCommandPalette } from "./command-palette-provider";
 import { CategoryDrawer } from "./category-drawer";
 
 export function MobileNav() {
   const t = useTranslations("shell");
   const tc = useTranslations("common");
   const { cartCount, setCartOpen } = useV3();
+  const { openPalette } = useCommandPalette();
   const [drawerOpen, setDrawerOpen] = useState(false);
-
-  const focusSearch = useCallback(() => {
-    const input = document.querySelector<HTMLInputElement>(".v3-search-input");
-    input?.focus();
-    input?.scrollIntoView({ behavior: "smooth", block: "center" });
-  }, []);
 
   useEffect(() => {
     const open = () => setDrawerOpen(true);
@@ -47,7 +43,7 @@ export function MobileNav() {
 
         <button
           className="v3-mob-item"
-          onClick={focusSearch}
+          onClick={openPalette}
           aria-label={t("mobileSearchLabel")}
         >
           <Search size={18} aria-hidden="true" />

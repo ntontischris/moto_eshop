@@ -228,6 +228,19 @@
     "comingSoon": "în curând",
     "seeProducts": "Vezi {total} produse"
   },
+  "palette": {
+    "title": "Căutare",
+    "inputLabel": "Căutare produse și categorii",
+    "placeholder": "Caută produse, categorii...",
+    "shortcut": "⌘K",
+    "clear": "Șterge",
+    "close": "Închide",
+    "categories": "Categorii",
+    "products": "Produse",
+    "noResults": "Niciun rezultat pentru «{q}».",
+    "hint": "Începe să scrii pentru a căuta produse și categorii.",
+    "resultsCount": "{count, plural, =0 {Niciun rezultat} one {# rezultat} other {# rezultate}}"
+  },
   "search": {
     "metaTitle": "Căutare | MotoMarket",
     "homeLabel": "Acasă",

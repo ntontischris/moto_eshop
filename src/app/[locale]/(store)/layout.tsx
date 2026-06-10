@@ -4,6 +4,7 @@ import { setRequestLocale } from "next-intl/server";
 import "./_styles/tokens.css";
 import "./_styles/components.css";
 import { V3Provider } from "./_components/shell/v3-provider";
+import { CommandPaletteProvider } from "./_components/shell/command-palette-provider";
 import { UtilityBar } from "./_components/shell/utility-bar";
 import { Header } from "./_components/shell/header";
 import { MegaMenu } from "./_components/shell/mega-menu";
@@ -46,18 +47,20 @@ export default async function V3Layout({
     <>
       <div className={`v3-root ${display.variable} ${body.variable}`} data-v3>
         <V3Provider>
-          <ScrollProgress />
-          <MotionProvider />
-          <Suspense fallback={null}>
-            <UtilityBar />
-            <Header />
-            <MegaMenu />
-          </Suspense>
-          <main>{children}</main>
-          <Suspense fallback={null}>
-            <Footer />
-            <MobileNav />
-          </Suspense>
+          <CommandPaletteProvider>
+            <ScrollProgress />
+            <MotionProvider />
+            <Suspense fallback={null}>
+              <UtilityBar />
+              <Header />
+              <MegaMenu />
+            </Suspense>
+            <main>{children}</main>
+            <Suspense fallback={null}>
+              <Footer />
+              <MobileNav />
+            </Suspense>
+          </CommandPaletteProvider>
         </V3Provider>
       </div>
       <Suspense fallback={null}>
