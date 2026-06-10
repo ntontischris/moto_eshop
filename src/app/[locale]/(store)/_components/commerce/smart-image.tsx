@@ -33,7 +33,11 @@ export function SmartImage({
   }
 
   const isSupabase = src.includes(".supabase.co/storage/");
-  const isLegacy = src.includes(LEGACY_HOST);
+  // The src may already be a same-origin proxied legacy URL (the query layer
+  // proxies legacy images so every consumer gets a loadable URL). Detect that
+  // first so we optimize it directly instead of wrapping the proxy in itself.
+  const isProxied = src.startsWith("/api/image-proxy");
+  const isLegacy = !isProxied && src.includes(LEGACY_HOST);
 
   // Supabase-mirrored images optimize directly. The legacy eshop 403s the
   // optimizer's UA, so route those through our same-origin proxy — Next can
@@ -43,13 +47,15 @@ export function SmartImage({
   let unoptimized = true;
   if (isSupabase) {
     unoptimized = false;
+  } else if (isProxied && stage === "opt") {
+    unoptimized = false;
   } else if (isLegacy && stage === "opt") {
     url = `/api/image-proxy?url=${encodeURIComponent(src)}`;
     unoptimized = false;
   }
 
   function handleError() {
-    setStage(isLegacy && stage === "opt" ? "raw" : "fail");
+    setStage((isLegacy || isProxied) && stage === "opt" ? "raw" : "fail");
   }
 
   return (
