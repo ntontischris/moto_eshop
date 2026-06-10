@@ -3614,11 +3614,26 @@ html[data-v3-mode="light"] .v3-hero--race-control .v3-hero-scrim {
   inset: 0;
 }
 
-.v3-ride-focus-media img {
-  object-fit: cover;
+/* S46 Ride Cinema: all six scenes are stacked and crossfaded by toggling
+   data-active. No hard swap — the outgoing layer fades while the incoming one
+   eases in, mirroring 15-velocita-ultra.html (.ride-focus img.on). */
+.v3-ride-focus-layer {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: scale(1.06);
+  transition: opacity .7s ease, transform 1.2s cubic-bezier(.22, 1, .36, 1);
+  will-change: opacity, transform;
+}
+
+.v3-ride-focus-layer[data-active="true"] {
+  opacity: 1;
   transform: scale(1.01);
+}
+
+.v3-ride-focus-layer img {
+  object-fit: cover;
   filter: saturate(1.05) contrast(1.08) brightness(1.08);
-  animation: v3-ride-reveal .28s ease both;
 }
 
 .v3-ride-focus-overlay {
@@ -3752,10 +3767,26 @@ html[data-v3-mode="light"] .v3-hero--race-control .v3-hero-scrim {
 
 .v3-ride-tab[data-active="true"]::before {
   opacity: 1;
+}
+
+/* S46: per-tab 3s linear dwell indicator. Fills only on the active tab and
+   pauses (animation-play-state) whenever smart-pause flags the section. */
+.v3-ride-tab-progress {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 2px;
+  width: 0;
+  pointer-events: none;
+  background: var(--v3-red, #e4111f);
+  opacity: 0;
+}
+
+.v3-ride-tab[data-active="true"] .v3-ride-tab-progress {
+  opacity: 1;
   animation: v3-ride-tab-progress 3s linear both;
 }
 
-.v3-ride-selector[data-auto-paused="true"] .v3-ride-tab[data-active="true"]::before {
+.v3-ride-selector[data-auto-paused="true"] .v3-ride-tab[data-active="true"] .v3-ride-tab-progress {
   animation-play-state: paused;
 }
 
@@ -4010,6 +4041,24 @@ html[data-v3-mode="light"] .v3-mega-feature {
 
   to {
     width: 100%;
+  }
+}
+
+/* S46: reduced-motion riders get no auto-rotation (the JS timer is off) and no
+   crossfade — the active scene swaps instantly and the dwell bar is hidden.
+   Manual tab selection still works. */
+@media (prefers-reduced-motion: reduce) {
+  .v3-ride-focus-layer {
+    transition: none;
+    transform: none;
+  }
+
+  .v3-ride-focus-layer[data-active="true"] {
+    transform: none;
+  }
+
+  .v3-ride-tab-progress {
+    display: none;
   }
 }
 

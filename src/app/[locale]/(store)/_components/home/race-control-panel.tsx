@@ -1,10 +1,21 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useReducer,
+  useRef,
+  type KeyboardEvent,
+} from "react";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { ArrowRight, Map, ShieldCheck } from "lucide-react";
 import { LqipImage } from "../fx/lqip-image";
+import {
+  createRideRotationState,
+  isRotationRunning,
+  rideRotationReducer,
+} from "../../_lib/ride-rotation";
 
 const RIDES = [
   {
@@ -69,36 +80,94 @@ const RIDES = [
   },
 ] as const;
 
+const ROTATION_MS = 3000;
+const reduceRotation = rideRotationReducer(RIDES.length);
+
+function prefersReducedMotion(): boolean {
+  return (
+    typeof window !== "undefined" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
+}
+
 export function RaceControlPanel() {
   const t = useTranslations("home");
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isAutoPaused, setIsAutoPaused] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  const [state, dispatch] = useReducer(
+    reduceRotation,
+    0,
+    createRideRotationState,
+  );
+  const { activeIndex } = state;
   const activeRide = RIDES[activeIndex];
+  const isRunning = isRotationRunning(state);
 
+  // Auto-advance timer. Off entirely under reduced motion; otherwise restarts on
+  // every active-index / pause change so the 3s dwell stays in sync with the CSS
+  // progress bar that animates from the same data-active flip.
   useEffect(() => {
-    if (isAutoPaused) {
-      return;
-    }
+    if (!isRunning || prefersReducedMotion()) return;
+    const id = window.setTimeout(
+      () => dispatch({ type: "advance" }),
+      ROTATION_MS,
+    );
+    return () => window.clearTimeout(id);
+  }, [isRunning, activeIndex]);
 
-    const intervalId = window.setInterval(() => {
-      setActiveIndex((current) => (current + 1) % RIDES.length);
-    }, 3000);
+  // Smart pause: stop rotating while the section is scrolled out of view.
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        const visible = entries[0]?.isIntersecting ?? true;
+        dispatch({ type: visible ? "resume" : "pause", reason: "offscreen" });
+      },
+      { threshold: 0.25 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
-    return () => window.clearInterval(intervalId);
-  }, [isAutoPaused]);
+  // Smart pause: stop rotating while the browser tab is hidden.
+  useEffect(() => {
+    const onVisibility = () =>
+      dispatch({
+        type: document.hidden ? "pause" : "resume",
+        reason: "hidden",
+      });
+    document.addEventListener("visibilitychange", onVisibility);
+    return () => document.removeEventListener("visibilitychange", onVisibility);
+  }, []);
+
+  const handleTabKeyDown = useCallback(
+    (event: KeyboardEvent<HTMLDivElement>) => {
+      if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
+      event.preventDefault();
+      const tabs = Array.from(
+        event.currentTarget.querySelectorAll<HTMLButtonElement>('[role="tab"]'),
+      );
+      const current = tabs.indexOf(document.activeElement as HTMLButtonElement);
+      const delta = event.key === "ArrowRight" ? 1 : -1;
+      const next = (current + delta + tabs.length) % tabs.length;
+      tabs[next]?.focus();
+    },
+    [],
+  );
 
   return (
     <section
+      ref={sectionRef}
       className="v3-ride-selector v3-ride-selector--cinema"
-      data-auto-paused={isAutoPaused ? "true" : undefined}
+      data-auto-paused={isRunning ? undefined : "true"}
       aria-label={t("raceShopByRide")}
-      onMouseEnter={() => setIsAutoPaused(true)}
-      onMouseLeave={() => setIsAutoPaused(false)}
-      onFocusCapture={() => setIsAutoPaused(true)}
+      onMouseEnter={() => dispatch({ type: "pause", reason: "hover" })}
+      onMouseLeave={() => dispatch({ type: "resume", reason: "hover" })}
+      onFocusCapture={() => dispatch({ type: "pause", reason: "focus" })}
       onBlurCapture={(event) => {
         const nextFocused = event.relatedTarget as Node | null;
         if (!event.currentTarget.contains(nextFocused)) {
-          setIsAutoPaused(false);
+          dispatch({ type: "resume", reason: "focus" });
         }
       }}
     >
@@ -120,15 +189,22 @@ export function RaceControlPanel() {
             aria-label={t("raceSeeLabel", { label: activeRide.label })}
           >
             <span className="v3-ride-focus-media" aria-hidden="true">
-              <LqipImage
-                key={activeRide.image}
-                src={activeRide.image}
-                alt=""
-                sizes="(max-width: 920px) 100vw, 64vw"
-                loading="lazy"
-                fetchPriority="low"
-                unoptimized
-              />
+              {RIDES.map((ride, index) => (
+                <span
+                  key={ride.image}
+                  className="v3-ride-focus-layer"
+                  data-active={index === activeIndex ? "true" : undefined}
+                >
+                  <LqipImage
+                    src={ride.image}
+                    alt=""
+                    sizes="(max-width: 920px) 100vw, 64vw"
+                    loading="lazy"
+                    fetchPriority="low"
+                    unoptimized
+                  />
+                </span>
+              ))}
               <span className="v3-ride-focus-overlay" />
             </span>
 
@@ -152,6 +228,7 @@ export function RaceControlPanel() {
             className="v3-ride-tabs"
             role="tablist"
             aria-label={t("raceTabs")}
+            onKeyDown={handleTabKeyDown}
           >
             {RIDES.map(({ label, valueKey, thumb }, index) => {
               const isActive = index === activeIndex;
@@ -163,10 +240,11 @@ export function RaceControlPanel() {
                   type="button"
                   role="tab"
                   aria-selected={isActive}
+                  tabIndex={isActive ? 0 : -1}
                   key={label}
-                  onClick={() => setActiveIndex(index)}
-                  onFocus={() => setActiveIndex(index)}
-                  onMouseEnter={() => setActiveIndex(index)}
+                  onClick={() => dispatch({ type: "select", index })}
+                  onFocus={() => dispatch({ type: "select", index })}
+                  onMouseEnter={() => dispatch({ type: "select", index })}
                 >
                   <span className="v3-ride-tab-thumb" aria-hidden="true">
                     <LqipImage
@@ -182,11 +260,16 @@ export function RaceControlPanel() {
                     <strong>{label}</strong>
                     <span>{t(valueKey)}</span>
                   </span>
+                  <span className="v3-ride-tab-progress" aria-hidden="true" />
                 </button>
               );
             })}
           </div>
         </div>
+
+        <p className="v3-sr-only" aria-live="polite">
+          {t("raceActiveRide", { label: activeRide.label })}
+        </p>
 
         <div className="v3-ride-trust" aria-label="MotoMarket service">
           <ShieldCheck size={18} aria-hidden="true" />
