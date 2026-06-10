@@ -50,22 +50,19 @@ describe("product rail", () => {
     expect(componentsCss).toContain("padding: 0 !important;");
   });
 
-  it("cycles a product's images only while it is hovered, and tilts in 3D", () => {
+  it("swaps to the second image on hover/focus, with a zoom fallback and 3D tilt", () => {
     expect(cardSource).toContain("gallery_image_urls");
-    expect(cardSource).toContain("setInterval");
-    expect(cardSource).toContain("CYCLE_MS = 1300");
-    expect(cardSource).toContain("startCycle");
-    expect(cardSource).toContain("stopCycle");
-    expect(cardSource).toContain("onMouseEnter");
-    expect(cardSource).toContain("onMouseLeave");
-    // hover-driven, not auto-play across the whole rail
+    // binary hover swap to image #2, not an auto-cycle across every image
+    expect(cardSource).toContain("swapImage");
+    expect(cardSource).toContain("v3-gallery-shot--primary");
+    expect(cardSource).toContain("v3-gallery-shot--swap");
+    expect(cardSource).toContain("is-zoom");
+    expect(cardSource).not.toContain("setInterval");
     expect(cardSource).not.toContain("IntersectionObserver");
-    expect(cardSource).toContain("prefers-reduced-motion");
-    expect(cardSource).toContain("perspective(900px)");
-    expect(cardSource).toContain("rotateX");
-    expect(cardSource).toContain("is-active");
-    expect(componentsCss).toContain(".v3-gallery-shot.is-active");
-    expect(componentsCss).toContain(".v3-gallery-dots");
+    // tilt + hover/focus parity now live in the shared hook
+    expect(cardSource).toContain("useCardInteractions");
+    expect(componentsCss).toContain(".v3-gallery-shot--swap");
+    expect(componentsCss).toContain(".v3-gallery-card.is-zoom.is-hot");
     expect(componentsCss).toContain("border-radius: 20px");
     expect(componentsCss).toContain(".v3-gallery-card::after");
   });

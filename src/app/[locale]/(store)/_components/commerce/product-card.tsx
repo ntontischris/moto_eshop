@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import { Link } from "@/i18n/navigation";
 import { ChevronRight, Star } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -12,16 +11,7 @@ import { AvailabilityBadge } from "./availability-badge";
 import { WishlistButton } from "./wishlist-button";
 import { getAvailabilityState } from "../../_lib/availability";
 import { productPath } from "../../_lib/urls";
-
-const CYCLE_MS = 1300;
-const TILT_MAX = 7;
-
-function prefersReducedMotion() {
-  return (
-    typeof window !== "undefined" &&
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches
-  );
-}
+import { useCardInteractions } from "../../_lib/use-card-interactions";
 
 interface ProductCardProps {
   product: ProductListItem;
@@ -37,76 +27,13 @@ export function ProductCard({
   const tPlp = useTranslations("plp");
   const tCommon = useTranslations("common");
   const href = productPath(product.category_path, product.slug);
-  const images =
-    product.gallery_image_urls && product.gallery_image_urls.length > 0
-      ? product.gallery_image_urls
-      : [product.primary_image_url];
+  const gallery = product.gallery_image_urls ?? [];
+  const primaryImage = gallery[0] ?? product.primary_image_url;
+  // Hover/focus swaps to the SECOND image with a crossfade when one exists;
+  // single-image products fall back to a gentle zoom on the only photo.
+  const swapImage = gallery.length > 1 ? gallery[1] : null;
 
-  const [active, setActive] = useState(0);
-  // Only the first image loads up front; the rest mount on first hover so a
-  // grid never downloads every gallery shot for products you don't inspect.
-  const [armed, setArmed] = useState(false);
-  const cardRef = useRef<HTMLElement>(null);
-  const frame = useRef<number | null>(null);
-  const cycle = useRef<ReturnType<typeof setInterval> | null>(null);
-
-  // Cycle through the product's images ONLY while the card is hovered, so a
-  // dense grid never feels busy — every other card stays on its first photo.
-  function startCycle() {
-    if (images.length < 2 || prefersReducedMotion() || cycle.current) return;
-    cycle.current = setInterval(
-      () => setActive((i) => (i + 1) % images.length),
-      CYCLE_MS,
-    );
-  }
-  function stopCycle() {
-    if (cycle.current) {
-      clearInterval(cycle.current);
-      cycle.current = null;
-    }
-    setActive(0);
-  }
-
-  useEffect(
-    () => () => {
-      if (cycle.current) clearInterval(cycle.current);
-    },
-    [],
-  );
-
-  // Subtle 3D tilt toward the cursor. Ref + rAF only — never re-renders React.
-  function handleMove(e: React.MouseEvent<HTMLElement>) {
-    const el = cardRef.current;
-    if (!el || e.buttons !== 0 || prefersReducedMotion()) return;
-    const rect = el.getBoundingClientRect();
-    const px = (e.clientX - rect.left) / rect.width;
-    const py = (e.clientY - rect.top) / rect.height;
-    const rx = (0.5 - py) * TILT_MAX * 2;
-    const ry = (px - 0.5) * TILT_MAX * 2;
-    if (frame.current) cancelAnimationFrame(frame.current);
-    frame.current = requestAnimationFrame(() => {
-      el.style.transform = `perspective(900px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) translateZ(12px)`;
-    });
-  }
-
-  function handleEnter() {
-    setArmed(true);
-    startCycle();
-    const el = cardRef.current;
-    if (!el || prefersReducedMotion()) return;
-    el.style.willChange = "transform";
-    el.style.transition = "transform 0.1s ease-out";
-  }
-
-  function handleLeave() {
-    stopCycle();
-    const el = cardRef.current;
-    if (!el) return;
-    if (frame.current) cancelAnimationFrame(frame.current);
-    el.style.transition = "transform 0.5s ease";
-    el.style.transform = "perspective(900px) rotateX(0deg) rotateY(0deg)";
-    el.style.willChange = "auto";
-  }
+  const { cardRef, hot, handlers } = useCardInteractions();
 
   const badges: { label: string; tone: Tone }[] = [];
   if (product.certification)
@@ -127,10 +54,8 @@ export function ProductCard({
   return (
     <article
       ref={cardRef}
-      className={`v3-product-card${compact ? " is-compact" : ""}`}
-      onMouseEnter={handleEnter}
-      onMouseMove={handleMove}
-      onMouseLeave={handleLeave}
+      className={`v3-product-card${compact ? " is-compact" : ""}${swapImage ? "" : " is-zoom"}${hot ? " is-hot" : ""}`}
+      {...handlers}
     >
       <div className="v3-product-stage">
         <Link
@@ -143,27 +68,21 @@ export function ProductCard({
               {String(rank).padStart(2, "0")}
             </span>
           )}
-          {(armed ? images : images.slice(0, 1)).map((src, i) => (
+          <span className="v3-product-shot v3-product-shot--primary">
+            <SmartImage
+              src={primaryImage}
+              alt={product.primary_image_alt || product.name}
+              sizes={sizes}
+            />
+          </span>
+          {swapImage && (
             <span
-              key={`${src}-${i}`}
-              className={`v3-product-shot${i === active ? " is-active" : ""}`}
-              aria-hidden={i === active ? undefined : true}
+              className="v3-product-shot v3-product-shot--swap"
+              aria-hidden="true"
             >
-              <SmartImage
-                src={src}
-                alt={i === 0 ? product.primary_image_alt || product.name : ""}
-                sizes={sizes}
-              />
-            </span>
-          ))}
-          {images.length > 1 && (
-            <span className="v3-gallery-dots" aria-hidden="true">
-              {images.map((src, i) => (
-                <span
-                  key={`${src}-dot-${i}`}
-                  className={`v3-gallery-dot${i === active ? " is-active" : ""}`}
-                />
-              ))}
+              {/* Mounts only on first hover/focus so the grid never preloads a
+                  second image for every product the visitor scrolls past. */}
+              {hot && <SmartImage src={swapImage} alt="" sizes={sizes} />}
             </span>
           )}
         </Link>
@@ -209,6 +128,7 @@ export function ProductCard({
           <PriceDisplay
             price={product.price}
             compareAt={product.compare_at_price}
+            rolling={hot}
           />
           <Link href={href} className="v3-card__cta">
             {tCommon("viewProduct")}
