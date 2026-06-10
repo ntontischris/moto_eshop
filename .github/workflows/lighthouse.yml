@@ -1,0 +1,103 @@
+name: Lighthouse
+
+# Velocità performance gate (issue #39).
+# Runs Lighthouse (mobile) against the Vercel preview homepage once the
+# preview is ready, and fails the check when the budget is broken:
+#   performance >= 90, CLS < 0.1, LCP < 2.5s (median of 3 runs).
+on: [deployment_status]
+
+permissions:
+  contents: read
+  statuses: read
+  pull-requests: write
+
+jobs:
+  lighthouse:
+    # Only run on a successful Vercel *preview* deployment.
+    if: >-
+      github.event.deployment_status.state == 'success' &&
+      github.event.deployment.environment != 'Production' &&
+      github.event.deployment.environment != 'production'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Resolve preview homepage URL (default locale, Clean URL root)
+        id: url
+        run: |
+          BASE="${{ github.event.deployment_status.target_url }}"
+          BASE="${BASE%/}"
+          echo "target=$BASE/" >> "$GITHUB_OUTPUT"
+          echo "Auditing $BASE/"
+
+      - name: Run Lighthouse CI
+        id: lhci
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          urls: ${{ steps.url.outputs.target }}
+          configPath: ./.lighthouserc.json
+          # numberOfRuns + median assertions in config = flake guard.
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+
+      - name: Comment results on the PR
+        if: always() && steps.lhci.outputs.manifest != ''
+        uses: actions/github-script@v7
+        env:
+          LHCI_MANIFEST: ${{ steps.lhci.outputs.manifest }}
+          LHCI_LINKS: ${{ steps.lhci.outputs.links }}
+        with:
+          script: |
+            const manifest = JSON.parse(process.env.LHCI_MANIFEST || '[]');
+            const links = JSON.parse(process.env.LHCI_LINKS || '{}');
+            const median = manifest.find(r => r.isRepresentativeRun) || manifest[0];
+            if (!median) return;
+
+            const s = median.summary;
+            const pct = v => Math.round(v * 100);
+            const ms = v => `${Math.round(v)} ms`;
+            const reportUrl = Object.values(links)[0] || '';
+            const passed = '${{ steps.lhci.outcome }}' === 'success';
+
+            // Find the PR for this deployment's commit SHA.
+            const sha = context.payload.deployment.sha;
+            const { data: prs } = await github.rest.repos.listPullRequestsAssociatedWithCommit({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              commit_sha: sha,
+            });
+            const pr = prs[0];
+            if (!pr) {
+              core.info('No PR associated with this deployment; skipping comment.');
+              return;
+            }
+
+            const body = [
+              `### ${passed ? '✅' : '❌'} Lighthouse performance gate (mobile)`,
+              '',
+              '| Metric | Median | Budget | |',
+              '|---|---|---|---|',
+              `| Performance | ${pct(s.performance)} | ≥ 90 | ${pct(s.performance) >= 90 ? '✅' : '❌'} |`,
+              `| CLS | ${s['cumulative-layout-shift'].toFixed(3)} | < 0.1 | ${s['cumulative-layout-shift'] < 0.1 ? '✅' : '❌'} |`,
+              `| LCP | ${ms(s['largest-contentful-paint'])} | < 2500 ms | ${s['largest-contentful-paint'] < 2500 ? '✅' : '❌'} |`,
+              '',
+              `Median of 3 runs against the preview homepage.${reportUrl ? ` [Full report](${reportUrl})` : ''}`,
+            ].join('\n');
+
+            const marker = '<!-- velocita-lighthouse -->';
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner, repo: context.repo.repo, issue_number: pr.number,
+            });
+            const existing = comments.find(c => c.body && c.body.includes(marker));
+            const fullBody = `${marker}\n${body}`;
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner, repo: context.repo.repo,
+                comment_id: existing.id, body: fullBody,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner, repo: context.repo.repo,
+                issue_number: pr.number, body: fullBody,
+              });
+            }
