@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { Link } from "@/i18n/navigation";
-import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { ArrowRight, Map, ShieldCheck } from "lucide-react";
+import { LqipImage } from "../fx/lqip-image";
 
 const RIDES = [
   {
@@ -120,11 +120,10 @@ export function RaceControlPanel() {
             aria-label={t("raceSeeLabel", { label: activeRide.label })}
           >
             <span className="v3-ride-focus-media" aria-hidden="true">
-              <Image
+              <LqipImage
                 key={activeRide.image}
                 src={activeRide.image}
                 alt=""
-                fill
                 sizes="(max-width: 920px) 100vw, 64vw"
                 loading="lazy"
                 fetchPriority="low"
@@ -170,11 +169,9 @@ export function RaceControlPanel() {
                   onMouseEnter={() => setActiveIndex(index)}
                 >
                   <span className="v3-ride-tab-thumb" aria-hidden="true">
-                    <Image
+                    <LqipImage
                       src={thumb}
                       alt=""
-                      width={260}
-                      height={190}
                       sizes="96px"
                       loading="lazy"
                       fetchPriority="low"

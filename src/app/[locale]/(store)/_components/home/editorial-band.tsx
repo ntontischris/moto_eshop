@@ -1,7 +1,7 @@
 import { Link } from "@/i18n/navigation";
-import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { PHOTO } from "../../_lib/assets";
+import { LqipImage } from "../fx/lqip-image";
 
 export async function EditorialBand() {
   const t = await getTranslations("home");
@@ -9,12 +9,10 @@ export async function EditorialBand() {
   return (
     <section className="v3-ed v3-ed--reconstructed" aria-label="Rider gear">
       <div className="v3-ed-media">
-        <Image
+        <LqipImage
           src={PHOTO.editorial}
           alt={t("editorialAlt")}
-          fill
           sizes="(max-width: 860px) 100vw, 58vw"
-          style={{ objectFit: "cover" }}
         />
         <span className="v3-ed-scrim" aria-hidden="true" />
       </div>

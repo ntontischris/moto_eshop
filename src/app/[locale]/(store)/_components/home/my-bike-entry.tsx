@@ -1,7 +1,7 @@
-import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { getMyBikeBrands } from "@/lib/queries/categories";
 import { BikeSelector } from "./bike-selector";
+import { LqipImage } from "../fx/lqip-image";
 
 export async function MyBikeEntry() {
   const t = await getTranslations("home");
@@ -15,10 +15,9 @@ export async function MyBikeEntry() {
       aria-label="Bike finder"
     >
       <div className="v3-mb-bg" aria-hidden="true">
-        <Image
+        <LqipImage
           src="/mega-menu/category-my-bike.webp"
           alt=""
-          fill
           sizes="100vw"
         />
       </div>
