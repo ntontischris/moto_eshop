@@ -84,6 +84,14 @@ Every schema change — table, column, index, RLS policy — is a versioned SQL 
 
 ---
 
+## 11. Performance budget gate
+
+Every PR is audited by Lighthouse (mobile emulation) against its Vercel preview homepage (default locale `el`, Clean URL root `/`). The budget — mobile performance score ≥ 90, CLS < 0.1, LCP < 2.5 s — is asserted on the median of 3 runs to guard against flake. A budget violation fails the check. This protects every Velocità slice from performance regressions. The job triggers on the Vercel `deployment_status` event so it audits the real preview build, not a local server.
+
+**Enforced by:** `.github/workflows/lighthouse.yml` + `.lighthouserc.json`; results posted as a PR comment.
+
+---
+
 ## How this is checked
 
 | # | Standard | Enforcing mechanism |
@@ -98,3 +106,4 @@ Every schema change — table, column, index, RLS policy — is a versioned SQL 
 | 8 | Error monitoring | `src/lib/observability/report-error.ts`; ADR before provider adoption |
 | 9 | Accessibility baseline | PR review checklist; planned a11y CI job (Track D) |
 | 10 | Migration discipline | `supabase/migrations/`; PR review |
+| 11 | Performance budget gate | `.github/workflows/lighthouse.yml` + `.lighthouserc.json` (mobile ≥90, CLS <0.1, LCP <2.5s, median of 3) |

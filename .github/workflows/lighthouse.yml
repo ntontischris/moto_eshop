@@ -1,0 +1,151 @@
+name: Lighthouse
+
+# Velocità performance gate (issue #39).
+# Runs Lighthouse (mobile) against the Vercel preview homepage once the
+# preview is ready, and fails the check when the budget is broken:
+#   performance >= 90, CLS < 0.1, LCP < 2.5s (median of 3 runs).
+on: [deployment_status]
+
+permissions:
+  contents: read
+  statuses: read
+  pull-requests: write
+
+jobs:
+  lighthouse:
+    # Only run on a successful Vercel *preview* deployment.
+    if: >-
+      github.event.deployment_status.state == 'success' &&
+      github.event.deployment.environment != 'Production' &&
+      github.event.deployment.environment != 'production'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Resolve preview homepage URL (default locale, Clean URL root)
+        id: url
+        run: |
+          BASE="${{ github.event.deployment_status.target_url }}"
+          BASE="${BASE%/}"
+          echo "base=$BASE/" >> "$GITHUB_OUTPUT"
+          echo "Auditing $BASE/"
+
+      - name: Run Lighthouse CI
+        id: lhci
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          # Preview Deployment Protection is disabled for non-production
+          # deployments, so Lighthouse reaches the preview homepage directly.
+          # The auth-wall guard below fails loudly if protection is ever
+          # re-enabled (so the gate can't silently score a login page).
+          urls: ${{ steps.url.outputs.base }}
+          configPath: ./lighthouserc.cjs
+          # numberOfRuns + median assertions in config = flake guard.
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+
+      - name: Guard against scoring an auth wall
+        # Hard guard: never let the gate silently pass by measuring the Vercel
+        # login page. Fails if the representative report's URL is the login
+        # wall, or if core metric audits are missing/undefined.
+        if: always() && steps.lhci.outputs.manifest != ''
+        uses: actions/github-script@v7
+        env:
+          LHCI_MANIFEST: ${{ steps.lhci.outputs.manifest }}
+        with:
+          script: |
+            const manifest = JSON.parse(process.env.LHCI_MANIFEST || '[]');
+            const rep = manifest.find(r => r.isRepresentativeRun) || manifest[0];
+            if (!rep) {
+              core.setFailed('Lighthouse produced no representative run.');
+              return;
+            }
+            const urls = [rep.url, rep.finalUrl, rep.requestedUrl].filter(Boolean);
+            const safe = u => String(u).split('?')[0];
+            if (urls.some(u => /vercel\.com\/login/i.test(u))) {
+              core.setFailed(
+                `Lighthouse was redirected to the Vercel auth wall (${urls.map(safe).join(', ')}). ` +
+                'Preview Deployment Protection appears to be enabled for non-production ' +
+                'deployments — restrict it to Production so the preview is publicly reachable.'
+              );
+              return;
+            }
+            const s = rep.summary || {};
+            const lcp = s['largest-contentful-paint'];
+            const cls = s['cumulative-layout-shift'];
+            if (typeof lcp !== 'number' || typeof cls !== 'number') {
+              core.setFailed(
+                'Lighthouse report is missing core metrics (LCP/CLS undefined) — ' +
+                'likely a degenerate or auth-walled report. Refusing to pass the gate.'
+              );
+              return;
+            }
+            core.info(`Guard OK — measured ${safe(urls[0])} (LCP ${Math.round(lcp)}ms, CLS ${cls.toFixed(3)}).`);
+
+      - name: Comment results on the PR
+        if: always() && steps.lhci.outputs.manifest != ''
+        uses: actions/github-script@v7
+        env:
+          LHCI_MANIFEST: ${{ steps.lhci.outputs.manifest }}
+          LHCI_LINKS: ${{ steps.lhci.outputs.links }}
+        with:
+          script: |
+            const manifest = JSON.parse(process.env.LHCI_MANIFEST || '[]');
+            const links = JSON.parse(process.env.LHCI_LINKS || '{}');
+            const median = manifest.find(r => r.isRepresentativeRun) || manifest[0];
+            if (!median) return;
+
+            const s = median.summary || {};
+            const pct = v => (typeof v === 'number' ? `${Math.round(v * 100)}` : 'n/a');
+            const ms = v => (typeof v === 'number' ? `${Math.round(v)} ms` : 'n/a');
+            const num = v => (typeof v === 'number' ? v : undefined);
+            const perf = num(s.performance);
+            const cls = num(s['cumulative-layout-shift']);
+            const lcp = num(s['largest-contentful-paint']);
+            const check = ok => (ok === undefined ? '⚠️' : ok ? '✅' : '❌');
+            const reportUrl = Object.values(links)[0]
+              || `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const passed = '${{ steps.lhci.outcome }}' === 'success';
+
+            // Find the PR for this deployment's commit SHA.
+            const sha = context.payload.deployment.sha;
+            const { data: prs } = await github.rest.repos.listPullRequestsAssociatedWithCommit({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              commit_sha: sha,
+            });
+            const pr = prs[0];
+            if (!pr) {
+              core.info('No PR associated with this deployment; skipping comment.');
+              return;
+            }
+
+            const body = [
+              `### ${passed ? '✅' : '❌'} Lighthouse performance gate (mobile)`,
+              '',
+              '| Metric | Median | Budget | |',
+              '|---|---|---|---|',
+              `| Performance | ${pct(perf)} | ≥ 90 | ${check(perf === undefined ? undefined : perf >= 0.9)} |`,
+              `| CLS | ${cls === undefined ? 'n/a' : cls.toFixed(3)} | < 0.1 | ${check(cls === undefined ? undefined : cls < 0.1)} |`,
+              `| LCP | ${ms(lcp)} | < 2500 ms | ${check(lcp === undefined ? undefined : lcp < 2500)} |`,
+              '',
+              `Median of 3 runs against the preview homepage. [Full report](${reportUrl})`,
+            ].join('\n');
+
+            const marker = '<!-- velocita-lighthouse -->';
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner, repo: context.repo.repo, issue_number: pr.number,
+            });
+            const existing = comments.find(c => c.body && c.body.includes(marker));
+            const fullBody = `${marker}\n${body}`;
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner, repo: context.repo.repo,
+                comment_id: existing.id, body: fullBody,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner, repo: context.repo.repo,
+                issue_number: pr.number, body: fullBody,
+              });
+            }
