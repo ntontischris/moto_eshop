@@ -74,6 +74,7 @@ export function Header() {
 
             <button
               className="v3-cart-btn"
+              data-cart-target
               onClick={() => setCartOpen(!cartOpen)}
               aria-label={t("headerCartLabel", { count: cartCount })}
               aria-expanded={cartOpen}

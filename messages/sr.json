@@ -200,7 +200,8 @@
     "relatedHeading": "Slične kacige",
     "priceLabel": "Cena: {price}",
     "originalPriceLabel": "Originalna cena: {price}",
-    "discountLabel": "Popust {pct}%"
+    "discountLabel": "Popust {pct}%",
+    "addError": "Нешто је пошло наопако. Покушајте поново."
   },
   "plp": {
     "homeLabel": "Početna",

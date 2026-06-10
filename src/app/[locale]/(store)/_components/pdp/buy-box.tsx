@@ -1,11 +1,13 @@
 "use client";
 
 import { Link } from "@/i18n/navigation";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
+import { Check } from "lucide-react";
 import { useTranslations } from "next-intl";
 import type { Product } from "@/lib/queries/products";
 import { getAvailabilityState } from "../../_lib/availability";
 import { getCartRecommendations } from "../../_lib/cart-recommendations";
+import { useAddToCartFlight } from "../../_lib/use-add-to-cart-flight";
 import { useV3 } from "../shell/v3-provider";
 import { PriceDisplay } from "../commerce/price-display";
 import { Badge } from "../commerce/badge";
@@ -31,7 +33,9 @@ function deriveSizes(specs: Record<string, string>): {
 
 export function BuyBox({ product }: { product: Product }) {
   const t = useTranslations("pdp");
-  const { addToCart, setCartOpen } = useV3();
+  const { addToCart } = useV3();
+  const { state: morph, trigger } = useAddToCartFlight();
+  const ctaRef = useRef<HTMLButtonElement>(null);
   const { sizes, fromSpecs } = useMemo(
     () => deriveSizes(product.specs ?? {}),
     [product.specs],
@@ -55,18 +59,23 @@ export function BuyBox({ product }: { product: Product }) {
     badges.push({ label: product.rider_type, tone: "neutral" });
 
   const onAdd = () => {
-    if (!availability.isOrderable) return;
-    addToCart({
-      slug: product.slug,
-      name: product.name,
-      brand: product.brand,
-      categorySlug: product.category_slug,
-      price: product.price,
-      size,
-      image,
-      qty: 1,
-    });
-    setCartOpen(true);
+    const button = ctaRef.current;
+    if (!availability.isOrderable || !button) return;
+    // The morph + fly-to-cart wraps the EXISTING presentation-only add (ADR
+    // 0001) — `addToCart` is the unchanged cart commit; the flight only
+    // animates around its success.
+    void trigger({ button, image }, () =>
+      addToCart({
+        slug: product.slug,
+        name: product.name,
+        brand: product.brand,
+        categorySlug: product.category_slug,
+        price: product.price,
+        size,
+        image,
+        qty: 1,
+      }),
+    );
   };
 
   return (
@@ -122,12 +131,23 @@ export function BuyBox({ product }: { product: Product }) {
       </div>
 
       <button
+        ref={ctaRef}
         type="button"
-        className="v3-btn-primary v3-bb-cta"
-        disabled={!availability.isOrderable}
+        className={`v3-btn-primary v3-bb-cta v3-atc v3-atc--${morph}`}
+        disabled={!availability.isOrderable || morph === "pending"}
+        aria-busy={morph === "pending"}
         onClick={onAdd}
       >
-        {availability.ctaLabel}
+        <span className="v3-atc__label">{availability.ctaLabel}</span>
+        <span className="v3-atc__spinner" aria-hidden="true" />
+        <span className="v3-atc__check" aria-hidden="true">
+          <Check size={18} strokeWidth={3} />
+        </span>
+        {morph === "error" && (
+          <span className="v3-atc__error" role="alert">
+            {t("addError")}
+          </span>
+        )}
       </button>
 
       <section className="v3-bb-complete" aria-label={t("relatedProducts")}>

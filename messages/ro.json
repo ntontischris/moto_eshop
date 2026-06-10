@@ -200,7 +200,8 @@
     "relatedHeading": "Căști similare",
     "priceLabel": "Preț: {price}",
     "originalPriceLabel": "Preț original: {price}",
-    "discountLabel": "Reducere {pct}%"
+    "discountLabel": "Reducere {pct}%",
+    "addError": "Ceva nu a mers bine. Încearcă din nou."
   },
   "plp": {
     "homeLabel": "Acasă",
