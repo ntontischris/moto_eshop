@@ -168,7 +168,8 @@
     "shortcutConsumablesBrief": "Λάδια / chain care / χημικά",
     "homeTitleFirst": "Πρώτες επιλογές αναβάτη",
     "homeMetaTitle": "MotoMarket | Premium εξοπλισμός μοτοσυκλέτας",
-    "homeMetaDesc": "Κράνη, μπουφάν, γάντια, μπότες, αξεσουάρ και ανταλλακτικά μοτοσυκλέτας από επίσημα brands."
+    "homeMetaDesc": "Κράνη, μπουφάν, γάντια, μπότες, αξεσουάρ και ανταλλακτικά μοτοσυκλέτας από επίσημα brands.",
+    "preloaderUnit": "km/h — motomarket race control"
   },
   "pdp": {
     "skuLabel": "Κωδικός: {sku}",

@@ -168,7 +168,8 @@
     "shortcutConsumablesBrief": "Uleiuri / lanț / chimicale",
     "homeTitleFirst": "Alegerile de top ale piloților",
     "homeMetaTitle": "MotoMarket | Echipament premium pentru motociclete",
-    "homeMetaDesc": "Căști, geci, mănuși, cizme, accesorii și piese moto de la mărci oficiale."
+    "homeMetaDesc": "Căști, geci, mănuși, cizme, accesorii și piese moto de la mărci oficiale.",
+    "preloaderUnit": "km/h — motomarket race control"
   },
   "pdp": {
     "skuLabel": "Cod: {sku}",

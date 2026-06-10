@@ -168,7 +168,8 @@
     "shortcutConsumablesBrief": "Масла / верига / химия",
     "homeTitleFirst": "Топ избори за мотористи",
     "homeMetaTitle": "MotoMarket | Премиум мото екипировка",
-    "homeMetaDesc": "Каски, якета, ръкавици, ботуши, аксесоари и мото части от официални марки."
+    "homeMetaDesc": "Каски, якета, ръкавици, ботуши, аксесоари и мото части от официални марки.",
+    "preloaderUnit": "km/h — motomarket race control"
   },
   "pdp": {
     "skuLabel": "Код: {sku}",
