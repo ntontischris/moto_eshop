@@ -15,8 +15,9 @@ import {
    A pure overlay: the homepage (incl. the LCP hero poster) paints BEHIND it, so
    the overlay never sits on the LCP render path. On the first visit of a browser
    session it sweeps 000→299 km/h with a red bar (~1.0s), fades, then splits two
-   gates apart to reveal the hero — total <= 1.2s. On every revisit, and entirely
-   under prefers-reduced-motion, it renders nothing.
+   gates apart to reveal the hero — total <= 1.2s. On every revisit, entirely
+   under prefers-reduced-motion, and on coarse-pointer / touch phones (it would
+   otherwise sit on the mobile LCP path), it renders nothing.
 
    GSAP is loaded lazily (already a dependency) so it stays off the initial
    bundle; if it fails to load the overlay just removes itself. */
@@ -37,8 +38,15 @@ export function SpeedometerPreloader() {
     const reduced = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
+    const finePointer = window.matchMedia("(pointer: fine)").matches;
     const seen = hasSeenPreloader(window.sessionStorage);
-    if (!shouldRunPreloader(seen, reduced)) {
+    if (
+      !shouldRunPreloader({
+        alreadySeen: seen,
+        isFinePointer: finePointer,
+        prefersReducedMotion: reduced,
+      })
+    ) {
       setActive(false);
       return;
     }

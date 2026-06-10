@@ -62,20 +62,54 @@ describe("markPreloaderSeen", () => {
 });
 
 describe("shouldRunPreloader", () => {
-  it("runs on a fresh session with motion allowed", () => {
-    expect(shouldRunPreloader(false, false)).toBe(true);
+  it("runs on a fresh session, fine pointer, motion allowed", () => {
+    expect(
+      shouldRunPreloader({
+        alreadySeen: false,
+        isFinePointer: true,
+        prefersReducedMotion: false,
+      }),
+    ).toBe(true);
+  });
+
+  it("is skipped on coarse-pointer / touch (mobile) even on a fresh session", () => {
+    expect(
+      shouldRunPreloader({
+        alreadySeen: false,
+        isFinePointer: false,
+        prefersReducedMotion: false,
+      }),
+    ).toBe(false);
   });
 
   it("is skipped on a revisit within the session", () => {
-    expect(shouldRunPreloader(true, false)).toBe(false);
+    expect(
+      shouldRunPreloader({
+        alreadySeen: true,
+        isFinePointer: true,
+        prefersReducedMotion: false,
+      }),
+    ).toBe(false);
   });
 
   it("is skipped entirely under reduced motion", () => {
-    expect(shouldRunPreloader(false, true)).toBe(false);
+    expect(
+      shouldRunPreloader({
+        alreadySeen: false,
+        isFinePointer: true,
+        prefersReducedMotion: true,
+      }),
+    ).toBe(false);
   });
 
   it("is skipped when already seen and reduced motion", () => {
-    expect(shouldRunPreloader(true, true)).toBe(false);
+    expect(
+      shouldRunPreloader({
+        alreadySeen: true,
+        isFinePointer: true,
+        prefersReducedMotion: true,
+      }),
+    ).toBe(false);
   });
 });
 
