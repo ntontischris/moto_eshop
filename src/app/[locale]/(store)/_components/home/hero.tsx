@@ -64,8 +64,23 @@ export async function Hero() {
           style={{ backgroundImage: lqipBackground(HERO_POSTER) }}
         >
           <source media="(max-width: 720px)" srcSet={HERO_POSTER_MOBILE} />
-          <img src={HERO_POSTER} alt="" fetchPriority="high" decoding="async" />
+          <img
+            src={HERO_POSTER}
+            alt=""
+            fetchPriority="high"
+            decoding="async"
+            data-hero-ripple-source
+          />
         </picture>
+        {/* Progressive-enhancement WebGL ripple layer (S15). Desktop fine-pointer
+            only, lazily mounted after load + idle; if WebGL is unavailable the
+            canvas stays empty/hidden and the poster above remains the LCP paint.
+            Fades in via .is-live once the GL context is drawing. */}
+        <canvas
+          className="v3-hero-ripple"
+          data-hero-ripple-canvas
+          aria-hidden="true"
+        />
         <span className="v3-hero-scrim" />
       </div>
 

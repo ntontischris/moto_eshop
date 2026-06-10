@@ -12,6 +12,7 @@ import { MobileNav } from "./_components/shell/mobile-nav";
 import { Footer } from "./_components/shell/footer";
 import { ScrollProgress } from "./_components/fx/scroll-progress";
 import { MotionProvider } from "./_components/fx/motion-provider";
+import { HeroRippleProvider } from "./_components/fx/hero-ripple-provider";
 import { ChatMount } from "./_components/chat/chat-mount";
 
 // display: "optional" — the giant skewed headlines must NOT reflow when the
@@ -50,6 +51,7 @@ export default async function V3Layout({
           <CommandPaletteProvider>
             <ScrollProgress />
             <MotionProvider />
+            <HeroRippleProvider />
             <Suspense fallback={null}>
               <UtilityBar />
               <Header />
