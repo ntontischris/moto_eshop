@@ -33,22 +33,16 @@ jobs:
       - name: Run Lighthouse CI
         id: lhci
         uses: treosh/lighthouse-ci-action@v12
-        env:
-          # Read by the puppeteer pre-audit script (never echoed/logged).
-          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
         with:
-          # The preview is SSO-protected. The action ignores settings.extraHeaders
-          # and double-encodes query strings, so the bypass is applied via a
-          # puppeteer pre-audit script that primes the _vercel_jwt cookie before
-          # Lighthouse navigates the (clean) URL.
+          # Preview Deployment Protection is disabled for non-production
+          # deployments, so Lighthouse reaches the preview homepage directly.
+          # The auth-wall guard below fails loudly if protection is ever
+          # re-enabled (so the gate can't silently score a login page).
           urls: ${{ steps.url.outputs.base }}
-          puppeteerScript: ./.github/lighthouse-puppeteer.cjs
           configPath: ./lighthouserc.cjs
           # numberOfRuns + median assertions in config = flake guard.
-          # Reports stay PRIVATE: the LHR carries the bypass header, so we keep
-          # it as a repo-private artifact and never push to public storage.
           uploadArtifacts: true
-          temporaryPublicStorage: false
+          temporaryPublicStorage: true
 
       - name: Guard against scoring an auth wall
         # Hard guard: never let the gate silently pass by measuring the Vercel
@@ -111,9 +105,8 @@ jobs:
             const cls = num(s['cumulative-layout-shift']);
             const lcp = num(s['largest-contentful-paint']);
             const check = ok => (ok === undefined ? '⚠️' : ok ? '✅' : '❌');
-            // Reports are private artifacts (the LHR carries the bypass header),
-            // so link to the workflow run rather than a public report URL.
-            const reportUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const reportUrl = Object.values(links)[0]
+              || `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
             const passed = '${{ steps.lhci.outcome }}' === 'success';
 
             // Find the PR for this deployment's commit SHA.
@@ -138,7 +131,7 @@ jobs:
               `| CLS | ${cls === undefined ? 'n/a' : cls.toFixed(3)} | < 0.1 | ${check(cls === undefined ? undefined : cls < 0.1)} |`,
               `| LCP | ${ms(lcp)} | < 2500 ms | ${check(lcp === undefined ? undefined : lcp < 2500)} |`,
               '',
-              `Median of 3 runs against the preview homepage. [Workflow run & report artifact](${reportUrl})`,
+              `Median of 3 runs against the preview homepage. [Full report](${reportUrl})`,
             ].join('\n');
 
             const marker = '<!-- velocita-lighthouse -->';

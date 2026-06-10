@@ -1,11 +1,8 @@
 // Lighthouse CI config (Velocità performance gate, issue #39).
 //
-// The Vercel preview has Deployment Protection (SSO) enabled. Lighthouse's
-// `settings.extraHeaders` is NOT applied to the navigation by
-// treosh/lighthouse-ci-action, so the bypass is instead carried as a query
-// param on the audited URL (built in the workflow from the
-// VERCEL_AUTOMATION_BYPASS_SECRET). Because that secret ends up in the report's
-// requestedUrl, reports stay PRIVATE (filesystem artifact, no public storage).
+// Mobile emulation, median of 3 runs (flake guard), against the Vercel preview
+// homepage. Deployment Protection is disabled for non-production deployments,
+// so Lighthouse reaches the preview directly (no auth bypass needed).
 module.exports = {
   ci: {
     collect: {
@@ -30,12 +27,8 @@ module.exports = {
         'largest-contentful-paint': ['error', { maxNumericValue: 2500, aggregationMethod: 'median-run' }],
       },
     },
-    // The LHR's configSettings include the bypass header, so it must NOT go to
-    // public storage. Keep reports as private GitHub Actions artifacts only
-    // (workflow: uploadArtifacts: true, temporaryPublicStorage: false).
     upload: {
-      target: 'filesystem',
-      outputDir: '.lighthouseci',
+      target: 'temporary-public-storage',
     },
   },
 };
