@@ -1,6 +1,13 @@
 import { describe, it, expect } from "vitest";
 import sharp from "sharp";
-import { MAX_EDGE, WEBP_QUALITY, storagePathFor, encodeWebp } from "./mirror";
+import {
+  MAX_EDGE,
+  WEBP_QUALITY,
+  storagePathFor,
+  encodeWebp,
+  sourceUrls,
+  mapWithConcurrency,
+} from "./mirror";
 
 describe("storagePathFor", () => {
   const url = "https://www.motomarket-shop.gr/img/abc-123.jpg";
@@ -71,5 +78,68 @@ describe("encodeWebp", () => {
   it("exposes the cap and quality as named constants", () => {
     expect(MAX_EDGE).toBe(1600);
     expect(WEBP_QUALITY).toBe(75);
+  });
+});
+
+describe("sourceUrls", () => {
+  it("extracts http(s) urls from a string[] in order", () => {
+    expect(sourceUrls(["https://a.com/1.jpg", "http://a.com/2.jpg"])).toEqual([
+      "https://a.com/1.jpg",
+      "http://a.com/2.jpg",
+    ]);
+  });
+
+  it("extracts urls from object-form images", () => {
+    expect(
+      sourceUrls([
+        { url: "https://a.com/1.jpg", alt: "", position: 0 },
+        { url: "https://a.com/2.jpg", alt: "", position: 1 },
+      ]),
+    ).toEqual(["https://a.com/1.jpg", "https://a.com/2.jpg"]);
+  });
+
+  it("drops non-http entries, blanks, and already-mirrored relative/proxy urls", () => {
+    expect(
+      sourceUrls([
+        "https://a.com/ok.jpg",
+        "/api/image-proxy?url=x",
+        "",
+        123,
+        {},
+        null,
+      ]),
+    ).toEqual(["https://a.com/ok.jpg"]);
+  });
+
+  it("returns [] for non-array input", () => {
+    expect(sourceUrls(null)).toEqual([]);
+    expect(sourceUrls(undefined)).toEqual([]);
+    expect(sourceUrls("nope")).toEqual([]);
+  });
+});
+
+describe("mapWithConcurrency", () => {
+  it("maps every item and preserves order", async () => {
+    const out = await mapWithConcurrency([1, 2, 3, 4], 2, async (n) => n * 10);
+    expect(out).toEqual([10, 20, 30, 40]);
+  });
+
+  it("never runs more than `limit` tasks at once", async () => {
+    let active = 0;
+    let peak = 0;
+    const work = Array.from({ length: 8 }, (_, i) => i);
+    await mapWithConcurrency(work, 3, async (n) => {
+      active++;
+      peak = Math.max(peak, active);
+      await new Promise((r) => setTimeout(r, 5));
+      active--;
+      return n;
+    });
+    expect(peak).toBeLessThanOrEqual(3);
+    expect(peak).toBeGreaterThan(1);
+  });
+
+  it("handles an empty list", async () => {
+    expect(await mapWithConcurrency([], 4, async (n) => n)).toEqual([]);
   });
 });
