@@ -40,3 +40,44 @@ export async function encodeWebp(input: Buffer): Promise<Buffer> {
     .webp({ quality: WEBP_QUALITY })
     .toBuffer();
 }
+
+/**
+ * Raw downloadable source URLs from a product's stored `images` (string[] or
+ * object form), in position order. Already-mirrored relative/proxy URLs and
+ * non-http junk are dropped — the mirror only fetches absolute legacy origins.
+ */
+export function sourceUrls(rawImages: unknown): string[] {
+  const arr = Array.isArray(rawImages) ? rawImages : [];
+  return arr
+    .map((img) =>
+      typeof img === "string" ? img : ((img as { url?: unknown })?.url ?? ""),
+    )
+    .filter(
+      (u): u is string => typeof u === "string" && /^https?:\/\//.test(u),
+    );
+}
+
+/**
+ * Run `fn` over `items` with at most `limit` in flight at once, preserving
+ * input order in the result. Keeps the evacuation from opening thousands of
+ * sockets against the legacy origin at once (no p-limit dependency needed).
+ */
+export async function mapWithConcurrency<T, R>(
+  items: readonly T[],
+  limit: number,
+  fn: (item: T, index: number) => Promise<R>,
+): Promise<R[]> {
+  const results = new Array<R>(items.length);
+  let next = 0;
+  const workers = Array.from(
+    { length: Math.max(1, Math.min(limit, items.length)) },
+    async () => {
+      while (next < items.length) {
+        const i = next++;
+        results[i] = await fn(items[i], i);
+      }
+    },
+  );
+  await Promise.all(workers);
+  return results;
+}
