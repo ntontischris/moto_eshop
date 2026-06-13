@@ -37,8 +37,17 @@ const LEGACY_UA =
 
 const dryRun = process.argv.includes("--dry-run");
 const limitIdx = process.argv.indexOf("--limit");
-const limit =
-  limitIdx >= 0 ? Number.parseInt(process.argv[limitIdx + 1] ?? "", 10) : null;
+let limit: number | null = null;
+if (limitIdx >= 0) {
+  limit = Number.parseInt(process.argv[limitIdx + 1] ?? "", 10);
+  // Reject a typo'd --limit rather than silently mirroring the whole catalog.
+  if (!Number.isInteger(limit) || limit <= 0) {
+    console.error(
+      `--limit needs a positive integer (got "${process.argv[limitIdx + 1]}")`,
+    );
+    process.exit(1);
+  }
+}
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -96,6 +105,8 @@ async function mirrorOne(sourceUrl: string): Promise<string> {
     .from(BUCKET)
     .upload(path, webp, { contentType: "image/webp", upsert: false });
   // An already-existing object is a clean idempotent skip, not a failure.
+  // (Coupled to supabase-js's "resource already exists" 409 message, which it
+  // doesn't expose as a typed status on .upload().)
   if (error && !/exists/i.test(error.message)) {
     throw new Error(`upload ${sourceUrl}: ${error.message}`);
   }
