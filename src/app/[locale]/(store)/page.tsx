@@ -13,7 +13,6 @@ import { SocialProof } from "./_components/home/social-proof";
 import { MyBikeEntry } from "./_components/home/my-bike-entry";
 import { BrandCarousel } from "./_components/home/brand-carousel";
 import { NewsletterBand } from "./_components/home/newsletter-band";
-import { EditorialBand } from "./_components/home/editorial-band";
 import { TrustBlock } from "./_components/shell/trust-block";
 import { Reveal } from "./_components/fx/reveal";
 import { SpeedometerPreloader } from "./_components/fx/speedometer-preloader";
@@ -38,6 +37,14 @@ const RaceControlPanel = dynamic(() =>
 // server-side; the `cards` prop passes through the dynamic wrapper.
 const GearTunnel = dynamic(() =>
   import("./_components/home/gear-tunnel").then((m) => m.GearTunnel),
+);
+
+// Below-the-fold home section: the editorial chapter sits ~6th, well under
+// the ~92vh hero, so it is deferred to code-split its colocated v3-ed CSS off
+// the home critical path (S5d, issue #89). SSR stays on so the section still
+// renders server-side.
+const EditorialBand = dynamic(() =>
+  import("./_components/home/editorial-band").then((m) => m.EditorialBand),
 );
 
 export async function generateMetadata({
