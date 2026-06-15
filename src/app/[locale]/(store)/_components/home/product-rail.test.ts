@@ -13,8 +13,8 @@ const cardSource = readFileSync(
   new URL("./product-rail-card.tsx", import.meta.url),
   "utf8",
 );
-const componentsCss = readFileSync(
-  new URL("../../_styles/components.css", import.meta.url),
+const railCss = readFileSync(
+  new URL("./product-rail.css", import.meta.url),
   "utf8",
 );
 
@@ -39,15 +39,15 @@ describe("product rail", () => {
   });
 
   it("fills the image plate edge to edge instead of letterboxing it", () => {
-    expect(componentsCss).toContain(
+    expect(railCss).toContain(
       "/* === nour inspired product gallery === */",
     );
-    expect(componentsCss).toContain(".v3-rail--nour-gallery .v3-gallery-grid");
-    expect(componentsCss).toContain(".v3-gallery-plate");
-    expect(componentsCss).toContain("aspect-ratio: 3 / 4");
-    expect(componentsCss).toContain(".v3-gallery-plate img");
-    expect(componentsCss).toContain("object-fit: cover !important");
-    expect(componentsCss).toContain("padding: 0 !important;");
+    expect(railCss).toContain(".v3-rail--nour-gallery .v3-gallery-grid");
+    expect(railCss).toContain(".v3-gallery-plate");
+    expect(railCss).toContain("aspect-ratio: 3 / 4");
+    expect(railCss).toContain(".v3-gallery-plate img");
+    expect(railCss).toContain("object-fit: cover !important");
+    expect(railCss).toContain("padding: 0 !important;");
   });
 
   it("swaps to the second image on hover/focus, with a zoom fallback and 3D tilt", () => {
@@ -61,10 +61,10 @@ describe("product rail", () => {
     expect(cardSource).not.toContain("IntersectionObserver");
     // tilt + hover/focus parity now live in the shared hook
     expect(cardSource).toContain("useCardInteractions");
-    expect(componentsCss).toContain(".v3-gallery-shot--swap");
-    expect(componentsCss).toContain(".v3-gallery-card.is-zoom.is-hot");
-    expect(componentsCss).toContain("border-radius: 20px");
-    expect(componentsCss).toContain(".v3-gallery-card::after");
+    expect(railCss).toContain(".v3-gallery-shot--swap");
+    expect(railCss).toContain(".v3-gallery-card.is-zoom.is-hot");
+    expect(railCss).toContain("border-radius: 20px");
+    expect(railCss).toContain(".v3-gallery-card::after");
   });
 
   it("scrolls freely only while the mouse button is held", () => {
@@ -79,7 +79,7 @@ describe("product rail", () => {
     // native image drag must not hijack the drag-scroll
     expect(scrollerSource).toContain("onDragStart");
     expect(scrollerSource).toContain("is-dragging");
-    expect(componentsCss).toContain("overflow-x: auto");
-    expect(componentsCss).toContain(".v3-gallery-grid.is-dragging");
+    expect(railCss).toContain("overflow-x: auto");
+    expect(railCss).toContain(".v3-gallery-grid.is-dragging");
   });
 });

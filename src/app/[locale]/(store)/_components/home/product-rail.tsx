@@ -2,6 +2,7 @@ import { Link } from "@/i18n/navigation";
 import { getTranslations } from "next-intl/server";
 import type { ProductListItem } from "@/lib/queries/products";
 import { ProductRailScroller } from "./product-rail-scroller";
+import "./product-rail.css";
 
 export interface ProductRailProps {
   title: string;
