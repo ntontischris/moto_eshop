@@ -8,7 +8,6 @@ import {
   CategoryShortcutGrid,
   type ShortcutItem,
 } from "./_components/home/category-shortcut-grid";
-import { GearTunnel } from "./_components/home/gear-tunnel";
 import { OffersSection } from "./_components/home/offers-section";
 import { SocialProof } from "./_components/home/social-proof";
 import { MyBikeEntry } from "./_components/home/my-bike-entry";
@@ -31,6 +30,14 @@ const ProductRail = dynamic(() =>
 // issue #87). SSR stays on so the section still renders server-side.
 const RaceControlPanel = dynamic(() =>
   import("./_components/home/race-control-panel").then((m) => m.RaceControlPanel),
+);
+
+// Below-the-fold home section: the gear tunnel sits 4th, well under the ~92vh
+// hero, so it is deferred to code-split its colocated v3-tunnel CSS off the home
+// critical path (S5c, issue #88). SSR stays on so the section still renders
+// server-side; the `cards` prop passes through the dynamic wrapper.
+const GearTunnel = dynamic(() =>
+  import("./_components/home/gear-tunnel").then((m) => m.GearTunnel),
 );
 
 export async function generateMetadata({

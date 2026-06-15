@@ -1,6 +1,7 @@
 import { Link } from "@/i18n/navigation";
 import { getTranslations } from "next-intl/server";
 import { LqipImage } from "../fx/lqip-image";
+import "./gear-tunnel.css";
 
 /* Gear Tunnel (Velocità S9) — a cinematic horizontal category showcase.
 
