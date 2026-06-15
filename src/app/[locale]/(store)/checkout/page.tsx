@@ -1,5 +1,6 @@
 "use client";
 
+import "./checkout.css";
 import { useState } from "react";
 import { Link } from "@/i18n/navigation";
 import { useRouter } from "@/i18n/navigation";

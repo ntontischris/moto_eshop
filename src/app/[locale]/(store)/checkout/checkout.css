@@ -1,0 +1,293 @@
+/*
+ * checkout.css — route-scoped checkout styles (S1 / issue #82).
+ * Carved out of _styles/components.css so the checkout-only `.v3-co-*` rules
+ * stop loading render-blocking on the home route and everywhere else.
+ * Imported only by the checkout segment (./page.tsx).
+ *
+ * Shared cart-page (`.v3-cart-*`) selectors that used to group with these rules
+ * stay in components.css until S4 (#85); their declarations are duplicated here
+ * for the `.v3-co-*` half so both pages render pixel-identical.
+ * CSS vars (--v3-gutter, --v3-green, …) remain global in tokens.css.
+ */
+
+.v3-co--apple,
+.v3-co-empty {
+  max-width: 1220px;
+  margin: 0 auto;
+  padding: 34px var(--v3-gutter) 96px;
+}
+
+.v3-co-bc {
+  display: flex;
+  gap: 8px;
+  color: var(--v3-bone-dim);
+  font-size: .82rem;
+  margin-bottom: 18px;
+}
+
+.v3-co-bc a {
+  color: var(--v3-bone-dim);
+  text-decoration: none;
+}
+
+.v3-co-title {
+  margin-bottom: 28px;
+}
+
+.v3-co-title p,
+.v3-co-title h1 {
+  margin: 0;
+}
+
+.v3-co-title h1 {
+  margin-top: 8px;
+  color: var(--v3-bone);
+  font-size: clamp(2.3rem, 5vw, 4.2rem);
+}
+
+.v3-co-block,
+.v3-co-sum {
+  border: 1px solid var(--v3-line);
+  border-radius: 8px;
+  background: var(--v3-surface);
+  box-shadow: var(--v3-shadow-soft);
+}
+
+.v3-co-sum,
+.v3-co-block {
+  padding: 22px;
+}
+
+.v3-co-sum h2 {
+  margin: 0 0 16px;
+  color: var(--v3-bone);
+  font-size: 1.2rem;
+}
+
+.v3-co-line {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 8px 0;
+  color: var(--v3-bone-dim);
+  font-size: .9rem;
+}
+
+.v3-co-total {
+  margin-top: 8px;
+  padding-top: 14px;
+  border-top: 1px solid var(--v3-line);
+  color: var(--v3-bone);
+  font-size: 1.12rem;
+  font-weight: 900;
+}
+
+.v3-co-place {
+  width: 100%;
+  justify-content: center;
+  margin: 18px 0 12px;
+  text-decoration: none;
+}
+
+.v3-co-back {
+  display: block;
+  color: var(--v3-bone-dim);
+  text-align: center;
+  text-decoration: none;
+  font-size: .85rem;
+}
+
+.v3-co-empty {
+  display: grid;
+  justify-items: start;
+  gap: 16px;
+  color: var(--v3-bone-dim);
+}
+
+.v3-co-empty .v3-btn-primary {
+  text-decoration: none;
+}
+
+.v3-co-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 380px;
+  gap: 34px;
+  align-items: start;
+}
+
+.v3-co-form {
+  display: grid;
+  gap: 18px;
+}
+
+.v3-co-block-head {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin-bottom: 18px;
+}
+
+.v3-co-block-head > span {
+  width: 30px;
+  height: 30px;
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--v3-red);
+  color: #fff;
+  font-weight: 900;
+}
+
+.v3-co-block-head h2,
+.v3-co-block-head p {
+  margin: 0;
+}
+
+.v3-co-block-head h2 {
+  color: var(--v3-bone);
+  font-size: 1.2rem;
+}
+
+.v3-co-block-head p {
+  margin-top: 4px;
+  color: var(--v3-bone-dim);
+  font-size: .88rem;
+}
+
+.v3-co-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.v3-co-field {
+  display: grid;
+  gap: 6px;
+}
+
+.v3-co-full {
+  grid-column: 1 / -1;
+}
+
+.v3-co-field span {
+  color: var(--v3-bone-dim);
+  font-size: .8rem;
+  font-weight: 750;
+}
+
+.v3-co-field input,
+.v3-co-field textarea {
+  width: 100%;
+  min-height: 46px;
+  border: 1px solid var(--v3-line);
+  border-radius: 8px;
+  background: rgba(255,255,255,.035);
+  color: var(--v3-bone);
+  padding: 11px 12px;
+  font: inherit;
+}
+
+.v3-co-field input:focus,
+.v3-co-field textarea:focus {
+  outline: 2px solid var(--v3-cyan);
+  outline-offset: 1px;
+}
+
+.v3-co-pay {
+  display: grid;
+  gap: 10px;
+}
+
+.v3-co-pay-opt {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid var(--v3-line);
+  border-radius: 8px;
+  color: var(--v3-bone);
+}
+
+.v3-co-pay-opt.is-on {
+  border-color: rgba(228,17,31,.62);
+  background: rgba(228,17,31,.08);
+}
+
+.v3-co-pay-opt.is-off {
+  opacity: .55;
+}
+
+.v3-co-lines {
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--v3-line);
+}
+
+.v3-co-total-box {
+  padding-top: 10px;
+}
+
+.v3-co-place:disabled {
+  opacity: .6;
+  cursor: progress;
+}
+
+.v3-co-confidence {
+  display: grid;
+  gap: 8px;
+  margin-top: 18px;
+  color: var(--v3-bone-dim);
+  font-size: .82rem;
+}
+
+.v3-co-confidence span::before {
+  content: "✓";
+  margin-right: 7px;
+  color: var(--v3-green);
+}
+
+.v3-co-err {
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: rgba(228,17,31,.14);
+  color: var(--v3-red-bright);
+  border: 1px solid rgba(228,17,31,.3);
+}
+
+html[data-v3-mode="light"] .v3-co-block,
+html[data-v3-mode="light"] .v3-co-sum {
+  background: #fff;
+  border-color: rgba(22,24,28,.12);
+  color: #16181c;
+}
+
+html[data-v3-mode="light"] .v3-co-field input,
+html[data-v3-mode="light"] .v3-co-field textarea {
+  background: rgba(22,24,28,.025);
+  border-color: rgba(22,24,28,.12);
+  color: #16181c;
+}
+
+html[data-v3-mode="light"] .v3-co-title h1,
+html[data-v3-mode="light"] .v3-co-block-head h2,
+html[data-v3-mode="light"] .v3-co-sum h2,
+html[data-v3-mode="light"] .v3-co-total {
+  color: #16181c;
+}
+
+@media (max-width: 980px) {
+  .v3-co-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .v3-co-sum {
+    position: static;
+  }
+}
+
+@media (max-width: 620px) {
+  .v3-co-fields {
+    grid-template-columns: 1fr;
+  }
+}
