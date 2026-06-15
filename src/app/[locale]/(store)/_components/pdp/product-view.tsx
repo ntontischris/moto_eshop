@@ -1,3 +1,4 @@
+import "./pdp.css";
 import { notFound } from "next/navigation";
 import type { Locale } from "@/i18n/config";
 import { getProduct, getRelatedProducts } from "@/lib/queries/products";
