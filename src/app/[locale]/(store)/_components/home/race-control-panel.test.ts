@@ -43,6 +43,15 @@ describe("race control panel", () => {
     expect(panelSource).toContain('aria-live="polite"');
   });
 
+  it("serves ride-tab thumbnails sized to their display box (optimized + sizes)", () => {
+    const thumbBlock = panelSource.slice(
+      panelSource.indexOf("src={thumb}"),
+      panelSource.indexOf("src={thumb}") + 200,
+    );
+    expect(thumbBlock).toContain('sizes="88px"');
+    expect(thumbBlock).not.toContain("unoptimized");
+  });
+
   it("gives the ride header the same dark red treatment as the panel", () => {
     expect(componentsCss).toContain(".v3-ride-head::before");
     expect(componentsCss).toContain("rgba(228,17,31,.18)");
