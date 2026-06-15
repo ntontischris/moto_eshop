@@ -1,0 +1,348 @@
+/*
+ * pdp.css — route-scoped product-detail styles (S2 / issue #83).
+ * Carved out of _styles/components.css so the PDP-only `.v3-atc / .v3-bb /
+ * .v3-pdp / .v3-size` rules stop loading render-blocking on the home route and
+ * everywhere else. Imported only by the PDP entry (ProductView, rendered by the
+ * `[...path]` catch-all). Order preserves the original cascade.
+ *
+ * Shared light-mode groups that grouped `.v3-bb-*` with the cart-page
+ * `.v3-cart-*` selectors are split: the cart half stays in components.css
+ * (moves in S4 / #85), the bb half is duplicated here.
+ * Out of scope (stay in components.css): gallery (`.v3-gal`), PLP (`.v3-plp`),
+ * and the fly-to-cart ghost/badge (`.v3-cart-ghost`, `.v3-cart-badge`).
+ */
+
+/* === size-selector === */
+.v3-size-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.v3-size-chip {
+  min-width: 48px; height: 44px; padding: 0 14px; cursor: pointer;
+  background: var(--v3-surface); color: var(--v3-bone);
+  border: 1px solid var(--v3-line); border-radius: 8px;
+  font-weight: 700; font-size: .9rem;
+  transition: border-color .12s, background .12s;
+}
+.v3-size-chip:hover { border-color: var(--v3-bone-dim); }
+.v3-size-chip.is-on {
+  border-color: var(--v3-red); background: var(--v3-red); color: #fff;
+}
+.v3-size-chip:focus-visible {
+  outline: 2px solid var(--v3-cyan); outline-offset: 2px;
+}
+
+/* === buy-box === */
+.v3-bb { display: flex; flex-direction: column; gap: 16px; }
+.v3-bb-brand {
+  margin: 0; font-family: var(--v3-display);
+  text-transform: uppercase; letter-spacing: .18em;
+  font-size: .82rem; font-weight: 800; color: var(--v3-red);
+}
+.v3-bb h1 {
+  margin: 0; font-family: var(--v3-display);
+  font-size: clamp(1.9rem, 4.2vw, 3rem);
+  font-weight: 900; color: var(--v3-bone); line-height: 1.02;
+  text-transform: uppercase; transform: skewX(-5deg);
+}
+.v3-bb-meta {
+  display: flex; gap: 16px; font-size: .82rem;
+  color: var(--v3-bone-dim);
+}
+.v3-bb-price { font-size: 1.15rem; }
+.v3-bb-badges { display: flex; flex-wrap: wrap; gap: 8px; }
+.v3-bb-size-head {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin-bottom: 10px; font-size: .9rem; color: var(--v3-bone);
+  font-weight: 700;
+}
+.v3-bb-size-head a { font-size: .8rem; color: var(--v3-cyan);
+  text-decoration: none; font-weight: 600; }
+.v3-bb-note { margin: 8px 0 0; font-size: .76rem;
+  color: var(--v3-bone-dim); }
+.v3-bb-cta { width: 100%; font-size: 1rem; }
+.v3-bb-cta:disabled { opacity: .5; cursor: not-allowed; }
+.v3-bb-trust {
+  list-style: none; margin: 4px 0 0; padding: 16px 0 0;
+  border-top: 1px solid var(--v3-line);
+  display: flex; flex-direction: column; gap: 8px;
+  font-size: .82rem; color: var(--v3-bone-dim);
+}
+.v3-bb-trust li::before { content: "✓"; color: var(--v3-green);
+  margin-right: 8px; font-weight: 700; }
+
+/* === pdp-client === */
+.v3-pdp { max-width: 1320px; margin: 0 auto;
+  padding: 28px var(--v3-gutter) 80px; }
+.v3-pdp-bc { display: flex; flex-wrap: wrap; gap: 8px;
+  font-size: .82rem; color: var(--v3-bone-dim); margin-bottom: 22px; }
+.v3-pdp-bc a { color: var(--v3-bone-dim); text-decoration: none; }
+.v3-pdp-bc a:hover { color: var(--v3-bone); }
+.v3-pdp-top { display: grid; grid-template-columns: 1fr 1fr;
+  gap: 48px; align-items: start; }
+.v3-pdp-tabs { margin-top: 64px;
+  border-top: 1px solid var(--v3-line); padding-top: 24px; }
+.v3-pdp-tablist { display: flex; flex-wrap: wrap; gap: 6px;
+  margin-bottom: 22px; }
+.v3-pdp-tablist button {
+  padding: 11px 20px; cursor: pointer; background: none;
+  border: 0; border-bottom: 2px solid transparent;
+  color: var(--v3-bone-dim); font-family: var(--v3-display);
+  font-weight: 800; font-size: .92rem; text-transform: uppercase;
+  letter-spacing: .04em;
+}
+.v3-pdp-tablist button.is-on {
+  color: var(--v3-bone); border-bottom-color: var(--v3-red);
+}
+.v3-pdp-desc { margin: 0; max-width: 760px; line-height: 1.6;
+  color: var(--v3-bone-dim); }
+.v3-pdp-specs { width: 100%; max-width: 720px;
+  border-collapse: collapse; }
+.v3-pdp-specs th, .v3-pdp-specs td {
+  text-align: left; padding: 12px 14px; font-size: .88rem;
+  border-bottom: 1px solid var(--v3-line);
+}
+.v3-pdp-specs th { color: var(--v3-bone-dim); font-weight: 600;
+  width: 40%; }
+.v3-pdp-specs td { color: var(--v3-bone); }
+.v3-pdp-ship { margin: 0; padding-left: 18px;
+  color: var(--v3-bone-dim); line-height: 1.9; }
+.v3-pdp-rel { margin-top: 72px; }
+.v3-pdp-rel h2 { margin: 0 0 26px;
+  font-family: var(--v3-display);
+  font-size: clamp(1.8rem, 4.4vw, 3rem); font-weight: 900;
+  color: var(--v3-bone); text-transform: uppercase;
+  transform: skewX(-6deg); }
+.v3-pdp-rel-grid { display: grid;
+  grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.v3-pdp :focus-visible { outline: 2px solid var(--v3-cyan);
+  outline-offset: 2px; }
+@media (max-width: 900px) {
+  .v3-pdp-top { grid-template-columns: 1fr; gap: 32px; }
+  .v3-pdp-rel-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .v3-pdp-rel-grid { grid-template-columns: 1fr; }
+}
+
+/* === buy-box apple layer (steps + complete-the-look) === */
+.v3-bb--apple {
+  gap: 18px;
+}
+
+.v3-bb--apple h1 {
+  font-size: clamp(1.8rem, 4vw, 3.4rem);
+  line-height: 1.02;
+}
+
+.v3-bb-step {
+  padding: 16px;
+  border: 1px solid rgba(245,243,238,.12);
+  border-radius: 8px;
+  background: rgba(255,255,255,.035);
+}
+
+.v3-bb-step-head {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.v3-bb-step-head > span {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--v3-red);
+  color: #fff;
+  font-weight: 900;
+  font-size: .82rem;
+}
+
+.v3-bb-step-head div {
+  display: grid;
+  gap: 4px;
+}
+
+.v3-bb-step-head strong {
+  color: var(--v3-bone);
+  font-size: .96rem;
+}
+
+.v3-bb-step-head a,
+.v3-bb-step-head em {
+  color: var(--v3-bone-dim);
+  font-size: .8rem;
+  font-style: normal;
+  text-decoration: none;
+}
+
+.v3-bb-step-head a:hover {
+  color: var(--v3-cyan);
+}
+
+.v3-bb-complete {
+  padding: 16px;
+  border: 1px solid rgba(245,243,238,.12);
+  border-radius: 8px;
+  background: rgba(255,255,255,.025);
+}
+
+.v3-bb-complete p {
+  margin: 0 0 12px;
+}
+
+.v3-bb-complete-list {
+  display: grid;
+  gap: 8px;
+}
+
+.v3-bb-complete-list a {
+  display: grid;
+  gap: 3px;
+  padding: 12px;
+  color: var(--v3-bone);
+  text-decoration: none;
+  border: 1px solid rgba(245,243,238,.1);
+  border-radius: 8px;
+  background: rgba(255,255,255,.035);
+}
+
+.v3-bb-complete-list a:hover {
+  border-color: rgba(228,17,31,.5);
+  background: rgba(228,17,31,.1);
+}
+
+.v3-bb-complete-list span {
+  color: var(--v3-red-bright);
+  font-size: .7rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.v3-bb-complete-list strong {
+  font-size: .9rem;
+}
+
+/* light-mode buy-box overrides (split from the shared cart groups) */
+html[data-v3-mode="light"] .v3-bb-step,
+html[data-v3-mode="light"] .v3-bb-complete,
+html[data-v3-mode="light"] .v3-bb-complete-list a {
+  background: #fff;
+  border-color: rgba(22,24,28,.12);
+  color: #16181c;
+}
+
+html[data-v3-mode="light"] .v3-bb-step-head strong,
+html[data-v3-mode="light"] .v3-bb-complete-list strong {
+  color: #16181c;
+}
+
+/* === S49 add-to-cart morph (CTA label → spinner → check) ===
+   The fly-to-cart ghost + badge bump stay global in components.css; only the
+   CTA's own morph lives here with the buy-box it belongs to. */
+.v3-atc {
+  position: relative;
+  /* 44px min touch target regardless of the inherited line-height. */
+  min-height: 48px;
+  overflow: hidden;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+.v3-atc__label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5ch;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.v3-atc__spinner,
+.v3-atc__check {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.v3-atc__spinner {
+  width: 20px;
+  height: 20px;
+  margin: auto;
+  inset: 0;
+  border-radius: 999px;
+  border: 2px solid color-mix(in srgb, currentColor 30%, transparent);
+  border-top-color: currentColor;
+}
+
+/* pending: hide the label, show the spinner. */
+.v3-atc--pending .v3-atc__label {
+  opacity: 0;
+  transform: translateY(-30%);
+}
+.v3-atc--pending .v3-atc__spinner {
+  opacity: 1;
+  animation: v3-atc-spin 0.7s linear infinite;
+}
+
+/* success: morph to a green check that bounces in. */
+.v3-atc--success {
+  background-color: #1f9d55;
+  color: #fff;
+}
+.v3-atc--success .v3-atc__label {
+  opacity: 0;
+  transform: translateY(30%);
+}
+.v3-atc--success .v3-atc__check {
+  opacity: 1;
+  animation: v3-atc-pop 0.4s cubic-bezier(0.22, 1.4, 0.4, 1);
+}
+
+/* error: the button reverts to its base look and surfaces a localized note. */
+.v3-atc__error {
+  position: absolute;
+  inset: auto 0 -1.5rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--v3-red);
+  text-align: center;
+}
+.v3-atc--error {
+  overflow: visible;
+}
+
+@keyframes v3-atc-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes v3-atc-pop {
+  0% {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.12);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v3-atc--pending .v3-atc__spinner,
+  .v3-atc--success .v3-atc__check {
+    animation: none;
+  }
+  .v3-atc__label {
+    transition: none;
+  }
+}
