@@ -42,9 +42,9 @@ describe("checkout css is route-scoped off the home critical path", () => {
     expect(checkoutCss).toContain(".v3-co-fields");
   });
 
-  it("keeps the shared cart-page rules in components.css (cart untouched until S4)", () => {
-    expect(componentsCss).toContain(".v3-cart-sum");
-    expect(componentsCss).toContain(".v3-cart-title");
+  it("keeps the global cart drawer in components.css (cart-page rules moved in S4 #85)", () => {
+    expect(componentsCss).toContain(".v3-cart-panel");
+    expect(componentsCss).toContain(".v3-cart-rec-card");
   });
 
   it("loads checkout.css only from the checkout segment", () => {
