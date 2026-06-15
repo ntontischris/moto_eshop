@@ -7819,126 +7819,19 @@ html[data-v3-mode="light"] .v3-rail--garage-wall .v3-product-card {
     drop-shadow(0 20px 25px rgba(0,0,0,.48));
 }
 
-/* === nour inspired product gallery === */
-.v3-rail--nour-gallery {
-  padding: 54px var(--v3-gutter) 64px;
-  overflow: hidden;
-  background:
-    radial-gradient(circle at 50% 0, rgba(228,17,31,.1), transparent 34%),
-    linear-gradient(180deg, rgba(245,243,238,.018), transparent 42%),
-    #050608;
-  border-top: 1px solid rgba(245,243,238,.08);
-  border-bottom: 1px solid rgba(245,243,238,.08);
-}
+/* === shared product-card hover swap + price odometer ===
+   The nour product-gallery rules moved to
+   _components/home/product-rail.css (S5a, issue #86) so the below-fold home
+   rail's CSS code-splits via next/dynamic off the home critical path. These
+   rules stay global: .v3-product-shot* is the shared commerce card
+   (product-card.tsx — every PLP/PDP/search route); .v3-odometer* is the
+   shared price widget (price-display.tsx). === */
 
-.v3-rail--nour-gallery .v3-rail-inner {
-  max-width: 1480px;
-  margin: 0 auto;
-}
-
-.v3-rail--nour-gallery .v3-rail-head {
-  align-items: end;
-  margin-bottom: 24px;
-}
-
-.v3-rail--nour-gallery .v3-rail-head h2 {
-  max-width: 760px;
-  font-size: clamp(2.25rem, 4.7vw, 4.15rem);
-  line-height: .9;
-}
-
-.v3-rail--nour-gallery .v3-gallery-grid {
-  display: flex;
-  gap: clamp(14px, 1.5vw, 22px);
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-  cursor: grab;
-  padding: 4px 2px 20px;
-}
-
-.v3-rail--nour-gallery .v3-gallery-grid::-webkit-scrollbar {
-  display: none;
-}
-
-.v3-rail--nour-gallery .v3-gallery-grid.is-dragging {
-  cursor: grabbing;
-  user-select: none;
-}
-
-.v3-gallery-card {
-  position: relative;
-  box-sizing: border-box;
-  flex: 0 0 clamp(220px, 22vw, 272px);
-  display: grid;
-  gap: 14px;
-  padding: 11px 11px 14px;
-  border: 1px solid rgba(228, 17, 31, 0.42);
-  border-radius: 20px;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.03),
-    rgba(255, 255, 255, 0.008)
-  );
-  transform: perspective(900px) rotateX(0deg) rotateY(0deg);
-  transition: transform 0.5s ease;
-}
-
-/* red backlight glow that lights up while the card is hovered/tilting */
-.v3-gallery-card::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  box-shadow: 0 0 26px 2px rgba(228, 17, 31, 0.5);
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  pointer-events: none;
-}
-
-.v3-gallery-card:hover::after {
-  opacity: 1;
-}
-
-.v3-gallery-plate {
-  position: relative;
-  display: block;
-  overflow: hidden;
-  aspect-ratio: 3 / 4;
-  background:
-    linear-gradient(180deg, #f9f7f2, #ebe6dc);
-  border: 1px solid rgba(245, 243, 238, 0.08);
-  border-radius: 14px;
-  transform: translateZ(0);
-  isolation: isolate;
-  box-shadow:
-    0 2px 6px rgba(0, 0, 0, 0.35),
-    0 22px 48px rgba(0, 0, 0, 0.5);
-}
-
-.v3-gallery-plate a {
-  position: absolute;
-  inset: 0;
-  display: block;
-}
-
-.v3-gallery-plate img {
-  object-fit: cover !important;
-  padding: 0 !important;
-  border-radius: 14px;
-}
-
-/* === product card hover image swap (S48 — crossfade / zoom fallback) === */
-.v3-gallery-shot,
 .v3-product-shot {
   position: absolute;
   inset: 0;
 }
 
-/* The primary photo is always present; the swap photo crossfades in over it on
-   hover/focus. Cards without a second image (is-zoom) gently scale the primary
-   instead, so single-image products still feel alive. */
-.v3-gallery-shot--primary,
 .v3-product-shot--primary {
   opacity: 1;
   transform: scale(1);
@@ -7947,60 +7840,23 @@ html[data-v3-mode="light"] .v3-rail--garage-wall .v3-product-card {
     transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.v3-gallery-shot--swap,
 .v3-product-shot--swap {
   opacity: 0;
   transition: opacity 0.55s ease;
 }
 
-.v3-gallery-card.is-hot .v3-gallery-shot--swap,
 .v3-product-card.is-hot .v3-product-shot--swap {
   opacity: 1;
 }
 
-.v3-gallery-card.is-zoom.is-hot .v3-gallery-shot--primary,
 .v3-product-card.is-zoom.is-hot .v3-product-shot--primary {
   transform: scale(1.06);
 }
 
-/* cycle position indicator */
-.v3-gallery-dots {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 10px;
-  z-index: 2;
-  display: flex;
-  justify-content: center;
-  gap: 5px;
-  pointer-events: none;
-  opacity: 0.85;
-  transition: opacity 0.3s ease;
-}
-
-.v3-gallery-dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: rgba(245, 243, 238, 0.4);
-  transition:
-    background 0.25s ease,
-    transform 0.25s ease;
-}
-
-.v3-gallery-dot.is-active {
-  background: var(--v3-red);
-  transform: scale(1.25);
-}
-
 @media (prefers-reduced-motion: reduce) {
-  /* No crossfade, no zoom: the swap appears instantly on focus and the single
-     image never scales. Tilt is already disabled in JS for these visitors. */
-  .v3-gallery-shot,
   .v3-product-shot {
     transition: none !important;
   }
-  .v3-gallery-card.is-zoom.is-hot .v3-gallery-shot--primary,
   .v3-product-card.is-zoom.is-hot .v3-product-shot--primary {
     transform: none;
   }
@@ -8024,176 +7880,6 @@ html[data-v3-mode="light"] .v3-rail--garage-wall .v3-product-card {
 
 .v3-odometer-sep {
   white-space: pre;
-}
-
-.v3-gallery-card button {
-  top: 12px !important;
-  right: 12px !important;
-}
-
-.v3-gallery-rank {
-  position: absolute;
-  left: 10px;
-  top: 10px;
-  z-index: 2;
-  display: grid;
-  place-items: center;
-  min-width: 26px;
-  height: 22px;
-  padding: 0 6px;
-  border-radius: 4px;
-  background: rgba(5, 6, 8, 0.72);
-  color: var(--v3-bone);
-  border: 1px solid rgba(245, 243, 238, 0.16);
-  font-family: var(--v3-display);
-  font-size: 0.72rem;
-  font-weight: 900;
-}
-
-.v3-gallery-info {
-  display: grid;
-  gap: 8px;
-}
-
-.v3-gallery-topline {
-  min-height: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.v3-gallery-name {
-  min-height: 2.35em;
-  margin: 0;
-  font-size: 1rem;
-  line-height: 1.14;
-}
-
-.v3-gallery-name a {
-  color: var(--v3-bone);
-  text-decoration: none;
-}
-
-.v3-gallery-name a:hover {
-  color: #fff;
-}
-
-.v3-gallery-footer {
-  display: flex;
-  align-items: end;
-  justify-content: space-between;
-  gap: 12px;
-  padding-top: 8px;
-  border-top: 1px solid rgba(245,243,238,.1);
-}
-
-.v3-gallery-cta {
-  color: rgba(245,243,238,.72);
-  font-family: var(--v3-display);
-  font-size: .78rem;
-  font-weight: 900;
-  text-decoration: none;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-.v3-gallery-cta:hover {
-  color: #fff;
-}
-
-html[data-v3-mode="light"] .v3-rail--nour-gallery {
-  background:
-    radial-gradient(circle at 50% 0, rgba(228,17,31,.08), transparent 34%),
-    #f6f4ef;
-}
-
-html[data-v3-mode="light"] .v3-gallery-name a {
-  color: #16181c;
-}
-
-html[data-v3-mode="light"] .v3-gallery-name a:hover {
-  color: #000;
-}
-
-html[data-v3-mode="light"] .v3-gallery-footer {
-  border-top-color: rgba(22,24,28,.1);
-}
-
-html[data-v3-mode="light"] .v3-gallery-cta {
-  color: rgba(22,24,28,.68);
-}
-
-html[data-v3-mode="light"] .v3-gallery-cta:hover {
-  color: #16181c;
-}
-
-@media (max-width: 1180px) {
-  .v3-rail--nour-gallery .v3-gallery-card {
-    flex-basis: clamp(210px, 34vw, 250px);
-  }
-}
-
-@media (max-width: 680px) {
-  .v3-rail--nour-gallery {
-    padding: 34px 16px 46px;
-  }
-
-  .v3-rail--nour-gallery .v3-rail-head {
-    display: block;
-  }
-
-  .v3-rail--nour-gallery .v3-rail-head h2 {
-    font-size: clamp(2rem, 11vw, 3rem);
-  }
-
-  .v3-rail--nour-gallery .v3-rail-all {
-    display: inline-flex;
-    margin-top: 12px;
-  }
-
-  .v3-rail--nour-gallery .v3-gallery-grid {
-    gap: 14px;
-  }
-
-  .v3-rail--nour-gallery .v3-gallery-card {
-    flex-basis: 66vw;
-  }
-
-  /* shorter image on phones so the whole card fits the screen */
-  .v3-rail--nour-gallery .v3-gallery-plate {
-    aspect-ratio: 4 / 5;
-  }
-
-  .v3-gallery-info {
-    gap: 6px;
-  }
-
-  .v3-gallery-topline {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-  }
-
-  .v3-gallery-name {
-    min-height: 2.2em;
-    font-size: .88rem;
-  }
-
-  .v3-gallery-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .v3-gallery-card {
-    transform: none;
-    transition: none;
-  }
 }
 
 /* === social proof — real Google / Skroutz ratings + scrolling reviews === */

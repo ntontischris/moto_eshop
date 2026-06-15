@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import type { Locale } from "@/i18n/config";
 import { getTranslations } from "next-intl/server";
 import { getProductsByCategory } from "@/lib/queries/products";
@@ -9,7 +10,6 @@ import {
   type ShortcutItem,
 } from "./_components/home/category-shortcut-grid";
 import { GearTunnel } from "./_components/home/gear-tunnel";
-import { ProductRail } from "./_components/home/product-rail";
 import { OffersSection } from "./_components/home/offers-section";
 import { SocialProof } from "./_components/home/social-proof";
 import { MyBikeEntry } from "./_components/home/my-bike-entry";
@@ -19,6 +19,13 @@ import { EditorialBand } from "./_components/home/editorial-band";
 import { TrustBlock } from "./_components/shell/trust-block";
 import { Reveal } from "./_components/fx/reveal";
 import { SpeedometerPreloader } from "./_components/fx/speedometer-preloader";
+
+// Below-the-fold home section: deferred so its colocated nour-gallery CSS
+// code-splits off the home critical path (S5a, issue #86). SSR stays on so the
+// rail still renders server-side and search engines see it.
+const ProductRail = dynamic(() =>
+  import("./_components/home/product-rail").then((m) => m.ProductRail),
+);
 
 export async function generateMetadata({
   params,
