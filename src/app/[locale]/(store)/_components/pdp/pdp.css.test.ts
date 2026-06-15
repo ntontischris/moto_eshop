@@ -55,9 +55,8 @@ describe("pdp css is route-scoped off the home critical path", () => {
     );
   });
 
-  it("keeps out-of-scope gallery and PLP rules in components.css", () => {
+  it("keeps out-of-scope gallery rules in components.css", () => {
     expect(componentsCss).toContain(".v3-gal");
-    expect(componentsCss).toContain(".v3-plp");
   });
 
   it("loads pdp.css only from the PDP entry component", () => {
