@@ -54,6 +54,23 @@ export async function Hero() {
       aria-label="MotoMarket"
       data-hero-entrance
     >
+      {/* React hoists these to <head>: the poster request leaves with the
+          document parse instead of waiting for the body preload scan. media
+          queries keep it to ONE download per viewport (issue #71). */}
+      <link
+        rel="preload"
+        as="image"
+        href={HERO_POSTER_MOBILE}
+        media="(max-width: 720px)"
+        fetchPriority="high"
+      />
+      <link
+        rel="preload"
+        as="image"
+        href={HERO_POSTER}
+        media="(min-width: 720.1px)"
+        fetchPriority="high"
+      />
       <div className="v3-hero-bg" aria-hidden="true">
         {/* LQIP blur-up without JS on the LCP path: the tiny placeholder +
             gradient fallback paint as the picture background from the first

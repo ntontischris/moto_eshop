@@ -11,6 +11,7 @@ import { decideCampaign } from "@/lib/campaigns/decide";
 import { variantBucket } from "@/lib/campaigns/sticky";
 import { BlockRenderer } from "@/lib/campaigns/blocks/block-renderer";
 import { CampaignTracker } from "@/lib/campaigns/campaign-tracker";
+import { fontVars } from "@/app/_chrome";
 
 interface PageProps {
   params: Promise<{ locale: Locale; slug: string }>;
@@ -68,7 +69,7 @@ async function CampaignContent({ params, searchParams }: PageProps) {
   if (decision.kind !== "serve") notFound();
 
   return (
-    <main className="min-h-screen">
+    <main className={`min-h-screen ${fontVars}`}>
       <BlockRenderer blocks={decision.variant.blocks} />
       <CampaignTracker
         campaignId={campaign.id}
@@ -80,5 +81,5 @@ async function CampaignContent({ params, searchParams }: PageProps) {
 }
 
 function CampaignFallback() {
-  return <main className="min-h-screen" aria-hidden="true" />;
+  return <main className={`min-h-screen ${fontVars}`} aria-hidden="true" />;
 }

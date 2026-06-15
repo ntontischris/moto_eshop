@@ -19,7 +19,7 @@ describe("home hero", () => {
       "/hero-variants/motomarket-race-control-hero.webp",
     );
     expect(HERO_POSTER_MOBILE).toBe(
-      "/hero-variants/motomarket-race-control-mobile.webp",
+      "/hero-variants/motomarket-race-control-mobile-720.webp",
     );
   });
 

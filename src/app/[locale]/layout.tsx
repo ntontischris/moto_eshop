@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { hasLocale } from "next-intl";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { routing } from "@/i18n/routing";
-import { fontVars, viewport } from "@/app/_chrome";
+import { viewport } from "@/app/_viewport";
 import { LocaleProvider } from "./locale-provider";
 
 export { viewport };
@@ -60,7 +60,10 @@ export default async function LocaleLayout({
   if (!hasLocale(routing.locales, locale)) notFound();
   setRequestLocale(locale);
   return (
-    <html lang={locale} suppressHydrationWarning className={fontVars}>
+    // Russo One / Chakra Petch are campaign-LP-only fonts — loaded by
+    // lp/[slug]/page.tsx, NOT here: keeping them off <html> removes 5
+    // preloaded font files from every storefront page's LCP critical path.
+    <html lang={locale} suppressHydrationWarning>
       <body className="min-h-screen bg-background font-sans antialiased">
         <LocaleProvider locale={locale}>{children}</LocaleProvider>
       </body>
