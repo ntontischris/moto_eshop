@@ -5,8 +5,8 @@ const panelSource = readFileSync(
   new URL("./race-control-panel.tsx", import.meta.url),
   "utf8",
 );
-const componentsCss = readFileSync(
-  new URL("../../_styles/components.css", import.meta.url),
+const rideCss = readFileSync(
+  new URL("./race-control-panel.css", import.meta.url),
   "utf8",
 );
 
@@ -53,8 +53,8 @@ describe("race control panel", () => {
   });
 
   it("gives the ride header the same dark red treatment as the panel", () => {
-    expect(componentsCss).toContain(".v3-ride-head::before");
-    expect(componentsCss).toContain("rgba(228,17,31,.18)");
-    expect(componentsCss).toContain("@keyframes v3-ride-tab-progress");
+    expect(rideCss).toContain(".v3-ride-head::before");
+    expect(rideCss).toContain("rgba(228,17,31,.18)");
+    expect(rideCss).toContain("@keyframes v3-ride-tab-progress");
   });
 });

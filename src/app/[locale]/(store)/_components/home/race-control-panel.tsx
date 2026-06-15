@@ -16,6 +16,7 @@ import {
   isRotationRunning,
   rideRotationReducer,
 } from "../../_lib/ride-rotation";
+import "./race-control-panel.css";
 
 const RIDES = [
   {

@@ -4,7 +4,6 @@ import type { Locale } from "@/i18n/config";
 import { getTranslations } from "next-intl/server";
 import { getProductsByCategory } from "@/lib/queries/products";
 import { Hero } from "./_components/home/hero";
-import { RaceControlPanel } from "./_components/home/race-control-panel";
 import {
   CategoryShortcutGrid,
   type ShortcutItem,
@@ -25,6 +24,13 @@ import { SpeedometerPreloader } from "./_components/fx/speedometer-preloader";
 // rail still renders server-side and search engines see it.
 const ProductRail = dynamic(() =>
   import("./_components/home/product-rail").then((m) => m.ProductRail),
+);
+
+// Below-the-fold home section: sits under the ~92vh hero, so it is deferred
+// to code-split its colocated v3-ride CSS off the home critical path (S5b,
+// issue #87). SSR stays on so the section still renders server-side.
+const RaceControlPanel = dynamic(() =>
+  import("./_components/home/race-control-panel").then((m) => m.RaceControlPanel),
 );
 
 export async function generateMetadata({
