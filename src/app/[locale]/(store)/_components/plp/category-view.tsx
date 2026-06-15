@@ -1,3 +1,4 @@
+import "./plp.css";
 import { notFound } from "next/navigation";
 import type { Locale } from "@/i18n/config";
 import { getCategory, getSubcategories } from "@/lib/queries/categories";
