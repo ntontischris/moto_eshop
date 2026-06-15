@@ -1,5 +1,7 @@
 "use client";
 
+import "./cart.css";
+
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { getCartRecommendations } from "../_lib/cart-recommendations";
