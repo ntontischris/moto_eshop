@@ -3333,374 +3333,6 @@ html[data-v3-mode="light"] .v3-hero--race-control .v3-hero-scrim {
   padding-top: 12px;
 }
 
-.v3-ride-selector {
-  padding: 34px var(--v3-gutter) 52px;
-  background: linear-gradient(180deg, rgba(245,243,238,.035), transparent);
-}
-
-.v3-ride-selector-inner {
-  max-width: 1480px;
-  margin: 0 auto;
-  border: 1px solid rgba(245,243,238,.1);
-  border-radius: 8px;
-  background:
-    linear-gradient(135deg, rgba(255,255,255,.05), rgba(255,255,255,.018) 42%, rgba(228,17,31,.05)),
-    rgba(255,255,255,.025);
-  box-shadow: 0 28px 80px rgba(0,0,0,.24);
-  overflow: hidden;
-}
-
-.v3-ride-head {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  display: flex;
-  align-items: end;
-  justify-content: space-between;
-  gap: 18px;
-  padding: 28px 30px 22px;
-  border-bottom: 1px solid rgba(228,17,31,.2);
-  background:
-    linear-gradient(90deg, rgba(5,6,8,.94), rgba(15,16,20,.9) 58%, rgba(64,14,19,.52)),
-    #090a0d;
-}
-
-.v3-ride-head::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background:
-    linear-gradient(110deg, rgba(228,17,31,.18), transparent 36%),
-    radial-gradient(circle at 86% 18%, rgba(228,17,31,.24), transparent 32%);
-}
-
-.v3-ride-head::after {
-  content: "";
-  position: absolute;
-  right: -90px;
-  bottom: -1px;
-  z-index: -1;
-  width: min(44vw, 620px);
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(228,17,31,.72), transparent);
-}
-
-.v3-ride-head p,
-.v3-ride-head h2 {
-  margin: 0;
-}
-
-.v3-ride-head h2 {
-  margin-top: 8px;
-  color: #fff;
-  font-size: 2.8rem;
-}
-
-.v3-ride-head .v3-label {
-  color: #fff;
-  text-shadow: 0 0 18px rgba(228,17,31,.34);
-}
-
-.v3-ride-all {
-  min-height: 38px;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 0 12px;
-  color: #fff;
-  text-decoration: none;
-  font-weight: 900;
-  border: 1px solid rgba(245,243,238,.12);
-  background: rgba(5,6,8,.34);
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,.035);
-}
-
-.v3-ride-all:hover {
-  border-color: rgba(228,17,31,.62);
-  background: rgba(228,17,31,.14);
-}
-
-.v3-ride-cinema {
-  display: grid;
-  grid-template-columns: minmax(0, 1.55fr) minmax(330px, .85fr);
-  min-height: 560px;
-}
-
-.v3-ride-focus {
-  position: relative;
-  min-height: 540px;
-  padding: 38px;
-  display: flex;
-  align-items: flex-end;
-  color: #fff;
-  text-decoration: none;
-  overflow: hidden;
-  border-right: 1px solid rgba(245,243,238,.1);
-  background: #06070a;
-}
-
-.v3-ride-focus-media {
-  position: absolute;
-  inset: 0;
-}
-
-/* S46 Ride Cinema: all six scenes are stacked and crossfaded by toggling
-   data-active. No hard swap — the outgoing layer fades while the incoming one
-   eases in, mirroring 15-velocita-ultra.html (.ride-focus img.on). */
-.v3-ride-focus-layer {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  transform: scale(1.06);
-  transition: opacity .7s ease, transform 1.2s cubic-bezier(.22, 1, .36, 1);
-  will-change: opacity, transform;
-}
-
-.v3-ride-focus-layer[data-active="true"] {
-  opacity: 1;
-  transform: scale(1.01);
-}
-
-.v3-ride-focus-layer img {
-  object-fit: cover;
-  filter: saturate(1.05) contrast(1.08) brightness(1.08);
-}
-
-.v3-ride-focus-overlay {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(90deg, rgba(5,6,8,.76), rgba(5,6,8,.28) 46%, rgba(5,6,8,.04) 74%),
-    linear-gradient(0deg, rgba(5,6,8,.82), rgba(5,6,8,.08) 56%, rgba(5,6,8,.34)),
-    radial-gradient(circle at 20% 72%, rgba(228,17,31,.28), transparent 35%);
-}
-
-.v3-ride-focus::after {
-  content: "";
-  position: absolute;
-  inset: 18px;
-  border: 1px solid rgba(255,255,255,.16);
-  pointer-events: none;
-}
-
-.v3-ride-focus-copy {
-  position: relative;
-  z-index: 2;
-  max-width: 560px;
-  display: grid;
-  gap: 10px;
-}
-
-.v3-ride-focus-kicker {
-  width: fit-content;
-  padding: 7px 10px;
-  border: 1px solid rgba(255,255,255,.18);
-  background: rgba(5,6,8,.4);
-  color: rgba(255,255,255,.72);
-  font-size: .72rem;
-  font-weight: 900;
-  text-transform: uppercase;
-}
-
-.v3-ride-focus-copy strong {
-  font-family: var(--v3-display);
-  font-size: 4.2rem;
-  line-height: .9;
-  text-transform: uppercase;
-}
-
-.v3-ride-focus-copy > span:not(.v3-ride-focus-kicker):not(.v3-ride-focus-cta) {
-  color: rgba(255,255,255,.72);
-  font-size: 1rem;
-}
-
-.v3-ride-focus-cta {
-  width: fit-content;
-  margin-top: 10px;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: #fff;
-  font-weight: 900;
-}
-
-.v3-ride-focus-spec {
-  position: absolute;
-  right: 28px;
-  bottom: 28px;
-  z-index: 2;
-  max-width: 250px;
-  padding: 14px 16px;
-  display: grid;
-  gap: 4px;
-  border: 1px solid rgba(255,255,255,.16);
-  background: rgba(6,7,10,.44);
-  backdrop-filter: blur(14px);
-  color: rgba(255,255,255,.62);
-  font-size: .72rem;
-  text-transform: uppercase;
-}
-
-.v3-ride-focus-spec strong {
-  color: #fff;
-  font-size: .82rem;
-}
-
-.v3-ride-tabs {
-  display: grid;
-  grid-template-rows: repeat(6, minmax(0, 1fr));
-  background:
-    linear-gradient(135deg, rgba(255,255,255,.06), transparent 44%),
-    #0d0f13;
-}
-
-.v3-ride-tab {
-  position: relative;
-  overflow: hidden;
-  min-height: 92px;
-  padding: 12px;
-  display: grid;
-  grid-template-columns: 88px minmax(0, 1fr);
-  align-items: center;
-  gap: 13px;
-  color: rgba(245,243,238,.7);
-  text-align: left;
-  border: 0;
-  border-bottom: 1px solid rgba(245,243,238,.1);
-  background: transparent;
-  cursor: pointer;
-  transition: background .18s ease, color .18s ease;
-}
-
-.v3-ride-tab::before {
-  content: "";
-  position: absolute;
-  inset: 0 auto 0 0;
-  width: 0;
-  pointer-events: none;
-  background: linear-gradient(90deg, rgba(228,17,31,.34), transparent);
-  opacity: 0;
-}
-
-.v3-ride-tab:last-child {
-  border-bottom: 0;
-}
-
-.v3-ride-tab:hover,
-.v3-ride-tab:focus-visible,
-.v3-ride-tab[data-active="true"] {
-  color: #fff;
-  background:
-    linear-gradient(90deg, rgba(228,17,31,.3), transparent 74%),
-    rgba(255,255,255,.055);
-}
-
-.v3-ride-tab[data-active="true"]::before {
-  opacity: 1;
-}
-
-/* S46: per-tab 3s linear dwell indicator. Fills only on the active tab and
-   pauses (animation-play-state) whenever smart-pause flags the section. */
-.v3-ride-tab-progress {
-  position: absolute;
-  inset: auto 0 0 0;
-  height: 2px;
-  width: 0;
-  pointer-events: none;
-  background: var(--v3-red, #e4111f);
-  opacity: 0;
-}
-
-.v3-ride-tab[data-active="true"] .v3-ride-tab-progress {
-  opacity: 1;
-  animation: v3-ride-tab-progress 3s linear both;
-}
-
-.v3-ride-selector[data-auto-paused="true"] .v3-ride-tab[data-active="true"] .v3-ride-tab-progress {
-  animation-play-state: paused;
-}
-
-.v3-ride-tab:focus-visible {
-  outline: 2px solid rgba(228,17,31,.75);
-  outline-offset: -2px;
-}
-
-.v3-ride-tab-thumb {
-  width: 88px;
-  aspect-ratio: 1.36 / 1;
-  overflow: hidden;
-  border: 1px solid rgba(255,255,255,.12);
-  background: #050608;
-}
-
-.v3-ride-tab-thumb img {
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: cover;
-  filter: saturate(.84) contrast(1.04);
-  transition: transform .18s ease, filter .18s ease;
-}
-
-.v3-ride-tab[data-active="true"] .v3-ride-tab-thumb img,
-.v3-ride-tab:hover .v3-ride-tab-thumb img {
-  transform: scale(1.06);
-  filter: saturate(1.02) contrast(1.08);
-}
-
-.v3-ride-tab-copy {
-  min-width: 0;
-  display: grid;
-  gap: 4px;
-}
-
-.v3-ride-tab-copy strong {
-  color: currentColor;
-  font-family: var(--v3-display);
-  font-size: 1.25rem;
-  line-height: .95;
-  text-transform: uppercase;
-}
-
-.v3-ride-tab-copy span {
-  overflow: hidden;
-  color: rgba(245,243,238,.58);
-  display: -webkit-box;
-  font-size: .78rem;
-  line-height: 1.25;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-}
-
-@keyframes v3-ride-reveal {
-  from {
-    opacity: .7;
-    transform: scale(1.035);
-  }
-
-  to {
-    opacity: 1;
-    transform: scale(1.01);
-  }
-}
-
-.v3-ride-trust {
-  min-height: 48px;
-  padding: 0 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 24px;
-  color: rgba(245,243,238,.72);
-  border-top: 1px solid rgba(245,243,238,.1);
-}
-
-.v3-ride-trust strong {
-  margin-right: 6px;
-  color: #fff;
-}
-
 .v3-cat-runway {
   padding: 30px var(--v3-gutter);
   background: rgba(5,6,8,.78);
@@ -3865,37 +3497,8 @@ html[data-v3-mode="light"] .v3-mega-feature {
   background: #16181c;
 }
 
-@keyframes v3-ride-tab-progress {
-  from {
-    width: 0;
-  }
-
-  to {
-    width: 100%;
-  }
-}
-
-/* S46: reduced-motion riders get no auto-rotation (the JS timer is off) and no
-   crossfade — the active scene swaps instantly and the dwell bar is hidden.
-   Manual tab selection still works. */
-@media (prefers-reduced-motion: reduce) {
-  .v3-ride-focus-layer {
-    transition: none;
-    transform: none;
-  }
-
-  .v3-ride-focus-layer[data-active="true"] {
-    transform: none;
-  }
-
-  .v3-ride-tab-progress {
-    display: none;
-  }
-}
-
 html[data-v3-mode="light"] .v3-mega-col,
 html[data-v3-mode="light"] .v3-mega-shortcut,
-html[data-v3-mode="light"] .v3-ride-selector-inner,
 html[data-v3-mode="light"] .v3-off-panel {
   border-color: rgba(22,24,28,.12);
   color: #16181c;
@@ -3907,20 +3510,8 @@ html[data-v3-mode="light"] .v3-off-panel {
   background: #fff;
 }
 
-html[data-v3-mode="light"] .v3-ride-selector {
-  background: linear-gradient(180deg, rgba(228,17,31,.035), transparent 58%);
-}
-
-html[data-v3-mode="light"] .v3-ride-selector-inner {
-  background:
-    linear-gradient(135deg, rgba(255,255,255,.94), rgba(247,243,234,.86) 62%, rgba(228,17,31,.055)),
-    #fff;
-  box-shadow: 0 24px 70px rgba(22,24,28,.12);
-}
-
 html[data-v3-mode="light"] .v3-mega-feature strong,
 html[data-v3-mode="light"] .v3-mega-col h3,
-html[data-v3-mode="light"] .v3-ride-head h2,
 html[data-v3-mode="light"] .v3-cat-runway-head h2,
 html[data-v3-mode="light"] .v3-rail-head h2,
 html[data-v3-mode="light"] .v3-off-panel h2 {
@@ -3943,44 +3534,6 @@ html[data-v3-mode="light"] .v3-cat-brief {
 }
 
 html[data-v3-mode="light"] .v3-mega-shortcut strong {
-  color: #16181c;
-}
-
-html[data-v3-mode="light"] .v3-ride-tabs {
-  background:
-    linear-gradient(135deg, rgba(228,17,31,.085), transparent 44%),
-    #f4efe6;
-}
-
-html[data-v3-mode="light"] .v3-ride-tab {
-  color: rgba(22,24,28,.68);
-  border-color: rgba(22,24,28,.1);
-}
-
-html[data-v3-mode="light"] .v3-ride-tab:hover,
-html[data-v3-mode="light"] .v3-ride-tab:focus-visible,
-html[data-v3-mode="light"] .v3-ride-tab[data-active="true"] {
-  color: #16181c;
-  background:
-    linear-gradient(90deg, rgba(228,17,31,.2), transparent 72%),
-    rgba(255,255,255,.72);
-}
-
-html[data-v3-mode="light"] .v3-ride-tab-copy span {
-  color: rgba(22,24,28,.58);
-}
-
-html[data-v3-mode="light"] .v3-ride-tab-thumb {
-  border-color: rgba(22,24,28,.14);
-  background: #fff;
-}
-
-html[data-v3-mode="light"] .v3-ride-trust {
-  color: rgba(22,24,28,.66);
-  border-color: rgba(22,24,28,.1);
-}
-
-html[data-v3-mode="light"] .v3-ride-trust strong {
   color: #16181c;
 }
 
@@ -4044,30 +3597,6 @@ html[data-v3-mode="light"] .v3-hero-activity em {
     display: none;
   }
 
-  .v3-ride-cinema {
-    grid-template-columns: 1fr;
-    min-height: auto;
-  }
-
-  .v3-ride-focus {
-    min-height: 450px;
-    border-right: 0;
-    border-bottom: 1px solid rgba(245,243,238,.1);
-  }
-
-  .v3-ride-tabs {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    grid-template-rows: repeat(2, minmax(0, 1fr));
-  }
-
-  .v3-ride-tab {
-    min-height: 106px;
-    border-right: 1px solid rgba(245,243,238,.1);
-  }
-
-  .v3-ride-tab:nth-child(3n) {
-    border-right: 0;
-  }
 }
 
 @media (max-width: 920px) {
@@ -4195,7 +3724,6 @@ html[data-v3-mode="light"] .v3-hero-activity em {
     padding: 10px;
   }
 
-  .v3-ride-selector,
   .v3-cat-runway,
   .v3-rail,
   .v3-off--reconstructed {
@@ -4203,64 +3731,10 @@ html[data-v3-mode="light"] .v3-hero-activity em {
     padding-right: 16px;
   }
 
-  .v3-ride-head {
-    display: block;
-    padding: 18px;
-  }
-
-  .v3-ride-head h2,
   .v3-rail-head h2,
   .v3-off-panel h2,
   .v3-cat-runway-head h2 {
     font-size: 2.2rem;
-  }
-
-  .v3-ride-all {
-    display: inline-flex;
-    margin-top: 14px;
-  }
-
-  .v3-ride-focus {
-    min-height: 380px;
-    padding: 22px;
-  }
-
-  .v3-ride-focus::after {
-    inset: 12px;
-  }
-
-  .v3-ride-focus-copy strong {
-    font-size: 2.55rem;
-  }
-
-  .v3-ride-focus-spec {
-    display: none;
-  }
-
-  .v3-ride-tabs {
-    grid-template-columns: 1fr;
-  }
-
-  .v3-ride-tab {
-    min-height: 92px;
-    grid-template-columns: 82px minmax(0, 1fr);
-    border-right: 0;
-  }
-
-  .v3-ride-tab:nth-child(3n) {
-    border-right: 0;
-  }
-
-  .v3-ride-tab-thumb {
-    width: 82px;
-  }
-
-  .v3-ride-trust {
-    display: grid;
-    grid-template-columns: 1fr;
-    align-items: start;
-    gap: 8px;
-    padding: 14px 18px;
   }
 
   .v3-cat-track {
@@ -8730,11 +8204,6 @@ html[data-v3-mode="light"] .v3-mb-chips-arrow:hover {
   .v3-lqip-ph {
     transition: none;
   }
-}
-
-/* The ride tab thumbs render LqipImage (fill) inside their fixed-ratio box. */
-.v3-ride-tab-thumb {
-  position: relative;
 }
 
 /* Hero poster blur-up is server-rendered (no JS on the LCP path): the LQIP +
