@@ -2,6 +2,7 @@ import { Link } from "@/i18n/navigation";
 import { getTranslations } from "next-intl/server";
 import { PHOTO } from "../../_lib/assets";
 import { LqipImage } from "../fx/lqip-image";
+import "./editorial-band.css";
 
 /* S12 editorial chapter — a cinematic sticky scene. The outer section is tall;
    the inner stage pins (position: sticky) so the pit-lane media zooms out as you
