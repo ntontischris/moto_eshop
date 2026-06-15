@@ -250,10 +250,9 @@ export function RaceControlPanel() {
                     <LqipImage
                       src={thumb}
                       alt=""
-                      sizes="96px"
+                      sizes="88px"
                       loading="lazy"
                       fetchPriority="low"
-                      unoptimized
                     />
                   </span>
                   <span className="v3-ride-tab-copy">

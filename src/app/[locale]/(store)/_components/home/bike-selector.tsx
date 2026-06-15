@@ -182,6 +182,8 @@ export function BikeSelector({ brands }: { brands: BikeBrand[] }) {
                       className="v3-mb-chip-logo"
                       src={`/brands/bikes/${slug}.png`}
                       alt=""
+                      width={24}
+                      height={16}
                       loading="lazy"
                       decoding="async"
                     />
