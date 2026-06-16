@@ -59,7 +59,18 @@ export async function middleware(request: NextRequest) {
   // If next-intl issued a redirect (e.g. to add/strip a prefix), honor it now.
   if (response.headers.get("location")) return response;
 
-  // 2) Supabase auth on top, writing refreshed cookies onto the response above.
+  // 2) Auth gate. Only protected/auth paths need the user, so skip the Supabase
+  // round-trip (createServerClient + getUser) entirely on anonymous public
+  // pages — that saves ~100–400ms TTFB on every catalog/home request. Token
+  // refresh still happens whenever the user reaches a protected/auth path.
+  const { locale, rest } = splitLocale(pathname);
+  const isProtected = PROTECTED_PATHS.some((p) => rest.startsWith(p));
+  const isAuthPage = AUTH_PATHS.some((p) => rest.startsWith(p));
+  if (!isProtected && !isAuthPage) return response;
+
+  const prefix = locale ? `/${locale}` : "";
+
+  // Supabase auth on top, writing refreshed cookies onto the response above.
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -78,11 +89,6 @@ export async function middleware(request: NextRequest) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-
-  const { locale, rest } = splitLocale(pathname);
-  const prefix = locale ? `/${locale}` : "";
-  const isProtected = PROTECTED_PATHS.some((p) => rest.startsWith(p));
-  const isAuthPage = AUTH_PATHS.some((p) => rest.startsWith(p));
 
   if (isProtected && !user) {
     const loginUrl = request.nextUrl.clone();
