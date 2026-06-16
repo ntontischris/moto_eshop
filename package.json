@@ -24,7 +24,8 @@
     "hero:placeholder": "tsx scripts/generate-placeholder-frames.ts",
     "lqip:generate": "tsx scripts/generate-lqip.ts",
     "hero:frames": "tsx scripts/generate-hero-frames.ts",
-    "i18n:translate": "tsx scripts/translate-catalog.ts"
+    "i18n:translate": "tsx scripts/translate-catalog.ts",
+    "images:mirror": "tsx scripts/mirror-images.ts"
   },
   "dependencies": {
     "@ai-sdk/openai": "^3.0.65",
