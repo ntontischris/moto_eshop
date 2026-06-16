@@ -26,7 +26,7 @@ export function Header() {
         <div className="v3-header-inner">
           <Link href="/" className="v3-wordmark" aria-label={t("headerHome")}>
             <span className="v3-wordmark-logo">
-              <Image src="/logo.png" alt="" width={188} height={56} priority />
+              <Image src="/logo.png" alt="" width={188} height={56} />
             </span>
           </Link>
 
