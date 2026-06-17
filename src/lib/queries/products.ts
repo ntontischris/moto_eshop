@@ -477,6 +477,7 @@ export async function getProductFilters(
 ): Promise<ProductFilters> {
   "use cache";
   cacheTag("products");
+  cacheTag(`filters:${categorySlug}`);
   cacheLife("hours");
   const { createAdminClient } = await import("@/lib/supabase/admin");
   const supabase = createAdminClient();
