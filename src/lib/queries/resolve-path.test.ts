@@ -52,7 +52,6 @@ describe("resolvePath", () => {
 
     expect(result).toEqual({
       kind: "product",
-      productId: "p1",
       productSlug: "abudisloc30",
       canonicalPath: ["eksoplismos", "endysh", "abudisloc30"],
     });
@@ -71,7 +70,6 @@ describe("resolvePath", () => {
 
     expect(result).toEqual({
       kind: "category",
-      categoryId: "c1",
       categorySlug: "endysh",
       fullPath: "eksoplismos/endysh",
     });

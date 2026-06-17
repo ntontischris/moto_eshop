@@ -10,13 +10,11 @@ import { getCategoryByPath } from "@/lib/queries/categories";
 export type Resolved =
   | {
       kind: "product";
-      productId: string;
       productSlug: string;
       canonicalPath: string[];
     }
   | {
       kind: "category";
-      categoryId: string;
       categorySlug: string;
       fullPath: string;
     }
@@ -42,7 +40,7 @@ export async function resolvePath(segments: string[]): Promise<Resolved> {
   const supabase = createAdminClient();
   const { data: productHit, error } = await supabase
     .from("products")
-    .select("id, slug, category_id, categories(full_path)")
+    .select("slug, categories(full_path)")
     .eq("slug", last)
     .eq("status", "active")
     .maybeSingle();
@@ -61,7 +59,6 @@ export async function resolvePath(segments: string[]): Promise<Resolved> {
 
     return {
       kind: "product",
-      productId: productHit.id,
       productSlug: productHit.slug,
       canonicalPath,
     };
@@ -73,7 +70,6 @@ export async function resolvePath(segments: string[]): Promise<Resolved> {
   if (category) {
     return {
       kind: "category",
-      categoryId: category.id,
       categorySlug: category.slug,
       fullPath,
     };

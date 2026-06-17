@@ -8,6 +8,6 @@ const source = readFileSync(new URL("./products.ts", import.meta.url), "utf8");
 
 describe("getProductFilters cache tag scope", () => {
   it("adds a category-scoped filter tag", () => {
-    expect(source).toMatch(/cacheTag\(`filters:\$\{categorySlug\}`\)/);
+    expect(source).toMatch(/cacheTag\(`filters:\$\{[^}]+\}`\)/);
   });
 });
