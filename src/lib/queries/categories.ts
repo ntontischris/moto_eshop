@@ -325,6 +325,9 @@ export async function searchCategories(
   limit = 5,
   locale: Locale = "el",
 ): Promise<CategoryMatch[]> {
+  "use cache";
+  cacheTag("categories");
+  cacheLife("minutes");
   const q = term.trim();
   if (q.length < 2) return [];
   const { createAdminClient } = await import("@/lib/supabase/admin");

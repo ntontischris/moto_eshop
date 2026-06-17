@@ -385,6 +385,9 @@ export async function searchProducts(
   perPage = 24,
   locale: Locale = "el",
 ): Promise<PaginatedResult<ProductListItem>> {
+  "use cache";
+  cacheTag("products");
+  cacheLife("minutes");
   const term = q.trim();
   if (term.length < 2) {
     return { data: [], total: 0, page, perPage, totalPages: 0 };
