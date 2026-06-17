@@ -325,6 +325,9 @@ export async function searchCategories(
   limit = 5,
   locale: Locale = "el",
 ): Promise<CategoryMatch[]> {
+  "use cache";
+  cacheTag("categories");
+  cacheLife("minutes");
   const q = term.trim();
   if (q.length < 2) return [];
   const { createAdminClient } = await import("@/lib/supabase/admin");
@@ -337,7 +340,12 @@ export async function searchCategories(
     .ilike("name", `%${safe}%`)
     .order("position", { ascending: true })
     .limit(limit);
-  if (error || !data) return [];
+  // A transient error must not be cached as "no matches" under "use cache" —
+  // throw so the empty fallback isn't persisted. A real empty result stays [].
+  if (error) {
+    throw new Error(`searchCategories(${q}): ${error.message}`);
+  }
+  if (!data) return [];
 
   const matches: CategoryMatch[] = data.map((row) => ({
     id: row.id,

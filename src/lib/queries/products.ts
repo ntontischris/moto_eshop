@@ -385,6 +385,9 @@ export async function searchProducts(
   perPage = 24,
   locale: Locale = "el",
 ): Promise<PaginatedResult<ProductListItem>> {
+  "use cache";
+  cacheTag("products");
+  cacheLife("minutes");
   const term = q.trim();
   if (term.length < 2) {
     return { data: [], total: 0, page, perPage, totalPages: 0 };
@@ -422,9 +425,11 @@ export async function searchProducts(
     .order("view_count", { ascending: false })
     .range(offset, offset + perPage - 1);
 
+  // A transient Supabase error must NOT be cached as an empty result set by
+  // "use cache" — throw so the failure isn't persisted (mirrors resolvePath /
+  // getProduct). A genuinely empty match still flows through as 0 results.
   if (error) {
-    console.error("[searchProducts]", error.message);
-    return { data: [], total: 0, page, perPage, totalPages: 0 };
+    throw new Error(`searchProducts(${term}): ${error.message}`);
   }
 
   // .or() + embedded selects can make PostgREST omit the exact count;
@@ -477,6 +482,7 @@ export async function getProductFilters(
 ): Promise<ProductFilters> {
   "use cache";
   cacheTag("products");
+  cacheTag(`filters:${categorySlug}`);
   cacheLife("hours");
   const { createAdminClient } = await import("@/lib/supabase/admin");
   const supabase = createAdminClient();

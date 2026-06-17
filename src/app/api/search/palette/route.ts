@@ -27,10 +27,17 @@ export async function GET(
     return NextResponse.json({ products: [], categories: [] });
   }
 
-  const [productResult, categories] = await Promise.all([
-    searchProducts(q, 1, PRODUCT_LIMIT, locale),
-    searchCategories(q, CATEGORY_LIMIT, locale),
-  ]);
-
-  return NextResponse.json(toPaletteResults(productResult.data, categories));
+  // The catalog helpers throw on a transient Supabase error (so the failure is
+  // not negative-cached). On this interactive hot path, degrade to empty
+  // results rather than surfacing a 500.
+  try {
+    const [productResult, categories] = await Promise.all([
+      searchProducts(q, 1, PRODUCT_LIMIT, locale),
+      searchCategories(q, CATEGORY_LIMIT, locale),
+    ]);
+    return NextResponse.json(toPaletteResults(productResult.data, categories));
+  } catch (error) {
+    console.error("[palette-search]", error);
+    return NextResponse.json({ products: [], categories: [] });
+  }
 }

@@ -24,7 +24,7 @@ import { buildAlternates } from "@/i18n/metadata";
 
 import { getProduct, getPopularProductSlugs } from "@/lib/queries/products";
 import { getCategoryByPath } from "@/lib/queries/categories";
-import { createClient } from "@/lib/supabase/server";
+import { resolvePath } from "@/lib/queries/resolve-path";
 
 import { ProductView } from "@/app/[locale]/(store)/_components/pdp/product-view";
 import { CategoryView } from "@/app/[locale]/(store)/_components/plp/category-view";
@@ -43,80 +43,6 @@ export async function generateStaticParams() {
   return slugs.slice(0, 10).map((s) => ({
     path: [s.category_slug, s.slug],
   }));
-}
-
-// ────────────────────────────────────────────────────────────────────────
-// Resolution: figure out if path is product, category, or unknown
-// ────────────────────────────────────────────────────────────────────────
-type Resolved =
-  | {
-      kind: "product";
-      productId: string;
-      productSlug: string;
-      canonicalPath: string[];
-    }
-  | {
-      kind: "category";
-      categoryId: string;
-      categorySlug: string;
-      fullPath: string;
-    }
-  | { kind: "not_found" };
-
-async function resolvePath(segments: string[]): Promise<Resolved> {
-  if (segments.length === 0) return { kind: "not_found" };
-
-  // ── 1. last segment as product slug ────────────────────────────────
-  const last = segments[segments.length - 1];
-  const parentPath = segments.slice(0, -1).join("/");
-
-  const supabase = await createClient();
-  const { data: productHit } = await supabase
-    .from("products")
-    .select("id, slug, category_id, categories(full_path)")
-    .eq("slug", last)
-    .eq("status", "active")
-    .maybeSingle();
-
-  if (productHit) {
-    const cat = productHit.categories as unknown as {
-      full_path: string | null;
-    } | null;
-    const canonicalParent = cat?.full_path ?? "";
-    const canonicalPath = canonicalParent
-      ? [...canonicalParent.split("/"), productHit.slug]
-      : [productHit.slug];
-
-    if (canonicalParent && parentPath !== canonicalParent) {
-      // Mismatch: redirect to canonical URL
-      return {
-        kind: "product",
-        productId: productHit.id,
-        productSlug: productHit.slug,
-        canonicalPath,
-      };
-    }
-    return {
-      kind: "product",
-      productId: productHit.id,
-      productSlug: productHit.slug,
-      canonicalPath,
-    };
-  }
-
-  // ── 2. full path as category ───────────────────────────────────────
-  const fullPath = segments.join("/");
-  const category = await getCategoryByPath(fullPath);
-  if (category) {
-    return {
-      kind: "category",
-      categoryId: category.id,
-      categorySlug: category.slug,
-      fullPath,
-    };
-  }
-
-  return { kind: "not_found" };
 }
 
 // ────────────────────────────────────────────────────────────────────────
