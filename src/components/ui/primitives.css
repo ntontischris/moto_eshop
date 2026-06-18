@@ -1,0 +1,97 @@
+/*
+ * primitives.css — Cycle 1 (issue #125) cinematic dark variant for the shared
+ * shadcn primitives that have NO CVA (card / input / dialog / sheet). The CVA
+ * primitives (button / badge) carry their dark variant as an additive `cinematic`
+ * variant value instead.
+ *
+ * Single-sourced, additive, route-scoped. Imported only by the primitive entry
+ * components (card / input / dialog / sheet) — NOT by (store)/layout.tsx and NOT
+ * by globals.css — so it stays off the home critical path (ADR 0007).
+ *
+ * Opt-in per instance via the `data-v3-cinematic` marker on (or above) the
+ * primitive. The dark `--v3-*` VALUES are hoisted onto the marker itself
+ * (literal copies from (store)/_styles/tokens.css) so the cinematic variant
+ * resolves ANYWHERE — including routes outside the (store) group (wishlist /
+ * garage / reviews) where `.v3-root` is not an ancestor and the tokens would
+ * otherwise be empty. No edit to tokens.css; values are additive and scoped.
+ */
+
+[data-v3-cinematic] {
+  --v3-surface: #17191e;
+  --v3-surface-2: #1d2026;
+  --v3-line: #2a2d35;
+  --v3-bone: #f5f3ee;
+  --v3-bone-dim: #9a9ca4;
+  --v3-red: #e4111f;
+  --v3-red-bright: #ff2233;
+  --v3-cyan: #34c6d6;
+}
+
+/* === card === */
+[data-v3-cinematic] [data-slot="card"] {
+  background: var(--v3-surface);
+  color: var(--v3-bone);
+  border: 1px solid var(--v3-line);
+  --tw-ring-color: transparent;
+}
+[data-v3-cinematic] [data-slot="card-description"],
+[data-v3-cinematic] [data-slot="card-footer"] {
+  color: var(--v3-bone-dim);
+}
+[data-v3-cinematic] [data-slot="card-footer"] {
+  background: var(--v3-surface-2);
+  border-top: 1px solid var(--v3-line);
+}
+
+/* === input === */
+[data-v3-cinematic] [data-slot="input"] {
+  background: var(--v3-surface);
+  color: var(--v3-bone);
+  border-color: var(--v3-line);
+}
+[data-v3-cinematic] [data-slot="input"]::placeholder {
+  color: var(--v3-bone-dim);
+}
+[data-v3-cinematic] [data-slot="input"]:focus-visible {
+  border-color: var(--v3-cyan);
+}
+
+/* === dialog === */
+[data-v3-cinematic] [data-slot="dialog-content"] {
+  background: var(--v3-surface);
+  color: var(--v3-bone);
+  border: 1px solid var(--v3-line);
+}
+[data-v3-cinematic] [data-slot="dialog-overlay"] {
+  background: rgba(0, 0, 0, 0.6);
+}
+[data-v3-cinematic] [data-slot="dialog-description"] {
+  color: var(--v3-bone-dim);
+}
+[data-v3-cinematic] [data-slot="dialog-footer"] {
+  background: var(--v3-surface-2);
+  border-top: 1px solid var(--v3-line);
+}
+
+/* === sheet (distinct slots so dialog rules never bleed in) === */
+[data-v3-cinematic] [data-slot="sheet-content"] {
+  background: var(--v3-surface);
+  color: var(--v3-bone);
+  border-color: var(--v3-line);
+}
+[data-v3-cinematic] [data-slot="sheet-overlay"] {
+  background: rgba(0, 0, 0, 0.6);
+}
+[data-v3-cinematic] [data-slot="sheet-description"] {
+  color: var(--v3-bone-dim);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-v3-cinematic] [data-slot="dialog-content"],
+  [data-v3-cinematic] [data-slot="dialog-overlay"],
+  [data-v3-cinematic] [data-slot="sheet-content"],
+  [data-v3-cinematic] [data-slot="sheet-overlay"] {
+    transition: none;
+    animation: none;
+  }
+}
