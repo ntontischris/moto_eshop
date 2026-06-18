@@ -1,0 +1,292 @@
+/* /garage page styles — colocated route-scoped sheet (issue #121).
+   /garage lives OUTSIDE the (store) route group, so it inherits neither
+   tokens.css nor the .v3-root cascade root from (store)/layout.tsx. The page
+   entry imports tokens.css + this sheet and wraps content in a .v3-root so the
+   --v3-* custom properties resolve and the dark cinematic palette paints
+   immediately (no light-theme flash). Dark is permanent here — no V3Provider,
+   so data-v3-mode is never set and the light override below stays dormant
+   unless a future provider mounts. Kept self-contained (no components.css) to
+   stay off the home critical path. */
+
+.v3-garage {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 56px var(--v3-gutter) 96px;
+  display: grid;
+  gap: 40px;
+}
+
+.v3-garage-head h1 {
+  margin: 0;
+  color: var(--v3-bone);
+  font-family: var(--v3-display);
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  line-height: 0.95;
+}
+
+.v3-garage-head p {
+  margin: 10px 0 0;
+  color: var(--v3-bone-dim);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+/* add-bike selector */
+.v3-garage-add {
+  display: grid;
+  gap: 16px;
+  padding: 24px;
+  border: 1px solid var(--v3-line);
+  border-radius: 8px;
+  background: var(--v3-surface);
+  box-shadow: var(--v3-shadow-soft);
+}
+
+.v3-garage-add h3 {
+  margin: 0;
+  color: var(--v3-bone);
+  font-size: 1.12rem;
+  font-weight: 850;
+}
+
+.v3-garage-fields {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.v3-garage-select {
+  width: 100%;
+  padding: 11px 13px;
+  border: 1px solid var(--v3-line);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--v3-bone);
+  font-family: var(--v3-font);
+  font-size: 0.88rem;
+  outline: none;
+  transition: border-color 0.16s ease;
+}
+
+.v3-garage-select:focus-visible {
+  border-color: var(--v3-red-bright);
+}
+
+.v3-garage-select:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.v3-garage-select option {
+  background: var(--v3-surface);
+  color: var(--v3-bone);
+}
+
+/* bike list */
+.v3-garage-list {
+  display: grid;
+  gap: 12px;
+}
+
+.v3-garage-list h2 {
+  margin: 0;
+  color: var(--v3-bone);
+  font-size: 1.2rem;
+  font-weight: 850;
+}
+
+.v3-garage-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px;
+  border: 1px solid var(--v3-line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.03);
+  transition: border-color 0.16s ease, background 0.16s ease;
+}
+
+.v3-garage-card:hover {
+  border-color: rgba(228, 17, 31, 0.4);
+  background: rgba(228, 17, 31, 0.06);
+}
+
+.v3-garage-card-info {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.v3-garage-card-name {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--v3-bone);
+  font-weight: 850;
+}
+
+.v3-garage-card-year {
+  color: var(--v3-bone-dim);
+  font-size: 0.82rem;
+}
+
+.v3-garage-badge {
+  padding: 2px 9px;
+  border-radius: 999px;
+  border: 1px solid rgba(228, 17, 31, 0.5);
+  background: rgba(228, 17, 31, 0.12);
+  color: var(--v3-red-bright);
+  font-size: 0.66rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.v3-garage-card-actions {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 6px;
+}
+
+.v3-garage-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--v3-line);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--v3-bone-dim);
+  cursor: pointer;
+  transition: color 0.16s ease, border-color 0.16s ease, background 0.16s ease;
+}
+
+.v3-garage-icon:hover:not(:disabled) {
+  color: var(--v3-bone);
+  border-color: var(--v3-bone-dim);
+}
+
+.v3-garage-icon-danger:hover:not(:disabled) {
+  color: var(--v3-red-bright);
+  border-color: rgba(228, 17, 31, 0.5);
+  background: rgba(228, 17, 31, 0.08);
+}
+
+.v3-garage-icon:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.v3-garage-empty {
+  padding: 40px 0;
+  text-align: center;
+  color: var(--v3-bone-dim);
+  font-size: 0.92rem;
+}
+
+/* compatibility badge — theme-neutral via tokens so it reads on any surface */
+.v3-compat {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--v3-line);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.v3-compat-ok {
+  border-color: rgba(70, 208, 127, 0.5);
+  color: var(--v3-green);
+}
+
+.v3-compat-no {
+  border-color: rgba(255, 34, 51, 0.5);
+  color: var(--v3-red-bright);
+}
+
+.v3-compat-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--v3-bone-dim);
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: color 0.16s ease;
+}
+
+.v3-compat-link:hover {
+  color: var(--v3-red-bright);
+}
+
+/* reserved bike-list slot (S-4.1) — inert placeholder, no behaviour */
+.v3-garage-slot {
+  display: none;
+}
+
+/* skeleton fallback */
+.v3-garage-skel {
+  border-radius: 8px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.03),
+    rgba(255, 255, 255, 0.06),
+    rgba(255, 255, 255, 0.03)
+  );
+}
+
+/* light mode — dormant on /garage (no V3Provider sets data-v3-mode here),
+   kept for parity with the rest of the v3 surfaces. */
+html[data-v3-mode="light"] .v3-garage-add {
+  background: #fff;
+  border-color: rgba(22, 24, 28, 0.12);
+}
+
+html[data-v3-mode="light"] .v3-garage-head h1,
+html[data-v3-mode="light"] .v3-garage-add h3,
+html[data-v3-mode="light"] .v3-garage-list h2,
+html[data-v3-mode="light"] .v3-garage-card-name {
+  color: #16181c;
+}
+
+html[data-v3-mode="light"] .v3-garage-card {
+  background: rgba(22, 24, 28, 0.025);
+  border-color: rgba(22, 24, 28, 0.12);
+}
+
+html[data-v3-mode="light"] .v3-garage-select {
+  background: rgba(22, 24, 28, 0.03);
+  border-color: rgba(22, 24, 28, 0.12);
+  color: #16181c;
+}
+
+@media (max-width: 768px) {
+  .v3-garage {
+    padding-top: 40px;
+    gap: 32px;
+  }
+
+  .v3-garage-fields {
+    grid-template-columns: 1fr;
+  }
+
+  .v3-garage-card {
+    flex-wrap: wrap;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v3-garage-select,
+  .v3-garage-card,
+  .v3-garage-icon,
+  .v3-compat-link {
+    transition: none;
+  }
+}

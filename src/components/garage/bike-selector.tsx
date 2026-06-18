@@ -68,13 +68,13 @@ export function BikeSelector({
   };
 
   return (
-    <div className="space-y-4">
-      <h3 className="text-lg font-semibold">Πρόσθεσε τη μηχανή σου</h3>
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+    <div className="v3-garage-add">
+      <h3>Πρόσθεσε τη μηχανή σου</h3>
+      <div className="v3-garage-fields">
         <select
           value={make}
           onChange={(e) => handleMakeChange(e.target.value)}
-          className="rounded-lg border border-border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring"
+          className="v3-garage-select"
         >
           <option value="">Μάρκα</option>
           {makes.map((m) => (
@@ -88,7 +88,7 @@ export function BikeSelector({
           value={model}
           onChange={(e) => handleModelChange(e.target.value)}
           disabled={!make}
-          className="rounded-lg border border-border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring disabled:opacity-50"
+          className="v3-garage-select"
         >
           <option value="">Μοντέλο</option>
           {models.map((m) => (
@@ -102,7 +102,7 @@ export function BikeSelector({
           value={year}
           onChange={(e) => setYear(e.target.value)}
           disabled={!model}
-          className="rounded-lg border border-border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring disabled:opacity-50"
+          className="v3-garage-select"
         >
           <option value="">Έτος</option>
           {years.map((y) => (
@@ -116,7 +116,7 @@ export function BikeSelector({
       <Button
         onClick={handleAdd}
         disabled={!year || isPending}
-        className="w-full sm:w-auto"
+        className="v3-btn-primary w-full sm:w-auto"
       >
         {isPending ? "Προσθήκη..." : "Προσθήκη στο Γκαράζ"}
       </Button>

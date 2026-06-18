@@ -1,8 +1,6 @@
 "use client";
 
 import { useTransition } from "react";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { removeBike, setPrimaryBike } from "@/lib/actions/garage";
 import { toast } from "sonner";
 import { Star, Trash2 } from "lucide-react";
@@ -41,40 +39,39 @@ export function GarageCard({
   };
 
   return (
-    <div className="flex items-center justify-between gap-4 rounded-xl border p-4">
-      <div className="space-y-1">
-        <div className="flex items-center gap-2">
-          <span className="font-semibold">
+    <div className="v3-garage-card">
+      <div className="v3-garage-card-info">
+        <div className="v3-garage-card-name">
+          <span>
             {make} {model}
           </span>
-          {isPrimary && <Badge variant="secondary">Κύρια</Badge>}
+          {isPrimary && <span className="v3-garage-badge">Κύρια</span>}
         </div>
-        <span className="text-sm text-muted-foreground">{year}</span>
+        <span className="v3-garage-card-year">{year}</span>
       </div>
 
-      <div className="flex shrink-0 items-center gap-2">
+      <div className="v3-garage-card-actions">
         {!isPrimary && (
-          <Button
-            variant="ghost"
-            size="icon"
+          <button
+            type="button"
+            className="v3-garage-icon"
             onClick={handleSetPrimary}
             disabled={isPending}
             title="Ορισμός ως κύρια"
           >
             <Star className="h-4 w-4" />
-          </Button>
+          </button>
         )}
 
-        <Button
-          variant="ghost"
-          size="icon"
+        <button
+          type="button"
+          className="v3-garage-icon v3-garage-icon-danger"
           onClick={handleRemove}
           disabled={isPending}
           title="Αφαίρεση"
-          className="text-destructive hover:text-destructive"
         >
           <Trash2 className="h-4 w-4" />
-        </Button>
+        </button>
       </div>
     </div>
   );

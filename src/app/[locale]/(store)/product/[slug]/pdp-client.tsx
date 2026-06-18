@@ -8,7 +8,7 @@ import { ProductGallery } from "../../_components/pdp/product-gallery";
 import { BuyBox } from "../../_components/pdp/buy-box";
 import { categoryPath } from "../../_lib/urls";
 
-type Tab = "desc" | "specs" | "ship";
+type Tab = "desc" | "specs" | "ship" | "reviews";
 
 export function PDPClient({
   product,
@@ -74,6 +74,17 @@ export function PDPClient({
           >
             {t("tabShipping")}
           </button>
+          {/* S-2.9 reviews slot — inert 4th tab, placeholder only (no data) */}
+          <button
+            type="button"
+            role="tab"
+            aria-selected={tab === "reviews"}
+            className={tab === "reviews" ? "is-on" : ""}
+            onClick={() => setTab("reviews")}
+            data-slot="reviews-tab"
+          >
+            {t.has("tabReviews") ? t("tabReviews") : "Reviews"}
+          </button>
         </div>
 
         <div className="v3-pdp-panel" role="tabpanel">
@@ -104,6 +115,10 @@ export function PDPClient({
               <li>{t("shipLine3")}</li>
               <li>{t("shipLine4")}</li>
             </ul>
+          )}
+          {/* S-2.9 reviews slot — inert placeholder; reviews land in S-2.9 */}
+          {tab === "reviews" && (
+            <div className="v3-pdp-reviews" data-slot="reviews" />
           )}
         </div>
       </div>
