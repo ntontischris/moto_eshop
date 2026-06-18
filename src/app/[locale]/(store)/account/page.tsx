@@ -1,3 +1,4 @@
+import "./account.css";
 import { Link } from "@/i18n/navigation";
 import type { Metadata } from "next";
 import { Suspense } from "react";
@@ -23,6 +24,44 @@ export default function AccountPage() {
   );
 }
 
+/**
+ * Reserved account-section rail. INERT BY DESIGN (#122): these are presentation
+ * placeholders for views that are out of scope this cycle. They render as
+ * <span data-reserved> with aria-disabled and NO href/Link — wiring them to
+ * /garage, /wishlist or an order-detail route (none of which exist yet) is a
+ * follow-up cycle's job. Do not turn these into links.
+ */
+function ReservedAccountNav() {
+  return (
+    <nav className="v3-acc-nav" aria-label="Account sections">
+      {/* RESERVED SLOT — garage view out of scope (#122) */}
+      <span
+        className="v3-acc-nav-slot"
+        data-reserved="true"
+        aria-disabled="true"
+      >
+        Garage
+      </span>
+      {/* RESERVED SLOT — wishlist view out of scope (#122) */}
+      <span
+        className="v3-acc-nav-slot"
+        data-reserved="true"
+        aria-disabled="true"
+      >
+        Wishlist
+      </span>
+      {/* RESERVED SLOT — order-detail view out of scope (#122) */}
+      <span
+        className="v3-acc-nav-slot"
+        data-reserved="true"
+        aria-disabled="true"
+      >
+        Order detail
+      </span>
+    </nav>
+  );
+}
+
 async function AccountContent() {
   const t = await getTranslations("account");
   const user = await getAuthUser();
@@ -40,7 +79,6 @@ async function AccountContent() {
             {t("register")}
           </Link>
         </div>
-        <AccStyles />
       </div>
     );
   }
@@ -57,11 +95,14 @@ async function AccountContent() {
     <div className="v3-acc">
       <header className="v3-acc-head">
         <div>
+          <p className="v3-acc-eyebrow">MotoMarket</p>
           <h1 className="v3-display">{t("myAccount")}</h1>
           <p className="v3-acc-email">{user.email}</p>
         </div>
         <SignOutButton />
       </header>
+
+      <ReservedAccountNav />
 
       <section className="v3-acc-sec">
         <h2 className="v3-display">{t("ordersHeading")}</h2>
@@ -85,8 +126,6 @@ async function AccountContent() {
           </p>
         )}
       </section>
-
-      <AccStyles />
     </div>
   );
 }
@@ -97,55 +136,5 @@ function AccountFallback() {
       <div className="h-10 w-72 rounded bg-white/10" />
       <div className="mt-4 h-24 rounded bg-white/10" />
     </div>
-  );
-}
-
-function AccStyles() {
-  return (
-    <style precedence="default">{`
-      .v3-acc { max-width: 980px; margin: 0 auto;
-        padding: 36px var(--v3-gutter) 90px; }
-      .v3-acc-guest { display: flex; flex-direction: column;
-        align-items: flex-start; gap: 18px; color: var(--v3-bone-dim); }
-      .v3-acc h1 { margin: 0; font-size: clamp(1.9rem,5vw,3rem);
-        font-weight: 900; text-transform: uppercase; transform: skewX(-6deg);
-        color: var(--v3-bone); }
-      .v3-acc-cta { display: flex; align-items: center; gap: 16px; }
-      .v3-acc-cta .v3-btn-primary { text-decoration: none; }
-      .v3-acc-alt, .v3-acc-empty a { color: var(--v3-cyan);
-        text-decoration: none; font-weight: 600; }
-      .v3-acc-head { display: flex; align-items: flex-start;
-        justify-content: space-between; gap: 20px; margin-bottom: 36px; }
-      .v3-acc-email { margin: 8px 0 0; color: var(--v3-bone-dim);
-        font-size: .9rem; }
-      .v3-acc-signout { background: none; border: 1px solid var(--v3-line);
-        color: var(--v3-bone-dim); border-radius: 8px; padding: 10px 16px;
-        font-weight: 700; font-size: .82rem; cursor: pointer;
-        font-family: var(--v3-display); text-transform: uppercase;
-        letter-spacing: .06em; }
-      .v3-acc-signout:hover { border-color: var(--v3-red);
-        color: var(--v3-bone); }
-      .v3-acc-sec h2 { font-size: 1.1rem; font-weight: 800;
-        text-transform: uppercase; color: var(--v3-bone);
-        margin: 0 0 16px; }
-      .v3-acc-orders { display: flex; flex-direction: column;
-        border: 1px solid var(--v3-line); }
-      .v3-acc-order { display: grid;
-        grid-template-columns: 1.4fr 1fr 1fr auto; gap: 14px;
-        padding: 14px 16px; border-bottom: 1px solid var(--v3-line);
-        font-size: .88rem; color: var(--v3-bone-dim); align-items: center; }
-      .v3-acc-order:last-child { border-bottom: none; }
-      .v3-acc-onum { font-family: var(--v3-display); font-weight: 700;
-        color: var(--v3-bone); letter-spacing: .03em; }
-      .v3-acc-ototal { color: var(--v3-bone); font-weight: 800;
-        text-align: right; }
-      .v3-acc-ostatus { text-transform: uppercase; font-size: .74rem;
-        letter-spacing: .08em; }
-      .v3-acc-empty { color: var(--v3-bone-dim); }
-      @media (max-width: 560px) {
-        .v3-acc-order { grid-template-columns: 1fr 1fr;
-          grid-template-areas: "num total" "date status"; }
-      }
-    `}</style>
   );
 }
