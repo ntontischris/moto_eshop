@@ -45,6 +45,13 @@ export function FilterSidebar({
 
   return (
     <aside className="v3-fs" aria-label={t("filtersLabel")}>
+      {/* S-4.3 fits-my-bike filter chip slot — inert (populated in S-4.3) */}
+      <div
+        className="v3-fs-fitbike"
+        data-slot="fits-my-bike"
+        aria-hidden="true"
+      />
+
       <section className="v3-fs-grp">
         <h3>{t("manufacturer")}</h3>
         <ul>

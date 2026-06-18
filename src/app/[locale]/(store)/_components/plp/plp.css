@@ -153,3 +153,8 @@
 @media (max-width: 480px) {
   .v3-plp-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
 }
+
+/* === #124 inert reserve slot (S-4.3 fits-my-bike filter chip) ===
+   Marker container only — zero box when empty so the filter layout is
+   unaffected until the slice ships. */
+.v3-fs-fitbike:empty { display: none; }

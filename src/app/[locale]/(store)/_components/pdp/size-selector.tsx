@@ -29,6 +29,12 @@ export function SizeSelector({
             onClick={() => onChange(size)}
           >
             {size}
+            {/* S-2.8 per-size stock badge slot — inert (populated in S-2.8) */}
+            <span
+              className="v3-size-stock"
+              data-slot="size-stock"
+              aria-hidden="true"
+            />
           </button>
         ))}
       </div>

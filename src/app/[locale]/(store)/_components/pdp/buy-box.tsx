@@ -107,6 +107,13 @@ export function BuyBox({ product }: { product: Product }) {
         </div>
       )}
 
+      {/* S-4.4 bike-compatibility badge slot — inert (populated in S-4.4) */}
+      <div
+        className="v3-bb-compat"
+        data-slot="compat-badge"
+        aria-hidden="true"
+      />
+
       <div className="v3-bb-step">
         <div className="v3-bb-step-head">
           <span>1</span>
@@ -167,6 +174,26 @@ export function BuyBox({ product }: { product: Product }) {
         <li>{t("trustSizeReturn")}</li>
         <li>{t("trustSecure")}</li>
       </ul>
+
+      {/* Mobile sticky add-to-cart bar (<768px, CSS-only reveal). Reuses the
+          SAME `onAdd` flight as the primary CTA — no duplicate cart logic. */}
+      <div className="v3-bb-stickybar" aria-hidden={!availability.isOrderable}>
+        <span className="v3-bb-stickybar__price">
+          <PriceDisplay
+            price={product.price}
+            compareAt={product.compare_at_price}
+          />
+        </span>
+        <button
+          type="button"
+          className="v3-btn-primary v3-bb-stickybar__cta"
+          disabled={!availability.isOrderable || morph === "pending"}
+          aria-busy={morph === "pending"}
+          onClick={onAdd}
+        >
+          {availability.ctaLabel}
+        </button>
+      </div>
     </div>
   );
 }
