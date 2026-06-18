@@ -1,3 +1,7 @@
+import "../(store)/_styles/tokens.css";
+import "../(store)/_styles/components.css";
+import "./wishlist.css";
+
 import { Link, redirect } from "@/i18n/navigation";
 import { getLocale } from "next-intl/server";
 import Image from "next/image";
@@ -5,7 +9,6 @@ import { Suspense } from "react";
 import { Heart } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { getUserWishlist } from "@/lib/queries/wishlist";
-import { Button } from "@/components/ui/button";
 import { PriceDisplay } from "@/components/ui/price-display";
 import { WishlistButton } from "@/components/wishlist/wishlist-button";
 
@@ -13,9 +16,13 @@ export const metadata = { title: "Αγαπημένα | MotoMarket" };
 
 export default function WishlistPage() {
   return (
-    <Suspense fallback={<WishlistFallback />}>
-      <WishlistContent />
-    </Suspense>
+    <div className="v3-root" data-v3>
+      <main className="v3-wishlist v3-wishlist--apple">
+        <Suspense fallback={<WishlistFallback />}>
+          <WishlistContent />
+        </Suspense>
+      </main>
+    </div>
   );
 }
 
@@ -33,44 +40,43 @@ async function WishlistContent() {
 
   if (items.length === 0) {
     return (
-      <main className="container mx-auto flex flex-col items-center justify-center px-4 py-24 text-center">
-        <Heart className="mb-4 h-16 w-16 text-muted-foreground/30" />
-        <h1 className="text-2xl font-bold">Δεν έχεις αγαπημένα ακόμα</h1>
-        <p className="mt-2 text-muted-foreground">
+      <div className="v3-wishlist-empty">
+        <Heart className="v3-wishlist-empty-icon" aria-hidden="true" />
+        <p className="v3-label">Αγαπημένα</p>
+        <h1 className="v3-display">Δεν έχεις αγαπημένα ακόμα</h1>
+        <p className="v3-wishlist-empty-copy">
           Πρόσθεσε προϊόντα στα αγαπημένα σου πατώντας το εικονίδιο καρδιάς.
         </p>
-        <Button render={<Link href="/" />} className="mt-6">
-          Ξεκίνα τις αγορές
-        </Button>
-      </main>
+        <Link className="v3-btn-primary" href="/">
+          Ξεκίνα τις αγορές <span aria-hidden="true">→</span>
+        </Link>
+      </div>
     );
   }
 
   return (
-    <main className="container mx-auto px-4 py-8">
-      <h1 className="mb-6 text-2xl font-bold">Αγαπημένα ({items.length})</h1>
-      <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4">
+    <>
+      <header className="v3-wishlist-title">
+        <p className="v3-label">Your garage</p>
+        <h1 className="v3-display">Αγαπημένα ({items.length})</h1>
+      </header>
+      <div className="v3-wishlist-grid">
         {items.map((item) => (
-          <article
-            key={item.id}
-            className="group relative flex flex-col rounded-lg border bg-card transition-shadow hover:shadow-md"
-          >
+          <article className="v3-wishlist-card" key={item.id}>
             <Link
               href={`/${item.product.category_slug}/${item.product.slug}`}
-              className="relative aspect-square overflow-hidden rounded-t-lg"
+              className="v3-wishlist-media"
             >
               <Image
                 src={item.product.primary_image_url}
                 alt={item.product.primary_image_alt}
                 fill
                 sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                className="object-cover"
+                className="v3-wishlist-img"
               />
               {item.product.stock <= 0 && (
-                <div className="absolute inset-0 flex items-center justify-center bg-black/40">
-                  <span className="rounded-md bg-white px-3 py-1.5 text-sm font-semibold text-gray-900">
-                    Εξαντλημένο
-                  </span>
+                <div className="v3-wishlist-oos">
+                  <span>Εξαντλημένο</span>
                 </div>
               )}
             </Link>
@@ -78,19 +84,17 @@ async function WishlistContent() {
               productId={item.product_id}
               initialWishlisted={true}
               isLoggedIn={true}
-              className="absolute right-2 top-2 bg-white/80 backdrop-blur-sm"
+              className="v3-wishlist-toggle"
             />
-            <div className="flex flex-1 flex-col gap-1.5 p-3">
-              <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-                {item.product.brand}
-              </span>
+            <div className="v3-wishlist-body">
+              <span className="v3-wishlist-brand">{item.product.brand}</span>
               <Link
                 href={`/${item.product.category_slug}/${item.product.slug}`}
-                className="line-clamp-2 text-sm font-medium leading-snug hover:underline"
+                className="v3-wishlist-name"
               >
                 {item.product.name}
               </Link>
-              <div className="mt-auto pt-2">
+              <div className="v3-wishlist-price">
                 <PriceDisplay
                   price={item.product.price}
                   compareAtPrice={item.product.compare_at_price}
@@ -101,19 +105,19 @@ async function WishlistContent() {
           </article>
         ))}
       </div>
-    </main>
+    </>
   );
 }
 
 function WishlistFallback() {
   return (
-    <main className="container mx-auto px-4 py-8" aria-hidden="true">
-      <div className="mb-6 h-8 w-56 rounded bg-muted" />
-      <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4">
+    <div className="v3-wishlist-skeleton" aria-hidden="true">
+      <div className="v3-wishlist-skeleton-title" />
+      <div className="v3-wishlist-grid">
         {Array.from({ length: 4 }).map((_, index) => (
-          <div className="h-80 rounded-lg bg-muted" key={index} />
+          <div className="v3-wishlist-skeleton-card" key={index} />
         ))}
       </div>
-    </main>
+    </div>
   );
 }
