@@ -4,6 +4,7 @@ import { Link } from "@/i18n/navigation";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import type { Product } from "@/lib/queries/products";
+import type { SizeVariant } from "../../_lib/size-availability";
 import { ProductGallery } from "../../_components/pdp/product-gallery";
 import { BuyBox } from "../../_components/pdp/buy-box";
 import { categoryPath } from "../../_lib/urls";
@@ -12,9 +13,11 @@ type Tab = "desc" | "specs" | "ship" | "reviews";
 
 export function PDPClient({
   product,
+  sizes,
   related,
 }: {
   product: Product;
+  sizes: SizeVariant[];
   related: React.ReactNode;
 }) {
   const t = useTranslations("pdp");
@@ -42,7 +45,7 @@ export function PDPClient({
 
       <div className="v3-pdp-top">
         <ProductGallery images={product.images} name={product.name} />
-        <BuyBox product={product} />
+        <BuyBox product={product} sizes={sizes} />
       </div>
 
       <div className="v3-pdp-tabs" id="size-guide">

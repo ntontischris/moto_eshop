@@ -6,21 +6,17 @@ import {
   wipeEndRadius,
   wipeOriginFromRect,
 } from "../../_lib/theme-transition";
+import {
+  cartLineKey,
+  changeCartLineSize,
+  type CartLine,
+} from "../../_lib/cart-line";
 
-export interface CartLine {
-  slug: string;
-  name: string;
-  brand: string;
-  categorySlug?: string | null;
-  price: number;
-  size: string | null;
-  image: string;
-  qty: number;
-}
-
-export function cartLineKey(line: Pick<CartLine, "slug" | "size">): string {
-  return `${line.slug}::${line.size ?? ""}`;
-}
+// Single home for the cart-line shape + key is `_lib/cart-line`; re-exported
+// here so the many existing `import { CartLine, cartLineKey } from ".../v3-provider"`
+// call sites keep working.
+export { cartLineKey };
+export type { CartLine };
 
 /* DOMRect-ish input for the wipe origin — only the fields we read, so callers
    can pass a real getBoundingClientRect() result without extra plumbing. */
@@ -38,6 +34,7 @@ interface V3Context {
   addToCart(line: CartLine): void;
   removeFromCart(key: string): void;
   updateQty(key: string, qty: number): void;
+  changeLineSize(key: string, newSize: string): void;
   clearCart(): void;
   cartCount: number;
   cartTotal: number;
@@ -136,6 +133,12 @@ export function V3Provider({ children }: { children: React.ReactNode }) {
     );
   }
 
+  // Change a line's [Size code] (B1). Stock is validated server-side by the
+  // caller first; this applies the merge-aware local mutation.
+  function changeLineSize(key: string, newSize: string) {
+    setCart((prev) => changeCartLineSize(prev, key, newSize));
+  }
+
   function clearCart() {
     setCart([]);
   }
@@ -201,6 +204,7 @@ export function V3Provider({ children }: { children: React.ReactNode }) {
         addToCart,
         removeFromCart,
         updateQty,
+        changeLineSize,
         clearCart,
         cartCount,
         cartTotal,

@@ -1,7 +1,11 @@
 import "./pdp.css";
 import { notFound } from "next/navigation";
 import type { Locale } from "@/i18n/config";
-import { getProduct, getRelatedProducts } from "@/lib/queries/products";
+import {
+  getProduct,
+  getProductSizeAvailability,
+  getRelatedProducts,
+} from "@/lib/queries/products";
 import { ProductCard } from "../commerce/product-card";
 import { PDPClient } from "../../product/[slug]/pdp-client";
 
@@ -22,6 +26,9 @@ export async function ProductView({
 }) {
   const product = await getProduct(slug, locale);
   if (!product) notFound();
+
+  // Fresh, uncached per-size stock (kept out of getProduct's hours cache).
+  const sizes = await getProductSizeAvailability(product.id);
 
   const relatedAll = await getRelatedProducts(
     product.id,
@@ -67,6 +74,7 @@ export async function ProductView({
       />
       <PDPClient
         product={product}
+        sizes={sizes}
         related={related.map((p) => (
           <ProductCard key={p.id} product={p} />
         ))}

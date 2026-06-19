@@ -1,46 +1,44 @@
 "use client";
 
 import { Link } from "@/i18n/navigation";
-import { useMemo, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Check } from "lucide-react";
 import { useTranslations } from "next-intl";
 import type { Product } from "@/lib/queries/products";
+import type { SizeVariant } from "../../_lib/size-availability";
 import { getAvailabilityState } from "../../_lib/availability";
 import { getCartRecommendations } from "../../_lib/cart-recommendations";
 import { useAddToCartFlight } from "../../_lib/use-add-to-cart-flight";
+import { checkSizeAvailable } from "../../_lib/cart-stock";
 import { useV3 } from "../shell/v3-provider";
 import { PriceDisplay } from "../commerce/price-display";
 import { Badge } from "../commerce/badge";
 import { AvailabilityBadge } from "../commerce/availability-badge";
 import { SizeSelector } from "./size-selector";
 
-const FALLBACK_SIZES = ["XS", "S", "M", "L", "XL", "XXL"];
-
-function deriveSizes(specs: Record<string, string>): {
-  sizes: string[];
-  fromSpecs: boolean;
-} {
-  const key = Object.keys(specs).find((k) => /μέγεθ|size/i.test(k));
-  if (key && specs[key]) {
-    const list = specs[key]
-      .split(/[,/|]/)
-      .map((s) => s.trim())
-      .filter(Boolean);
-    if (list.length > 0) return { sizes: list, fromSpecs: true };
-  }
-  return { sizes: FALLBACK_SIZES, fromSpecs: false };
-}
-
-export function BuyBox({ product }: { product: Product }) {
+export function BuyBox({
+  product,
+  sizes,
+}: {
+  product: Product;
+  sizes: SizeVariant[];
+}) {
   const t = useTranslations("pdp");
   const { addToCart } = useV3();
   const { state: morph, trigger } = useAddToCartFlight();
   const ctaRef = useRef<HTMLButtonElement>(null);
-  const { sizes, fromSpecs } = useMemo(
-    () => deriveSizes(product.specs ?? {}),
-    [product.specs],
-  );
+  const sizeSectionRef = useRef<HTMLDivElement>(null);
+  // `size` holds the raw [Size code] (authoritative for cart/stock/ERP), or
+  // null when nothing is picked. The picker only renders for [Size variant]s.
   const [size, setSize] = useState<string | null>(null);
+  // Set when the CTA is pressed without a size — nudges the picker, no error.
+  const [needsSize, setNeedsSize] = useState(false);
+  const hasSizes = sizes.length > 0;
+
+  const pickSize = (code: string) => {
+    setSize(code);
+    setNeedsSize(false);
+  };
   const availability = getAvailabilityState(product.stock);
   const image = product.images[0]?.url ?? "";
   const recommendations = getCartRecommendations([
@@ -61,10 +59,26 @@ export function BuyBox({ product }: { product: Product }) {
   const onAdd = () => {
     const button = ctaRef.current;
     if (!availability.isOrderable || !button) return;
-    // The morph + fly-to-cart wraps the EXISTING presentation-only add (ADR
-    // 0001) — `addToCart` is the unchanged cart commit; the flight only
-    // animates around its success.
-    void trigger({ button, image }, () =>
+    // Sized product with nothing picked: never a dead button — nudge the picker
+    // with the «Διάλεξε μέγεθος» hint and scroll it into view, no error, no
+    // auto-select.
+    if (hasSizes && !size) {
+      setNeedsSize(true);
+      sizeSectionRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+      return;
+    }
+    // The morph + fly-to-cart wraps the presentation-only add (ADR 0001). For a
+    // sized product we first re-validate the chosen [Size code] server-side so a
+    // stale page can't oversell an out-of-stock size; a rejection throws and the
+    // flight reverts to its error state.
+    void trigger({ button, image }, async () => {
+      if (hasSizes && size) {
+        const { ok } = await checkSizeAvailable(product.id, size);
+        if (!ok) throw new Error("size-unavailable");
+      }
       addToCart({
         slug: product.slug,
         name: product.name,
@@ -74,8 +88,8 @@ export function BuyBox({ product }: { product: Product }) {
         size,
         image,
         qty: 1,
-      }),
-    );
+      });
+    });
   };
 
   return (
@@ -114,21 +128,30 @@ export function BuyBox({ product }: { product: Product }) {
         aria-hidden="true"
       />
 
-      <div className="v3-bb-step">
-        <div className="v3-bb-step-head">
-          <span>1</span>
-          <div>
-            <strong>{t("chooseSize")}</strong>
-            <Link href="#size-guide">{t("sizeGuide")}</Link>
+      {hasSizes && (
+        <div
+          ref={sizeSectionRef}
+          className={`v3-bb-step${needsSize ? " is-needed" : ""}`}
+        >
+          <div className="v3-bb-step-head">
+            <span>1</span>
+            <div>
+              <strong>{t("chooseSize")}</strong>
+              <Link href="#size-guide">{t("sizeGuide")}</Link>
+            </div>
           </div>
+          <SizeSelector variants={sizes} value={size} onChange={pickSize} />
+          {needsSize && (
+            <p className="v3-bb-note v3-bb-note--warn" role="alert">
+              {t("chooseSize")}
+            </p>
+          )}
         </div>
-        <SizeSelector sizes={sizes} value={size} onChange={setSize} />
-        {!fromSpecs && <p className="v3-bb-note">{t("sizesNote")}</p>}
-      </div>
+      )}
 
       <div className="v3-bb-step">
         <div className="v3-bb-step-head">
-          <span>2</span>
+          <span>{hasSizes ? "2" : "1"}</span>
           <div>
             <strong>{t("availability")}</strong>
             <em>{availability.detailLabel}</em>

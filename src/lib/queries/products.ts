@@ -9,6 +9,10 @@ import {
   galleryUrls,
   resolveImages,
 } from "./product-images";
+import {
+  buildSizeVariants,
+  type SizeVariant,
+} from "@/app/[locale]/(store)/_lib/size-availability";
 
 /**
  * Overlay a translation onto a source row. Falls back to the source value
@@ -250,6 +254,27 @@ export async function getProduct(
     .maybeSingle();
 
   return applyTranslation(product, tr);
+}
+
+/**
+ * Per-size availability for a product, read fresh from `v_product_available_stock`
+ * (stock net of reservations). Deliberately NOT cached — `getProduct` caches the
+ * static catalog row for hours, but stock is volatile and must not be baked into
+ * that cache (ADR 0001 server-authoritative stock). Returns [Size variant]s only;
+ * the empty-string/null sentinel is dropped, so a product with no real sizes
+ * yields an empty array and the PDP renders no size picker (ADR 0009).
+ */
+export async function getProductSizeAvailability(
+  productId: string,
+): Promise<SizeVariant[]> {
+  const { createAdminClient } = await import("@/lib/supabase/admin");
+  const supabase = createAdminClient();
+  const { data, error } = await supabase
+    .from("v_product_available_stock")
+    .select("size, available")
+    .eq("product_id", productId);
+  if (error || !data) return [];
+  return buildSizeVariants(data);
 }
 
 export async function getProductsByCategory(

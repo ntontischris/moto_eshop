@@ -15,19 +15,34 @@
 /* === size-selector === */
 .v3-size-row { display: flex; flex-wrap: wrap; gap: 8px; }
 .v3-size-chip {
-  min-width: 48px; height: 44px; padding: 0 14px; cursor: pointer;
+  display: inline-flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 3px;
+  min-width: 52px; min-height: 50px; padding: 6px 12px; cursor: pointer;
   background: var(--v3-surface); color: var(--v3-bone);
   border: 1px solid var(--v3-line); border-radius: 8px;
   font-weight: 700; font-size: .9rem;
-  transition: border-color .12s, background .12s;
+  transition: border-color .12s, background .12s, opacity .12s;
 }
-.v3-size-chip:hover { border-color: var(--v3-bone-dim); }
+.v3-size-chip:hover:not(:disabled) { border-color: var(--v3-bone-dim); }
 .v3-size-chip.is-on {
   border-color: var(--v3-red); background: var(--v3-red); color: #fff;
 }
 .v3-size-chip:focus-visible {
   outline: 2px solid var(--v3-cyan); outline-offset: 2px;
 }
+/* S-2.8 per-size availability caption (ADR 0009 three states). */
+.v3-size-stock {
+  font-size: .56rem; font-weight: 700; line-height: 1;
+  letter-spacing: .03em; text-transform: uppercase; opacity: .85;
+}
+.v3-size-chip[data-size-state="available"] .v3-size-stock { color: var(--v3-bone-dim); }
+.v3-size-chip[data-size-state="limited"] .v3-size-stock { color: #e8a33d; }
+.v3-size-chip.is-on .v3-size-stock { color: rgba(255, 255, 255, .85); }
+.v3-size-chip.is-out {
+  cursor: not-allowed; opacity: .42;
+  text-decoration: line-through; text-decoration-color: var(--v3-bone-dim);
+}
+.v3-size-chip.is-out .v3-size-stock { text-decoration: none; }
 
 /* === buy-box === */
 .v3-bb { display: flex; flex-direction: column; gap: 16px; }
@@ -57,6 +72,8 @@
   text-decoration: none; font-weight: 600; }
 .v3-bb-note { margin: 8px 0 0; font-size: .76rem;
   color: var(--v3-bone-dim); }
+/* S-2.8 «Διάλεξε μέγεθος» nudge when the CTA is pressed with no size picked. */
+.v3-bb-note--warn { color: var(--v3-red); font-weight: 700; }
 .v3-bb-cta { width: 100%; font-size: 1rem; }
 .v3-bb-cta:disabled { opacity: .5; cursor: not-allowed; }
 .v3-bb-trust {
@@ -137,6 +154,12 @@
   border: 1px solid rgba(245,243,238,.12);
   border-radius: 8px;
   background: rgba(255,255,255,.035);
+  transition: border-color .15s, box-shadow .15s;
+}
+/* Highlight the size step when the CTA was pressed without a size. */
+.v3-bb-step.is-needed {
+  border-color: var(--v3-red);
+  box-shadow: 0 0 0 1px var(--v3-red);
 }
 
 .v3-bb-step-head {

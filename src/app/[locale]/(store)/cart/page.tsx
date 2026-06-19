@@ -7,6 +7,7 @@ import { useTranslations } from "next-intl";
 import { getCartRecommendations } from "../_lib/cart-recommendations";
 import { formatPrice } from "../_lib/format";
 import { SmartImage } from "../_components/commerce/smart-image";
+import { CartLineSize } from "../_components/commerce/cart-line-size";
 import { useV3, cartLineKey } from "../_components/shell/v3-provider";
 import {
   FREE_SHIPPING_THRESHOLD,
@@ -62,9 +63,11 @@ export default function CartPage() {
                       {line.name}
                     </Link>
                     {line.size && (
-                      <span className="v3-cart-size">
-                        {t("sizeLabel", { size: line.size })}
-                      </span>
+                      <CartLineSize
+                        slug={line.slug}
+                        lineKey={key}
+                        currentSize={line.size}
+                      />
                     )}
                     <button
                       type="button"
