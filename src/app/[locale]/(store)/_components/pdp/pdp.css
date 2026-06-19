@@ -45,7 +45,20 @@
 .v3-size-chip.is-out .v3-size-stock { text-decoration: none; }
 
 /* === buy-box === */
-.v3-bb { display: flex; flex-direction: column; gap: 16px; }
+.v3-bb { display: flex; flex-direction: column; gap: 16px; position: relative; }
+/* #133 wishlist heart — saved-state reflected from the unified wishlist. */
+.v3-bb-fav {
+  position: absolute; top: 0; right: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 42px; height: 42px; border-radius: 50%;
+  border: 1px solid var(--v3-line); background: var(--v3-surface);
+  color: var(--v3-bone-dim); cursor: pointer;
+  transition: color .15s, border-color .15s;
+}
+.v3-bb-fav:hover { border-color: var(--v3-bone-dim); color: var(--v3-bone); }
+.v3-bb-fav.is-on { color: var(--v3-red); border-color: var(--v3-red); }
+.v3-bb-fav:focus-visible { outline: 2px solid var(--v3-cyan); outline-offset: 2px; }
+.v3-bb > .v3-bb-brand, .v3-bb > h1 { padding-right: 50px; }
 .v3-bb-brand {
   margin: 0; font-family: var(--v3-display);
   text-transform: uppercase; letter-spacing: .18em;

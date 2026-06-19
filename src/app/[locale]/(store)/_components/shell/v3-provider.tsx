@@ -11,6 +11,7 @@ import {
   changeCartLineSize,
   type CartLine,
 } from "../../_lib/cart-line";
+import { setWishlistItem, syncWishlistOnLoad } from "@/lib/actions/wishlist";
 
 // Single home for the cart-line shape + key is `_lib/cart-line`; re-exported
 // here so the many existing `import { CartLine, cartLineKey } from ".../v3-provider"`
@@ -66,15 +67,37 @@ export function V3Provider({ children }: { children: React.ReactNode }) {
   const [cartOpen, setCartOpen] = useState(false);
   const [wishlist, setWishlist] = useState<string[]>([]);
   const hydrated = useRef(false);
+  // True once the wishlist is account-backed (logged in): the DB is the store,
+  // so we stop mirroring it to localStorage and write favourites through.
+  const accountBacked = useRef(false);
 
   // Load persisted state once on mount (SSR-safe — empty on first render,
-  // so server and client markup match; populated right after).
+  // so server and client markup match; populated right after). Then reconcile
+  // the wishlist with the account: a logged-in user merges their local [Guest
+  // wishlist] into the [Persisted wishlist] and switches to account-backed.
   useEffect(() => {
-    queueMicrotask(() => {
+    queueMicrotask(async () => {
+      const localWish = load<string[]>(WISH_KEY, []);
       setCart(load<CartLine[]>(CART_KEY, []));
-      setWishlist(load<string[]>(WISH_KEY, []));
+      setWishlist(localWish);
       setMode(load<"dark" | "light">(MODE_KEY, "dark"));
       hydrated.current = true;
+
+      try {
+        const res = await syncWishlistOnLoad(localWish);
+        if (res.account) {
+          accountBacked.current = true;
+          setWishlist(res.slugs);
+          // Guest store merged into the account — clear it (#136).
+          try {
+            window.localStorage.removeItem(WISH_KEY);
+          } catch {
+            /* ignore */
+          }
+        }
+      } catch {
+        /* offline / action failed — stay on the local guest wishlist */
+      }
     });
   }, []);
 
@@ -101,6 +124,8 @@ export function V3Provider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (!hydrated.current) return;
+    // Account-backed wishlist lives in the DB, not localStorage.
+    if (accountBacked.current) return;
     try {
       window.localStorage.setItem(WISH_KEY, JSON.stringify(wishlist));
     } catch {
@@ -144,9 +169,14 @@ export function V3Provider({ children }: { children: React.ReactNode }) {
   }
 
   function toggleWishlist(slug: string) {
+    const willAdd = !wishlist.includes(slug);
     setWishlist((prev) =>
       prev.includes(slug) ? prev.filter((s) => s !== slug) : [...prev, slug],
     );
+    // Logged in: persist the favourite to the account (slug→UUID server-side).
+    if (accountBacked.current) {
+      void setWishlistItem(slug, willAdd);
+    }
   }
 
   function flipMode() {
