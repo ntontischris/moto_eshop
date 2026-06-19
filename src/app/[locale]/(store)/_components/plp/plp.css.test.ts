@@ -10,6 +10,10 @@ const categoryViewSource = readFileSync(
   new URL("./category-view.tsx", import.meta.url),
   "utf8",
 );
+const filterSidebarSource = readFileSync(
+  new URL("../filters/filter-sidebar.tsx", import.meta.url),
+  "utf8",
+);
 
 // S3 (issue #84): route-scope the PLP-only CSS off the home critical path.
 // Containment seam — the PLP prefixes are GONE from the home-critical sheet
@@ -46,5 +50,22 @@ describe("plp css is route-scoped off the home critical path", () => {
 
   it("loads plp.css only from the PLP entry component", () => {
     expect(categoryViewSource).toContain("./plp.css");
+  });
+});
+
+// Cycle 1 / issue #124 — inert reserve slot (markers only, no behaviour).
+describe("plp inert reserve slot is present, marked, and layout-neutral", () => {
+  it("reserves the fits-my-bike filter chip slot in the filter area (S-4.3)", () => {
+    expect(filterSidebarSource).toContain('data-slot="fits-my-bike"');
+    expect(filterSidebarSource).toContain("v3-fs-fitbike");
+    expect(filterSidebarSource).toContain("S-4.3");
+    // inert: aria-hidden marker, no interactive children.
+    expect(filterSidebarSource).toMatch(
+      /className="v3-fs-fitbike"[\s\S]*?data-slot="fits-my-bike"[\s\S]*?aria-hidden="true"[\s\S]*?\/>/,
+    );
+  });
+
+  it("collapses the empty slot to zero box so the filter layout is unaffected", () => {
+    expect(plpCss).toMatch(/\.v3-fs-fitbike:empty \{ display: none;/);
   });
 });
