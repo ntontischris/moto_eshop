@@ -1,10 +1,11 @@
 "use client";
 
 import { Link } from "@/i18n/navigation";
-import { useMemo, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Check } from "lucide-react";
 import { useTranslations } from "next-intl";
 import type { Product } from "@/lib/queries/products";
+import type { SizeVariant } from "../../_lib/size-availability";
 import { getAvailabilityState } from "../../_lib/availability";
 import { getCartRecommendations } from "../../_lib/cart-recommendations";
 import { useAddToCartFlight } from "../../_lib/use-add-to-cart-flight";
@@ -14,33 +15,31 @@ import { Badge } from "../commerce/badge";
 import { AvailabilityBadge } from "../commerce/availability-badge";
 import { SizeSelector } from "./size-selector";
 
-const FALLBACK_SIZES = ["XS", "S", "M", "L", "XL", "XXL"];
-
-function deriveSizes(specs: Record<string, string>): {
-  sizes: string[];
-  fromSpecs: boolean;
-} {
-  const key = Object.keys(specs).find((k) => /μέγεθ|size/i.test(k));
-  if (key && specs[key]) {
-    const list = specs[key]
-      .split(/[,/|]/)
-      .map((s) => s.trim())
-      .filter(Boolean);
-    if (list.length > 0) return { sizes: list, fromSpecs: true };
-  }
-  return { sizes: FALLBACK_SIZES, fromSpecs: false };
-}
-
-export function BuyBox({ product }: { product: Product }) {
+export function BuyBox({
+  product,
+  sizes,
+}: {
+  product: Product;
+  sizes: SizeVariant[];
+}) {
   const t = useTranslations("pdp");
-  const { addToCart } = useV3();
+  const ta = useTranslations("auth");
+  const { addToCart, wishlist, toggleWishlist } = useV3();
+  const saved = wishlist.includes(product.slug);
   const { state: morph, trigger } = useAddToCartFlight();
   const ctaRef = useRef<HTMLButtonElement>(null);
-  const { sizes, fromSpecs } = useMemo(
-    () => deriveSizes(product.specs ?? {}),
-    [product.specs],
-  );
+  const sizeSectionRef = useRef<HTMLDivElement>(null);
+  // `size` holds the raw [Size code] (authoritative for cart/stock/ERP), or
+  // null when nothing is picked. The picker only renders for [Size variant]s.
   const [size, setSize] = useState<string | null>(null);
+  // Set when the CTA is pressed without a size — nudges the picker, no error.
+  const [needsSize, setNeedsSize] = useState(false);
+  const hasSizes = sizes.length > 0;
+
+  const pickSize = (code: string) => {
+    setSize(code);
+    setNeedsSize(false);
+  };
   const availability = getAvailabilityState(product.stock);
   const image = product.images[0]?.url ?? "";
   const recommendations = getCartRecommendations([
@@ -61,11 +60,24 @@ export function BuyBox({ product }: { product: Product }) {
   const onAdd = () => {
     const button = ctaRef.current;
     if (!availability.isOrderable || !button) return;
-    // The morph + fly-to-cart wraps the EXISTING presentation-only add (ADR
-    // 0001) — `addToCart` is the unchanged cart commit; the flight only
-    // animates around its success.
-    void trigger({ button, image }, () =>
-      addToCart({
+    // Sized product with nothing picked: never a dead button — nudge the picker
+    // with the «Διάλεξε μέγεθος» hint and scroll it into view, no error, no
+    // auto-select.
+    if (hasSizes && !size) {
+      setNeedsSize(true);
+      sizeSectionRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+      return;
+    }
+    // The morph + fly-to-cart wraps the server-authoritative add. `addToCart`
+    // validates the chosen [Size code] against live stock inside the action, so
+    // a stale page can't oversell; a rejection returns ok:false → throw →
+    // the flight reverts to its error state.
+    void trigger({ button, image }, async () => {
+      const { ok } = await addToCart({
+        productId: product.id,
         slug: product.slug,
         name: product.name,
         brand: product.brand,
@@ -74,12 +86,34 @@ export function BuyBox({ product }: { product: Product }) {
         size,
         image,
         qty: 1,
-      }),
-    );
+      });
+      if (!ok) throw new Error("add-failed");
+    });
   };
 
   return (
     <div className="v3-bb v3-bb--apple">
+      <button
+        type="button"
+        className={`v3-bb-fav${saved ? " is-on" : ""}`}
+        aria-pressed={saved}
+        aria-label={saved ? ta("wishlistRemove") : ta("wishlistAdd")}
+        onClick={() => toggleWishlist(product.slug)}
+      >
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+          fill={saved ? "currentColor" : "none"}
+          stroke="currentColor"
+          strokeWidth={saved ? 0 : 2}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+        </svg>
+      </button>
       <p className="v3-bb-brand">{product.brand}</p>
       <h1>{product.name}</h1>
 
@@ -114,21 +148,30 @@ export function BuyBox({ product }: { product: Product }) {
         aria-hidden="true"
       />
 
-      <div className="v3-bb-step">
-        <div className="v3-bb-step-head">
-          <span>1</span>
-          <div>
-            <strong>{t("chooseSize")}</strong>
-            <Link href="#size-guide">{t("sizeGuide")}</Link>
+      {hasSizes && (
+        <div
+          ref={sizeSectionRef}
+          className={`v3-bb-step${needsSize ? " is-needed" : ""}`}
+        >
+          <div className="v3-bb-step-head">
+            <span>1</span>
+            <div>
+              <strong>{t("chooseSize")}</strong>
+              <Link href="#size-guide">{t("sizeGuide")}</Link>
+            </div>
           </div>
+          <SizeSelector variants={sizes} value={size} onChange={pickSize} />
+          {needsSize && (
+            <p className="v3-bb-note v3-bb-note--warn" role="alert">
+              {t("chooseSize")}
+            </p>
+          )}
         </div>
-        <SizeSelector sizes={sizes} value={size} onChange={setSize} />
-        {!fromSpecs && <p className="v3-bb-note">{t("sizesNote")}</p>}
-      </div>
+      )}
 
       <div className="v3-bb-step">
         <div className="v3-bb-step-head">
-          <span>2</span>
+          <span>{hasSizes ? "2" : "1"}</span>
           <div>
             <strong>{t("availability")}</strong>
             <em>{availability.detailLabel}</em>

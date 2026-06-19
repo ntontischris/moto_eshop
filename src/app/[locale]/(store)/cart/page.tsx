@@ -7,6 +7,7 @@ import { useTranslations } from "next-intl";
 import { getCartRecommendations } from "../_lib/cart-recommendations";
 import { formatPrice } from "../_lib/format";
 import { SmartImage } from "../_components/commerce/smart-image";
+import { CartLineSize } from "../_components/commerce/cart-line-size";
 import { useV3, cartLineKey } from "../_components/shell/v3-provider";
 import {
   FREE_SHIPPING_THRESHOLD,
@@ -62,14 +63,16 @@ export default function CartPage() {
                       {line.name}
                     </Link>
                     {line.size && (
-                      <span className="v3-cart-size">
-                        {t("sizeLabel", { size: line.size })}
-                      </span>
+                      <CartLineSize
+                        slug={line.slug}
+                        lineId={line.id}
+                        currentSize={line.size}
+                      />
                     )}
                     <button
                       type="button"
                       className="v3-cart-remove"
-                      onClick={() => removeFromCart(key)}
+                      onClick={() => removeFromCart(line.id)}
                     >
                       {t("remove")}
                     </button>
@@ -78,7 +81,7 @@ export default function CartPage() {
                     <button
                       type="button"
                       aria-label={t("decrease")}
-                      onClick={() => updateQty(key, line.qty - 1)}
+                      onClick={() => updateQty(line.id, line.qty - 1)}
                     >
                       −
                     </button>
@@ -86,7 +89,7 @@ export default function CartPage() {
                     <button
                       type="button"
                       aria-label={t("increase")}
-                      onClick={() => updateQty(key, line.qty + 1)}
+                      onClick={() => updateQty(line.id, line.qty + 1)}
                     >
                       +
                     </button>

@@ -278,6 +278,8 @@
     "empty": "Your cart is empty.",
     "linesLabel": "Cart items",
     "sizeLabel": "Size: {size}",
+    "changeSize": "Change size",
+    "sizeUnavailable": "That size just sold out.",
     "remove": "Remove",
     "qtyLabel": "Quantity",
     "decrease": "Decrease",

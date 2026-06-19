@@ -123,6 +123,44 @@
   font-size: .8rem;
 }
 
+/* B1 in-cart size change */
+.v3-cart-size-pick {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.v3-cart-size-pick .v3-cart-size {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.v3-cart-size-word {
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  font-size: .68rem;
+  font-weight: 800;
+}
+.v3-cart-size-select {
+  background: var(--v3-surface);
+  color: var(--v3-bone);
+  border: 1px solid var(--v3-line);
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: .8rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.v3-cart-size-select:disabled {
+  opacity: .55;
+  cursor: progress;
+}
+.v3-cart-size-err {
+  color: var(--v3-red);
+  font-size: .74rem;
+  font-weight: 700;
+}
+
 .v3-cart-remove,
 .v3-cart-clear {
   justify-self: start;

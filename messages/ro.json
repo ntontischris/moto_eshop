@@ -278,6 +278,8 @@
     "empty": "Coșul tău este gol.",
     "linesLabel": "Articole în coș",
     "sizeLabel": "Mărime: {size}",
+    "changeSize": "Schimbă mărimea",
+    "sizeUnavailable": "Mărimea tocmai s-a epuizat.",
     "remove": "Elimină",
     "qtyLabel": "Cantitate",
     "decrease": "Scade",

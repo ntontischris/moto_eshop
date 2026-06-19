@@ -135,10 +135,13 @@ describe("pdp gap-closers: native lightbox + mobile sticky add-to-cart", () => {
 
 // Cycle 1 / issue #124 — inert reserve slots (markers only, no behaviour).
 describe("pdp inert reserve slots are present, marked, and layout-neutral", () => {
-  it("reserves the per-size stock badge slot (S-2.8)", () => {
+  it("activates the per-size stock badge slot (S-2.8 shipped)", () => {
     expect(sizeSelectorSource).toContain('data-slot="size-stock"');
     expect(sizeSelectorSource).toContain("v3-size-stock");
-    expect(sizeSelectorSource).toContain("S-2.8");
+    // The slot is no longer inert: it renders the three-state availability
+    // label and tags the chip with its state for styling/OOS-disable.
+    expect(sizeSelectorSource).toContain("SIZE_STATE_LABEL");
+    expect(sizeSelectorSource).toContain("data-size-state");
   });
 
   it("reserves the bike-compatibility badge slot in the buy-box (S-4.4)", () => {
@@ -164,8 +167,7 @@ describe("pdp inert reserve slots are present, marked, and layout-neutral", () =
     );
   });
 
-  it("keeps the slots inert — aria-hidden, no interactive children", () => {
-    expect(sizeSelectorSource).toContain('aria-hidden="true"');
+  it("keeps the still-inert compat slot aria-hidden with no interactive children", () => {
     // compat slot is a bare aria-hidden marker div (no buttons/links inside).
     expect(buyBoxSource).toMatch(
       /className="v3-bb-compat"[\s\S]*?data-slot="compat-badge"[\s\S]*?aria-hidden="true"[\s\S]*?\/>/,

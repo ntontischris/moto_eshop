@@ -278,6 +278,8 @@
     "empty": "Korpa ti je prazna.",
     "linesLabel": "Stavke u korpi",
     "sizeLabel": "Veličina: {size}",
+    "changeSize": "Промени величину",
+    "sizeUnavailable": "Та величина је управо распродата.",
     "remove": "Ukloni",
     "qtyLabel": "Količina",
     "decrease": "Smanji",

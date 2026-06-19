@@ -10,7 +10,7 @@ import { Heart } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { getUserWishlist } from "@/lib/queries/wishlist";
 import { PriceDisplay } from "@/components/ui/price-display";
-import { WishlistButton } from "@/components/wishlist/wishlist-button";
+import { WishlistRemove } from "./wishlist-remove";
 
 export const metadata = { title: "Αγαπημένα | MotoMarket" };
 
@@ -80,10 +80,8 @@ async function WishlistContent() {
                 </div>
               )}
             </Link>
-            <WishlistButton
-              productId={item.product_id}
-              initialWishlisted={true}
-              isLoggedIn={true}
+            <WishlistRemove
+              slug={item.product.slug}
               className="v3-wishlist-toggle"
             />
             <div className="v3-wishlist-body">

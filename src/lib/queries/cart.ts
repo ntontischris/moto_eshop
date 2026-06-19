@@ -1,8 +1,12 @@
-import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import {
   primaryImage,
   PLACEHOLDER_PRODUCT_IMAGE,
 } from "@/lib/queries/product-images";
+
+// Cart reads use the service-role client: a guest cart is keyed by an httpOnly
+// cookie that Postgres RLS cannot see. Callers pass a cart id (a random-uuid
+// capability) or a user id, and the action layer enforces ownership.
 
 interface ProductImage {
   url: string;
@@ -20,6 +24,7 @@ export interface CartItem {
   color: string | null;
   product_name: string;
   product_slug: string;
+  product_brand: string;
   product_image_url: string;
   product_image_alt: string;
   product_stock: number;
@@ -36,7 +41,7 @@ export interface Cart {
 }
 
 export async function getCart(cartId: string): Promise<Cart | null> {
-  const supabase = await createClient();
+  const supabase = createAdminClient();
 
   const { data: cart, error: cartError } = await supabase
     .from("carts")
@@ -51,7 +56,7 @@ export async function getCart(cartId: string): Promise<Cart | null> {
     .select(
       `
       id, cart_id, product_id, quantity, unit_price, size, color,
-      products ( name, slug, stock, images, categories ( slug ) )
+      products ( name, slug, stock, images, brands ( name ), categories ( slug ) )
     `,
     )
     .eq("cart_id", cartId);
@@ -64,6 +69,7 @@ export async function getCart(cartId: string): Promise<Cart | null> {
       slug: string;
       stock: number;
       images: ProductImage[];
+      brands: { name: string } | null;
       categories: { slug: string } | null;
     };
     const primary = primaryImage(product.images ?? []);
@@ -78,6 +84,7 @@ export async function getCart(cartId: string): Promise<Cart | null> {
       color: item.color,
       product_name: product.name,
       product_slug: product.slug,
+      product_brand: product.brands?.name ?? "",
       product_image_url: primary?.url ?? PLACEHOLDER_PRODUCT_IMAGE,
       product_image_alt: primary?.alt ?? product.name,
       product_stock: product.stock,
@@ -89,7 +96,7 @@ export async function getCart(cartId: string): Promise<Cart | null> {
 }
 
 export async function getCartByUserId(userId: string): Promise<Cart | null> {
-  const supabase = await createClient();
+  const supabase = createAdminClient();
 
   const { data: cart } = await supabase
     .from("carts")
@@ -104,7 +111,7 @@ export async function getCartByUserId(userId: string): Promise<Cart | null> {
 }
 
 export async function getCartItemCount(cartId: string): Promise<number> {
-  const supabase = await createClient();
+  const supabase = createAdminClient();
 
   const { data } = await supabase
     .from("cart_items")

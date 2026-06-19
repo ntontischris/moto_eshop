@@ -278,6 +278,8 @@
     "empty": "Shporta jote është bosh.",
     "linesLabel": "Artikujt në shportë",
     "sizeLabel": "Madhësia: {size}",
+    "changeSize": "Ndrysho madhësinë",
+    "sizeUnavailable": "Kjo madhësi sapo u shit.",
     "remove": "Hiq",
     "qtyLabel": "Sasia",
     "decrease": "Ul",

@@ -278,6 +278,8 @@
     "empty": "Το καλάθι σου είναι άδειο.",
     "linesLabel": "Προϊόντα καλαθιού",
     "sizeLabel": "Μέγεθος: {size}",
+    "changeSize": "Άλλαξε μέγεθος",
+    "sizeUnavailable": "Το μέγεθος εξαντλήθηκε.",
     "remove": "Αφαίρεση",
     "qtyLabel": "Ποσότητα",
     "decrease": "Μείωση",
