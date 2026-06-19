@@ -2,7 +2,7 @@
 
 Where we are now (ADR 0003). Sequence lives in ROADMAP.md. References slice ids only.
 
-_Last updated: 2026-06-04_
+_Last updated: 2026-06-19_
 
 ---
 
@@ -11,6 +11,10 @@ _Last updated: 2026-06-04_
 ### Roadmap slices
 
 - S-0.1 — ERP provider decision: Entersoft Phase 1-4, Odoo post-contract (2026-05-28)
+- **Cycle 1 — Visual cinematic frame** (PRs #126–#130): PDP/PLP/Cart/Checkout/Account/Wishlist/Garage brought to cinematic dark parity + reserved slots
+- **S-2.8 — Size variants** (Cycle 2, `abf7288`): real per-size availability on PDP (3 states, ADR 0009), add-to-cart with size + server stock guard, in-cart size change with merge
+- **S-2.11 — Wishlist server-persisted** (Cycle 2, `abf7288`): account-persisted, merge-on-login, legacy button retired
+- **Cart unified to one server-backed source of truth** (`abf7288`): whole storefront on `cart_items` (guest carts via service-role + cookie, IDOR-guarded; login-merge). Retired the parallel localStorage cart
 
 ### Walking Skeleton (pre-roadmap baseline)
 
