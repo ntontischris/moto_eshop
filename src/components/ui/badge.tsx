@@ -27,6 +27,8 @@ const badgeVariants = cva(
           "border-transparent bg-green-600 text-white uppercase tracking-wide",
         promo:
           "border-transparent bg-purple-600 text-white uppercase tracking-wide",
+        cinematic:
+          "border-[color:var(--v3-line)] bg-[color:var(--v3-surface)] text-[color:var(--v3-bone)]",
       },
     },
     defaultVariants: {

@@ -27,6 +27,8 @@ const buttonVariants = cva(
         white: "bg-white text-dark hover:bg-gray-50",
         "outline-neutral":
           "border-border text-foreground bg-transparent hover:bg-accent",
+        cinematic:
+          "border-[color:var(--v3-line)] bg-[color:var(--v3-red)] text-white hover:bg-[color:var(--v3-red-bright)] focus-visible:ring-[color:var(--v3-cyan)]",
       },
       size: {
         default:
