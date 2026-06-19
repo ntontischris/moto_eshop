@@ -48,6 +48,32 @@ _Avoid_: calling it the "optimized image" — Next still optimizes it on demand;
 The same-origin `/api/image-proxy` route that fetches a [Legacy image] server-side (with a browser user-agent) and re-emits it so the Next optimizer can process it. A stopgap with a latency ceiling; a product stops using it once it has a [Mirrored image].
 _Avoid_: treating the proxy as the long-term image source.
 
+## Variants & sizing
+
+**Size code**:
+The raw ERP size string as stored in `product_stock_locations.size`, zero-padded to three characters (`00M`, `0XL`, `044`). The only size value the ERP and stock understand — cart lines, stock checks and order lines use it verbatim. See ADR 0009.
+_Avoid_: showing it to customers raw, or treating the [Display size] as interchangeable with it.
+
+**Display size**:
+The customer-facing size, derived from a [Size code] by stripping the leading-zero padding (`00M`→`M`, `044`→`44`). Presentation only — never stored, never sent to the ERP. Codes that don't match the clean rule (combined/range sizes like `LXL`, `39-42`) are shown verbatim.
+_Avoid_: using a Display size as an identifier or persisting it.
+
+**Size variant**:
+A product that has more than one non-empty [Size code] in stock. A product whose only stock row carries the empty-string size has no variants and shows no size picker.
+_Avoid_: "variant" meaning colour — colour is a separate dimension (`cart_items.color`).
+
+## Engagement
+
+**Wishlist**:
+The set of products a visitor has saved. Two-tier, mirroring the cart: a [Guest wishlist] for logged-out visitors and a [Persisted wishlist] once authenticated.
+
+**Guest wishlist**:
+Products a logged-out visitor saved, kept in browser localStorage keyed by the product [Product id] slug. Merged (union) into the [Persisted wishlist] on login, then cleared — the same lifecycle as the [Guest cart].
+_Avoid_: assuming it survives a device or browser change.
+
+**Persisted wishlist**:
+A logged-in user's saved products, stored in the `wishlists` table keyed by product UUID and protected by RLS. Survives across devices and sessions.
+
 ## Assistant
 
 **Πιτ (Pit)**:
