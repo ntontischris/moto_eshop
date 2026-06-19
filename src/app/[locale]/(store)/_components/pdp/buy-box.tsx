@@ -9,7 +9,6 @@ import type { SizeVariant } from "../../_lib/size-availability";
 import { getAvailabilityState } from "../../_lib/availability";
 import { getCartRecommendations } from "../../_lib/cart-recommendations";
 import { useAddToCartFlight } from "../../_lib/use-add-to-cart-flight";
-import { checkSizeAvailable } from "../../_lib/cart-stock";
 import { useV3 } from "../shell/v3-provider";
 import { PriceDisplay } from "../commerce/price-display";
 import { Badge } from "../commerce/badge";
@@ -72,16 +71,13 @@ export function BuyBox({
       });
       return;
     }
-    // The morph + fly-to-cart wraps the presentation-only add (ADR 0001). For a
-    // sized product we first re-validate the chosen [Size code] server-side so a
-    // stale page can't oversell an out-of-stock size; a rejection throws and the
-    // flight reverts to its error state.
+    // The morph + fly-to-cart wraps the server-authoritative add. `addToCart`
+    // validates the chosen [Size code] against live stock inside the action, so
+    // a stale page can't oversell; a rejection returns ok:false → throw →
+    // the flight reverts to its error state.
     void trigger({ button, image }, async () => {
-      if (hasSizes && size) {
-        const { ok } = await checkSizeAvailable(product.id, size);
-        if (!ok) throw new Error("size-unavailable");
-      }
-      addToCart({
+      const { ok } = await addToCart({
+        productId: product.id,
         slug: product.slug,
         name: product.name,
         brand: product.brand,
@@ -91,6 +87,7 @@ export function BuyBox({
         image,
         qty: 1,
       });
+      if (!ok) throw new Error("add-failed");
     });
   };
 

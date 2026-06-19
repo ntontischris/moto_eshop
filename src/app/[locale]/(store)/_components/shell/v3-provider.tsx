@@ -6,11 +6,15 @@ import {
   wipeEndRadius,
   wipeOriginFromRect,
 } from "../../_lib/theme-transition";
+import { cartLineKey, type CartLine } from "../../_lib/cart-line";
 import {
-  cartLineKey,
-  changeCartLineSize,
-  type CartLine,
-} from "../../_lib/cart-line";
+  addToCart as serverAddToCart,
+  removeFromCart as serverRemoveFromCart,
+  updateQuantity as serverUpdateQuantity,
+  changeItemSize as serverChangeItemSize,
+  getCartLines,
+  clearCart as serverClearCart,
+} from "@/lib/actions/cart";
 import { setWishlistItem, syncWishlistOnLoad } from "@/lib/actions/wishlist";
 
 // Single home for the cart-line shape + key is `_lib/cart-line`; re-exported
@@ -32,10 +36,13 @@ interface V3Context {
   mode: "dark" | "light";
   toggleMode(origin?: ToggleOrigin): void;
   cart: CartLine[];
-  addToCart(line: CartLine): void;
-  removeFromCart(key: string): void;
-  updateQty(key: string, qty: number): void;
-  changeLineSize(key: string, newSize: string): void;
+  addToCart(input: Omit<CartLine, "id">): Promise<{ ok: boolean }>;
+  removeFromCart(id: string): void;
+  updateQty(id: string, qty: number): void;
+  changeLineSize(
+    id: string,
+    newSize: string,
+  ): Promise<{ ok: boolean; error?: string }>;
   clearCart(): void;
   cartCount: number;
   cartTotal: number;
@@ -47,7 +54,6 @@ interface V3Context {
 
 const Ctx = createContext<V3Context | null>(null);
 
-const CART_KEY = "mm-v3-cart";
 const WISH_KEY = "mm-v3-wishlist";
 const MODE_KEY = "mm-v3-mode";
 
@@ -72,16 +78,23 @@ export function V3Provider({ children }: { children: React.ReactNode }) {
   const accountBacked = useRef(false);
 
   // Load persisted state once on mount (SSR-safe — empty on first render,
-  // so server and client markup match; populated right after). Then reconcile
-  // the wishlist with the account: a logged-in user merges their local [Guest
-  // wishlist] into the [Persisted wishlist] and switches to account-backed.
+  // so server and client markup match; populated right after). The cart is
+  // server-backed (single source of truth); the wishlist reconciles with the
+  // account so a logged-in user merges their local [Guest wishlist] into the
+  // [Persisted wishlist] and switches to account-backed.
   useEffect(() => {
     queueMicrotask(async () => {
       const localWish = load<string[]>(WISH_KEY, []);
-      setCart(load<CartLine[]>(CART_KEY, []));
       setWishlist(localWish);
       setMode(load<"dark" | "light">(MODE_KEY, "dark"));
       hydrated.current = true;
+
+      // Cart: load the current server cart (guest cookie cart or account cart).
+      try {
+        setCart(await getCartLines());
+      } catch {
+        /* offline — leave empty; the next mutation re-syncs */
+      }
 
       try {
         const res = await syncWishlistOnLoad(localWish);
@@ -111,17 +124,6 @@ export function V3Provider({ children }: { children: React.ReactNode }) {
     }
   }, [mode]);
 
-  // Persist on change (skip the pre-hydration render so we don't clobber
-  // stored data with the initial empty arrays).
-  useEffect(() => {
-    if (!hydrated.current) return;
-    try {
-      window.localStorage.setItem(CART_KEY, JSON.stringify(cart));
-    } catch {
-      /* quota/private-mode — ignore */
-    }
-  }, [cart]);
-
   useEffect(() => {
     if (!hydrated.current) return;
     // Account-backed wishlist lives in the DB, not localStorage.
@@ -133,39 +135,61 @@ export function V3Provider({ children }: { children: React.ReactNode }) {
     }
   }, [wishlist]);
 
-  function addToCart(line: CartLine) {
-    setCart((prev) => {
-      const key = cartLineKey(line);
-      const idx = prev.findIndex((l) => cartLineKey(l) === key);
-      if (idx !== -1) {
-        const next = [...prev];
-        next[idx] = { ...next[idx], qty: next[idx].qty + line.qty };
-        return next;
-      }
-      return [...prev, line];
+  // Re-pull the authoritative cart after a server mutation.
+  async function refreshCart() {
+    try {
+      setCart(await getCartLines());
+    } catch {
+      /* keep the optimistic state if the refresh fails */
+    }
+  }
+
+  // Server-authoritative add. Per-size stock is validated inside the action, so
+  // a stale page can't oversell; on success we re-sync from the server.
+  async function addToCart(
+    input: Omit<CartLine, "id">,
+  ): Promise<{ ok: boolean }> {
+    const res = await serverAddToCart({
+      productId: input.productId,
+      quantity: input.qty,
+      unitPrice: input.price,
+      size: input.size,
     });
+    if (!res.success) return { ok: false };
+    await refreshCart();
+    return { ok: true };
   }
 
-  function removeFromCart(key: string) {
-    setCart((prev) => prev.filter((l) => cartLineKey(l) !== key));
+  function removeFromCart(id: string) {
+    setCart((prev) => prev.filter((l) => l.id !== id)); // optimistic
+    void serverRemoveFromCart({ cartItemId: id }).then(refreshCart);
   }
 
-  function updateQty(key: string, qty: number) {
+  function updateQty(id: string, qty: number) {
     setCart((prev) =>
       qty <= 0
-        ? prev.filter((l) => cartLineKey(l) !== key)
-        : prev.map((l) => (cartLineKey(l) === key ? { ...l, qty } : l)),
+        ? prev.filter((l) => l.id !== id)
+        : prev.map((l) => (l.id === id ? { ...l, qty } : l)),
+    ); // optimistic
+    void serverUpdateQuantity({ cartItemId: id, quantity: qty }).then(
+      refreshCart,
     );
   }
 
-  // Change a line's [Size code] (B1). Stock is validated server-side by the
-  // caller first; this applies the merge-aware local mutation.
-  function changeLineSize(key: string, newSize: string) {
-    setCart((prev) => changeCartLineSize(prev, key, newSize));
+  // Change a line's [Size code] (B1) — validated + merged server-side.
+  async function changeLineSize(
+    id: string,
+    newSize: string,
+  ): Promise<{ ok: boolean; error?: string }> {
+    const res = await serverChangeItemSize({ cartItemId: id, size: newSize });
+    if (!res.success) return { ok: false, error: res.error };
+    await refreshCart();
+    return { ok: true };
   }
 
   function clearCart() {
-    setCart([]);
+    setCart([]); // optimistic
+    void serverClearCart();
   }
 
   function toggleWishlist(slug: string) {

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { mergeGuestCartOnLogin } from "@/lib/actions/cart";
 
 export async function GET(request: NextRequest) {
   const { searchParams, origin } = new URL(request.url);
@@ -12,11 +13,14 @@ export async function GET(request: NextRequest) {
   }
 
   const supabase = await createClient();
-  const { error } = await supabase.auth.exchangeCodeForSession(code);
+  const { data, error } = await supabase.auth.exchangeCodeForSession(code);
 
   if (error) {
     return NextResponse.redirect(`${origin}/login?error=oauth_failed`);
   }
+
+  // Fold any guest cart into the account (cross-device after social login).
+  if (data.user) await mergeGuestCartOnLogin(data.user.id);
 
   return NextResponse.redirect(`${origin}${next}`);
 }

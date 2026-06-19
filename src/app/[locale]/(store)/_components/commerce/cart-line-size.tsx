@@ -7,25 +7,22 @@ import {
   SIZE_STATE_LABEL,
   type SizeVariant,
 } from "../../_lib/size-availability";
-import {
-  checkSizeAvailableBySlug,
-  getProductSizesBySlug,
-} from "../../_lib/cart-stock";
+import { getProductSizesBySlug } from "../../_lib/cart-stock";
 import { useV3 } from "../shell/v3-provider";
 
 /**
- * In-cart size selector (B1). Loads the product's [Size variant]s by slug,
- * re-validates the chosen [Size code] server-side on change, then applies the
- * merge-aware local mutation. Falls back to a static size label while loading
- * or when the product has no variants.
+ * In-cart size selector (B1). Loads the product's [Size variant]s by slug, then
+ * changes the line via the server action (which re-validates stock and merges
+ * into an existing same-size line). Falls back to a static size label while
+ * loading or when the product has no variants.
  */
 export function CartLineSize({
   slug,
-  lineKey,
+  lineId,
   currentSize,
 }: {
   slug: string;
-  lineKey: string;
+  lineId: string;
   currentSize: string;
 }) {
   const t = useTranslations("cart");
@@ -71,13 +68,9 @@ export function CartLineSize({
     if (next === currentSize) return;
     setBusy(true);
     setError(false);
-    const { ok } = await checkSizeAvailableBySlug(slug, next);
+    const { ok } = await changeLineSize(lineId, next);
     setBusy(false);
-    if (!ok) {
-      setError(true);
-      return;
-    }
-    changeLineSize(lineKey, next);
+    if (!ok) setError(true);
   };
 
   return (

@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 import { z } from "zod/v4";
 import { createClient } from "@/lib/supabase/server";
+import { mergeGuestCartOnLogin } from "@/lib/actions/cart";
 
 const signInSchema = z.object({
   email: z.email("Εισάγετε έγκυρο email"),
@@ -57,7 +58,7 @@ export async function signInWithEmail(
   }
 
   const supabase = await createClient();
-  const { error } = await supabase.auth.signInWithPassword({
+  const { data: signInData, error } = await supabase.auth.signInWithPassword({
     email: parsed.data.email,
     password: parsed.data.password,
   });
@@ -74,6 +75,9 @@ export async function signInWithEmail(
     }
     return { success: false, error: "Αποτυχία σύνδεσης. Δοκιμάστε ξανά." };
   }
+
+  // Fold any guest cart into the account so it survives login + is cross-device.
+  if (signInData.user) await mergeGuestCartOnLogin(signInData.user.id);
 
   redirect(redirectTo);
 }

@@ -65,14 +65,14 @@ export default function CartPage() {
                     {line.size && (
                       <CartLineSize
                         slug={line.slug}
-                        lineKey={key}
+                        lineId={line.id}
                         currentSize={line.size}
                       />
                     )}
                     <button
                       type="button"
                       className="v3-cart-remove"
-                      onClick={() => removeFromCart(key)}
+                      onClick={() => removeFromCart(line.id)}
                     >
                       {t("remove")}
                     </button>
@@ -81,7 +81,7 @@ export default function CartPage() {
                     <button
                       type="button"
                       aria-label={t("decrease")}
-                      onClick={() => updateQty(key, line.qty - 1)}
+                      onClick={() => updateQty(line.id, line.qty - 1)}
                     >
                       −
                     </button>
@@ -89,7 +89,7 @@ export default function CartPage() {
                     <button
                       type="button"
                       aria-label={t("increase")}
-                      onClick={() => updateQty(key, line.qty + 1)}
+                      onClick={() => updateQty(line.id, line.qty + 1)}
                     >
                       +
                     </button>
