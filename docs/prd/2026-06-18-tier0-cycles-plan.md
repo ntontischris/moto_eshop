@@ -14,7 +14,7 @@ The cinematic home language already exists live in production (Industrial Race s
 | # | Cycle | Items | Shared model | Status |
 |---|---|---|---|---|
 | 1 | **Visual cinematic frame** | 0.1 PDP · 0.2 PLP · 0.3 Cart · 0.4 Checkout · 0.5 Account | — (design system + reserved slots) | ✅ **MERGED to main** (2026-06-19) — PRs #126–#130 squashed; issues #119–#125 all closed |
-| 2 | **Size + Wishlist** | S-2.8 size variants · S-2.11 wishlist server-persisted | `wishlists` table (+ `product_stock_locations.size` exists) | ✅ grill ✅ PRD ([#131](https://github.com/ntontischris/moto_eshop/issues/131)) ✅ issues (size 1→2→3 = #132→#134→#135 · wishlist 4→5 = #133→#136) |
+| 2 | **Size + Wishlist** | S-2.8 size variants · S-2.11 wishlist server-persisted | `wishlists` table (+ `product_stock_locations.size` exists) | ✅ grill ✅ PRD ([#131](https://github.com/ntontischris/moto_eshop/issues/131)) ✅ issues (size 1→2→3 = #132→#134→#135 · wishlist 4→5 = #133→#136) ✅ **impl → [PR #137](https://github.com/ntontischris/moto_eshop/pull/137)** (616 tests, build ✓; awaiting review/merge) |
 | 3 | **Reviews** | S-2.9 write & display · S-2.10 admin moderation | `reviews` table + verified-buyer + moderation states | ⬜ grill ⬜ PRD ⬜ issues |
 | 4 | **Fitment system** | S-4.1 garage · S-4.2 fitment tagging · S-4.3 PLP filter · S-4.4 PDP badge | `user_bikes` + `products.fitment_keys` + matching logic | ⬜ grill ⬜ PRD ⬜ issues |
 
