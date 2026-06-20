@@ -48,6 +48,12 @@ create trigger reviews_rating_sync
   after insert or update or delete on reviews
   for each row execute function on_review_change();
 
+-- These are trigger helpers, not API endpoints — keep them off PostgREST so
+-- they aren't callable via /rest/v1/rpc by anon/authenticated roles. The
+-- trigger still fires (it runs as the definer regardless of EXECUTE grants).
+revoke execute on function on_review_change() from public, anon, authenticated;
+revoke execute on function recalc_product_rating(uuid) from public, anon, authenticated;
+
 -- Backfill existing rows so the columns reflect reviews already in the table.
 update products p
 set
