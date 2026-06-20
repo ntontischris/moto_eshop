@@ -1,0 +1,13 @@
+# An order row is created only on confirmed payment; card attempts live as a separate Checkout session
+
+For card payments the customer is redirected to a provider-hosted [Checkout session] (ADR 0010), and most started payments are never completed. Creating an `orders` row up-front would pollute the orders table with abandoned rows and, worse, make an abandoned-card order indistinguishable from a real Cash-on-Delivery order — both are simply "unpaid". So we **do not create an order at checkout**. Instead we persist a lightweight **Checkout session** record (cart snapshot + server-authoritative amount + provider session id + status), redirect to the provider, and create the real `orders` row **only when the provider's webhook confirms payment**. Cash-on-Delivery skips the provider entirely and creates the order immediately with `payment_status = cod`. Order state is split across two axes — `payment_status` (paid / unpaid / failed) and the existing fulfillment `status` — because an order can be paid-but-unshipped or shipped-but-uncollected (COD), which one column cannot express.
+
+The webhook is the **only** trusted source of payment outcome (never the browser redirect back). Duplicate-event safety has two layers: we record each provider event id and skip ids already processed, and the database enforces **one order per Checkout session**, so a duplicate or racing webhook physically cannot create a second order. The event is marked processed in the same transaction that creates the order, and we return success to the provider only after that commits — so a transient failure is retried by the provider rather than lost.
+
+Considered (a) **create the order at checkout, mark it paid on webhook** — rejected: pollutes the orders table with abandoned rows and conflates abandoned-card with COD. (b) **create the order purely inside the webhook with no prior record** — rejected: the cart snapshot has nowhere to live (provider metadata is too small/untrusted) and there is no anchor for idempotency or for abandoned-checkout follow-up. The persisted, expired Checkout session is deliberately **kept, not deleted**, so it can later seed an abandoned-checkout automation (EM layer) — distinct from abandoned-*cart*, which is sourced from the cart itself.
+
+## Consequences
+
+- A new `checkout_sessions` (Checkout session) table and a `payment_status` column on `orders`; a uniqueness rule of one order per Checkout session.
+- Delayed-settlement rails (SEPA, Klarna) settle after the redirect — their handling refines this lifecycle; see the F-1 plan.
+- Pricing stays server-authoritative regardless of provider (ADR 0001): the amount on the Checkout session is computed server-side, never from the client.

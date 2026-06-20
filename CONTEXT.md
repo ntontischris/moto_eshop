@@ -25,6 +25,25 @@ A cart owned by an authenticated user (`carts.user_id`). Survives across devices
 The amount a customer owes, computed **server-side from the `products` table**, never from a price supplied by the client or stored on the cart. See ADR 0001.
 _Avoid_: trusting cart `unit_price` or client-sent price as authoritative.
 
+## Payments
+
+**Checkout session**:
+A single attempt to pay for an [Order total] at an external, provider-hosted payment page (Stripe today, Viva at launch). The storefront creates it server-side from the server-authoritative total, redirects the customer to it, and never touches card data. Its outcome is trusted **only** when confirmed by the provider's webhook — never from the browser return. The provider exposes every payment rail (card, Apple/Google Pay, Klarna, Revolut, SEPA, and later IRIS) on the same hosted page; enabling a rail is provider configuration, not new code.
+_Avoid_: treating the browser redirect back to the site as proof of payment; embedding card fields in our own pages.
+
+**PaymentProvider**:
+The single interface every payment integration implements (mirrors [IErpAdapter] — see ADR 0010). One concrete adapter per processor (Stripe now, Viva at launch). Swapping the launch card-acquirer is re-pointing the adapter, not rewriting checkout.
+
+## Pricing
+
+**Display currency**:
+A non-EUR currency (BGN/RON/RSD/ALL) a visitor's prices are *shown* in, converted from EUR at a reference (ECB) rate. Presentation only — the [Order total] is always charged in EUR. Choosing it never changes what the customer pays, only what they read.
+_Avoid_: treating it as the settlement/charge currency — we display many currencies but charge one.
+
+**Floor price**:
+The server-enforced minimum a [Πιτ]-driven price negotiation may reach for a product. The negotiation assistant can offer discounts down to it but never below; the floor lives server-side and clamps any number the assistant proposes. See ADR 0014.
+_Avoid_: letting the assistant emit a final price — it selects within the floor, it does not set it.
+
 ## Routing
 
 **Clean URL**:
