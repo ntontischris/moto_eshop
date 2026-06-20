@@ -15,10 +15,12 @@ export function PDPClient({
   product,
   sizes,
   related,
+  reviews,
 }: {
   product: Product;
   sizes: SizeVariant[];
   related: React.ReactNode;
+  reviews: React.ReactNode;
 }) {
   const t = useTranslations("pdp");
   const tc = useTranslations("common");
@@ -119,9 +121,10 @@ export function PDPClient({
               <li>{t("shipLine4")}</li>
             </ul>
           )}
-          {/* S-2.9 reviews slot — inert placeholder; reviews land in S-2.9 */}
           {tab === "reviews" && (
-            <div className="v3-pdp-reviews" data-slot="reviews" />
+            <div className="v3-pdp-reviews" data-slot="reviews">
+              {reviews}
+            </div>
           )}
         </div>
       </div>

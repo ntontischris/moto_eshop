@@ -22,4 +22,8 @@ describe("message catalogs", () => {
   ])("%s has the same keys as el", (_name, cat) => {
     expect(flat(cat).sort()).toEqual(base);
   });
+
+  it("exposes the PDP reviews tab label", () => {
+    expect(flat(el)).toContain("pdp.tabReviews");
+  });
 });
