@@ -120,7 +120,13 @@ async function CatchAllContent({ params, searchParams }: PageProps) {
     if (currentPath !== canonical && resolved.canonicalPath.length > 1) {
       redirect({ href: `/${canonical}`, locale });
     }
-    return <ProductView slug={resolved.productSlug} locale={locale} />;
+    return (
+      <ProductView
+        slug={resolved.productSlug}
+        locale={locale}
+        searchParams={sp}
+      />
+    );
   }
 
   // category

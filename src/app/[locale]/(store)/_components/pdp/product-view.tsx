@@ -6,8 +6,12 @@ import {
   getProductSizeAvailability,
   getRelatedProducts,
 } from "@/lib/queries/products";
+import { getReviewStats } from "@/lib/queries/reviews";
+import { createClient } from "@/lib/supabase/server";
+import { generateAggregateRating } from "@/lib/schema/reviews";
 import { ProductCard } from "../commerce/product-card";
 import { PDPClient } from "../../product/[slug]/pdp-client";
+import { ReviewsSection } from "@/components/reviews/reviews-section";
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://motomarket.gr";
 
@@ -20,15 +24,26 @@ const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://motomarket.gr";
 export async function ProductView({
   slug,
   locale,
+  searchParams = {},
 }: {
   slug: string;
   locale: Locale;
+  searchParams?: Record<string, string | string[] | undefined>;
 }) {
   const product = await getProduct(slug, locale);
   if (!product) notFound();
 
   // Fresh, uncached per-size stock (kept out of getProduct's hours cache).
   const sizes = await getProductSizeAvailability(product.id);
+
+  // Live review stats — kept out of getProduct's cache so an approved review
+  // surfaces immediately (the DB trigger also syncs product.average_rating).
+  const reviewStats = await getReviewStats(product.id);
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   const relatedAll = await getRelatedProducts(
     product.id,
@@ -46,13 +61,7 @@ export async function ProductView({
     description: product.description ?? product.name,
     sku: product.sku,
     brand: { "@type": "Brand", name: product.brand },
-    aggregateRating: product.average_rating
-      ? {
-          "@type": "AggregateRating",
-          ratingValue: product.average_rating,
-          reviewCount: product.review_count,
-        }
-      : undefined,
+    aggregateRating: generateAggregateRating(reviewStats),
     offers: {
       "@type": "Offer",
       url: `${BASE_URL}${product.category_path ? `/${product.category_path}` : ""}/${product.slug}`,
@@ -78,6 +87,13 @@ export async function ProductView({
         related={related.map((p) => (
           <ProductCard key={p.id} product={p} />
         ))}
+        reviews={
+          <ReviewsSection
+            productId={product.id}
+            isLoggedIn={!!user}
+            searchParams={searchParams}
+          />
+        }
       />
     </>
   );
