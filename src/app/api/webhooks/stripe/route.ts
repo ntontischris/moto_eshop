@@ -3,9 +3,10 @@ import { getPaymentProvider } from "@/lib/payments";
 import { handlePaymentEvent } from "@/lib/payments/webhook-handler";
 import { createAdminClient } from "@/lib/supabase/admin";
 
-// Stripe signature verification needs the unparsed body + Node crypto.
-export const runtime = "nodejs";
-export const dynamic = "force-dynamic";
+// NOTE: no `runtime`/`dynamic` route-segment exports — this build uses Next 16
+// Cache Components (cacheComponents), which rejects them. A POST route handler
+// is already uncached + Node runtime by default; signature verification reads
+// the raw body via req.text().
 
 /**
  * Thin webhook shell (ADR 0015): read raw body → verify signature → delegate
