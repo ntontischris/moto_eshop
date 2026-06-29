@@ -361,14 +361,17 @@ async function syncStock(): Promise<void> {
       upserted += count ?? batch.length;
     }
 
-    // Denormalize total stock back to products.stock for fast filters.
-    // RPC is optional; skip silently if not defined yet.
+    // Denormalize total stock back to products.stock for fast filters,
+    // PDP buy-box, availability badges and checkout pricing. Without this
+    // rollup every product stays at the placeholder stock = 0 and the whole
+    // catalog reads as out-of-stock — so a failure here must be loud, not
+    // swallowed. (Provided by migration recompute_product_stock_totals.)
     const { error: rpcErr } = await supabase.rpc(
       "recompute_product_stock_totals",
     );
     if (rpcErr) {
-      console.warn(
-        "  (no recompute_product_stock_totals RPC; skipping denorm)",
+      throw new Error(
+        `recompute_product_stock_totals RPC failed (products.stock not denormalized — catalog would read as out-of-stock): ${rpcErr.message}`,
       );
     }
 
