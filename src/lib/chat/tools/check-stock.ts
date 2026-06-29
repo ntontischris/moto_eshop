@@ -1,6 +1,6 @@
 import { tool } from "ai";
 import { z } from "zod/v4";
-import { getStockForProduct } from "@/lib/erp";
+import { getStockForProduct, isErpLiveStockEnabled } from "@/lib/erp";
 import { createClient } from "@/lib/supabase/server";
 
 export const checkStockInputSchema = z.object({
@@ -16,33 +16,72 @@ export interface CheckStockResult {
   error?: string;
 }
 
+type StockStore = { id: string; name: string; stock: number };
+
+const STORES: ReadonlyArray<{ code: string; name: string }> = [
+  { code: "sindos", name: "Σίνδος" },
+  { code: "benizelou", name: "Βενιζέλου" },
+  { code: "antistaseos", name: "Αντιστάσεως" },
+  { code: "beinoglou", name: "Μπεϊνόγλου" },
+];
+
 const UUID_RE =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 /**
  * The chat model knows a catalog Product id (a Supabase UUID or a slug); the
- * ERP only understands the SKU (`products.sku`). Resolve it here, at the
- * boundary, before any ERP call. Returns null when the product has no SKU.
+ * ERP only understands the SKU (`products.sku`). Resolve both here, at the
+ * boundary. Returns null when the product is unknown or has no SKU.
  */
-async function resolveSku(productId: string): Promise<string | null> {
+async function resolveProduct(
+  productId: string,
+): Promise<{ id: string; sku: string | null } | null> {
   const supabase = await createClient();
   const column = UUID_RE.test(productId) ? "id" : "slug";
   const { data } = await supabase
     .from("products")
-    .select("sku")
+    .select("id, sku")
     .eq(column, productId)
     .maybeSingle();
-  return data?.sku ?? null;
+  return data ?? null;
+}
+
+/**
+ * Per-store stock from the synced snapshot (product_stock_locations) — no live
+ * ERP call. Used unless ERP_LIVE_STOCK=true, so dev never burdens Entersoft.
+ */
+async function stockFromSnapshot(
+  productUuid: string,
+  variantId?: string,
+): Promise<StockStore[]> {
+  const supabase = await createClient();
+  let query = supabase
+    .from("product_stock_locations")
+    .select("warehouse_code, available")
+    .eq("product_id", productUuid);
+  if (variantId) query = query.eq("size", variantId);
+  const { data } = await query;
+
+  const totals = new Map<string, number>();
+  for (const row of data ?? []) {
+    const prev = totals.get(row.warehouse_code) ?? 0;
+    totals.set(row.warehouse_code, prev + (Number(row.available) || 0));
+  }
+  return STORES.map((s) => ({
+    id: s.code,
+    name: s.name,
+    stock: totals.get(s.code) ?? 0,
+  }));
 }
 
 export const checkStockTool = tool({
   description:
-    "Check live stock for a specific product across the two stores (Καλλιθέα, Θεσσαλονίκη) and the central warehouse. Always call this before claiming a product is in stock — catalog cache may be stale.",
+    "Check stock for a specific product across the two stores (Καλλιθέα, Θεσσαλονίκη) and the central warehouse. Always call this before claiming a product is in stock — catalog cache may be stale.",
   inputSchema: checkStockInputSchema,
   execute: async ({ productId, variantId }): Promise<CheckStockResult> => {
     try {
-      const sku = await resolveSku(productId);
-      if (!sku) {
+      const product = await resolveProduct(productId);
+      if (!product?.sku) {
         return {
           productId,
           inStock: false,
@@ -51,13 +90,18 @@ export const checkStockTool = tool({
           error: "Stock lookup unavailable: product has no ERP SKU",
         };
       }
-      const data = await getStockForProduct({ productId: sku, variantId });
-      const total = data.stores.reduce((acc, s) => acc + (s.stock ?? 0), 0);
+      // Default: read the synced snapshot (no live ERP). Only hit Entersoft
+      // when explicitly enabled via ERP_LIVE_STOCK.
+      const stores = isErpLiveStockEnabled()
+        ? (await getStockForProduct({ productId: product.sku, variantId }))
+            .stores
+        : await stockFromSnapshot(product.id, variantId);
+      const total = stores.reduce((acc, s) => acc + (s.stock ?? 0), 0);
       return {
         productId,
         inStock: total > 0,
         totalStock: total,
-        stores: data.stores,
+        stores,
       };
     } catch (err) {
       return {
