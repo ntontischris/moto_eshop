@@ -39,6 +39,16 @@ export function getErp(): IErpAdapter {
   throw new Error(`ERP provider "${provider}" is not implemented yet.`);
 }
 
+/**
+ * Whether stock lookups may hit the live ERP API. Off by default so dev /
+ * snapshot-only environments never call Entersoft; reads fall back to the
+ * synced product_stock_locations snapshot. Flip ERP_LIVE_STOCK=true to go
+ * live. Mirrors the env-gated pattern of isCardPaymentEnabled().
+ */
+export function isErpLiveStockEnabled(): boolean {
+  return process.env.ERP_LIVE_STOCK === "true";
+}
+
 export type { IErpAdapter };
 export * from "./types";
 
