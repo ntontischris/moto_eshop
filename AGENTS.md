@@ -22,7 +22,7 @@ The AI `memory/` store holds **pointers, preferences, and gotchas only** — not
 <!-- gitnexus:start -->
 # GitNexus — Code Intelligence
 
-This project is indexed by GitNexus as **moto_eshop** (3783 symbols, 5565 relationships, 119 execution flows). Use the GitNexus MCP tools to understand code, assess impact, and navigate safely.
+This project is indexed by GitNexus as **moto_eshop** (4438 symbols, 7320 relationships, 210 execution flows). Use the GitNexus MCP tools to understand code, assess impact, and navigate safely.
 
 > If any GitNexus tool warns the index is stale, run `npx gitnexus analyze` in terminal first.
 

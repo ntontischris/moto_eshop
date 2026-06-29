@@ -876,6 +876,7 @@ export type Database = {
           erp_order_id: string | null;
           id: string;
           order_number: string;
+          payment_status: Database["public"]["Enums"]["payment_status"];
           shipping_address: Json;
           shipping_cost: number;
           status: Database["public"]["Enums"]["order_status"];
@@ -891,6 +892,7 @@ export type Database = {
           erp_order_id?: string | null;
           id?: string;
           order_number: string;
+          payment_status?: Database["public"]["Enums"]["payment_status"];
           shipping_address: Json;
           shipping_cost?: number;
           status?: Database["public"]["Enums"]["order_status"];
@@ -906,6 +908,7 @@ export type Database = {
           erp_order_id?: string | null;
           id?: string;
           order_number?: string;
+          payment_status?: Database["public"]["Enums"]["payment_status"];
           shipping_address?: Json;
           shipping_cost?: number;
           status?: Database["public"]["Enums"]["order_status"];
@@ -915,6 +918,65 @@ export type Database = {
           user_id?: string | null;
         };
         Relationships: [];
+      };
+      checkout_sessions: {
+        Row: {
+          amount_total: number;
+          contact: Json;
+          created_at: string;
+          currency: string;
+          id: string;
+          line_items: Json;
+          order_id: string | null;
+          provider: string;
+          provider_session_id: string | null;
+          shipping_cost: number;
+          status: string;
+          subtotal: number;
+          total: number;
+          updated_at: string;
+        };
+        Insert: {
+          amount_total: number;
+          contact: Json;
+          created_at?: string;
+          currency?: string;
+          id?: string;
+          line_items: Json;
+          order_id?: string | null;
+          provider?: string;
+          provider_session_id?: string | null;
+          shipping_cost: number;
+          status?: string;
+          subtotal: number;
+          total: number;
+          updated_at?: string;
+        };
+        Update: {
+          amount_total?: number;
+          contact?: Json;
+          created_at?: string;
+          currency?: string;
+          id?: string;
+          line_items?: Json;
+          order_id?: string | null;
+          provider?: string;
+          provider_session_id?: string | null;
+          shipping_cost?: number;
+          status?: string;
+          subtotal?: number;
+          total?: number;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "checkout_sessions_order_id_fkey";
+            columns: ["order_id"];
+            isOneToOne: false;
+            referencedRelation: "orders";
+            referencedColumns: ["id"];
+          },
+        ];
       };
       price_alerts: {
         Row: {
@@ -1820,6 +1882,7 @@ export type Database = {
         | "delivered"
         | "cancelled"
         | "refunded";
+      payment_status: "unpaid" | "paid" | "failed" | "cod";
       product_status: "draft" | "active" | "archived";
       referral_status: "pending" | "qualified" | "rewarded" | "rejected";
       review_status: "pending" | "approved" | "rejected";
@@ -2009,6 +2072,7 @@ export const Constants = {
         "cancelled",
         "refunded",
       ],
+      payment_status: ["unpaid", "paid", "failed", "cod"],
       product_status: ["draft", "active", "archived"],
       referral_status: ["pending", "qualified", "rewarded", "rejected"],
       review_status: ["pending", "approved", "rejected"],
