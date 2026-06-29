@@ -1,8 +1,9 @@
 # MotoMarket — STATUS
 
 Where we are now (ADR 0003). Sequence lives in ROADMAP.md. References slice ids only.
+New here? Start with [HANDOFF.md](HANDOFF.md).
 
-_Last updated: 2026-06-19_
+_Last updated: 2026-06-29 (typecheck clean, 638/638 tests green; F-1.1 card tracer on `feat/f1-payment-tracer`)_
 
 ---
 
@@ -15,6 +16,8 @@ _Last updated: 2026-06-19_
 - **S-2.8 — Size variants** (Cycle 2, `abf7288`): real per-size availability on PDP (3 states, ADR 0009), add-to-cart with size + server stock guard, in-cart size change with merge
 - **S-2.11 — Wishlist server-persisted** (Cycle 2, `abf7288`): account-persisted, merge-on-login, legacy button retired
 - **Cart unified to one server-backed source of truth** (`abf7288`): whole storefront on `cart_items` (guest carts via service-role + cookie, IDOR-guarded; login-merge). Retired the parallel localStorage cart
+- **S-2.9 / S-2.10 — Reviews** (Cycle 3, `02f1601`, PR #138): verified-buyer reviews wired into PDP + rating-sync trigger, i18n, migration applied + security-hardened
+- **F-1.1 — Card payment tracer** (#140, branch `feat/f1-payment-tracer`, PR pending): `PaymentProvider` interface + Stripe adapter (hosted Checkout, no card data on our servers), pure payment state machine, two-axis order state (`payment_status` + `status`), `checkout_sessions` snapshot table, webhook-confirmed order creation (`api/webhooks/stripe`), card option behind a key-present flag (COD always available), success page resolves the real order via polling. COD path unchanged. ⏳ owner prerequisites: apply `20260629000001_payment_tracer.sql` + add Stripe TEST keys to env (then the skipped live integration test runs). Follow-ups: #141 idempotency, #142 cancel/expiry, #143 card flag
 
 ### Walking Skeleton (pre-roadmap baseline)
 
@@ -54,8 +57,8 @@ _Last updated: 2026-06-19_
 
 ## In flight
 
-- Track C #24 — STANDARDS.md (coding standards document)
-- Track C #25 — knowledge-map (codebase navigation guide)
+- **F-1 — PaymentProvider tracer** (grill 2026-06-20 → PRD #139 → issues #140-143). **Next dev step = #140** (card happy path). See [docs/MOTOMARKET_EXECUTION_PLAN.md](docs/MOTOMARKET_EXECUTION_PLAN.md).
+- Strategy locked by grill 2026-06-20: foundation-first (F-1 → F-2 AI registry → F-3 ERP read-model), then fan-out. ADRs 0010-0015 + glossary terms added.
 
 ---
 
