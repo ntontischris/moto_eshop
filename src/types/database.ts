@@ -871,6 +871,7 @@ export type Database = {
       orders: {
         Row: {
           billing_address: Json;
+          checkout_session_id: string | null;
           created_at: string;
           discount: number;
           erp_order_id: string | null;
@@ -887,6 +888,7 @@ export type Database = {
         };
         Insert: {
           billing_address: Json;
+          checkout_session_id?: string | null;
           created_at?: string;
           discount?: number;
           erp_order_id?: string | null;
@@ -903,6 +905,7 @@ export type Database = {
         };
         Update: {
           billing_address?: Json;
+          checkout_session_id?: string | null;
           created_at?: string;
           discount?: number;
           erp_order_id?: string | null;
@@ -916,6 +919,29 @@ export type Database = {
           subtotal?: number;
           total?: number;
           user_id?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "orders_checkout_session_id_fkey";
+            columns: ["checkout_session_id"];
+            isOneToOne: false;
+            referencedRelation: "checkout_sessions";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      processed_payment_events: {
+        Row: {
+          event_id: string;
+          processed_at: string;
+        };
+        Insert: {
+          event_id: string;
+          processed_at?: string;
+        };
+        Update: {
+          event_id?: string;
+          processed_at?: string;
         };
         Relationships: [];
       };
@@ -1814,6 +1840,18 @@ export type Database = {
       };
     };
     Functions: {
+      create_order_from_payment: {
+        Args: {
+          p_address: Json;
+          p_event_id: string;
+          p_line_items: Json;
+          p_session_id: string;
+          p_shipping: number;
+          p_subtotal: number;
+          p_total: number;
+        };
+        Returns: Json;
+      };
       show_limit: { Args: never; Returns: number };
       show_trgm: { Args: { "": string }; Returns: string[] };
       uuid_generate_v1: { Args: never; Returns: string };
