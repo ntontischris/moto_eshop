@@ -10,7 +10,7 @@
 
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { Database, Json } from "@/types/database";
-import type { PaymentEvent, CheckoutLineSnapshot } from "./types";
+import type { PaymentEvent } from "./types";
 
 type Admin = SupabaseClient<Database>;
 
@@ -56,62 +56,48 @@ export async function handlePaymentEvent(
   }
 
   // event.type === "completed"
-  // Idempotency guard: a re-delivered completed event must not create a
-  // second order. Hardened further in F-1.2 (#141).
+  // Cheap fast-path: a re-delivered completed event for an already-finalized
+  // session does no work. The race-safe guarantee lives in the RPC below.
   if (session.status === "completed" || session.order_id) {
     return { ok: true, alreadyProcessed: true };
   }
 
-  const lines = (session.line_items as unknown as CheckoutLineSnapshot[]) ?? [];
-  const orderNumber = `MM-${Date.now().toString(36).toUpperCase()}`;
-  const address = session.contact as Json;
+  // Atomic create (ADR 0015): order + order_items + session-finalize +
+  // mark-event-processed run in a single Postgres transaction. The function
+  // dedups on the provider event id and enforces one order per Checkout
+  // session at the DB level, so a duplicate or racing webhook physically
+  // cannot create a second order. supabase-js can't run a multi-statement
+  // transaction from the client, hence the RPC.
+  const { data, error } = await admin.rpc("create_order_from_payment", {
+    p_event_id: event.eventId,
+    p_session_id: session.id,
+    p_address: session.contact as Json,
+    p_subtotal: session.subtotal,
+    p_shipping: session.shipping_cost,
+    p_total: session.total,
+    p_line_items: session.line_items as Json,
+  });
 
-  const { data: order, error: orderErr } = await admin
-    .from("orders")
-    .insert({
-      order_number: orderNumber,
-      billing_address: address,
-      shipping_address: address,
-      subtotal: session.subtotal,
-      shipping_cost: session.shipping_cost,
-      total: session.total,
-      discount: 0,
-      payment_status: "paid",
-      user_id: null,
-    })
-    .select("id, order_number")
-    .single();
-
-  if (orderErr || !order) {
+  // Non-2xx on failure → the route returns 5xx → the provider retries. The
+  // event is only marked processed inside a committed transaction, so a
+  // transient failure here is retried, never a lost payment.
+  if (error || !data) {
     return { ok: false, error: "Failed to create order from session." };
   }
 
-  const rows = lines.map((l) => ({
-    order_id: order.id,
-    product_id: l.productId,
-    quantity: l.quantity,
-    unit_price: l.unitPrice,
-    total: l.lineTotal,
-  }));
+  const result = data as {
+    already_processed?: boolean;
+    order_id?: string;
+    order_number?: string;
+  };
 
-  const { error: itemsErr } = await admin.from("order_items").insert(rows);
-  if (itemsErr) {
-    return { ok: false, error: "Failed to create order items." };
+  if (result.already_processed) {
+    return { ok: true, alreadyProcessed: true };
   }
 
-  const { error: updateErr } = await admin
-    .from("checkout_sessions")
-    .update({
-      status: "completed",
-      order_id: order.id,
-      provider_session_id: event.providerSessionId,
-      updated_at: new Date().toISOString(),
-    })
-    .eq("id", session.id);
-
-  if (updateErr) {
-    return { ok: false, error: "Failed to finalize checkout session." };
-  }
-
-  return { ok: true, orderId: order.id, orderNumber: order.order_number };
+  return {
+    ok: true,
+    orderId: result.order_id,
+    orderNumber: result.order_number,
+  };
 }

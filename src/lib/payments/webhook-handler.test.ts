@@ -2,10 +2,9 @@ import { describe, it, expect } from "vitest";
 import { handlePaymentEvent } from "./webhook-handler";
 import type { PaymentEvent } from "./types";
 
-interface Capture {
-  order?: Record<string, unknown>;
-  orderItems?: Array<Record<string, unknown>>;
-  sessionUpdate?: Record<string, unknown>;
+interface RpcCall {
+  fn: string;
+  args: Record<string, unknown>;
 }
 
 const sessionRow = {
@@ -32,9 +31,15 @@ const sessionRow = {
   contact: { email: "a@b.gr", fullName: "Test User", payment: "card" },
 };
 
+/**
+ * Stub admin client. The session snapshot is still read via `from(...).select`,
+ * but the order/items/finalize/mark-processed writes now go through a single
+ * atomic `rpc("create_order_from_payment", ...)` call (F-1.2 / ADR 0015).
+ */
 function stubAdmin(opts: {
   session: Record<string, unknown> | null;
-  capture: Capture;
+  rpcResult?: { data: unknown; error: unknown };
+  rpcCalls: RpcCall[];
 }) {
   return {
     from(table: string) {
@@ -45,36 +50,13 @@ function stubAdmin(opts: {
               single: async () => ({ data: opts.session, error: null }),
             }),
           }),
-          update: (row: Record<string, unknown>) => {
-            opts.capture.sessionUpdate = row;
-            return { eq: async () => ({ error: null }) };
-          },
-        };
-      }
-      if (table === "orders") {
-        return {
-          insert: (row: Record<string, unknown>) => {
-            opts.capture.order = row;
-            return {
-              select: () => ({
-                single: async () => ({
-                  data: { id: "order-1", order_number: row.order_number },
-                  error: null,
-                }),
-              }),
-            };
-          },
-        };
-      }
-      if (table === "order_items") {
-        return {
-          insert: async (rows: Array<Record<string, unknown>>) => {
-            opts.capture.orderItems = rows;
-            return { error: null };
-          },
         };
       }
       throw new Error(`unexpected table ${table}`);
+    },
+    rpc(fn: string, args: Record<string, unknown>) {
+      opts.rpcCalls.push({ fn, args });
+      return Promise.resolve(opts.rpcResult ?? { data: null, error: null });
     },
   };
 }
@@ -87,43 +69,95 @@ const completedEvent: PaymentEvent = {
 };
 
 describe("handlePaymentEvent", () => {
-  it("creates exactly one paid order from the session snapshot on completed", async () => {
-    const capture: Capture = {};
-    const res = await handlePaymentEvent(
-      completedEvent,
-      stubAdmin({ session: { ...sessionRow }, capture }) as never,
-    );
-
-    expect(res.ok).toBe(true);
-    expect(res.orderNumber).toBeDefined();
-    expect(capture.order?.payment_status).toBe("paid");
-    expect(capture.order?.subtotal).toBe(200);
-    expect(capture.order?.total).toBe(205);
-    expect(capture.orderItems).toHaveLength(1);
-    expect(capture.orderItems?.[0].product_id).toBe("p-1");
-    expect(capture.orderItems?.[0].unit_price).toBe(200);
-    // session marked completed and linked to the new order
-    expect(capture.sessionUpdate?.status).toBe("completed");
-    expect(capture.sessionUpdate?.order_id).toBe("order-1");
-  });
-
-  it("does not create a second order when the session is already completed", async () => {
-    const capture: Capture = {};
+  it("creates exactly one order via one atomic RPC on completed", async () => {
+    const rpcCalls: RpcCall[] = [];
     const res = await handlePaymentEvent(
       completedEvent,
       stubAdmin({
-        session: { ...sessionRow, status: "completed", order_id: "order-1" },
-        capture,
+        session: { ...sessionRow },
+        rpcResult: {
+          data: { order_id: "order-1", order_number: "MM-000001" },
+          error: null,
+        },
+        rpcCalls,
+      }) as never,
+    );
+
+    expect(res.ok).toBe(true);
+    expect(res.orderId).toBe("order-1");
+    expect(res.orderNumber).toBe("MM-000001");
+
+    // Exactly one atomic write, carrying the event id (for dedup) + snapshot.
+    expect(rpcCalls).toHaveLength(1);
+    expect(rpcCalls[0].fn).toBe("create_order_from_payment");
+    expect(rpcCalls[0].args.p_event_id).toBe("evt_1");
+    expect(rpcCalls[0].args.p_session_id).toBe("our-session-1");
+    expect(rpcCalls[0].args.p_subtotal).toBe(200);
+    expect(rpcCalls[0].args.p_total).toBe(205);
+    expect(rpcCalls[0].args.p_line_items).toEqual(sessionRow.line_items);
+  });
+
+  it("treats a duplicate event (RPC reports already_processed) as a no-op success", async () => {
+    const rpcCalls: RpcCall[] = [];
+    const res = await handlePaymentEvent(
+      completedEvent,
+      stubAdmin({
+        session: { ...sessionRow },
+        rpcResult: { data: { already_processed: true }, error: null },
+        rpcCalls,
       }) as never,
     );
 
     expect(res.ok).toBe(true);
     expect(res.alreadyProcessed).toBe(true);
-    expect(capture.order).toBeUndefined();
+    expect(res.orderId).toBeUndefined();
+    // The RPC is the atomic dedup point — it is still consulted.
+    expect(rpcCalls).toHaveLength(1);
   });
 
-  it("creates no order for an expired event", async () => {
-    const capture: Capture = {};
+  it("does not call the RPC when the session is already completed (fast path)", async () => {
+    const rpcCalls: RpcCall[] = [];
+    const res = await handlePaymentEvent(
+      completedEvent,
+      stubAdmin({
+        session: { ...sessionRow, status: "completed", order_id: "order-1" },
+        rpcCalls,
+      }) as never,
+    );
+
+    expect(res.ok).toBe(true);
+    expect(res.alreadyProcessed).toBe(true);
+    expect(rpcCalls).toHaveLength(0);
+  });
+
+  it("returns a non-durable failure when the RPC errors, so the provider retries", async () => {
+    const rpcCalls: RpcCall[] = [];
+    const res = await handlePaymentEvent(
+      completedEvent,
+      stubAdmin({
+        session: { ...sessionRow },
+        rpcResult: { data: null, error: { message: "deadlock detected" } },
+        rpcCalls,
+      }) as never,
+    );
+
+    expect(res.ok).toBe(false);
+    expect(rpcCalls).toHaveLength(1);
+  });
+
+  it("returns a non-durable failure when the session is not found", async () => {
+    const rpcCalls: RpcCall[] = [];
+    const res = await handlePaymentEvent(
+      completedEvent,
+      stubAdmin({ session: null, rpcCalls }) as never,
+    );
+
+    expect(res.ok).toBe(false);
+    expect(rpcCalls).toHaveLength(0);
+  });
+
+  it("creates no order and calls no RPC for an expired event", async () => {
+    const rpcCalls: RpcCall[] = [];
     const expired: PaymentEvent = {
       type: "expired",
       eventId: "evt_2",
@@ -132,22 +166,22 @@ describe("handlePaymentEvent", () => {
     };
     const res = await handlePaymentEvent(
       expired,
-      stubAdmin({ session: { ...sessionRow }, capture }) as never,
+      stubAdmin({ session: { ...sessionRow }, rpcCalls }) as never,
     );
 
     expect(res.ok).toBe(true);
-    expect(capture.order).toBeUndefined();
+    expect(rpcCalls).toHaveLength(0);
   });
 
   it("ignores an unrelated event without creating an order", async () => {
-    const capture: Capture = {};
+    const rpcCalls: RpcCall[] = [];
     const res = await handlePaymentEvent(
       { type: "ignored", eventId: "evt_3" },
-      stubAdmin({ session: null, capture }) as never,
+      stubAdmin({ session: null, rpcCalls }) as never,
     );
 
     expect(res.ok).toBe(true);
     expect(res.ignored).toBe(true);
-    expect(capture.order).toBeUndefined();
+    expect(rpcCalls).toHaveLength(0);
   });
 });
